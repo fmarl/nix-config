@@ -18,6 +18,7 @@
                       pkgs.xmobar
 		                  pkgs.dmenu
                       pkgs.obsidian
+                      pkgs.htop
                     ];
 
 		programs.vscode.enable = true;
