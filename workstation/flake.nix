@@ -17,7 +17,7 @@
       }
     );
 
-    nixosConfiguration = {
+    nixosConfigurations = {
       workstation = nixpkgs.lib.nixosSystem {
         pkgs = legacyPackages.x86_64-linux;
         specialArgs = { inherit inputs; };
