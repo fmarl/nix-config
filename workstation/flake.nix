@@ -29,7 +29,7 @@
       "florian@workstation" = home-manager.lib.homeManagerConfiguration {
         pkgs = legacyPackages.x86_64-linux;
         extraSpecialArgs = { inherit inputs; };
-        modules = [ ./nixos/home.nix ];
+        modules = [ ./home-manager/home.nix ];
       };
     };
   };
