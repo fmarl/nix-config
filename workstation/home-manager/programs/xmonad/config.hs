@@ -357,7 +357,7 @@ projects =
             , projectStartHook = Nothing
             }
   , Project { projectName      = sysWs
-            , projectDirectory = "/persist/etc/nixos/"
+            , projectDirectory = "/home/florian/nixos/"
             , projectStartHook = Just . spawn $ myTerminal <> " -e sudo su"
             }
   ]
