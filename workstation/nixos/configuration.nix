@@ -36,6 +36,7 @@
     [
       emacs
       git
+      home-manager
     ];
 
   fonts.fonts = with pkgs; [
