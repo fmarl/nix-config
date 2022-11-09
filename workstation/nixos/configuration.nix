@@ -35,6 +35,7 @@
   environment.systemPackages = with pkgs;
     [
       emacs
+      git
     ];
 
   fonts.fonts = with pkgs; [
