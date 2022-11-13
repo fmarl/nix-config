@@ -15,26 +15,23 @@
       "/nix/var/nix/profiles/per-user/root/channels"
     ];
 
-  nix.settings.trusted-public-keys = [
-    "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
-  ];
-  
-  nix.settings.substituters = [
-    "https://hydra.iohk.io"
-  ];
-
   nix.extraOptions = lib.optionalString (config.nix.package == pkgs.nixFlakes)
   	"experimental-features = nix-command flakes";
 
-  networking.hostName = "workstation";
+  networking.hostName = "spark";
   networking.hostId = "04686870";
   networking.useDHCP = false;
-  networking.interfaces.enp3s0.useDHCP = true;
+  networking.defaultGateway = "192.168.0.1";
+  networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
+  networking.interfaces.enp3s0.ipv4.addresses = [ {
+    address = "192.168.0.4";
+    prefixLength = 24;
+  } ];
 
   environment.systemPackages = with pkgs;
     [
-      emacs
-      git
+      vim
+      htop
       home-manager
     ];
 
@@ -48,21 +45,20 @@
     mutableUsers = false;
     users = {
       root = {
-        initialHashedPassword = "\$6\$a7aqpD33dBUhDyDy\$vExV0PWsMnOsvlVMPyFTNFRgiPLjZ8H4E7QmK.xaL/Z4mYullm9f8cq6uHiFztvOeQggvea80w1q./Hj/3QnJ.";
+        initialHashedPassword = "\$6\$vZqI/GpbqOqJwLYs\$qllsGcXZdzrQti4Gi67orVG.MkMT8.w79k/zhY3x9rGJHgUVZ3T7M5SnABKKklEEq9nTz80SU4qAyf8owps7H/";
       };
-
-      florian = {
-	      isNormalUser = true;
+      spark = {
         createHome = true;
-        description = "Florian Büstgens";
-        initialHashedPassword = "\$6\$IynztI2Y8F2DIMUD\$REn16J9uoLpQqDDepvdP./HFGF4TK4od2NHBMhbkhL.0BYWdn6ztWY3Lmgsmrf8InEo5FO0h0mxlwzfmBdiA8/";
-	      extraGroups = [ "wheel" ];
-	      group = "users";
-	      uid = 1000;
-	      home = "/home/florian";
-	      shell = pkgs.zsh;
-	    };
-	  };
+        isNormalUser = true;
+        initialHashedPassword = "\$6\$XSR5eFZ3EoVwq7e3\$uoC49igTG8FBo6Cdq6vuEgylJgeTDe8TRfhJ1vFdG5hu/uWsCXSiCPc/Qea7y7MQQA9grVdbqoAXd2ciw0.Ve1";
+        extraGroups = [ "wheel" ];
+        group = "users";
+        uid = 1000;
+        home = "/home/spark";
+        shell = pkgs.zsh;
+        openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDtFZ7KIi2LNNqxXFdABdUNMM4wxqul2/UfydA/cNEj+ fb@fx-ttr.de" ];
+      };
+    };
   };
 
   # This value determines the NixOS release from which the default

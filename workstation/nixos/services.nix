@@ -61,8 +61,6 @@ EOF
     pulse.enable = true;
   };
 
-  services.openntpd.enable = true;
-
   services.openssh = {
     enable = true;
     permitRootLogin = "no";

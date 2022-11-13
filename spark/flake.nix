@@ -1,5 +1,5 @@
 {
-  description = "The configuration for my work systems";
+  description = "The configuration for my Spark and Hyperledger development servers";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
@@ -18,7 +18,7 @@
     );
 
     nixosConfigurations = {
-      workstation = nixpkgs.lib.nixosSystem {
+      spark = nixpkgs.lib.nixosSystem {
         pkgs = legacyPackages.x86_64-linux;
         specialArgs = { inherit inputs; };
         modules = [ ./nixos/configuration.nix ];
@@ -26,7 +26,7 @@
     };
 
     homeConfigurations = {
-      "florian@workstation" = home-manager.lib.homeManagerConfiguration {
+      "spark@spark" = home-manager.lib.homeManagerConfiguration {
         pkgs = legacyPackages.x86_64-linux;
         extraSpecialArgs = { inherit inputs; };
         modules = [ ./home-manager/home.nix ];
