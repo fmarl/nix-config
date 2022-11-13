@@ -30,7 +30,6 @@
   networking.hostId = "04686870";
   networking.useDHCP = false;
   networking.interfaces.enp3s0.useDHCP = true;
-  networking.timeServers = [ "de.pool.ntp.org" ];
 
   environment.systemPackages = with pkgs;
     [
