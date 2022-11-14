@@ -51,7 +51,7 @@
         createHome = true;
         isNormalUser = true;
         initialHashedPassword = "\$6\$XSR5eFZ3EoVwq7e3\$uoC49igTG8FBo6Cdq6vuEgylJgeTDe8TRfhJ1vFdG5hu/uWsCXSiCPc/Qea7y7MQQA9grVdbqoAXd2ciw0.Ve1";
-        extraGroups = [ "wheel" ];
+        extraGroups = [ "wheel" "docker" ];
         group = "users";
         uid = 1000;
         home = "/home/spark";
@@ -60,6 +60,8 @@
       };
     };
   };
+
+  virtualisation.docker.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
