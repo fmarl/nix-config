@@ -30,7 +30,11 @@
   networking.hostId = "04686870";
   networking.useDHCP = false;
   networking.interfaces.enp3s0.useDHCP = true;
-
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ 22 80 ];
+  };
+  
   environment.systemPackages = with pkgs;
     [
       emacs
@@ -56,13 +60,19 @@
         createHome = true;
         description = "Florian Büstgens";
         initialHashedPassword = "REDACTED";
-	      extraGroups = [ "wheel" ];
+	      extraGroups = [ "wheel" "docker" ];
 	      group = "users";
 	      uid = 1000;
 	      home = "/home/florian";
 	      shell = pkgs.zsh;
 	    };
 	  };
+  };
+
+  virtualisation.docker.enable = true;
+  security.acme = {
+    acceptTerms = true;
+    defaults.email = "buildserver@lambda-insights.de";
   };
 
   # This value determines the NixOS release from which the default
