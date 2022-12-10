@@ -5,7 +5,8 @@
 
 {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
@@ -15,31 +16,36 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.postDeviceCommands = lib.mkAfter ''
-  	zfs rollback -r rpool/local/root@blank
+    	zfs rollback -r rpool/local/root@blank
   '';
 
   fileSystems."/" =
-    { device = "rpool/local/root";
+    {
+      device = "rpool/local/root";
       fsType = "zfs";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/4725-1A60";
+    {
+      device = "/dev/disk/by-uuid/4725-1A60";
       fsType = "vfat";
     };
 
   fileSystems."/nix" =
-    { device = "rpool/local/nix";
+    {
+      device = "rpool/local/nix";
       fsType = "zfs";
     };
 
   fileSystems."/home" =
-    { device = "rpool/safe/home";
+    {
+      device = "rpool/safe/home";
       fsType = "zfs";
     };
 
   fileSystems."/persist" =
-    { device = "rpool/safe/persist";
+    {
+      device = "rpool/safe/persist";
       fsType = "zfs";
     };
 
@@ -51,7 +57,7 @@
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp3s0.useDHCP = lib.mkDefault true;
-  
+
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   hardware.pulseaudio.enable = false;

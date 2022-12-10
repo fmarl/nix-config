@@ -2,7 +2,7 @@
 
 {
   imports =
-    [ 
+    [
       ./hardware-configuration.nix
       ./time.nix
       ./services.nix
@@ -16,17 +16,17 @@
     ];
 
   nix.extraOptions = lib.optionalString (config.nix.package == pkgs.nixFlakes)
-  	"experimental-features = nix-command flakes";
+    "experimental-features = nix-command flakes";
 
   networking.hostName = "spark";
   networking.hostId = "04686870";
   networking.useDHCP = false;
   networking.defaultGateway = "192.168.0.1";
   networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
-  networking.interfaces.enp3s0.ipv4.addresses = [ {
+  networking.interfaces.enp3s0.ipv4.addresses = [{
     address = "192.168.0.4";
     prefixLength = 24;
-  } ];
+  }];
 
   environment.systemPackages = with pkgs;
     [
@@ -38,7 +38,7 @@
   fonts.fonts = with pkgs; [
     source-code-pro
   ];
- 
+
   nixpkgs.config.allowUnfree = true;
 
   users = {
