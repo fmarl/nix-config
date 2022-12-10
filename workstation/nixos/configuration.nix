@@ -2,7 +2,7 @@
 
 {
   imports =
-    [ 
+    [
       ./hardware-configuration.nix
       ./time.nix
       ./services.nix
@@ -18,13 +18,13 @@
   nix.settings.trusted-public-keys = [
     "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
   ];
-  
+
   nix.settings.substituters = [
     "https://hydra.iohk.io"
   ];
 
   nix.extraOptions = lib.optionalString (config.nix.package == pkgs.nixFlakes)
-  	"experimental-features = nix-command flakes";
+    "experimental-features = nix-command flakes";
 
   networking.hostName = "workstation";
   networking.hostId = "04686870";
@@ -34,7 +34,7 @@
     enable = true;
     allowedTCPPorts = [ 22 80 ];
   };
-  
+
   environment.systemPackages = with pkgs;
     [
       emacs
@@ -45,7 +45,7 @@
   fonts.fonts = with pkgs; [
     source-code-pro
   ];
- 
+
   nixpkgs.config.allowUnfree = true;
 
   users = {
@@ -56,17 +56,17 @@
       };
 
       florian = {
-	      isNormalUser = true;
+        isNormalUser = true;
         createHome = true;
         description = "Florian Büstgens";
         initialHashedPassword = "\$6\$IynztI2Y8F2DIMUD\$REn16J9uoLpQqDDepvdP./HFGF4TK4od2NHBMhbkhL.0BYWdn6ztWY3Lmgsmrf8InEo5FO0h0mxlwzfmBdiA8/";
-	      extraGroups = [ "wheel" "docker" ];
-	      group = "users";
-	      uid = 1000;
-	      home = "/home/florian";
-	      shell = pkgs.zsh;
-	    };
-	  };
+        extraGroups = [ "wheel" "docker" ];
+        group = "users";
+        uid = 1000;
+        home = "/home/florian";
+        shell = pkgs.zsh;
+      };
+    };
   };
 
   virtualisation.docker.enable = true;
