@@ -9,6 +9,14 @@
 
   services.xserver = {
   	enable = true;
+
+	libinput = {
+		enable = true;
+		touchpad.tapping = true;
+		touchpad.naturalScrolling = true;
+		touchpad.scrollMethod = "twofinger";
+		touchpad.clickMethod = "clickfinger";
+	};
     
     displayManager = {
       defaultSession = "none+xmonad";

@@ -4,6 +4,7 @@
   imports =
     [ 
       ./hardware-configuration.nix
+      ./kernel.nix
       ./time.nix
       ./services.nix
     ];
@@ -17,10 +18,12 @@
 
   nix.settings.trusted-public-keys = [
     "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+    "binarycache.lambda.local:U3syGjeDJxOmgOwCeZ5fB1rJpW8A/rGNg5kjC8sgpjE="
   ];
   
   nix.settings.substituters = [
     "https://hydra.iohk.io"
+    "http://192.168.0.49"
   ];
 
   nix.extraOptions = lib.optionalString (config.nix.package == pkgs.nixFlakes)
