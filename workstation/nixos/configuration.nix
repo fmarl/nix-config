@@ -5,6 +5,7 @@
     [
       ./hardware-configuration.nix
       ./time.nix
+      ./kernel.nix
       ./services.nix
     ];
 

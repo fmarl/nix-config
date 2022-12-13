@@ -97,7 +97,7 @@ import Data.Char (isSpace)
 main :: IO ()
 main = do
   spawn "feh --bg-fill /home/florian/Pictures/Wallpaper/DesertPeak/DesertPeak-1.jpg"
-  xmproc <- spawnPipe "xmobar /persist/etc/nixos/programs/xmonad/xmobar.rc"
+  xmproc <- spawnPipe "xmobar /home/florian/Devel/nixos/ntb/home-manager/programs/xmonad/xmobar.rc"
   startUp xmproc
 
 startUp xm = xmonad . docks . ewmh . dynProjects . urgencyHook $ def
@@ -216,7 +216,6 @@ myLayout =
     . fullScreenToggle
     . sysLayout
     . cliLayout
-    . msgLayout
     . devLayout
     . webLayout$ (tiled ||| Mirror tiled ||| column3 ||| full)
    where
@@ -243,7 +242,6 @@ myLayout =
      devLayout = onWorkspace devWs (tiled ||| full)
      webLayout = onWorkspace webWs (tiled ||| full)
      cliLayout = onWorkspace cliWs (tiled ||| full)
-     msgLayout = onWorkspace msgWs (tiled ||| full)
 
      -- Fullscreen
      fullScreenToggle = mkToggle (single NBFULL)
@@ -332,11 +330,10 @@ scratchpads = scratchpadApp <$> [ spotify, pavuctrl, gimp ]
 devWs = "dev"
 webWs = "web"
 cliWs = "cli"
-msgWs = "msg"
 sysWs = "sys"
 
 myWS :: [WorkspaceId]
-myWS = [devWs, webWs, cliWs, msgWs, sysWs]
+myWS = [devWs, webWs, cliWs, sysWs]
 
 projects :: [Project]
 projects =
@@ -352,12 +349,8 @@ projects =
             , projectDirectory = "~/"
             , projectStartHook = Nothing
             }
-  , Project { projectName      = msgWs
-            , projectDirectory = "~/"
-            , projectStartHook = Nothing
-            }
   , Project { projectName      = sysWs
-            , projectDirectory = "/home/florian/nixos/"
+            , projectDirectory = "/persist/etc/nixos/"
             , projectStartHook = Just . spawn $ myTerminal <> " -e sudo su"
             }
   ]
