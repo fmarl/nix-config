@@ -18,12 +18,12 @@
 
   nix.settings.trusted-public-keys = [
     "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
-    "binarycache.lambda.local:U3syGjeDJxOmgOwCeZ5fB1rJpW8A/rGNg5kjC8sgpjE="
+    "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
   ];
   
   nix.settings.substituters = [
     "https://hydra.iohk.io"
-    "http://192.168.0.49"
+    "https://devenv.cachix.org"
   ];
 
   nix.extraOptions = lib.optionalString (config.nix.package == pkgs.nixFlakes)
