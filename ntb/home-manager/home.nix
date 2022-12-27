@@ -7,8 +7,6 @@
   home.stateVersion = "22.11";
     
   	home.packages = [ pkgs.firefox
-                      pkgs.jetbrains.idea-community
-                      pkgs.spotify
                       pkgs.rxvt-unicode
                       pkgs.feh
                       pkgs.dunst
@@ -16,10 +14,13 @@
                       pkgs.ranger
                       pkgs.xmobar
 		                  pkgs.dmenu
-                      pkgs.obsidian
                     ];
 
 		programs.vscode.enable = true;
+
+    programs.emacs = {
+      enable = true;
+    };
 
     programs.direnv = {
       enable = true;
