@@ -10,6 +10,11 @@
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs: rec {
+    src = {
+    	url=self;
+	submodules=true;
+    };
+
     legacyPackages = nixpkgs.lib.genAttrs [ "x86_64-linux" ] (system:
       import inputs.nixpkgs {
         inherit system;

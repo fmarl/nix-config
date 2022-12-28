@@ -1,4 +1,8 @@
 { pkgs, ... }: {
+  imports = [
+    ./emacs.nix
+  ];
+  
   nixpkgs.config.allowUnfree = true;
 
   home.username = "florian";
@@ -15,8 +19,6 @@
                       pkgs.xmobar
 		                  pkgs.dmenu
                     ];
-
-		programs.vscode.enable = true;
 
     programs.emacs = {
       enable = true;
