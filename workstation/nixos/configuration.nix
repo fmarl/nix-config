@@ -41,7 +41,6 @@
       htop
       git
       home-manager
-      nixpkgs-fmt
     ];
 
   fonts.fonts = with pkgs; [
@@ -83,7 +82,6 @@
   nix.trustedUsers = [ "root" "florian" ];
 
   virtualisation.lxd.enable = true;
-  virtualisation.docker.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
