@@ -60,7 +60,7 @@
 
   home.file = {
     ".emacs.d" = {
-      source = ./programs/emacs;
+      source = inputs.emacs-cfg;
       recursive = true;
     };
     ".emacs.d/lsp-bridge" = {

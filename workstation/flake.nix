@@ -11,9 +11,13 @@
       url = "github:fxttr/lsp-bridge";
       flake = false;
     };
+    emacs-cfg = {
+      url = "github:fxttr/emacs-cfg";
+      flake = false;
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, lsp-bridge, ... }@inputs: rec {
+  outputs = { self, nixpkgs, home-manager, lsp-bridge, emacs-cfg, ... }@inputs: rec {
     legacyPackages = nixpkgs.lib.genAttrs [ "x86_64-linux" ] (system:
       import inputs.nixpkgs {
         inherit system;
