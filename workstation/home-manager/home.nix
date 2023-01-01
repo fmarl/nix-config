@@ -1,4 +1,8 @@
-{ pkgs, ... }: {
+{ pkgs, inputs, ... }: {
+  imports = [
+	  ./emacs.nix
+  ];
+
   nixpkgs.config.allowUnfree = true;
 
   home.username = "florian";
@@ -6,21 +10,23 @@
 
   home.stateVersion = "22.11";
 
-  home.packages = [
-    pkgs.firefox
-    pkgs.spotify
-    pkgs.rxvt-unicode
-    pkgs.feh
-    pkgs.dunst
-    pkgs.mupdf
-    pkgs.ranger
-    pkgs.xmobar
-    pkgs.dmenu
-    pkgs.obsidian
-    pkgs.nixpkgs-fmt
-  ];
+  home.packages = (with pkgs; [
+    firefox
+    spotify
+    rxvt-unicode
+    feh
+    dunst
+    mupdf
+    ranger
+    xmobar
+    dmenu
+    obsidian
+    nixpkgs-fmt
+  ]);
 
-  programs.vscode.enable = true;
+  programs.mu.enable = true;
+  programs.msmtp.enable = true;
+  programs.mbsync.enable = true;
 
   programs.direnv = {
     enable = true;
@@ -31,6 +37,10 @@
     enable = true;
     userName = "Florian Büstgens";
     userEmail = "fb@fx-ttr.de";
+    #signing = { 
+    #  signByDefault = true;
+    #  key = "0x123456789ABCD";
+    #};
   };
 
   programs.zsh = {
@@ -47,6 +57,17 @@
     shellAliases = {
       ll = "ls -l";
       rebuild = "sudo nixos-rebuild switch";
+    };
+  };
+
+  home.file = {
+    ".emacs.d" = {
+      source = ./programs/emacs;
+      recursive = true;
+    };
+    ".emacs.d/lsp-bridge" = {
+      source = inputs.lsp-bridge;
+      recursive = true;
     };
   };
 

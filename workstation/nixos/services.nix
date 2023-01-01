@@ -12,7 +12,6 @@
     zfs = {
       autoScrub.enable = true;
       autoSnapshot.enable = true;
-      # TODO: autoReplication
     };
 
     xserver = {
@@ -66,8 +65,6 @@
       alsa.support32Bit = true;
       pulse.enable = true;
     };
-
-    vscode-server.enable = true;
 
     openssh = {
       enable = true;

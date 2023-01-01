@@ -1,3 +1,0 @@
-[submodule "ntb/home-manager/programs/emacs/lsp-bridge"]
-	path = ntb/home-manager/programs/emacs/lsp-bridge
-	url = https://github.com/fxttr/lsp-bridge

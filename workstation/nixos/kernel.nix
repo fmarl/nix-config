@@ -17,10 +17,6 @@ with lib;
   security.apparmor.enable = mkDefault true;
   security.apparmor.killUnconfinedConfinables = mkDefault true;
 
-  boot.extraModulePackages = [ pkg.linuxPackages_6_0.v2l4loopback ];
-
-  boot.kernelModules = [ "v2l4loppback" ];
-
   boot.kernelParams = [
     # Slab/slub sanity checks, redzoning, and poisoning
     "slub_debug=FZP"

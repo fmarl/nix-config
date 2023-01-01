@@ -7,13 +7,13 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    vscode-server = {
-      url = "github:msteen/nixos-vscode-server";
-      inputs.nixpkgs.follows = "nixpkgs";
+    lsp-bridge = {
+      url = "github:fxttr/lsp-bridge";
+      flake = false;
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, vscode-server, ... }@inputs: rec {
+  outputs = { self, nixpkgs, home-manager, lsp-bridge, ... }@inputs: rec {
     legacyPackages = nixpkgs.lib.genAttrs [ "x86_64-linux" ] (system:
       import inputs.nixpkgs {
         inherit system;
@@ -27,7 +27,6 @@
         specialArgs = { inherit inputs; };
         modules = [ 
           ./nixos/configuration.nix
-          vscode-server.nixosModule 
         ];
       };
     };
@@ -36,7 +35,9 @@
       "florian@workstation" = home-manager.lib.homeManagerConfiguration {
         pkgs = legacyPackages.x86_64-linux;
         extraSpecialArgs = { inherit inputs; };
-        modules = [ ./home-manager/home.nix ];
+        modules = [
+          ./home-manager/home.nix
+        ];
       };
     };
   };
