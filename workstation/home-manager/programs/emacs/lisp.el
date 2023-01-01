@@ -1,12 +1,10 @@
 (use-package slime
-  :ensure t
   :config      
   (slime-setup '(slime-fancy slime-company))
   :init
   (setq inferior-lisp-program "sbcl"))
 
 (use-package slime-company
-  :ensure t
   :after slime
   :bind-keymap 
     ("C-n" . company-select-next)
