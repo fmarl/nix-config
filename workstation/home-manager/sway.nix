@@ -17,7 +17,7 @@ in
       startup = [
         {
           command =
-            let lockCmd = "swaylock -f";
+            let lockCmd = "swaylock -f -c ${colorscheme.dark.bg_0}";
             in
               ''swayidle -w \
               timeout 600 ${lockCmd} \
@@ -104,15 +104,25 @@ in
         in
           {
             "${mod}+Shift+Return" = "exec ${terminal}";
-            "${mod}+Shift+q" = "kill";
+            "${mod}+Shift+c" = "kill";
             "${mod}+p" = "exec ${menu}";
             "${mod}+Shift+d" = "exec ${terminal} -e ranger";
-            "${mod}+l" = "exec swaylock";
+            "${mod}+Shift+b" = "exec swaylock -c ${colorscheme.dark.bg_0}";
+
+            "${mod}+${left}" = "focus left";
+            "${mod}+${down}" = "focus down";
+            "${mod}+${up}" = "focus up";
+            "${mod}+${right}" = "focus right";
 
             "${mod}+Left" = "focus left";
             "${mod}+Down" = "focus down";
             "${mod}+Up" = "focus up";
             "${mod}+Right" = "focus right";
+
+            "${mod}+Shift+${left}" = "move left";
+            "${mod}+Shift+${down}" = "move down";
+            "${mod}+Shift+${up}" = "move up";
+            "${mod}+Shift+${right}" = "move right";
 
             "${mod}+Shift+Left" = "move left";
             "${mod}+Shift+Down" = "move down";
@@ -141,16 +151,14 @@ in
             "${mod}+Shift+9" = "move container to workspace number 9";
             "${mod}+Shift+0" = "move container to workspace number 10";
 
-            "${mod}+h" = "split h";
-            "${mod}+v" = "split v";
-            "${mod}+f" = "fullscreen toggle";
-            "${mod}+comma" = "layout stacking";
-            "${mod}+period" = "layout tabbed";
-            "${mod}+slash" = "layout toggle split";
+            "${mod}+Shift+f" = "fullscreen toggle";
+            "${mod}+Shift+s" = "layout stacking";
+            "${mod}+Shift+t" = "layout tabbed";
+            "${mod}+t" = "layout toggle split";
             "${mod}+a" = "focus parent";
             "${mod}+s" = "focus child";
 
-            "${mod}+Shift+c" = "reload";
+            "${mod}+r" = "reload";
             "${mod}+Shift+r" = "restart";
           };
     };
