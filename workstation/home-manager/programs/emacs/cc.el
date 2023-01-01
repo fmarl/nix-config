@@ -1,11 +1,7 @@
-(use-package clang-format
-  :ensure t)
-(use-package clang-format+
-  :ensure t)
-(use-package cmake-mode
-  :ensure t)
+(use-package clang-format)
+(use-package clang-format+)
+(use-package cmake-mode)
 (use-package google-c-style
-  :ensure t
   :hook ((c-mode c++-mode) . google-set-c-style))
 
 ;; Default style

@@ -18,61 +18,37 @@
 (require 'package)
 (package-initialize)
 
-; fetch the list of packages available 
-(unless package-archive-contents
-  (package-refresh-contents))
-
 (require 'org)
-(use-package smart-mode-line
-  :ensure t)
+(use-package smart-mode-line)
 (use-package smart-mode-line-powerline-theme
-  :ensure t
   :after smart-mode-line
   :config
   (sml/setup)
-  (sml/apply-theme 'powerline)
-  )
+  (sml/apply-theme 'powerline))
 (use-package smex
   :init (smex-initialize)
   :bind
   (:map global-map
 	("M-x" . 'smex)
-	("M-X" . 'smex-major-mode-commands))
-  :ensure t)
-(use-package markdown-mode
-  :ensure t)
-(use-package monokai-pro-theme
-  :ensure t)
+	("M-X" . 'smex-major-mode-commands)))
+(use-package markdown-mode)
+(use-package monokai-pro-theme)
 (use-package ace-window
   :bind
   (:map global-map
-	("M-p" . 'ace-window))
-  :ensure t)
+	("M-p" . 'ace-window)))
 (use-package ace-jump-mode
-  :ensure t
   :bind
   (:map global-map
 	("C-c SPC" . 'ace-jump-mode)))
 (use-package dashboard
-  :ensure t
   :init (dashboard-setup-startup-hook))
 (use-package direnv
-  :ensure t
   :config
   (direnv-mode))
 (use-package beacon
-  :ensure t
   :config
   (beacon-mode))
-;; (use-package windmove
-;;   ;; :defer 4
-;;   :ensure t
-;;   :config
-;;   ;; use command key on Mac
-;;   (windmove-default-keybindings 'super)
-;;   ;; wrap around at edges
-;;   (setq windmove-wrap-around t))
-
 ;; =================================================================================
 
 ;;=============
@@ -95,17 +71,16 @@
 
 (defun load-conf-file (file)
   (interactive "f")
-  (load-file (concat (concat (getenv "HOME") "/.emacs.d/") file))
-  )
+  (load-file (concat (concat (getenv "HOME") "/.emacs.d/") file)))
 
 (load-conf-file "ide.el")
 (load-conf-file "rust.el")
 (load-conf-file "haskell.el")
 (load-conf-file "scheme.el")
 (load-conf-file "lisp.el")
-(load-conf-file "ocaml.el")
-(load-conf-file "ats2.el")
-(load-conf-file "idris.el")
+;; (load-conf-file "ocaml.el")
+;; (load-conf-file "ats2.el")
+;; (load-conf-file "idris.el")
 (load-conf-file "mu4e.el")
 (load-conf-file "nasm.el")
 (load-conf-file "cc.el")

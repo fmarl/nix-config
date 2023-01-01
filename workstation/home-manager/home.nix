@@ -22,6 +22,7 @@
     dmenu
     obsidian
     nixpkgs-fmt
+    python3
   ]);
 
   programs.mu.enable = true;

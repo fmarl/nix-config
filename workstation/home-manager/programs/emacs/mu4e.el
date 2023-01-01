@@ -7,8 +7,7 @@
 ;; Set keybind to enter mu4
 (global-set-key (kbd "C-x t") 'mu4e)
 
-(setq mu4e-user-mail-address-list '("florian.buestgens@web.de"
-				    "florian.buestgens@efficient-dev.com"))
+(setq mu4e-user-mail-address-list '("fb@fx-ttr.de"))
 
 ;; viewing options
 (setq mu4e-view-show-addresses t)
@@ -55,27 +54,6 @@
 ;; ---------------------------------------------
 (setq mu4e-contexts
       `(
-	,(make-mu4e-context
-	  :name "Web Account"
-	  :match-func (lambda (msg)
-			(when msg
-			  (mu4e-message-contact-field-matches
-			   msg '(:from :to :cc :bcc) "florian.buestgens@web.de")))
-
-	  :vars '(
-		  (mu4e-trash-folder . "/WebAccount/[Web].Trash")
-		  (mu4e-refile-folder . "/WebAccount/[Web].Archive")
-		  (mu4e-drafts-folder . "/WebAccount/[Web].Drafts")
-		  (mu4e-sent-folder . "/WebAccount/[Web].Sent Mail")
-		  (user-mail-address  . "florian.buestgens@web.de")
-		  (user-full-name . "Florian Büstgens")
-		  (smtpmail-smtp-user . "florian.buestgens")
-		  (smtpmail-local-domain . "web.de")
-		  (smtpmail-default-smtp-server . "smtp.web.de")
-		  (smtpmail-smtp-server . "smtp.web.de")
-		  (smtpmail-smtp-service . 587)
-		  ))
-
 	,(make-mu4e-context
 	  :name "IONOS Account"
 	  :match-func (lambda (msg) (when msg

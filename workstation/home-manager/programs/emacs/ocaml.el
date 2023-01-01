@@ -1,5 +1,4 @@
 (use-package tuareg
-  :ensure t
   :config
   (add-hook 'tuareg-mode-hook #'electric-pair-local-mode)
   ;; (add-hook 'tuareg-mode-hook 'tuareg-imenu-set-imenu)
@@ -9,7 +8,6 @@
                 auto-mode-alist)))
 
 (use-package merlin
-  :ensure t
   :config
   (add-hook 'tuareg-mode-hook 'merlin-mode)
   (add-hook 'merlin-mode-hook #'company-mode)
@@ -18,7 +16,6 @@
 ;; utop configuration
 
 (use-package utop
-  :ensure t
   :config
   (autoload 'utop-minor-mode "utop" "Minor mode for utop" t)
   (add-hook 'tuareg-mode-hook 'utop-minor-mode)

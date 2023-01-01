@@ -1,6 +1,5 @@
 (use-package haskell-mode
   :after (direnv)
-  :ensure t
   :hook ((haskell-mode . my-haskell-hook)
 	 (haskell-mode . interactive-haskell-mode))
 
@@ -48,10 +47,7 @@
          ("C-c a I" . haskell-navigate-imports-return)))
 
 (use-package haskell-snippets
-  :ensure t
   :defer t
   :after (haskell-mode yasnippet)
   )
-
-(use-package ormolu
-  :ensure t)
+(use-package ormolu)
