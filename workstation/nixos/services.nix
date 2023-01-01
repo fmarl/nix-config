@@ -67,26 +67,7 @@
       pulse.enable = true;
     };
 
-    # nginx = {
-    #   enable = true;
-    #   virtualHosts."buildserver.lambda.local" = {
-    #     addSSL = false;
-    #     enableACME = false;
-    #     root = "/var/www/buildserver";
-    #     serverAliases = [ "buildserver" ];
-    #     locations."/".extraConfig = ''
-    #       proxy_pass http://localhost:${toString config.services.nix-serve.port};
-    #       proxy_set_header Host $host;
-    #       proxy_set_header X-Real-IP $remote_addr;
-    #       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    #     '';
-    #   };
-    # };
-
-    # nix-serve = {
-    #   enable = true;
-    #   secretKeyFile = "/var/cache-priv-key.pem";
-    # };
+    vscode-server.enable = true;
 
     openssh = {
       enable = true;

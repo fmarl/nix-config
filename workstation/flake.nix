@@ -7,9 +7,13 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    vscode-server = {
+      url = "github:msteen/nixos-vscode-server";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: rec {
+  outputs = { self, nixpkgs, home-manager, vscode-server, ... }@inputs: rec {
     legacyPackages = nixpkgs.lib.genAttrs [ "x86_64-linux" ] (system:
       import inputs.nixpkgs {
         inherit system;
@@ -21,7 +25,10 @@
       workstation = nixpkgs.lib.nixosSystem {
         pkgs = legacyPackages.x86_64-linux;
         specialArgs = { inherit inputs; };
-        modules = [ ./nixos/configuration.nix ];
+        modules = [ 
+          ./nixos/configuration.nix
+          vscode-server.nixosModule 
+        ];
       };
     };
 

@@ -8,8 +8,6 @@
 
   home.packages = [
     pkgs.firefox
-    pkgs.thunderbird
-    pkgs.jetbrains.idea-community
     pkgs.spotify
     pkgs.rxvt-unicode
     pkgs.feh
@@ -19,7 +17,6 @@
     pkgs.xmobar
     pkgs.dmenu
     pkgs.obsidian
-    pkgs.htop
     pkgs.nixpkgs-fmt
   ];
 

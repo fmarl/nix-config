@@ -29,8 +29,6 @@
 
   networking.hostName = "workstation";
   networking.hostId = "04686870";
-  networking.useDHCP = false;
-  networking.interfaces.enp3s0.useDHCP = true;
   networking.firewall = {
     enable = true;
     allowedTCPPorts = [ 22 80 ];
@@ -38,9 +36,11 @@
 
   environment.systemPackages = with pkgs;
     [
-      emacs
+      vim
+      htop
       git
       home-manager
+      nixpkgs-fmt
     ];
 
   fonts.fonts = with pkgs; [
@@ -61,20 +61,24 @@
         createHome = true;
         description = "Florian Büstgens";
         initialHashedPassword = "REDACTED";
-        extraGroups = [ "wheel" "docker" ];
+        extraGroups = [ "wheel" "docker" "lxd" ];
         group = "users";
         uid = 1000;
         home = "/home/florian";
         shell = pkgs.zsh;
+
+        openssh.authorizedKeys.keys = [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFBOAvFL34WZRnKtwMx27zAXq4Z8vQxK8oR+O+6UYwet eddsa-key-20221216"
+	  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOCbnpc2pnr/wk64fHe+nI3ydgk6umjHflT8vkN6IPHL fb@fx-ttr.de"
+        ];
       };
     };
   };
 
+  nix.trustedUsers = [ "root" "florian" ];
+
+  virtualisation.lxd.enable = true;
   virtualisation.docker.enable = true;
-  security.acme = {
-    acceptTerms = true;
-    defaults.email = "buildserver@lambda-insights.de";
-  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
