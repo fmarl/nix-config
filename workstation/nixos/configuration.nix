@@ -7,6 +7,7 @@
       ./time.nix
       ./kernel.nix
       ./services.nix
+      ./sway.nix
     ];
 
   nix.nixPath =
@@ -46,6 +47,10 @@
   fonts.fonts = with pkgs; [
     source-code-pro
   ];
+
+  console = {
+    keyMap = "de";
+  };
 
   nixpkgs.config.allowUnfree = true;
 
