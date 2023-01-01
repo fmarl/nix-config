@@ -1,6 +1,7 @@
 { pkgs, inputs, ... }: {
   imports = [
 	  ./emacs.nix
+    ./sway.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -13,13 +14,9 @@
   home.packages = (with pkgs; [
     firefox
     spotify
-    rxvt-unicode
     feh
-    dunst
     mupdf
     ranger
-    xmobar
-    dmenu
     obsidian
     nixpkgs-fmt
     python3
@@ -70,11 +67,5 @@
       source = inputs.lsp-bridge;
       recursive = true;
     };
-  };
-
-  xsession.windowManager.xmonad = {
-    enable = true;
-    enableContribAndExtras = true;
-    config = pkgs.writeText "config.hs" (builtins.readFile ./programs/xmonad/config.hs);
   };
 }
