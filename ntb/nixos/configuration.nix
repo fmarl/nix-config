@@ -39,6 +39,7 @@
       git
       htop
       home-manager
+      python3
     ];
 
   fonts.fonts = with pkgs; [
