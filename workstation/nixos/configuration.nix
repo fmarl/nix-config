@@ -35,12 +35,19 @@
     allowedTCPPorts = [ 22 ];
   };
 
+  programs.gnupg.agent = {
+    enable = true;
+    pinentryFlavor = "curses";
+    enableSSHSupport = true;
+  };
+  
   environment.systemPackages = with pkgs;
     [
       vim
       htop
       git
       home-manager
+      pinentry-curses
     ];
 
   fonts.fonts = with pkgs; [
@@ -79,7 +86,7 @@
     };
   };
 
-  nix.trustedUsers = [ "root" "florian" ];
+  nix.settings.trusted-users = [ "root" "florian" ];
 
   virtualisation.lxd.enable = true;
 

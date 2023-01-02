@@ -25,6 +25,8 @@
       enable = true;
     };
 
+    pcscd.enable = true;
+    
     xserver = {
       enable = true;
 
