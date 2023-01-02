@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "emacs-cfg": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1672605790,
+        "narHash": "sha256-Nm5CWmsRusZ0OyVK5dyvVb3hl4FwvRQ0SC9VdQOsFEs=",
+        "owner": "fxttr",
+        "repo": "emacs-cfg",
+        "rev": "b450f789989af35218757416c2d5e0ca68ee636a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "fxttr",
+        "repo": "emacs-cfg",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -55,6 +71,7 @@
     },
     "root": {
       "inputs": {
+        "emacs-cfg": "emacs-cfg",
         "home-manager": "home-manager",
         "lsp-bridge": "lsp-bridge",
         "nixpkgs": "nixpkgs"

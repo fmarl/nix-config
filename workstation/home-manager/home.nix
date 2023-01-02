@@ -35,10 +35,10 @@
     enable = true;
     userName = "Florian Büstgens";
     userEmail = "fb@fx-ttr.de";
-    #signing = { 
-    #  signByDefault = true;
-    #  key = "0x123456789ABCD";
-    #};
+    signing = { 
+      signByDefault = true;
+      key = "865E0BA2011DAEE1A83F895E2EEC4010A0299470";
+    };
   };
 
   programs.zsh = {
