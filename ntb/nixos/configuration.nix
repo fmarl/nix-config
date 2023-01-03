@@ -7,6 +7,7 @@
       ./kernel.nix
       ./time.nix
       ./services.nix
+      ./sway.nix
     ];
 
   nix.nixPath =
@@ -33,18 +34,29 @@
   networking.hostId = "04686870";
   networking.networkmanager.enable = true;
 
+  programs.gnupg.agent = {
+    enable = true;
+    pinentryFlavor = "curses";
+    enableSSHSupport = true;
+  };
+
   environment.systemPackages = with pkgs;
     [
       vim
       git
       htop
       home-manager
-      python3
+      pinentry-curses
     ];
 
   fonts.fonts = with pkgs; [
     source-code-pro
+    font-awesome
   ];
+
+  console = {
+    keyMap = "de";
+  };
  
   nixpkgs.config.allowUnfree = true;
 
@@ -68,6 +80,8 @@
 	    };
 	  };
   };
+
+  nix.settings.trusted-users = [ "root" "florian" ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
