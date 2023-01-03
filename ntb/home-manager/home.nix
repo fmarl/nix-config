@@ -1,8 +1,8 @@
 { pkgs, inputs, ... }: {
   imports = [
-	  ./emacs.nix
-    ./sway.nix
-    ./waybar.nix
+	  ./../../lib/hm/programs/emacs.nix
+    ./../../lib/hm/programs/sway.nix
+    ./../../lib/hm/services/waybar.nix
   ];
 
   nixpkgs.config.allowUnfree = true;

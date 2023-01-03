@@ -1,6 +1,6 @@
 { pkgs, config, ... }:
 let
-  colorscheme = import ./colors.nix;
+  colorscheme = import ./../../colors.nix;
   fontConf = {
     names = [ "Source Code Pro" ];
     size = 11.0;

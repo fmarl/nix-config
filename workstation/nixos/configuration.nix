@@ -4,10 +4,10 @@
   imports =
     [
       ./hardware-configuration.nix
-      ./time.nix
+      ././../../lib/nixos/services/ntp.nix
       ./kernel.nix
       ./services.nix
-      ./sway.nix
+      ./../../lib/nixos/programs/sway.nix
     ];
 
   nix.nixPath =
