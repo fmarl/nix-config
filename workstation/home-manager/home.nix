@@ -2,6 +2,7 @@
   imports = [
 	  ./emacs.nix
     ./sway.nix
+    ./waybar.nix
   ];
 
   nixpkgs.config.allowUnfree = true;

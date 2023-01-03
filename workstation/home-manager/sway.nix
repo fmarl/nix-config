@@ -30,38 +30,7 @@ in
       
       input."type:keyboard".xkb_layout = "de";
 
-      bars = [{
-        statusCommand = "${pkgs.i3status}/bin/i3status";
-        command = "${pkgs.sway}/bin/swaybar";
-        position = "top";
-        fonts = fontConf;
-        trayOutput = "*";
-        colors = {
-          background = "#${colorscheme.dark.bg_0}";
-          statusline = "#${colorscheme.dark.fg_0}";
-          separator = "#${colorscheme.dark.fg_0}";
-          focusedWorkspace = {
-            border = "#${colorscheme.dark.bg_1}";
-            background = "#${colorscheme.dark.bg_2}";
-            text = "#${colorscheme.dark.fg_1}";
-          };
-          activeWorkspace = {
-            border = "#${colorscheme.dark.bg_0}";
-            background = "#${colorscheme.dark.bg_1}";
-            text = "#${colorscheme.dark.fg_1}";
-          };
-          inactiveWorkspace = {
-            border = "#${colorscheme.dark.bg_0}";
-            background = "#${colorscheme.dark.bg_0}";
-            text = "#${colorscheme.dark.dim_0}";
-          };
-          urgentWorkspace = {
-            border = "#${colorscheme.dark.bg_1}";
-            background = "#${colorscheme.dark.red}";
-            text = "#${colorscheme.dark.fg_1}";
-          };
-        };
-      }];
+      bars = [{ command = "waybar"; }];
 
       colors = {
           focused = {
