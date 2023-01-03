@@ -1,8 +1,8 @@
 { pkgs, inputs, ... }: {
   imports = [
-	  ./emacs.nix
-    ./sway.nix
-    ./waybar.nix
+	  ./../../lib/hm/programs/emacs.nix
+    ./../../lib/hm/programs/sway.nix
+    ./../../lib/hm/services/waybar.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -46,6 +46,8 @@
     enable = true;
     enableSyntaxHighlighting = true;
     autocd = true;
+    enableCompletion = true;
+
     initExtra = ''
       autoload -U promptinit && 
       promptinit && 
@@ -53,9 +55,12 @@
       setopt prompt_sp
     '';
 
+    sessionVariables = {
+      GPG_TTY = "$(tty)";
+    };
+
     shellAliases = {
       ll = "ls -l";
-      rebuild = "sudo nixos-rebuild switch";
     };
   };
 

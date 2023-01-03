@@ -1,6 +1,6 @@
 { pkgs, lib, ... }:
 let
-  colorscheme = import ./colors.nix;
+  colorscheme = import ./../../colors.nix;
 in
 {
   programs.waybar =

@@ -5,9 +5,9 @@
     [ 
       ./hardware-configuration.nix
       ./kernel.nix
-      ./time.nix
+      ././../../lib/nixos/services/ntp.nix
       ./services.nix
-      ./sway.nix
+      ./../../lib/nixos/programs/sway.nix
     ];
 
   nix.nixPath =
@@ -40,6 +40,8 @@
     enableSSHSupport = true;
   };
 
+  environment.shells = with pkgs; [ zsh ];
+  environment.pathsToLink = [ "/share/zsh" ];
   environment.systemPackages = with pkgs;
     [
       vim
