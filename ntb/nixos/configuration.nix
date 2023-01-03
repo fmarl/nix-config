@@ -40,6 +40,8 @@
     enableSSHSupport = true;
   };
 
+  environment.shells = with pkgs; [ zsh ];
+  environment.pathsToLink = [ "/share/zsh" ];
   environment.systemPackages = with pkgs;
     [
       vim
