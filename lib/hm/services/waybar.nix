@@ -139,7 +139,7 @@ window#waybar {
 #clock.1,
 #clock.2,
 #clock.3,
-#pulseaudio,
+#network,
 #memory,
 #cpu,
 #battery,
