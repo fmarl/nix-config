@@ -1,6 +1,6 @@
 { pkgs, inputs, ... }: {
   imports = [
-	  ./../../lib/hm/programs/emacs.nix
+    ./../../lib/hm/programs/emacs.nix
     ./../../lib/hm/programs/sway.nix
     ./../../lib/hm/services/waybar.nix
   ];
@@ -37,7 +37,7 @@
     enable = true;
     userName = "Florian Büstgens";
     userEmail = "fb@fx-ttr.de";
-    signing = { 
+    signing = {
       signByDefault = true;
       key = "865E0BA2011DAEE1A83F895E2EEC4010A0299470";
     };
@@ -49,12 +49,18 @@
     autocd = true;
     enableCompletion = true;
 
-    initExtra = ''
-      autoload -U promptinit && 
-      promptinit && 
-      prompt suse && 
-      setopt prompt_sp
-    '';
+    plugins = [
+      {
+        name = "powerlevel10k";
+        src = pkgs.zsh-powerlevel10k;
+        file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+      }
+      {
+        name = "powerlevel10k-config";
+        src = lib.cleanSource ./p10k-config;
+        file = "p10k.zsh";
+      }
+    ];
 
     sessionVariables = {
       GPG_TTY = "$(tty)";
