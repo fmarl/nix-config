@@ -3,11 +3,11 @@
     "emacs-cfg": {
       "flake": false,
       "locked": {
-        "lastModified": 1672605790,
-        "narHash": "sha256-Nm5CWmsRusZ0OyVK5dyvVb3hl4FwvRQ0SC9VdQOsFEs=",
+        "lastModified": 1672777539,
+        "narHash": "sha256-r61kaiPE/gVJKDyrQ6X89bc4ILy7DaHFMVBdFb7Zues=",
         "owner": "fxttr",
         "repo": "emacs-cfg",
-        "rev": "b450f789989af35218757416c2d5e0ca68ee636a",
+        "rev": "4d195f742d8f9fb36237fc18b76401b877a28abd",
         "type": "github"
       },
       "original": {
@@ -24,42 +24,26 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1672349765,
-        "narHash": "sha256-Ul3lSGglgHXhgU3YNqsNeTlRH1pqxbR64h+2hM+HtnM=",
+        "lastModified": 1672770368,
+        "narHash": "sha256-iO6Z9blIe8dcPh3VT2nkej9EimORCoskGQR6xNjICWI=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "dd99675ee81fef051809bc87d67eb07f5ba022e8",
+        "rev": "d01e7280ad7d13a5a0fae57355bd0dbfe5b81969",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
         "repo": "home-manager",
-        "type": "github"
-      }
-    },
-    "lsp-bridge": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1672252453,
-        "narHash": "sha256-gPKd/pmYO99eat9U5WhUq93kONZEE+ayptnEDZ/iEAk=",
-        "owner": "fxttr",
-        "repo": "lsp-bridge",
-        "rev": "98fa99530674b16d79ee6981d485488230e85e2d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "fxttr",
-        "repo": "lsp-bridge",
         "type": "github"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1672428209,
-        "narHash": "sha256-eejhqkDz2cb2vc5VeaWphJz8UXNuoNoM8/Op8eWv2tQ=",
+        "lastModified": 1672697240,
+        "narHash": "sha256-Ww+c4q8IEVv6Wvt6wCxmBP+aXXxbso0SedBMAvOfrf4=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "293a28df6d7ff3dec1e61e37cc4ee6e6c0fb0847",
+        "rev": "c42947660ed3b696e266e0f69c34f7f1bda67bbb",
         "type": "github"
       },
       "original": {
@@ -73,7 +57,6 @@
       "inputs": {
         "emacs-cfg": "emacs-cfg",
         "home-manager": "home-manager",
-        "lsp-bridge": "lsp-bridge",
         "nixpkgs": "nixpkgs"
       }
     },

@@ -21,6 +21,7 @@
     obsidian
     nixpkgs-fmt
     python3
+    python310Packages.epc
   ]);
 
   programs.mu.enable = true;
@@ -67,10 +68,6 @@
   home.file = {
     ".emacs.d" = {
       source = inputs.emacs-cfg;
-      recursive = true;
-    };
-    ".emacs.d/lsp-bridge" = {
-      source = inputs.lsp-bridge;
       recursive = true;
     };
   };
