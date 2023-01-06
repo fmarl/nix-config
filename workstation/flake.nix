@@ -11,9 +11,13 @@
       url = "github:fxttr/emacs-cfg";
       flake = false;
     };
+    artwork = {
+      url = "github:NixOS/nixos-artwork";
+      flake = false;
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, emacs-cfg, ... }@inputs: rec {
+  outputs = { self, nixpkgs, home-manager, emacs-cfg, artwork, ... }@inputs: rec {
     legacyPackages = nixpkgs.lib.genAttrs [ "x86_64-linux" ] (system:
       import inputs.nixpkgs {
         inherit system;

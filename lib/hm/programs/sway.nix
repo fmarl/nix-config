@@ -1,5 +1,6 @@
-{ pkgs, config, ... }:
+{ pkgs, config, inputs, ... }:
 let
+  wallpaper = "${inputs.artwork}/wallpapers/nix-wallpaper-nineish-dark-gray.png";
   colorscheme = import ./../../colors.nix;
   fontConf = {
     names = [ "Source Code Pro" ];
@@ -17,7 +18,7 @@ in
       startup = [
         {
           command =
-            let lockCmd = "swaylock -f -c ${colorscheme.dark.bg_0}";
+            let lockCmd = "swaylock -f -i ${wallpaper}";
             in
               ''swayidle -w \
               timeout 600 ${lockCmd} \
@@ -65,6 +66,8 @@ in
 
       menu = "bemenu-run -m all --fn 'Source Code Pro 14' --nb '#${colorscheme.dark.bg_0}' --ab '#${colorscheme.dark.bg_0}' --fb '#${colorscheme.dark.bg_0}' --tb '#${colorscheme.dark.bg_0}' --sb '#${colorscheme.dark.bg_0}' --hb '#${colorscheme.dark.bg_0}' --tf '#${colorscheme.dark.fg_0}' --hf '#${colorscheme.dark.red}' --no-exec | xargs swaymsg exec --";
 
+      output = { "*".bg = ''"${wallpaper}" fit''; };
+
       keybindings =
         let
           mod = config.wayland.windowManager.sway.config.modifier;
@@ -76,7 +79,7 @@ in
             "${mod}+Shift+c" = "kill";
             "${mod}+p" = "exec ${menu}";
             "${mod}+Shift+d" = "exec ${terminal} -e ranger";
-            "${mod}+Shift+b" = "exec swaylock -c ${colorscheme.dark.bg_0}";
+            "${mod}+Shift+b" = "exec swaylock -i ${wallpaper}";
 
             "${mod}+${left}" = "focus left";
             "${mod}+${down}" = "focus down";
