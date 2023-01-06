@@ -1,4 +1,5 @@
 { pkgs, ... }: {
+	services.emacs.enable = true;
   programs.emacs = {
     enable = true;
 
@@ -29,7 +30,8 @@
 		    projectile
 		    ivy
 		    posframe
-		    neotree
+		    treemacs
+				treemacs-projectile
 		    idris-mode
 		    slime
 		    slime-company
