@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "artwork": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1668870925,
+        "narHash": "sha256-nZsD+UatjDBEihZewZOkaAigBHyy6cw8VkGxvbNcaeA=",
+        "owner": "NixOS",
+        "repo": "nixos-artwork",
+        "rev": "c1dc75611042b57a385c80495d3728724c35cfee",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixos-artwork",
+        "type": "github"
+      }
+    },
     "emacs-cfg": {
       "flake": false,
       "locked": {
@@ -55,6 +71,7 @@
     },
     "root": {
       "inputs": {
+        "artwork": "artwork",
         "emacs-cfg": "emacs-cfg",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs"
