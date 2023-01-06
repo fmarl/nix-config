@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }: {
+{ pkgs, inputs, lib, ... }: {
   imports = [
     ./../../lib/hm/programs/emacs.nix
     ./../../lib/hm/programs/sway.nix
@@ -27,6 +27,26 @@
   programs.mu.enable = true;
   programs.msmtp.enable = true;
   programs.mbsync.enable = true;
+
+  programs.irssi = {
+    enable = true;
+    networks =
+          {
+            libera = {
+              type = "IRC";
+              nick = "fxttr";
+              name = "fxttr";
+              server = {
+                address = "irc.libera.chat";
+                port = 6697;
+                autoConnect = false;
+              };
+              channels = {
+                nixos.autoJoin = true;
+              };
+            };
+          };
+  };
 
   programs.direnv = {
     enable = true;
