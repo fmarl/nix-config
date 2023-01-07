@@ -1,4 +1,5 @@
-{ pkgs, inputs, lib, ... }: {
+{ pkgs, config, nixosConfigurations, inputs, lib, ... }: 
+{
   imports = [
     ./../../lib/hm/programs/emacs.nix
     ./../../lib/hm/programs/sway.nix
@@ -21,7 +22,6 @@
     obsidian
     nixpkgs-fmt
     python3
-    python310Packages.epc
   ]);
 
   programs.mu.enable = true;
@@ -31,26 +31,49 @@
   programs.irssi = {
     enable = true;
     networks =
-          {
-            libera = {
-              type = "IRC";
-              nick = "fxttr";
-              name = "fxttr";
-              server = {
-                address = "irc.libera.chat";
-                port = 6697;
-                autoConnect = false;
-              };
-              channels = {
-                nixos.autoJoin = true;
-              };
-            };
+      {
+        libera = {
+          type = "IRC";
+          nick = "fxttr";
+          name = "fxttr";
+          server = {
+            address = "irc.libera.chat";
+            port = 6697;
+            autoConnect = false;
           };
+          channels = {
+            nixos.autoJoin = true;
+          };
+        };
+      };
   };
 
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
+  };
+
+  programs.ssh = {
+    enable = true;
+    hashKnownHosts = true;
+
+    matchBlocks = {
+      "github" = {
+        hostname = "github.com";
+        user = "git";
+        identityFile = nixosConfigurations.workstation.config.sops.secrets.github.path;
+      };
+      "codeberg" = {
+        hostname = "codeberg.org";
+        user = "git";
+        identityFile = nixosConfigurations.workstation.config.sops.secrets.codeberg.path;
+      };
+      "mls" = {
+        hostname = "192.168.0.3";
+        user = "florian";
+        identityFile = nixosConfigurations.workstation.config.sops.secrets.mls.path;
+      };
+    };
   };
 
   programs.git = {
