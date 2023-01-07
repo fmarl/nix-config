@@ -48,9 +48,9 @@
       "florian@workstation" = home-manager.lib.homeManagerConfiguration {
         pkgs = legacyPackages.x86_64-linux;
         extraSpecialArgs = { 
-		inherit inputs; 
-		inherit nixosConfigurations; 
-	};
+		      inherit inputs; 
+		      inherit nixosConfigurations; 
+	      };
         modules = [
           ./home-manager/home.nix
         ];
