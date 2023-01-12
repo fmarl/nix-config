@@ -25,6 +25,9 @@
 
     shellAliases = {
       ll = "ls -l";
+      nix-search = "nix search nixpkgs";
+      nbuild = "sudo nixos-rebuild switch --flake .";
+      hbuild = "home-manager switch --flake .";
     };
   };
 }
