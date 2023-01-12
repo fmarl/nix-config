@@ -1,4 +1,5 @@
-{ pkgs, config, nixosConfigurations, inputs, lib, ... }: {
+{ pkgs, config, nixosConfigurations, inputs, lib, ... }:
+{
   imports = [
 	  ./../../lib/hm/programs/emacs.nix
     ./../../lib/hm/programs/sway.nix
@@ -16,12 +17,12 @@
 
   home.packages = (with pkgs; [
     firefox
+    spotify
     feh
     mupdf
     ranger
     obsidian
     nixpkgs-fmt
-    python3
   ]);
 
   programs.mu.enable = true;
