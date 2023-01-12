@@ -32,6 +32,9 @@
   networking.hostName = "ntb";
   networking.hostId = "04686870";
   networking.networkmanager.enable = true;
+    networking.firewall = {
+    enable = true;
+  };
 
   programs.gnupg.agent = {
     enable = true;

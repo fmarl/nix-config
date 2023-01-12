@@ -5,6 +5,7 @@
     ./../../lib/hm/programs/sway.nix
     ./../../lib/hm/programs/zsh.nix
     ./../../lib/hm/services/waybar.nix
+    ./../../lib/hm/programs/irssi.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -27,26 +28,6 @@
   programs.mu.enable = true;
   programs.msmtp.enable = true;
   programs.mbsync.enable = true;
-
-  programs.irssi = {
-    enable = true;
-    networks =
-      {
-        libera = {
-          type = "IRC";
-          nick = "fxttr";
-          name = "fxttr";
-          server = {
-            address = "irc.libera.chat";
-            port = 6697;
-            autoConnect = false;
-          };
-          channels = {
-            nixos.autoJoin = true;
-          };
-        };
-      };
-  };
 
   programs.direnv = {
     enable = true;
@@ -83,34 +64,6 @@
     signing = {
       signByDefault = true;
       key = "865E0BA2011DAEE1A83F895E2EEC4010A0299470";
-    };
-  };
-
-  programs.zsh = {
-    enable = true;
-    enableSyntaxHighlighting = true;
-    autocd = true;
-    enableCompletion = true;
-
-    plugins = [
-      {
-        name = "powerlevel10k";
-        src = pkgs.zsh-powerlevel10k;
-        file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-      }
-      {
-        name = "powerlevel10k-config";
-        src = lib.cleanSource ./p10k-config;
-        file = "p10k.zsh";
-      }
-    ];
-
-    sessionVariables = {
-      GPG_TTY = "$(tty)";
-    };
-
-    shellAliases = {
-      ll = "ls -l";
     };
   };
 
