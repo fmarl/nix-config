@@ -3,6 +3,7 @@
   imports = [
     ./../../lib/hm/programs/emacs.nix
     ./../../lib/hm/programs/sway.nix
+    ./../../lib/hm/programs/zsh.nix
     ./../../lib/hm/services/waybar.nix
   ];
 

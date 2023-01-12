@@ -1,7 +1,9 @@
-{ pkgs, inputs, ... }: {
+{ pkgs, config, nixosConfigurations, inputs, lib, ... }: {
   imports = [
 	  ./../../lib/hm/programs/emacs.nix
     ./../../lib/hm/programs/sway.nix
+    ./../../lib/hm/programs/irssi.nix
+    ./../../lib/hm/programs/zsh.nix
     ./../../lib/hm/services/waybar.nix
   ];
 
@@ -30,7 +32,30 @@
     enable = true;
     nix-direnv.enable = true;
   };
+  
+  programs.ssh = {
+    enable = true;
+    hashKnownHosts = true;
 
+    matchBlocks = {
+      "github" = {
+        hostname = "github.com";
+        user = "git";
+        identityFile = nixosConfigurations.ntb.config.sops.secrets.github.path;
+      };
+      "codeberg" = {
+        hostname = "codeberg.org";
+        user = "git";
+        identityFile = nixosConfigurations.ntb.config.sops.secrets.codeberg.path;
+      };
+      "mls" = {
+        hostname = "192.168.0.3";
+        user = "florian";
+        identityFile = nixosConfigurations.ntb.config.sops.secrets.mls.path;
+      };
+    };
+  };
+  
   programs.git = {
     enable = true;
     userName = "Florian Büstgens";
@@ -41,35 +66,9 @@
 #    };
   };
 
-  programs.zsh = {
-    enable = true;
-    enableSyntaxHighlighting = true;
-    autocd = true;
-    enableCompletion = true;
-
-    initExtra = ''
-      autoload -U promptinit && 
-      promptinit && 
-      prompt suse && 
-      setopt prompt_sp
-    '';
-
-    sessionVariables = {
-      GPG_TTY = "$(tty)";
-    };
-
-    shellAliases = {
-      ll = "ls -l";
-    };
-  };
-
   home.file = {
     ".emacs.d" = {
       source = inputs.emacs-cfg;
-      recursive = true;
-    };
-    ".emacs.d/lsp-bridge" = {
-      source = inputs.lsp-bridge;
       recursive = true;
     };
   };
