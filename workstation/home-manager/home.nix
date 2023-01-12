@@ -20,8 +20,7 @@
     mupdf
     ranger
     obsidian
-    nixpkgs-fmt
-    python3
+    nixpkgs-fmt 
   ]);
 
   programs.mu.enable = true;
