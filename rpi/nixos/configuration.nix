@@ -1,10 +1,10 @@
-{ config, pkgs, lib, ... }:
-
+{ config, pkgs, lib, inputs, ... }:
 {
   imports =
     [
       ./hardware-configuration.nix
-      ./time.nix
+      ./../../lib/nixos/services/ntp.nix
+      ./kernel.nix
       ./services.nix
     ];
 
@@ -15,29 +15,50 @@
       "/nix/var/nix/profiles/per-user/root/channels"
     ];
 
+  nix.settings.trusted-public-keys = [
+    "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+    "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
+  ];
+
+  nix.settings.substituters = [
+    "https://hydra.iohk.io"
+    "https://devenv.cachix.org"
+  ];
+
   nix.extraOptions = lib.optionalString (config.nix.package == pkgs.nixFlakes)
     "experimental-features = nix-command flakes";
 
-  networking.hostName = "spark";
+  networking.hostName = "rpi";
   networking.hostId = "04686870";
-  networking.useDHCP = false;
-  networking.defaultGateway = "192.168.0.1";
-  networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
-  networking.interfaces.enp3s0.ipv4.addresses = [{
-    address = "192.168.0.4";
-    prefixLength = 24;
-  }];
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ 22 ];
+  };
 
+  programs.gnupg.agent = {
+    enable = true;
+    pinentryFlavor = "curses";
+    enableSSHSupport = true;
+  };
+  
+  environment.shells = with pkgs; [ zsh ];
+  environment.pathsToLink = [ "/share/zsh" ];
   environment.systemPackages = with pkgs;
     [
       vim
       htop
+      git
       home-manager
+      pinentry-curses
     ];
 
   fonts.fonts = with pkgs; [
     source-code-pro
   ];
+
+  console = {
+    keyMap = "de";
+  };
 
   nixpkgs.config.allowUnfree = true;
 
@@ -47,22 +68,28 @@
       root = {
         initialHashedPassword = "REDACTED";
       };
-      spark = {
-        createHome = true;
+
+      florian = {
         isNormalUser = true;
+        createHome = true;
+        description = "Florian Büstgens";
         initialHashedPassword = "REDACTED";
-        extraGroups = [ "wheel" "docker" ];
+        extraGroups = [ "wheel" "docker" "lxd" ];
         group = "users";
         uid = 1000;
-        home = "/home/spark";
+        home = "/home/florian";
         shell = pkgs.zsh;
-        openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDtFZ7KIi2LNNqxXFdABdUNMM4wxqul2/UfydA/cNEj+ fb@fx-ttr.de" ];
+
+        openssh.authorizedKeys.keys = [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFBOAvFL34WZRnKtwMx27zAXq4Z8vQxK8oR+O+6UYwet eddsa-key-20221216"
+	        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOCbnpc2pnr/wk64fHe+nI3ydgk6umjHflT8vkN6IPHL fb@fx-ttr.de"
+        ];
       };
     };
   };
 
-  virtualisation.docker.enable = true;
-
+  nix.settings.trusted-users = [ "root" "florian" ];
+  
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave

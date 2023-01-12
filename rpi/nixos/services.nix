@@ -2,16 +2,10 @@
 
 {
   services = {
-    zfs = {
-      autoScrub.enable = true;
-      autoSnapshot.enable = true;
-      # TODO: autoReplication
-    };
-
     openssh = {
       enable = true;
       permitRootLogin = "no";
-      passwordAuthentication = false;
+      passwordAuthentication = true;
       hostKeys =
         [
           {
