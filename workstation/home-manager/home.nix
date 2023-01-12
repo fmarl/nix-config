@@ -22,7 +22,8 @@
     mupdf
     ranger
     obsidian
-    nixpkgs-fmt 
+    nixpkgs-fmt
+    cachix
   ]);
 
   programs.mu.enable = true;
