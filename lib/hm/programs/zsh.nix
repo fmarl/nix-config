@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, nixosConfigurations, ... }:
 {
   programs.zsh = {
     enable = true;
@@ -21,6 +21,7 @@
 
     sessionVariables = {
       GPG_TTY = "$(tty)";
+      CACHIX_AUTH_TOKEN = nixosConfigurations.workstation.config.sops.secrets.cachix;
     };
 
     shellAliases = {
