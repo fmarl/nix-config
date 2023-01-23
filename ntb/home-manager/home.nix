@@ -23,6 +23,7 @@
     ranger
     obsidian
     nixpkgs-fmt
+    tdesktop
   ]);
 
   programs.mu.enable = true;
