@@ -29,6 +29,8 @@
   programs.msmtp.enable = true;
   programs.mbsync.enable = true;
 
+  programs.vscode.enable = true;
+
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;

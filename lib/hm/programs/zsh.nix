@@ -21,7 +21,7 @@
 
     sessionVariables = {
       GPG_TTY = "$(tty)";
-      CACHIX_AUTH_TOKEN = nixosConfigurations.workstation.config.sops.secrets.cachix;
+#      CACHIX_AUTH_TOKEN = nixosConfigurations.workstation.config.sops.secrets.cachix;
     };
 
     shellAliases = {
