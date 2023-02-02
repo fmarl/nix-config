@@ -54,9 +54,14 @@
         identityFile = nixosConfigurations.workstation.config.sops.secrets.codeberg.path;
       };
       "mls" = {
-        hostname = "192.168.0.3";
+        hostname = "192.168.0.8";
         user = "florian";
         identityFile = nixosConfigurations.workstation.config.sops.secrets.mls.path;
+      };
+      "rpi" = {
+        hostname = "192.168.0.4";
+        user = "florian";
+        identityFile = nixosConfigurations.workstation.config.sops.secrets.rpi.path;
       };
     };
   };
