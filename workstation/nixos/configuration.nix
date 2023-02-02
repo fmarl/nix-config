@@ -56,10 +56,13 @@
   sops.secrets.mls = {
 	  owner = config.users.users.florian.name;
   };
+  sops.secrets.rpi = {
+	  owner = config.users.users.florian.name;
+  };
   sops.secrets.cachix = {
           owner = config.users.users.florian.name;
   };
-  
+
   environment.shells = with pkgs; [ zsh ];
   environment.pathsToLink = [ "/share/zsh" ];
   environment.systemPackages = with pkgs;
