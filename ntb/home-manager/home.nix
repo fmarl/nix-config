@@ -23,11 +23,14 @@
     ranger
     obsidian
     nixpkgs-fmt
+    tdesktop
   ]);
 
   programs.mu.enable = true;
   programs.msmtp.enable = true;
   programs.mbsync.enable = true;
+
+  programs.vscode.enable = true;
 
   programs.direnv = {
     enable = true;
