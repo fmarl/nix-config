@@ -53,7 +53,7 @@
         identityFile = nixosConfigurations.ntb.config.sops.secrets.codeberg.path;
       };
       "mls" = {
-        hostname = "192.168.0.3";
+        hostname = "192.168.0.8";
         user = "florian";
         identityFile = nixosConfigurations.ntb.config.sops.secrets.mls.path;
       };
