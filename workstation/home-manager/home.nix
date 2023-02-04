@@ -26,6 +26,7 @@
     cachix
     tdesktop
     element-desktop-wayland
+    jetbrains.idea-community
   ]);
 
   programs.mu.enable = true;
