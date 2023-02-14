@@ -22,14 +22,17 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-VxnDqG72C0zrX5qFhdeNCWP/pgo4jvtsrFMPOtWKR9g=",
-        "path": "/nix/store/8cb7lgq6a23ing9qlzsxvmif4pf0vz7s-source/coco",
-        "type": "path"
+        "lastModified": 1676407737,
+        "narHash": "sha256-S3fMPpBiU9AGryI/Mh1WawE81dR1X7P5fjB+Pa3RJTk=",
+        "owner": "fxttr",
+        "repo": "coco",
+        "rev": "5213297cb8e33e4ee442000907b86ff9a3c51ee9",
+        "type": "github"
       },
       "original": {
-        "path": "/nix/store/8cb7lgq6a23ing9qlzsxvmif4pf0vz7s-source/coco",
-        "type": "path"
+        "owner": "fxttr",
+        "repo": "coco",
+        "type": "github"
       }
     },
     "emacs-cfg": {
