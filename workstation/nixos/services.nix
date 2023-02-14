@@ -17,7 +17,7 @@
       enable = true;
       drivers = [ pkgs.hplip ];
     };
-    
+
     zfs = {
       autoScrub.enable = true;
       autoSnapshot.enable = true;
@@ -28,16 +28,6 @@
     };
 
     pcscd.enable = true;
-    
-    xserver = {
-      enable = true;
-
-      displayManager = {
-        lightdm.enable = true;
-   	  };
-
-      layout = "de";
-    };
 
     pipewire = {
       enable = true;

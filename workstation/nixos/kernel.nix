@@ -5,7 +5,7 @@ with lib;
 {
   boot.kernelPackages = mkDefault pkgs.linuxPackages_6_1;
 
-#  security.lockKernelModules = mkDefault true;
+  #  security.lockKernelModules = mkDefault true;
 
   security.protectKernelImage = mkDefault true;
 

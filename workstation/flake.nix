@@ -11,10 +11,6 @@
       url = "github:fxttr/emacs-cfg";
       flake = false;
     };
-    artwork = {
-      url = "github:NixOS/nixos-artwork";
-      flake = false;
-    };
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -23,9 +19,16 @@
       url = "github:fxttr/secrets";
       flake = false;
     };
+    coco = {
+      url = "github:fxttr/coco";
+    };
+    artwork = {
+      url = "github:NixOS/nixos-artwork";
+      flake = false;
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, emacs-cfg, artwork, sops-nix, secrets, ... }@inputs: rec {
+  outputs = { self, nixpkgs, home-manager, emacs-cfg, sops-nix, secrets, coco, artwork, ... }@inputs: rec {
     legacyPackages = nixpkgs.lib.genAttrs [ "x86_64-linux" ] (system:
       import inputs.nixpkgs {
         inherit system;
@@ -37,9 +40,10 @@
       workstation = nixpkgs.lib.nixosSystem {
         pkgs = legacyPackages.x86_64-linux;
         specialArgs = { inherit inputs; };
-        modules = [ 
+        modules = [
           ./nixos/configuration.nix
           sops-nix.nixosModules.sops
+          coco.nixosModules.nixos
         ];
       };
     };
@@ -47,12 +51,13 @@
     homeConfigurations = {
       "florian@workstation" = home-manager.lib.homeManagerConfiguration {
         pkgs = legacyPackages.x86_64-linux;
-        extraSpecialArgs = { 
-		      inherit inputs; 
-		      inherit nixosConfigurations; 
-	      };
+        extraSpecialArgs = {
+          inherit inputs;
+          inherit nixosConfigurations;
+        };
         modules = [
           ./home-manager/home.nix
+          coco.nixosModules.home-manager
         ];
       };
     };
