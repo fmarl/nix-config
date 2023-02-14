@@ -1,13 +1,5 @@
-{ pkgs, config, nixosConfigurations, inputs, lib, ... }: 
+{ pkgs, config, nixosConfigurations, inputs, lib, coco, ... }:
 {
-  imports = [
-    ./../../lib/hm/programs/emacs.nix
-    ./../../lib/hm/programs/sway.nix
-    ./../../lib/hm/programs/zsh.nix
-    ./../../lib/hm/services/waybar.nix
-    ./../../lib/hm/programs/irssi.nix
-  ];
-
   nixpkgs.config.allowUnfree = true;
 
   home.username = "florian";
@@ -15,25 +7,31 @@
 
   home.stateVersion = "22.11";
 
+  coco = {
+    sway.enable = true;
+    sway.wallpaper = "${inputs.artwork}/wallpapers/nix-wallpaper-nineish-dark-gray.png";
+    waybar.enable = true;
+    zsh.enable = true;
+    emacs.enable = true;
+    irssi.enable = true;
+  };
+
   home.packages = (with pkgs; [
     firefox
     spotify
-    feh
-    mupdf
     ranger
+    feh
     obsidian
     nixpkgs-fmt
     cachix
     tdesktop
-    element-desktop-wayland
-    jetbrains.idea-community
+    discord
+    jetbrains.idea-ultimate
+    jetbrains.datagrip
   ]);
 
-  programs.mu.enable = true;
-  programs.msmtp.enable = true;
-  programs.mbsync.enable = true;
   programs.vscode.enable = true;
-  
+
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;

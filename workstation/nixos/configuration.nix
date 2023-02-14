@@ -3,10 +3,8 @@
   imports =
     [
       ./hardware-configuration.nix
-      ././../../lib/nixos/services/ntp.nix
       ./kernel.nix
       ./services.nix
-      ./../../lib/nixos/programs/sway.nix
     ];
 
   nix.nixPath =
@@ -48,19 +46,19 @@
   sops.age.keyFile = "/home/florian/.config/sops/age/keys.txt";
   sops.age.generateKey = true;
   sops.secrets.github = {
-	  owner = config.users.users.florian.name;
+    owner = config.users.users.florian.name;
   };
   sops.secrets.codeberg = {
-	  owner = config.users.users.florian.name;
+    owner = config.users.users.florian.name;
   };
   sops.secrets.mls = {
-	  owner = config.users.users.florian.name;
+    owner = config.users.users.florian.name;
   };
   sops.secrets.rpi = {
-	  owner = config.users.users.florian.name;
+    owner = config.users.users.florian.name;
   };
   sops.secrets.cachix = {
-          owner = config.users.users.florian.name;
+    owner = config.users.users.florian.name;
   };
 
   environment.shells = with pkgs; [ zsh ];
@@ -81,6 +79,11 @@
 
   console = {
     keyMap = "de";
+  };
+
+  coco = {
+    sway.enable = true;
+    ntp.enable = true;
   };
 
   nixpkgs.config.allowUnfree = true;
@@ -105,7 +108,7 @@
 
         openssh.authorizedKeys.keys = [
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFBOAvFL34WZRnKtwMx27zAXq4Z8vQxK8oR+O+6UYwet eddsa-key-20221216"
-	        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOCbnpc2pnr/wk64fHe+nI3ydgk6umjHflT8vkN6IPHL fb@fx-ttr.de"
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOCbnpc2pnr/wk64fHe+nI3ydgk6umjHflT8vkN6IPHL fb@fx-ttr.de"
         ];
       };
     };
