@@ -1,7 +1,4 @@
-{ pkgs, ... }: {
-  imports = [
-    ./../../lib/hm/programs/zsh.nix
-  ];
+{ pkgs, config, nixosConfigurations, inputs, lib, coco, ... }: {
 
   nixpkgs.config.allowUnfree = true;
 
@@ -10,21 +7,19 @@
 
   home.stateVersion = "22.11";
 
+  coco = {
+    sway.enable = false;
+    waybar.enable = false;
+    zsh.enable = true;
+    emacs.enable = false;
+    irssi.enable = false;
+  };
+
   home.packages = (with pkgs; [
     ranger
     tmux
     nixpkgs-fmt
     rnix-lsp
-    (pkgs.python3.withPackages (pythonPackages: with pythonPackages; [
-      ipykernel
-      pandas
-      scikit-learn
-      jupyter
-      numpy
-      tensorflow
-      matplotlib
-      seaborn
-    ]))
   ]);
 
   programs.direnv = {
