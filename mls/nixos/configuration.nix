@@ -1,9 +1,8 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 {
   imports =
     [
       ./hardware-configuration.nix
-      ./../../lib/nixos/services/ntp.nix
       ./kernel.nix
       ./services.nix
     ];
@@ -18,17 +17,42 @@
   nix.settings.trusted-public-keys = [
     "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
     "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
+    "fxttr.cachix.org-1:TBvPEn0MZT1PB89c1S8KWyWEmxbWMPW58lqODJuaH94="
   ];
 
   nix.settings.substituters = [
     "https://hydra.iohk.io"
     "https://devenv.cachix.org"
+    "https://fxttr.cachix.org"
   ];
+
+  nixpkgs.overlays = [ (self: super: inputs.rocm) ];
+
+  rocmTargets = ["gfx803" "gfx900" "gfx906"];
+
+  sops.defaultSopsFile = "${inputs.secrets}/secrets/ssh.yaml";
+  sops.age.keyFile = "/home/florian/.config/sops/age/keys.txt";
+  sops.age.generateKey = true;
+  sops.secrets.github = {
+    owner = config.users.users.florian.name;
+  };
+  sops.secrets.codeberg = {
+    owner = config.users.users.florian.name;
+  };
+  sops.secrets.mls = {
+    owner = config.users.users.florian.name;
+  };
+  sops.secrets.rpi = {
+    owner = config.users.users.florian.name;
+  };
+  sops.secrets.cachix = {
+    owner = config.users.users.florian.name;
+  };
 
   nix.extraOptions = lib.optionalString (config.nix.package == pkgs.nixFlakes)
     "experimental-features = nix-command flakes";
 
-  networking.hostName = "rpi";
+  networking.hostName = "mls";
   networking.hostId = "04686870";
   networking.firewall = {
     enable = true;
@@ -40,7 +64,12 @@
     pinentryFlavor = "curses";
     enableSSHSupport = true;
   };
-  
+
+  coco = {
+    sway.enable = false;
+    ntp.enable = true;
+  };
+
   environment.shells = with pkgs; [ zsh ];
   environment.pathsToLink = [ "/share/zsh" ];
   environment.systemPackages = with pkgs;
@@ -81,15 +110,14 @@
         shell = pkgs.zsh;
 
         openssh.authorizedKeys.keys = [
-          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFBOAvFL34WZRnKtwMx27zAXq4Z8vQxK8oR+O+6UYwet eddsa-key-20221216"
-	        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOCbnpc2pnr/wk64fHe+nI3ydgk6umjHflT8vkN6IPHL fb@fx-ttr.de"
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINxMCWgbhj/ngvL28017+Fn822FDbxaaKqLbaGNjXY08 fb@fx-ttr.de"
         ];
       };
     };
   };
 
   nix.settings.trusted-users = [ "root" "florian" ];
-  
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave

@@ -5,47 +5,41 @@
 
 {
   imports =
-    [
-      (modulesPath + "/installer/scan/not-detected.nix")
+    [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "ahci" "ohci_pci" "ehci_pci" "pata_atiixp" "xhci_pci" "usbhid" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ];
+  boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
-  boot.loader.systemd-boot.enable = true;
+   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.postDeviceCommands = lib.mkAfter ''
     	zfs rollback -r rpool/local/root@blank
   '';
 
   fileSystems."/" =
-    {
-      device = "rpool/local/root";
+    { device = "rpool/local/root";
       fsType = "zfs";
     };
 
   fileSystems."/boot" =
-    {
-      device = "/dev/disk/by-uuid/F3EB-6BBB";
+    { device = "/dev/disk/by-uuid/E9B2-E910";
       fsType = "vfat";
     };
 
   fileSystems."/nix" =
-    {
-      device = "rpool/local/nix";
+    { device = "rpool/local/nix";
       fsType = "zfs";
     };
 
   fileSystems."/home" =
-    {
-      device = "rpool/safe/home";
+    { device = "rpool/safe/home";
       fsType = "zfs";
     };
 
   fileSystems."/persist" =
-    {
-      device = "rpool/safe/persist";
+    { device = "rpool/safe/persist";
       fsType = "zfs";
     };
 
@@ -59,5 +53,5 @@
   # networking.interfaces.enp3s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
