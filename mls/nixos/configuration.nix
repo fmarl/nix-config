@@ -26,6 +26,10 @@
     "https://fxttr.cachix.org"
   ];
 
+  nixpkgs.overlays = [ (self: super: inputs.rocm) ];
+
+  rocmTargets = ["gfx803" "gfx900" "gfx906"];
+
   sops.defaultSopsFile = "${inputs.secrets}/secrets/ssh.yaml";
   sops.age.keyFile = "/home/florian/.config/sops/age/keys.txt";
   sops.age.generateKey = true;
@@ -48,7 +52,7 @@
   nix.extraOptions = lib.optionalString (config.nix.package == pkgs.nixFlakes)
     "experimental-features = nix-command flakes";
 
-  networking.hostName = "rpi";
+  networking.hostName = "mls";
   networking.hostId = "04686870";
   networking.firewall = {
     enable = true;
@@ -65,7 +69,7 @@
     sway.enable = false;
     ntp.enable = true;
   };
-  
+
   environment.shells = with pkgs; [ zsh ];
   environment.pathsToLink = [ "/share/zsh" ];
   environment.systemPackages = with pkgs;
@@ -113,7 +117,7 @@
   };
 
   nix.settings.trusted-users = [ "root" "florian" ];
-  
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave

@@ -27,6 +27,36 @@
     nix-direnv.enable = true;
   };
 
+
+
+programs.ssh = {
+    enable = true;
+    hashKnownHosts = true;
+
+    matchBlocks = {
+      "github" = {
+        hostname = "github.com";
+        user = "git";
+        identityFile = nixosConfigurations.mls.config.sops.secrets.github.path;
+      };
+      "codeberg" = {
+        hostname = "codeberg.org";
+        user = "git";
+        identityFile = nixosConfigurations.mls.config.sops.secrets.codeberg.path;
+      };
+      "mls" = {
+        hostname = "192.168.0.3";
+        user = "florian";
+        identityFile = nixosConfigurations.mls.config.sops.secrets.mls.path;
+      };
+      "rpi" = {
+        hostname = "192.168.0.4";
+        user = "florian";
+        identityFile = nixosConfigurations.mls.config.sops.secrets.rpi.path;
+      };
+    };
+  };
+
   programs.git = {
     enable = true;
     userName = "Florian Büstgens";

@@ -8,6 +8,8 @@
       # TODO: autoReplication
     };
 
+    vscode-server.enable = true;
+
     openssh = {
       enable = true;
       permitRootLogin = "no";
