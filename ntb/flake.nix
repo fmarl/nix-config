@@ -23,9 +23,12 @@
       url = "github:fxttr/secrets";
       flake = false;
     };
+    coco = {
+      url = "github:fxttr/coco";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, emacs-cfg, artwork, sops-nix, secrets, ... }@inputs: rec {
+  outputs = { self, nixpkgs, home-manager, emacs-cfg, artwork, sops-nix, secrets, coco, ... }@inputs: rec {
     legacyPackages = nixpkgs.lib.genAttrs [ "x86_64-linux" ] (system:
       import inputs.nixpkgs {
         inherit system;
@@ -40,6 +43,7 @@
         modules = [
           ./nixos/configuration.nix
           sops-nix.nixosModules.sops
+          coco.nixosModules.nixos
         ];
       };
     };
@@ -51,7 +55,10 @@
           inherit inputs;
           inherit nixosConfigurations;
         };
-        modules = [ ./home-manager/home.nix ];
+        modules = [ 
+          ./home-manager/home.nix
+          coco.nixosModules.home-manager
+        ];
       };
     };
   };

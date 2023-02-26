@@ -22,24 +22,6 @@
 
     pcscd.enable = true;
 
-    xserver = {
-      enable = true;
-
-      libinput = {
-        enable = true;
-        touchpad.tapping = true;
-        touchpad.naturalScrolling = true;
-        touchpad.scrollMethod = "twofinger";
-        touchpad.clickMethod = "clickfinger";
-      };
-
-      displayManager = {
-        lightdm.enable = true;
-      };
-      
-      layout = "de";
-    };
-
     pipewire = {
       enable = true;
       alsa.enable = true;

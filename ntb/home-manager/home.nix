@@ -1,13 +1,5 @@
 { pkgs, config, nixosConfigurations, inputs, lib, ... }:
 {
-  imports = [
-	  ./../../lib/hm/programs/emacs.nix
-    ./../../lib/hm/programs/sway.nix
-    ./../../lib/hm/programs/irssi.nix
-    ./../../lib/hm/programs/zsh.nix
-    ./../../lib/hm/services/waybar.nix
-  ];
-
   nixpkgs.config.allowUnfree = true;
 
   home.username = "florian";
@@ -15,20 +7,23 @@
 
   home.stateVersion = "22.11";
 
+  coco = {
+    zsh.enable = true;
+    emacs.enable = true;
+    irssi.enable = true;
+  };
+
   home.packages = (with pkgs; [
     firefox
     spotify
-    feh
-    mupdf
-    ranger
     obsidian
     nixpkgs-fmt
     tdesktop
+    discord
+    speedcrunch
+    jetbrains.idea-ultimate
+    jetbrains.datagrip
   ]);
-
-  programs.mu.enable = true;
-  programs.msmtp.enable = true;
-  programs.mbsync.enable = true;
 
   programs.vscode.enable = true;
 
@@ -53,7 +48,7 @@
         identityFile = nixosConfigurations.ntb.config.sops.secrets.codeberg.path;
       };
       "mls" = {
-        hostname = "192.168.0.8";
+        hostname = "192.168.0.3";
         user = "florian";
         identityFile = nixosConfigurations.ntb.config.sops.secrets.mls.path;
       };
