@@ -28,6 +28,7 @@
     discord
     jetbrains.idea-ultimate
     jetbrains.datagrip
+    speedcrunch
   ]);
 
   programs.vscode.enable = true;

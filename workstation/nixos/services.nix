@@ -11,8 +11,6 @@
   };
 
   services = {
-    blueman.enable = true;
-
     printing = {
       enable = true;
       drivers = [ pkgs.hplip ];
@@ -38,8 +36,10 @@
 
     openssh = {
       enable = true;
-      permitRootLogin = "no";
-      passwordAuthentication = true;
+      settings = {
+        PermitRootLogin = "no";
+        PasswordAuthentication = true;
+      };
       hostKeys =
         [
           {
