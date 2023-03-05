@@ -8,14 +8,20 @@
   home.stateVersion = "22.11";
 
   coco = {
+    sway.enable = true;
+    sway.wallpaper = "${inputs.artwork}/wallpapers/nix-wallpaper-nineish-dark-gray.png";
+    waybar.enable = true;
     zsh.enable = true;
     emacs.enable = true;
     irssi.enable = true;
+  #  irssi.name = "fxttr";
   };
 
   home.packages = (with pkgs; [
     firefox
     spotify
+    ranger
+    feh
     obsidian
     nixpkgs-fmt
     tdesktop

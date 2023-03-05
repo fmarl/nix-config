@@ -56,7 +56,7 @@
   };
 
   coco = {
-    plasma.enable = true;
+    sway.enable = true;
     ntp.enable = true;
   };
 
