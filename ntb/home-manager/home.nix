@@ -29,6 +29,7 @@
     speedcrunch
     jetbrains.idea-ultimate
     jetbrains.datagrip
+    smartgithg
   ]);
 
   programs.vscode.enable = true;
