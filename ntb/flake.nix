@@ -51,13 +51,11 @@
     homeConfigurations = {
       "florian@ntb" = home-manager.lib.homeManagerConfiguration {
         pkgs = legacyPackages.x86_64-linux;
-        extraSpecialArgs = {
-          inherit inputs;
-          inherit nixosConfigurations;
-        };
+        extraSpecialArgs = { inherit inputs; };
         modules = [ 
           ./home-manager/home.nix
           coco.nixosModules.home-manager
+          sops-nix.homeManagerModules.sops
         ];
       };
     };
