@@ -42,19 +42,6 @@
     enableSSHSupport = true;
   };
 
-  sops.defaultSopsFile = "${inputs.secrets}/secrets/ssh.yaml";
-  sops.age.keyFile = "/home/florian/.config/sops/age/keys.txt";
-  sops.age.generateKey = true;
-  sops.secrets.github = {
-	  owner = config.users.users.florian.name;
-  };
-  sops.secrets.codeberg = {
-	  owner = config.users.users.florian.name;
-  };
-  sops.secrets.mls = {
-	  owner = config.users.users.florian.name;
-  };
-
   coco = {
     sway.enable = true;
     ntp.enable = true;
