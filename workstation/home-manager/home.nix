@@ -11,12 +11,24 @@
     };
     
     secrets = {
-      github = {};
-      codeberg = {};
-      mls = {};
-      rpi = {};
-      cachix = {};
-      unimail = {};
+      github = {
+        path = "/run/user/1000/secrets/github";
+      };
+      codeberg = {
+        path = "/run/user/1000/secrets/codeberg";
+      };
+      mls = {
+        path = "/run/user/1000/secrets/mls";
+      };
+      rpi = {
+        path = "/run/user/1000/secrets/rpi";
+      };
+      cachix = {
+        path = "/run/user/1000/secrets/cachix";
+      };
+      unimail = {
+        path = "/run/user/1000/secrets/unimail";
+      };
     };
   };
 
@@ -110,7 +122,7 @@
   accounts.email = {
     accounts.uni = {
       address = "florian.buestgens@studium.fernuni-hagen.de";
-      imap.host = "owa.fernuni-hagen.de";
+      imap.host = "studium.fernuni-hagen.de";
       mbsync = {
         enable = true;
         create = "maildir";
@@ -128,7 +140,7 @@
       };
       passwordCommand = "cat " + config.sops.secrets.unimail.path;
       smtp = {
-        host = "smtp.fernuni-hagen.de";
+        host = "studium.fernuni-hagen.de";
       };
       userName = "florian.buestgens@studium.fernuni-hagen.de";
     };
