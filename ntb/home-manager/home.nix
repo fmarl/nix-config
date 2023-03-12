@@ -29,6 +29,9 @@
       unimail = {
         path = "/run/user/1000/secrets/unimail";
       };
+      ionosmail = {
+        path = "/run/user/1000/secrets/ionosmail";
+      };
     };
   };
 
@@ -40,8 +43,27 @@
     zsh.enable = true;
     emacs.enable = true;
     irssi.enable = true;
-    #  irssi.name = "fxttr";
+    irssi.user = "fxttr";
     mail.enable = true;
+    mail.accounts = {
+      "uni" = {
+        address = "florian.buestgens@studium.fernuni-hagen.de";
+        imap = "studium.fernuni-hagen.de";
+        name = "Florian Büstgens";
+        passwordPath = config.sops.secrets.unimail.path;
+        user = "florian.buestgens@studium.fernuni-hagen.de";
+        smtp = "studium.fernuni-hagen.de";
+      };
+      "ionos" = {
+        address = "fb@fx-ttr.de";
+        imap = "imap.ionos.de";
+        name = "Florian Büstgens";
+        primary = true;
+        passwordPath = config.sops.secrets.ionosmail.path;
+        user = "fb@fx-ttr.de";
+        smtp = "smtp.ionos.de";
+      };
+    };
   };
 
   services = {
@@ -123,32 +145,44 @@
     ]);   
   };
 
-  accounts.email = {
-    accounts.uni = {
-      address = "florian.buestgens@studium.fernuni-hagen.de";
-      imap.host = "studium.fernuni-hagen.de";
-      mbsync = {
-        enable = true;
-        create = "maildir";
-      };
-      msmtp.enable = true;
-      mu.enable = true;
-      primary = true;
-      realName = "Florian Büstgens";
-      signature = {
-        text = ''
-             Mit freundlichen Grüßen
-             Florian Büstgens
-        '';
-        showSignature = "append";
-      };
-      passwordCommand = "${pkgs.busybox}/bin/cat " + config.sops.secrets.unimail.path;
-      smtp = {
-        host = "studium.fernuni-hagen.de";
-      };
-      userName = "florian.buestgens@studium.fernuni-hagen.de";
-    };
-  };
+  # accounts.email = {
+  #   accounts = {
+  #     uni = {
+  #       address = "florian.buestgens@studium.fernuni-hagen.de";
+  #       imap.host = "studium.fernuni-hagen.de";
+  #       mbsync = {
+  #         enable = true;
+  #         create = "maildir";
+  #       };
+  #       msmtp.enable = true;
+  #       mu.enable = true;
+  #       primary = true;
+  #       realName = "Florian Büstgens";
+  #       signature = {
+  #         text = ''
+  #            Mit freundlichen Grüßen
+  #            Florian Büstgens
+  #       '';
+  #         showSignature = "append";
+  #       };
+  #       passwordCommand = "${pkgs.busybox}/bin/cat " + config.sops.secrets.unimail.path;
+  #       smtp = {
+  #         host = "studium.fernuni-hagen.de";
+  #       };
+  #       userName = "florian.buestgens@studium.fernuni-hagen.de";
+  #     };
+      
+  #     ionos = {
+  #       address = "fb@fx-ttr.de";
+  #       imap.host = "imap.ionos.de";
+  #       mbsync = {
+  #         enable = true;
+  #         create = "maildir";
+  #       };
+  #       msmtp.enable = true;
+  #     };
+  #   };
+  # };
 
   systemd.user.services.mbsync.Unit.After = [ "sops-nix.service" ];
 }
