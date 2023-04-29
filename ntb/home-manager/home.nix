@@ -116,10 +116,12 @@
       ranger
       feh
       nixpkgs-fmt
-      tdesktop
-      discord
       speedcrunch
       rnix-lsp
+      zap
+      ghidra
+      jetbrains.idea-ultimate
+      jetbrains.clion
     ]);   
   };
 

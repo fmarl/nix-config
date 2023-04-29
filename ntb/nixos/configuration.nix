@@ -42,6 +42,8 @@
     enableSSHSupport = true;
   };
 
+  programs.zsh.enable = true;
+
   coco = {
     sway.enable = true;
     ntp.enable = true;
