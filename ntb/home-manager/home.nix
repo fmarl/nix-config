@@ -115,43 +115,17 @@
       spotify
       ranger
       feh
+      zathura
       nixpkgs-fmt
       speedcrunch
       rnix-lsp
-      zap
-      ghidra
-      jetbrains.idea-ultimate
-      jetbrains.clion
-    ]);   
+      element-desktop
+      signal-desktop
+    ]);
   };
 
   accounts.email = {
     accounts = {
-      uni = {
-        address = "florian.buestgens@studium.fernuni-hagen.de";
-        imap.host = "studium.fernuni-hagen.de";
-        mbsync = {
-          enable = true;
-          create = "maildir";
-        };
-        msmtp.enable = true;
-        mu.enable = true;
-        primary = false;
-        realName = "Florian Büstgens";
-        signature = {
-          text = ''
-             Mit freundlichen Grüßen
-             Florian Büstgens
-        '';
-          showSignature = "append";
-        };
-        passwordCommand = "${pkgs.busybox}/bin/cat " + config.sops.secrets.unimail.path;
-        smtp = {
-          host = "studium.fernuni-hagen.de";
-        };
-        userName = "florian.buestgens@studium.fernuni-hagen.de";
-      };
-      
       ionos = {
         address = "fb@fx-ttr.de";
         imap.host = "imap.ionos.de";

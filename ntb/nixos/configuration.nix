@@ -31,9 +31,14 @@
 
   networking.hostName = "ntb";
   networking.hostId = "04686870";
-  networking.networkmanager.enable = true;
-    networking.firewall = {
+  networking.networkmanager = {
     enable = true;
+    wifi.macAddress = "random";
+  };
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [];
+    allowedUDPPorts = [];
   };
 
   programs.gnupg.agent = {
@@ -101,4 +106,8 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "21.11"; # Did you read the comment?
+
+  # disable coredump that could be exploited later
+  # and also slow down the system when something crash
+  systemd.coredump.enable = false;
 }
