@@ -1,3 +1,4 @@
+
 { config, pkgs, lib, inputs, ... }:
 {
   imports =
@@ -40,6 +41,9 @@
     allowedTCPPorts = [];
     allowedUDPPorts = [];
   };
+
+  security.doas.enable = true;
+  security.sudo.enable = false;
 
   programs.gnupg.agent = {
     enable = true;
