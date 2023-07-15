@@ -11,6 +11,11 @@
   };
 
   services = {
+    printing = {
+      enable = true;
+      drivers = [ pkgs.hplip ];
+    };
+    
     zfs = {
       autoScrub.enable = true;
       autoSnapshot.enable = true;
