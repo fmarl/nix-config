@@ -42,6 +42,8 @@
     enableSSHSupport = true;
   };
 
+  programs.zsh.enable = true;
+
   environment.shells = with pkgs; [ zsh ];
   environment.pathsToLink = [ "/share/zsh" ];
   environment.systemPackages = with pkgs;
@@ -59,7 +61,7 @@
   ];
 
   console = {
-    keyMap = "de";
+    keyMap = "en";
   };
 
   coco = {
