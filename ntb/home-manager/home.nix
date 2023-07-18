@@ -89,8 +89,8 @@
     
     git = {
       enable = true;
-      userName = "Florian Büstgens";
-      userEmail = "fb@fx-ttr.de";
+      userName = "Florian Marrero Liestmann";
+      userEmail = "f.m.liestmann@fx-ttr.de";
       #    signing = { 
       #      signByDefault = true;
       #      key = "865E0BA2011DAEE1A83F895E2EEC4010A0299470";
