@@ -91,10 +91,10 @@
       enable = true;
       userName = "Florian Marrero Liestmann";
       userEmail = "f.m.liestmann@fx-ttr.de";
-      #    signing = { 
-      #      signByDefault = true;
-      #      key = "865E0BA2011DAEE1A83F895E2EEC4010A0299470";
-      #    };
+      signing = { 
+        signByDefault = true;
+        key = "9BF161F4A5720E3674FCEC8F6DEDAC0CEF0639C1";
+      };
     };
   };
 
