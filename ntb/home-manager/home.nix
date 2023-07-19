@@ -89,8 +89,8 @@
     
     git = {
       enable = true;
-      userName = "Florian Büstgens";
-      userEmail = "fb@fx-ttr.de";
+      userName = "Florian Marrero Liestmann";
+      userEmail = "f.m.liestmann@fx-ttr.de";
       #    signing = { 
       #      signByDefault = true;
       #      key = "865E0BA2011DAEE1A83F895E2EEC4010A0299470";
@@ -127,7 +127,7 @@
   accounts.email = {
     accounts = {
       ionos = {
-        address = "fb@fx-ttr.de";
+        address = "f.m.liestmann@fx-ttr.de";
         imap.host = "imap.ionos.de";
         mbsync = {
           enable = true;
@@ -136,17 +136,17 @@
         msmtp.enable = true;
         mu.enable = true;
         primary = true;
-        realName = "Florian Büstgens";
+        realName = "Florian Marrero Liestmann";
         signature = {
           text = ''
                Mit freundlichen Grüßen
-               Florian Büstgens
+               Florian Marrero Liestmann
           '';
           showSignature = "append";
         };
         passwordCommand = "${pkgs.busybox}/bin/cat " + config.sops.secrets.ionosmail.path;
         smtp.host = "smtp.ionos.de";
-        userName = "fb@fx-ttr.de";
+        userName = "f.m.liestmann@fx-ttr.de";
       };
     };
   };
