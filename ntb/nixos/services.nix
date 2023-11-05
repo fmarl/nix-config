@@ -22,6 +22,17 @@
 
     pcscd.enable = true;
 
+    xserver = {
+      enable = true;
+
+      displayManager = {
+        lightdm.enable = true;
+      };
+
+      layout = "us";
+      xkbVariant = "altgr-intl";
+    };
+
     pipewire = {
       enable = true;
       alsa.enable = true;

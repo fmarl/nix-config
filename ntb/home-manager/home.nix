@@ -44,11 +44,6 @@
     emacs.enable = true;
     irssi.enable = true;
     irssi.user = "fxttr";
-    mail.enable = true;
-  };
-
-  services = {
-    mbsync.enable = true;
   };
 
   programs = {
@@ -119,36 +114,9 @@
       nixpkgs-fmt
       speedcrunch
       rnix-lsp
-      element-desktop
       signal-desktop
+      obsidian
     ]);
-  };
-
-  accounts.email = {
-    accounts = {
-      ionos = {
-        address = "f.m.liestmann@fx-ttr.de";
-        imap.host = "imap.ionos.de";
-        mbsync = {
-          enable = true;
-          create = "maildir";
-        };
-        msmtp.enable = true;
-        mu.enable = true;
-        primary = true;
-        realName = "Florian Marrero Liestmann";
-        signature = {
-          text = ''
-               Mit freundlichen Grüßen
-               Florian Marrero Liestmann
-          '';
-          showSignature = "append";
-        };
-        passwordCommand = "${pkgs.busybox}/bin/cat " + config.sops.secrets.ionosmail.path;
-        smtp.host = "smtp.ionos.de";
-        userName = "f.m.liestmann@fx-ttr.de";
-      };
-    };
   };
 
   systemd.user.services.mbsync.Unit.After = [ "sops-nix.service" ];
