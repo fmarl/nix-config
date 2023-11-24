@@ -9,7 +9,7 @@
       keyFile = "/home/florian/.config/sops/age/keys.txt";
       generateKey = true;
     };
-    
+
     secrets = {
       github = {
         path = "/run/user/1000/secrets/github";
@@ -36,24 +36,40 @@
   };
 
   coco = {
-    sway.enable = true;
-    sway.wallpaper = "${inputs.artwork}/wallpapers/nix-wallpaper-nineish-dark-gray.png";
-    waybar.enable = true;
-    waybar.mobile = true;
+    sway = {
+      enable = true;
+      wallpaper = "${inputs.artwork}/wallpapers/nix-wallpaper-nineish-dark-gray.png";
+    };
+
+    waybar = {
+      enable = true;
+      mobile = true;
+    };
+
     zsh.enable = true;
     emacs.enable = true;
-    irssi.enable = true;
-    irssi.user = "fxttr";
+
+    irssi = {
+      enable = true;
+      user = "fxttr";
+    };
+
+    theme.enable = true;
   };
 
+  services.blueman-applet.enable = true;
+
   programs = {
-    vscode.enable = true;
+    vscode = {
+      enable = true;
+      package = pkgs.vscode.fhs;
+    };
 
     direnv = {
       enable = true;
       nix-direnv.enable = true;
     };
-    
+
     ssh = {
       enable = true;
       hashKnownHosts = true;
@@ -81,12 +97,12 @@
         };
       };
     };
-    
+
     git = {
       enable = true;
       userName = "Florian Marrero Liestmann";
       userEmail = "f.m.liestmann@fx-ttr.de";
-      signing = { 
+      signing = {
         signByDefault = true;
         key = "9BF161F4A5720E3674FCEC8F6DEDAC0CEF0639C1";
       };
@@ -115,6 +131,7 @@
       speedcrunch
       rnix-lsp
       signal-desktop
+      discord
       obsidian
     ]);
   };

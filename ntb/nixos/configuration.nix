@@ -1,8 +1,7 @@
-
 { config, pkgs, lib, inputs, ... }:
 {
   imports =
-    [ 
+    [
       ./hardware-configuration.nix
       ./kernel.nix
       ./services.nix
@@ -16,19 +15,15 @@
     ];
 
   nix.settings.trusted-public-keys = [
-    "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
-    "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
     "fxttr.cachix.org-1:TBvPEn0MZT1PB89c1S8KWyWEmxbWMPW58lqODJuaH94="
   ];
-  
+
   nix.settings.substituters = [
-    "https://hydra.iohk.io"
-    "https://devenv.cachix.org"
     "https://fxttr.cachix.org"
   ];
 
   nix.extraOptions = lib.optionalString (config.nix.package == pkgs.nixFlakes)
-  	"experimental-features = nix-command flakes";
+    "experimental-features = nix-command flakes";
 
   networking.hostName = "ntb";
   networking.hostId = "04686870";
@@ -38,8 +33,8 @@
   };
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [];
-    allowedUDPPorts = [];
+    allowedTCPPorts = [ ];
+    allowedUDPPorts = [ ];
   };
 
   programs.gnupg.agent = {
@@ -74,7 +69,7 @@
   console = {
     keyMap = "de";
   };
-  
+
 
   users = {
     mutableUsers = false;
@@ -84,17 +79,17 @@
       };
 
       florian = {
-	      isNormalUser = true;
+        isNormalUser = true;
         createHome = true;
         description = "Florian Büstgens";
         initialHashedPassword = "\$6\$IynztI2Y8F2DIMUD\$REn16J9uoLpQqDDepvdP./HFGF4TK4od2NHBMhbkhL.0BYWdn6ztWY3Lmgsmrf8InEo5FO0h0mxlwzfmBdiA8/";
-	      extraGroups = [ "wheel" ];
-	      group = "users";
-	      uid = 1000;
-	      home = "/home/florian";
-	      shell = pkgs.zsh;
-	    };
-	  };
+        extraGroups = [ "wheel" ];
+        group = "users";
+        uid = 1000;
+        home = "/home/florian";
+        shell = pkgs.zsh;
+      };
+    };
   };
 
   nix.settings.trusted-users = [ "root" "florian" ];
