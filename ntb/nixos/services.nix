@@ -7,8 +7,9 @@
   xdg.portal = {
     enable = true;
     wlr.enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-  };
+      gtkUsePortal = true;
+      extraPortals = [ pkgs.xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-wlr ];
+    };
 
   services = {
     zfs = {
@@ -32,6 +33,8 @@
       layout = "us";
       xkbVariant = "altgr-intl";
     };
+
+    blueman.enable = true;
 
     pipewire = {
       enable = true;
