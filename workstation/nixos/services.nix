@@ -4,12 +4,6 @@
   security.rtkit.enable = true;
   security.polkit.enable = true;
 
-  xdg.portal = {
-    enable = true;
-    wlr.enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-  };
-
   services = {
     printing = {
       enable = true;
@@ -33,6 +27,8 @@
       alsa.support32Bit = true;
       pulse.enable = true;
     };
+
+    onedrive.enable = true;
 
     openssh = {
       enable = true;

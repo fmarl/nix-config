@@ -26,6 +26,9 @@
       url = "github:NixOS/nixos-artwork";
       flake = false;
     };
+    xmonad = {
+      url = "github:fxttr/xmonad-cfg";
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, emacs-cfg, sops-nix, secrets, coco, artwork, ... }@inputs: rec {
