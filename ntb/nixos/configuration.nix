@@ -47,6 +47,7 @@
 
   coco = {
     sway.enable = true;
+    xmonad.enable = true;
     ntp.enable = true;
   };
 
@@ -69,7 +70,6 @@
   console = {
     keyMap = "de";
   };
-
 
   users = {
     mutableUsers = false;

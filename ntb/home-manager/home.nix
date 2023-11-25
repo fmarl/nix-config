@@ -2,6 +2,10 @@
 {
   nixpkgs.config.allowUnfree = true;
 
+  imports = [
+    inputs.xmonad.defaultPackage.x86_64-linux
+  ];
+
   sops = {
     defaultSopsFile = "${inputs.secrets}/secrets/ssh.yaml";
 
@@ -133,6 +137,8 @@
       signal-desktop
       discord
       obsidian
+      rxvt-unicode
+      dmenu
     ]);
   };
 
