@@ -2,6 +2,10 @@
 {
   nixpkgs.config.allowUnfree = true;
 
+  imports = [
+    inputs.xmonad.defaultPackage.x86_64-linux
+  ];
+
   sops = {
     defaultSopsFile = "${inputs.secrets}/secrets/ssh.yaml";
 
@@ -9,7 +13,7 @@
       keyFile = "/home/florian/.config/sops/age/keys.txt";
       generateKey = true;
     };
-    
+
     secrets = {
       github = {
         path = "/run/user/1000/secrets/github";
@@ -31,17 +35,14 @@
       };
       ionosmail = {
         path = "/run/user/1000/secrets/ionosmail";
-      };     
+      };
     };
   };
 
   coco = {
-    sway.enable = true;
-    sway.wallpaper = "${inputs.artwork}/wallpapers/nix-wallpaper-nineish-dark-gray.png";
-    waybar.enable = true;
     zsh.enable = true;
     emacs.enable = true;
-    mail.enable = true;
+    theme.enable = true;
 
     irssi = {
       enable = true;
@@ -111,45 +112,16 @@
     packages = (with pkgs; [
       firefox
       spotify
-      ranger
-      feh
       nixpkgs-fmt
       cachix
-      element-desktop
       signal-desktop
       speedcrunch
-      rnix-lsp
-      zathura
+      obsidian
+      discord
+      jetbrains.idea-ultimate
+      jetbrains.datagrip
     ]);
   };
-
-    accounts.email = {
-    accounts = {
-      ionos = {
-        address = "f.m.liestmann@fx-ttr.de";
-        imap.host = "imap.ionos.de";
-        mbsync = {
-          enable = true;
-          create = "maildir";
-        };
-        msmtp.enable = true;
-        mu.enable = true;
-        primary = true;
-        realName = "Florian Marrero Liestmann";
-        signature = {
-          text = ''
-               Mit freundlichen Grüßen
-               Florian Marrero Liestmann
-          '';
-          showSignature = "append";
-        };
-        passwordCommand = "${pkgs.busybox}/bin/cat " + config.sops.secrets.ionosmail.path;
-        smtp.host = "smtp.ionos.de";
-        userName = "f.m.liestmann@fx-ttr.de";
-      };
-    };
-  };
-
 
   systemd.user.services.mbsync.Unit.After = [ "sops-nix.service" ];
 }

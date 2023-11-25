@@ -3,7 +3,7 @@
 with lib;
 
 {
-  boot.kernelPackages = mkDefault pkgs.linuxPackages_6_1;
+  boot.kernelPackages = mkDefault pkgs.linuxPackages;
 
   #  security.lockKernelModules = mkDefault true;
 
