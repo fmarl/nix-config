@@ -2,10 +2,6 @@
 {
   nixpkgs.config.allowUnfree = true;
 
-  imports = [
-    inputs.xmonad.defaultPackage.x86_64-linux
-  ];
-
   sops = {
     defaultSopsFile = "${inputs.secrets}/secrets/ssh.yaml";
 
@@ -43,6 +39,7 @@
     zsh.enable = true;
     emacs.enable = true;
     theme.enable = true;
+    swm.enable = true;
 
     irssi = {
       enable = true;

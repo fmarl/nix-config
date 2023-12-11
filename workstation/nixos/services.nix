@@ -1,15 +1,23 @@
 { config, pkgs, lib, ... }:
 
+
 {
   security.rtkit.enable = true;
   security.polkit.enable = true;
 
+  xdg.portal = {
+    enable = true;
+    config.common.default = "*";
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  };
+
   services = {
+
     printing = {
       enable = true;
       drivers = [ pkgs.hplip ];
     };
-    
+
     zfs = {
       autoScrub.enable = true;
       autoSnapshot.enable = true;

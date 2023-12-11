@@ -42,6 +42,8 @@
     enable = true;
   };
 
+  programs.dconf.enable = true;
+
   services.getty.autologinUser = "florian";
   environment.shells = with pkgs; [ zsh ];
   environment.pathsToLink = [ "/share/zsh" ];
@@ -68,7 +70,7 @@
 
   coco = {
     ntp.enable = true;
-    xmonad.enable = true;
+    swm.enable = true;
   };
 
   users = {
