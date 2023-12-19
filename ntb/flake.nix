@@ -25,9 +25,7 @@
     };
     coco = {
       url = "github:fxttr/coco";
-    };
-    xmonad = {
-      url = "github:fxttr/xmonad-cfg";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 

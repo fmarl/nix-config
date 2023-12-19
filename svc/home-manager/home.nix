@@ -26,36 +26,10 @@
       cachix = {
         path = "/run/user/1000/secrets/cachix";
       };
-      unimail = {
-        path = "/run/user/1000/secrets/unimail";
-      };
-      ionosmail = {
-        path = "/run/user/1000/secrets/ionosmail";
-      };
     };
   };
-
-  coco = {
-    zsh.enable = true;
-    emacs.enable = true;
-
-    irssi = {
-      enable = true;
-      user = "fxttr";
-    };
-
-    theme.enable = true;
-    swm.enable = true;
-  };
-
-  services.blueman-applet.enable = true;
 
   programs = {
-    vscode = {
-      enable = true;
-      package = pkgs.vscode.fhs;
-    };
-
     direnv = {
       enable = true;
       nix-direnv.enable = true;
@@ -95,7 +69,7 @@
       userEmail = "f.m.liestmann@fx-ttr.de";
       signing = {
         signByDefault = true;
-        key = "9BF161F4A5720E3674FCEC8F6DEDAC0CEF0639C1";
+        key = "865E0BA2011DAEE1A83F895E2EEC4010A0299470";
       };
     };
   };
@@ -105,28 +79,9 @@
     homeDirectory = "/home/florian";
     stateVersion = "22.11";
 
-    file = {
-      ".emacs.d" = {
-        source = inputs.emacs-cfg;
-        recursive = true;
-      };
-    };
-
     packages = (with pkgs; [
-      firefox
-      spotify
-      ranger
-      feh
-      zathura
       nixpkgs-fmt
-      speedcrunch
-      rnix-lsp
-      signal-desktop
-      discord
-      obsidian
-      dconf
+      cachix
     ]);
   };
-
-  systemd.user.services.mbsync.Unit.After = [ "sops-nix.service" ];
 }

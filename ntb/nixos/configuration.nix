@@ -46,8 +46,7 @@
   programs.zsh.enable = true;
 
   coco = {
-    sway.enable = true;
-    xmonad.enable = true;
+    swm.enable = true;
     ntp.enable = true;
   };
 
@@ -62,7 +61,7 @@
       pinentry-curses
     ];
 
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     source-code-pro
     font-awesome
   ];

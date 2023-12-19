@@ -3,9 +3,9 @@
 with lib;
 
 {
-  boot.kernelPackages = mkDefault pkgs.linuxPackages_6_0;
+  boot.kernelPackages = mkDefault pkgs.linuxPackages;
 
-#  security.lockKernelModules = mkDefault true;
+  #  security.lockKernelModules = mkDefault true;
 
   security.protectKernelImage = mkDefault true;
 
