@@ -27,10 +27,6 @@
       url = "github:fxttr/coco";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    xmonad = {
-      url = "github:fxttr/xmonad-cfg";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = { self, nixpkgs, home-manager, emacs-cfg, artwork, sops-nix, secrets, coco, xmonad, ... }@inputs: rec {

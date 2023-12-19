@@ -46,8 +46,7 @@
   programs.zsh.enable = true;
 
   coco = {
-    sway.enable = true;
-    xmonad.enable = true;
+    swm.enable = true;
     ntp.enable = true;
   };
 

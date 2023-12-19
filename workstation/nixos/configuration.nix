@@ -44,12 +44,8 @@
 
   programs.dconf.enable = true;
 
-  services.getty.autologinUser = "florian";
   environment.shells = with pkgs; [ zsh ];
   environment.pathsToLink = [ "/share/zsh" ];
-  environment.loginShellInit = ''
-    [[ "$(tty)" == /dev/tty1 ]] && sway --unsupported-gpu
-  '';
   environment.systemPackages = with pkgs;
     [
       vim

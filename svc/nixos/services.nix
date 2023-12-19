@@ -1,11 +1,19 @@
 { config, pkgs, lib, ... }:
 
+
 {
   services = {
+    zfs = {
+      autoScrub.enable = true;
+      autoSnapshot.enable = true;
+    };
+
     openssh = {
       enable = true;
-      permitRootLogin = "no";
-      passwordAuthentication = true;
+      settings = {
+        PermitRootLogin = "no";
+        PasswordAuthentication = true;
+      };
       hostKeys =
         [
           {
