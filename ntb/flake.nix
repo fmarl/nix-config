@@ -29,7 +29,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, emacs-cfg, artwork, sops-nix, secrets, coco, xmonad, ... }@inputs: rec {
+  outputs = { self, nixpkgs, home-manager, emacs-cfg, artwork, sops-nix, secrets, coco, ... }@inputs: rec {
     legacyPackages = nixpkgs.lib.genAttrs [ "x86_64-linux" ] (system:
       import inputs.nixpkgs {
         inherit system;
