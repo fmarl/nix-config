@@ -89,7 +89,7 @@
       userEmail = "f.m.liestmann@fx-ttr.de";
       signing = {
         signByDefault = true;
-        key = "865E0BA2011DAEE1A83F895E2EEC4010A0299470";
+        key = "11502E55A829FA8373719A0F5FFA3255CD5FC2F2";
       };
     };
   };
@@ -113,7 +113,6 @@
       cachix
       signal-desktop
       speedcrunch
-      obsidian
       discord
       jetbrains.idea-ultimate
       jetbrains.datagrip
