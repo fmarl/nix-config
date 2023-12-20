@@ -49,6 +49,8 @@
       pulse.enable = true;
     };
 
+    onedrive.enable = true;
+
     openssh = {
       enable = false;
       settings = {
