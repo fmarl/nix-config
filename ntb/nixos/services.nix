@@ -6,12 +6,16 @@
 
   xdg.portal = {
     enable = true;
-    wlr.enable = true;
-      gtkUsePortal = true;
-      extraPortals = [ pkgs.xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-wlr ];
-    };
+    config.common.default = "*";
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  };
 
   services = {
+    printing = {
+      enable = true;
+      drivers = [ pkgs.hplip ];
+    };
+
     zfs = {
       autoScrub.enable = true;
       autoSnapshot.enable = true;
@@ -23,18 +27,20 @@
 
     pcscd.enable = true;
 
-    xserver = {
-      enable = true;
-
-      displayManager = {
-        lightdm.enable = true;
-      };
-
-      layout = "us";
-      xkbVariant = "altgr-intl";
-    };
-
     blueman.enable = true;
+
+    postgresql = {
+      enable = true;
+      enableTCPIP = true;
+      authentication = pkgs.lib.mkOverride 10 ''
+        #type database DBuser origin-address auth-method
+        local all       all     trust
+        # ipv4
+        host  all      all     127.0.0.1/32   trust
+        # ipv6
+        host all       all     ::1/128        trust
+      '';
+    };
 
     pipewire = {
       enable = true;

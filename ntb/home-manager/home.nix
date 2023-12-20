@@ -2,10 +2,6 @@
 {
   nixpkgs.config.allowUnfree = true;
 
-  imports = [
-    inputs.xmonad.defaultPackage.x86_64-linux
-  ];
-
   sops = {
     defaultSopsFile = "${inputs.secrets}/secrets/ssh.yaml";
 
@@ -40,16 +36,6 @@
   };
 
   coco = {
-    sway = {
-      enable = true;
-      wallpaper = "${inputs.artwork}/wallpapers/nix-wallpaper-nineish-dark-gray.png";
-    };
-
-    waybar = {
-      enable = true;
-      mobile = true;
-    };
-
     zsh.enable = true;
     emacs.enable = true;
 
@@ -59,6 +45,7 @@
     };
 
     theme.enable = true;
+    swm.enable = true;
   };
 
   services.blueman-applet.enable = true;
@@ -137,8 +124,7 @@
       signal-desktop
       discord
       obsidian
-      rxvt-unicode
-      dmenu
+      dconf
     ]);
   };
 
