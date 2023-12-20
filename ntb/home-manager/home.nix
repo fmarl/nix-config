@@ -17,11 +17,8 @@
       codeberg = {
         path = "/run/user/1000/secrets/codeberg";
       };
-      mls = {
-        path = "/run/user/1000/secrets/mls";
-      };
-      rpi = {
-        path = "/run/user/1000/secrets/rpi";
+      svc = {
+        path = "/run/user/1000/secrets/svc";
       };
       cachix = {
         path = "/run/user/1000/secrets/cachix";
@@ -38,12 +35,6 @@
   coco = {
     zsh.enable = true;
     emacs.enable = true;
-
-    irssi = {
-      enable = true;
-      user = "fxttr";
-    };
-
     theme.enable = true;
     swm.enable = true;
   };
@@ -76,15 +67,10 @@
           user = "git";
           identityFile = config.sops.secrets.codeberg.path;
         };
-        "mls" = {
-          hostname = "192.168.0.3";
+        "svc" = {
+          hostname = "192.168.0.2";
           user = "florian";
-          identityFile = config.sops.secrets.mls.path;
-        };
-        "rpi" = {
-          hostname = "192.168.0.4";
-          user = "florian";
-          identityFile = config.sops.secrets.rpi.path;
+          identityFile = config.sops.secrets.svc.path;
         };
       };
     };
@@ -117,14 +103,11 @@
       spotify
       ranger
       feh
-      zathura
       nixpkgs-fmt
       speedcrunch
       rnix-lsp
       signal-desktop
       discord
-      obsidian
-      dconf
     ]);
   };
 
