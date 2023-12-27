@@ -25,11 +25,12 @@
     {
       device = "rpool/local/root";
       fsType = "zfs";
+      options = [ "noexec" ];
     };
 
   fileSystems."/boot" =
     {
-      device = "/dev/disk/by-uuid/2669-59D8";
+      device = "/dev/disk/by-uuid/8CAF-2879";
       fsType = "vfat";
     };
 
@@ -49,6 +50,7 @@
     {
       device = "rpool/safe/persist";
       fsType = "zfs";
+      options = [ "noexec" ];
     };
 
   swapDevices = [ ];
