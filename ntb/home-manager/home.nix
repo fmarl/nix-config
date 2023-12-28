@@ -3,7 +3,7 @@
   nixpkgs.config.allowUnfree = true;
 
   sops = {
-    defaultSopsFile = "${inputs.secrets}/secrets/ssh.yaml";
+    defaultSopsFile = "${inputs.secrets}/systems/ntb.yaml";
 
     age = {
       keyFile = "/home/florian/.config/sops/age/keys.txt";
@@ -11,23 +11,8 @@
     };
 
     secrets = {
-      github = {
-        path = "/run/user/1000/secrets/github";
-      };
-      codeberg = {
-        path = "/run/user/1000/secrets/codeberg";
-      };
-      svc = {
-        path = "/run/user/1000/secrets/svc";
-      };
-      cachix = {
-        path = "/run/user/1000/secrets/cachix";
-      };
-      unimail = {
-        path = "/run/user/1000/secrets/unimail";
-      };
-      ionosmail = {
-        path = "/run/user/1000/secrets/ionosmail";
+      ssh = {
+        path = "/run/user/1000/secrets/ssh";
       };
     };
   };
@@ -60,17 +45,22 @@
         "github" = {
           hostname = "github.com";
           user = "git";
-          identityFile = config.sops.secrets.github.path;
+          identityFile = config.sops.secrets.ssh.path;
         };
         "codeberg" = {
           hostname = "codeberg.org";
           user = "git";
-          identityFile = config.sops.secrets.codeberg.path;
+          identityFile = config.sops.secrets.ssh.path;
         };
         "svc" = {
           hostname = "192.168.0.2";
           user = "florian";
-          identityFile = config.sops.secrets.svc.path;
+          identityFile = config.sops.secrets.ssh.path;
+        };
+        "rpi" = {
+          hostname = "192.168.0.4";
+          user = "florian";
+          identityFile = config.sops.secrets.ssh.path;
         };
       };
     };
@@ -80,8 +70,8 @@
       userName = "Florian Marrero Liestmann";
       userEmail = "f.m.liestmann@fx-ttr.de";
       signing = {
-        signByDefault = false;
-        key = "9BF161F4A5720E3674FCEC8F6DEDAC0CEF0639C1";
+        signByDefault = true;
+        key = "970E99190402423AEDDC82B9D5F3F8665AD2BEEB";
       };
     };
   };
