@@ -141,11 +141,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1703789647,
-        "narHash": "sha256-7MeeMPFdHxpiXefSJ6q7rws5vne8seLG4w1P7LQ1Wxc=",
+        "lastModified": 1703791289,
+        "narHash": "sha256-stnVU1Wr10i3PMmwZE5efJ/IZYHp2sNqF7IpvuAfF5g=",
         "owner": "fxttr",
         "repo": "secrets",
-        "rev": "e8b2c6920da596a35da3ed8fc917d39c01a3773b",
+        "rev": "888595aeb4cb9dc95a7937106c1dfa081e73a5e0",
         "type": "github"
       },
       "original": {
