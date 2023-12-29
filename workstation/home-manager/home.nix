@@ -66,7 +66,7 @@
       userEmail = "f.m.liestmann@fx-ttr.de";
       signing = {
         signByDefault = true;
-        key = "11502E55A829FA8373719A0F5FFA3255CD5FC2F2";
+        key = "70E8553E95661A5A46D5C5C8D7B81BF6241910A0";
       };
     };
   };
@@ -87,6 +87,7 @@
       firefox
       spotify
       nixpkgs-fmt
+      rnix-lsp
       cachix
       signal-desktop
       speedcrunch
