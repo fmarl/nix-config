@@ -52,4 +52,8 @@
         ];
     };
   };
+
+  systemd = {
+    coredump.enable = false;
+  };
 }

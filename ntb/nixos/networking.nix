@@ -1,12 +1,17 @@
 { config, pkgs, lib, ... }:
 {
   networking = {
-    hostName = "workstation";
+    hostName = "ntb";
     hostId = "04686870";
     
+    networkmanager = {
+      enable = true;
+      wifi.macAddress = "random";
+    };
+
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 22 ];
+      allowedTCPPorts = [ ];
       allowedUDPPorts = [ ];
     };
 

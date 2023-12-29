@@ -1,9 +1,12 @@
 { config, pkgs, lib, ... }:
+
+with lib;
+
 {
   boot = {
     kernelPackages = mkDefault pkgs.linuxPackages;
 
-    kernelModules = [ "kvm-amd" ];
+    kernelModules = [ "kvm-intel" ];
 
     initrd = {
       availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
@@ -29,10 +32,6 @@
 
       # Enable page allocator randomization
       "page_alloc.shuffle=1"
-
-      "zswap.enabled=1"
-
-      "zswap.compressor=lz4"
     ];
 
     blacklistedKernelModules = [

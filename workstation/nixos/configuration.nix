@@ -17,6 +17,11 @@
         "/nix/var/nix/profiles/per-user/root/channels"
       ];
 
+    gc = {
+      automatic = true;
+      dates = "weekly";
+    };
+
     settings = {
       trusted-users = [ "root" "florian" ];
       allowed-users = [ "@wheel" ];
@@ -32,6 +37,8 @@
 
     extraOptions = lib.optionalString (config.nix.package == pkgs.nixFlakes)
       "experimental-features = nix-command flakes";
+
+    optimise.automatic = true;
   };
 
   programs = {
