@@ -3,8 +3,10 @@
   imports =
     [
       ./hardware-configuration.nix
-      ./kernel.nix
+      ./boot.nix
       ./services.nix
+      ./networking.nix
+      ./security.nix
     ];
 
   nix = {
@@ -14,6 +16,11 @@
         "nixos-config=/persist/etc/nixos/configuration.nix"
         "/nix/var/nix/profiles/per-user/root/channels"
       ];
+
+    gc = {
+      automatic = true;
+      dates = "weekly";
+    };
 
     settings = {
       trusted-users = [ "root" "florian" ];
@@ -30,30 +37,20 @@
 
     extraOptions = lib.optionalString (config.nix.package == pkgs.nixFlakes)
       "experimental-features = nix-command flakes";
+
+    optimise.automatic = true;
   };
 
-  networking = {
-    hostName = "ntb";
-    hostId = "04686870";
-    networkmanager = {
+  programs = {
+    gnupg.agent = {
       enable = true;
-      wifi.macAddress = "random";
+      pinentryFlavor = "curses";
+      enableSSHSupport = true;
     };
-    firewall = {
-      enable = true;
-      allowedTCPPorts = [ ];
-      allowedUDPPorts = [ ];
-    };
-  };
 
-  programs.gnupg.agent = {
-    enable = true;
-    pinentryFlavor = "curses";
-    enableSSHSupport = true;
+    zsh.enable = true;
+    dconf.enable = true;
   };
-
-  programs.zsh.enable = true;
-  programs.dconf.enable = true;
 
   coco = {
     swm.enable = true;

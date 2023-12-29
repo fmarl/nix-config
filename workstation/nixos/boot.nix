@@ -3,6 +3,8 @@
   boot = {
     kernelPackages = mkDefault pkgs.linuxPackages;
 
+    kernelModules = [ "kvm-amd" ];
+
     initrd = {
       availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
       kernelModules = [ ];

@@ -1,9 +1,5 @@
 { config, pkgs, lib, ... }:
-
 {
-  security.rtkit.enable = true;
-  security.polkit.enable = true;
-
   xdg.portal = {
     enable = true;
     config.common.default = "*";

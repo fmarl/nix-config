@@ -9,18 +9,6 @@
       (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.initrd.postDeviceCommands = lib.mkAfter ''
-    	zfs rollback -r rpool/local/root@blank
-  '';
-  hardware.sane.enable = true;
-  hardware.sane.extraBackends = [ pkgs.hplipWithPlugin ];
-
   fileSystems."/" =
     {
       device = "rpool/local/root";
@@ -58,22 +46,32 @@
   };
 
   swapDevices = [ ];
-
-  hardware.opengl = {
-    enable = true;
-
-    driSupport = true;
-    driSupport32Bit = true;
-
-    extraPackages = with pkgs; [
-      vulkan-validation-layers
-    ];
-  };
-
-  networking.useDHCP = lib.mkDefault true;
-
+  
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-  hardware.pulseaudio.enable = false;
-  hardware.bluetooth.enable = true;
+
+  hardware = {
+    cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+    pulseaudio.enable = false;
+    bluetooth.enable = true;
+    sane.enable = true;
+    sane.extraBackends = [ pkgs.hplipWithPlugin ];
+
+    # Make sure opengl is enabled
+    opengl = {
+      enable = true;
+      driSupport = true;
+      driSupport32Bit = true;
+      extraPackages = with pkgs; [
+        vulkan-validation-layers
+      ];
+    };
+
+    nvidia = {
+      modesetting.enable = true;
+
+      open = false;
+
+      nvidiaSettings = false;
+    };
+  };
 }

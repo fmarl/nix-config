@@ -3,26 +3,32 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     emacs-cfg = {
       url = "github:fxttr/emacs-cfg";
       flake = false;
     };
+
     artwork = {
       url = "github:NixOS/nixos-artwork";
       flake = false;
     };
+
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     secrets = {
       url = "github:fxttr/secrets";
       flake = false;
     };
+
     coco = {
       url = "github:fxttr/coco";
       inputs.nixpkgs.follows = "nixpkgs";
