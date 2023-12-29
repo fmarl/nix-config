@@ -11,9 +11,6 @@ with lib;
 
   security.allowSimultaneousMultithreading = mkDefault true;
 
-  # This is required by podman to run containers in rootless mode.
-  security.unprivilegedUsernsClone = mkDefault config.virtualisation.containers.enable;
-
   security.apparmor.enable = mkDefault true;
   security.apparmor.killUnconfinedConfinables = mkDefault true;
 

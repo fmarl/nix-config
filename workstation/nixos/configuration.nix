@@ -3,57 +3,60 @@
   imports =
     [
       ./hardware-configuration.nix
-      ./kernel.nix
+      ./security.nix
       ./services.nix
+      ./networking.nix
+      ./boot.nix
     ];
 
-  nix.nixPath =
-    [
-      "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
-      "nixos-config=/persist/etc/nixos/configuration.nix"
-      "/nix/var/nix/profiles/per-user/root/channels"
-    ];
+  nix = {
+    nixPath =
+      [
+        "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
+        "nixos-config=/persist/etc/nixos/configuration.nix"
+        "/nix/var/nix/profiles/per-user/root/channels"
+      ];
 
-  nix.settings.trusted-public-keys = [
-    "fxttr.cachix.org-1:TBvPEn0MZT1PB89c1S8KWyWEmxbWMPW58lqODJuaH94="
-  ];
+    settings = {
+      trusted-users = [ "root" "florian" ];
+      allowed-users = [ "@wheel" ];
 
-  nix.settings.substituters = [
-    "https://fxttr.cachix.org"
-  ];
+      trusted-public-keys = [
+        "fxttr.cachix.org-1:TBvPEn0MZT1PB89c1S8KWyWEmxbWMPW58lqODJuaH94="
+      ];
 
-  nix.extraOptions = lib.optionalString (config.nix.package == pkgs.nixFlakes)
-    "experimental-features = nix-command flakes";
+      substituters = [
+        "https://fxttr.cachix.org"
+      ];
+    };
 
-  networking.hostName = "workstation";
-  networking.hostId = "04686870";
-  networking.firewall = {
-    enable = true;
-    allowedTCPPorts = [ 22 ];
+    extraOptions = lib.optionalString (config.nix.package == pkgs.nixFlakes)
+      "experimental-features = nix-command flakes";
   };
 
-  programs.gnupg.agent = {
-    enable = true;
-    pinentryFlavor = "curses";
-    enableSSHSupport = true;
+  programs = {
+    gnupg.agent = {
+      enable = true;
+      pinentryFlavor = "curses";
+      enableSSHSupport = true;
+    };
+
+    zsh.enable = true;
+    dconf.enable = true;
   };
 
-  programs.zsh = {
-    enable = true;
+  environment = {
+    shells = with pkgs; [ zsh ];
+    pathsToLink = [ "/share/zsh" ];
+    systemPackages = with pkgs;
+      [
+        vim
+        htop
+        git
+        home-manager
+        pinentry-curses
+      ];
   };
-
-  programs.dconf.enable = true;
-
-  environment.shells = with pkgs; [ zsh ];
-  environment.pathsToLink = [ "/share/zsh" ];
-  environment.systemPackages = with pkgs;
-    [
-      vim
-      htop
-      git
-      home-manager
-      pinentry-curses
-    ];
 
   fonts.packages = with pkgs; [
     source-code-pro
@@ -95,13 +98,11 @@
     };
   };
 
-  nix.settings.trusted-users = [ "root" "florian" ];
-
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "21.11"; # Did you read the comment?
+  system.stateVersion = "23.11"; # Did you read the comment?
 }

@@ -1,10 +1,5 @@
 { config, pkgs, lib, ... }:
-
-
 {
-  security.rtkit.enable = true;
-  security.polkit.enable = true;
-
   xdg.portal = {
     enable = true;
     config.common.default = "*";
@@ -12,7 +7,6 @@
   };
 
   services = {
-
     printing = {
       enable = true;
       drivers = [ pkgs.hplip ];
@@ -35,6 +29,8 @@
       alsa.support32Bit = true;
       pulse.enable = true;
     };
+
+    xserver.videoDrivers = [ "nvidia" ];
 
     openssh = {
       enable = true;

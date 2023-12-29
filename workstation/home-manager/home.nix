@@ -3,7 +3,7 @@
   nixpkgs.config.allowUnfree = true;
 
   sops = {
-    defaultSopsFile = "${inputs.secrets}/secrets/ssh.yaml";
+    defaultSopsFile = "${inputs.secrets}/systems/workstation.yaml";
 
     age = {
       keyFile = "/home/florian/.config/sops/age/keys.txt";
@@ -11,26 +11,8 @@
     };
 
     secrets = {
-      github = {
-        path = "/run/user/1000/secrets/github";
-      };
-      codeberg = {
-        path = "/run/user/1000/secrets/codeberg";
-      };
-      mls = {
-        path = "/run/user/1000/secrets/mls";
-      };
-      rpi = {
-        path = "/run/user/1000/secrets/rpi";
-      };
-      cachix = {
-        path = "/run/user/1000/secrets/cachix";
-      };
-      unimail = {
-        path = "/run/user/1000/secrets/unimail";
-      };
-      ionosmail = {
-        path = "/run/user/1000/secrets/ionosmail";
+      ssh = {
+        path = "/run/user/1000/secrets/ssh";
       };
     };
   };
@@ -40,11 +22,6 @@
     emacs.enable = true;
     theme.enable = true;
     swm.enable = true;
-
-    irssi = {
-      enable = true;
-      user = "fxttr";
-    };
   };
 
   programs = {
@@ -63,22 +40,22 @@
         "github" = {
           hostname = "github.com";
           user = "git";
-          identityFile = config.sops.secrets.github.path;
+          identityFile = config.sops.secrets.ssh.path;
         };
         "codeberg" = {
           hostname = "codeberg.org";
           user = "git";
-          identityFile = config.sops.secrets.codeberg.path;
+          identityFile = config.sops.secrets.ssh.path;
         };
-        "mls" = {
-          hostname = "192.168.0.3";
+        "svc" = {
+          hostname = "192.168.0.2";
           user = "florian";
-          identityFile = config.sops.secrets.mls.path;
+          identityFile = config.sops.secrets.ssh.path;
         };
         "rpi" = {
           hostname = "192.168.0.4";
           user = "florian";
-          identityFile = config.sops.secrets.rpi.path;
+          identityFile = config.sops.secrets.ssh.path;
         };
       };
     };
