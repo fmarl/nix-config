@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 {
   networking = {
-    hostName = "workstation";
+    hostName = "zen";
     hostId = "04686870";
     
     firewall = {
