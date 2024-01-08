@@ -24,7 +24,10 @@
     swm.enable = true;
   };
 
-  services.blueman-applet.enable = true;
+  services = {
+    blueman-applet.enable = true;
+    symo.enable = true;
+  };
 
   programs = {
     vscode = {
@@ -70,7 +73,7 @@
       userName = "Florian Marrero Liestmann";
       userEmail = "f.m.liestmann@fx-ttr.de";
       signing = {
-        signByDefault = true;
+        signByDefault = false;
         key = "970E99190402423AEDDC82B9D5F3F8665AD2BEEB";
       };
     };

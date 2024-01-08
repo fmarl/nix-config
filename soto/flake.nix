@@ -33,9 +33,13 @@
       url = "github:fxttr/coco";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    symo = {
+      url = "github:fxttr/symo";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, emacs-cfg, artwork, sops-nix, secrets, coco, ... }@inputs: rec {
+  outputs = { self, nixpkgs, home-manager, ... }@inputs: rec {
     legacyPackages = nixpkgs.lib.genAttrs [ "x86_64-linux" ] (system:
       import inputs.nixpkgs {
         inherit system;
@@ -44,25 +48,26 @@
     );
 
     nixosConfigurations = {
-      ntb = nixpkgs.lib.nixosSystem {
+      soto = nixpkgs.lib.nixosSystem {
         pkgs = legacyPackages.x86_64-linux;
         specialArgs = { inherit inputs; };
         modules = [
           ./nixos/configuration.nix
-          sops-nix.nixosModules.sops
-          coco.nixosModules.nixos
+          inputs.sops-nix.nixosModules.sops
+          inputs.coco.nixosModules.nixos
         ];
       };
     };
 
     homeConfigurations = {
-      "florian@ntb" = home-manager.lib.homeManagerConfiguration {
+      "florian@soto" = home-manager.lib.homeManagerConfiguration {
         pkgs = legacyPackages.x86_64-linux;
         extraSpecialArgs = { inherit inputs; };
         modules = [
           ./home-manager/home.nix
-          coco.nixosModules.home-manager
-          sops-nix.homeManagerModules.sops
+          inputs.coco.nixosModules.home-manager
+          inputs.sops-nix.homeManagerModules.sops
+          inputs.symo.nixosModules.x86_64-linux.home-manager
         ];
       };
     };
