@@ -6,6 +6,11 @@
       autoSnapshot.enable = true;
     };
 
+    k3s = {
+      enable = true;
+      role = "server";
+    };
+
     openssh = {
       enable = true;
       settings = {
