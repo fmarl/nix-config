@@ -55,7 +55,7 @@
           user = "git";
           identityFile = config.sops.secrets.ssh.path;
         };
-        "svc" = {
+        "rinzai" = {
           hostname = "192.168.0.2";
           user = "florian";
           identityFile = config.sops.secrets.ssh.path;

@@ -53,6 +53,7 @@
         vim
         htop
         home-manager
+        k3s
       ];
   };
 
