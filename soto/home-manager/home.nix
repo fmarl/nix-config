@@ -101,6 +101,7 @@
       rnix-lsp
       signal-desktop
       discord
+      jetbrains.idea-ultimate
     ]);
   };
 
