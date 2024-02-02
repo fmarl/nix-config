@@ -53,7 +53,10 @@
         vim
         htop
         home-manager
-        k3s
+        kompose
+        kubectl
+        kubernetes
+        kubernetes-helm
       ];
   };
 
