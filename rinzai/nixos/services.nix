@@ -6,9 +6,21 @@
       autoSnapshot.enable = true;
     };
 
-    k3s = {
-      enable = true;
-      role = "server";
+    kubernetes = {
+      roles = [ "master" "node" ];
+      masterAddress = "rinzai";
+      apiserverAddress = "https://rinzai:6443";
+      easyCerts = true;
+      apiserver = {
+        securePort = 6443;
+        advertiseAddress = "192.168.0.2";
+      };
+
+      # use coredns
+      addons.dns.enable = true;
+
+      # needed if you use swap
+      kubelet.extraOpts = "--fail-swap-on=false";
     };
 
     openssh = {

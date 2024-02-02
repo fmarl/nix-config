@@ -47,7 +47,7 @@
     );
 
     nixosConfigurations = {
-      zen = nixpkgs.lib.nixosSystem {
+      workstation = nixpkgs.lib.nixosSystem {
         pkgs = legacyPackages.x86_64-linux;
         specialArgs = { inherit inputs; };
         modules = [
@@ -59,7 +59,7 @@
     };
 
     homeConfigurations = {
-      "florian@zen" = home-manager.lib.homeManagerConfiguration {
+      "florian@workstation" = home-manager.lib.homeManagerConfiguration {
         pkgs = legacyPackages.x86_64-linux;
         extraSpecialArgs = { inherit inputs; };
         modules = [
