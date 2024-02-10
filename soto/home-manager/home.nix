@@ -21,12 +21,14 @@
     zsh.enable = true;
     emacs.enable = true;
     theme.enable = true;
-    swm.enable = true;
+    sway.enable = true;
+    sway.wallpaper = "${inputs.artwork}/wallpapers/nix-wallpaper-nineish-dark-gray.png";
+    waybar.enable = true;
+    waybar.mobile = true;
   };
 
   services = {
     blueman-applet.enable = true;
-    symo.enable = true;
   };
 
   programs = {
@@ -94,8 +96,6 @@
     packages = (with pkgs; [
       firefox
       spotify
-      ranger
-      feh
       nixpkgs-fmt
       speedcrunch
       rnix-lsp

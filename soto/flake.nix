@@ -9,6 +9,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    coco = {
+      url = "github:fxttr/coco";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     emacs-cfg = {
       url = "github:fxttr/emacs-cfg";
       flake = false;
@@ -19,23 +29,9 @@
       flake = false;
     };
 
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     secrets = {
       url = "github:fxttr/secrets";
       flake = false;
-    };
-
-    coco = {
-      url = "github:fxttr/coco";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    symo = {
-      url = "github:fxttr/symo";
     };
   };
 
@@ -67,7 +63,6 @@
           ./home-manager/home.nix
           inputs.coco.nixosModules.home-manager
           inputs.sops-nix.homeManagerModules.sops
-          inputs.symo.nixosModules.x86_64-linux.home-manager
         ];
       };
     };
