@@ -21,6 +21,8 @@
       enable = true;
     };
 
+    blueman.enable = true;
+
     pcscd.enable = true;
 
     pipewire = {
