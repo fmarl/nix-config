@@ -21,11 +21,9 @@
     zsh.enable = true;
     emacs.enable = true;
     theme.enable = true;
-    swm.enable = true;
-  };
-
-  services = {
-    symo.enable = true;
+    sway.enable = true;
+    sway.wallpaper = "${inputs.artwork}/wallpapers/nix-wallpaper-nineish-dark-gray.png";
+    waybar.enable = true;
   };
 
   programs = {
@@ -51,7 +49,7 @@
           user = "git";
           identityFile = config.sops.secrets.ssh.path;
         };
-        "rinzai" = {
+        "svc" = {
           hostname = "192.168.0.2";
           user = "florian";
           identityFile = config.sops.secrets.ssh.path;
@@ -98,6 +96,8 @@
       discord
       jetbrains.idea-ultimate
       jetbrains.datagrip
+      kubectl
+      kubernetes-helm
     ]);
   };
 

@@ -71,12 +71,12 @@
   ];
 
   console = {
-    keyMap = "en";
+    keyMap = "de";
   };
 
   coco = {
     ntp.enable = true;
-    swm.enable = true;
+    sway.enable = true;
   };
 
   users = {
@@ -102,6 +102,17 @@
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOCbnpc2pnr/wk64fHe+nI3ydgk6umjHflT8vkN6IPHL fb@fx-ttr.de"
         ];
       };
+    };
+  };
+
+  virtualisation.docker = {
+    enable = true;
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+    };
+    daemon.settings = { 
+      insecure-registries = ["svc:5000"];
     };
   };
 
