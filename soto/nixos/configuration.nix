@@ -44,8 +44,8 @@
   programs = {
     gnupg.agent = {
       enable = true;
-      pinentryFlavor = "curses";
       enableSSHSupport = true;
+      pinentryPackage = pkgs.pinentry-curses;
     };
 
     zsh.enable = true;
