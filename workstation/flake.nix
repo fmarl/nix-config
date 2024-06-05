@@ -32,17 +32,15 @@
       url = "github:NixOS/nixos-artwork";
       flake = false;
     };
-
-    symo = {
-      url = "github:fxttr/symo";
-    };
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs: rec {
     legacyPackages = nixpkgs.lib.genAttrs [ "x86_64-linux" ] (system:
       import inputs.nixpkgs {
         inherit system;
-        config.allowUnfree = true;
+        config = {
+          allowUnfree = true;
+        };
       }
     );
 
@@ -66,7 +64,6 @@
           ./home-manager/home.nix
           inputs.sops-nix.homeManagerModules.sops
           inputs.coco.nixosModules.home-manager
-          inputs.symo.nixosModules.x86_64-linux.home-manager
         ];
       };
     };
