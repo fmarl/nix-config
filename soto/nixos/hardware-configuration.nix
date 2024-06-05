@@ -53,8 +53,6 @@
     cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
     pulseaudio.enable = false;
     bluetooth.enable = true;
-    sane.enable = true;
-    sane.extraBackends = [ pkgs.hplipWithPlugin ];
 
     # Make sure opengl is enabled
     opengl = {
@@ -64,14 +62,6 @@
       extraPackages = with pkgs; [
         vulkan-validation-layers
       ];
-    };
-
-    nvidia = {
-      modesetting.enable = true;
-
-      open = false;
-
-      nvidiaSettings = false;
     };
   };
 }

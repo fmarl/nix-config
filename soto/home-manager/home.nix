@@ -98,10 +98,9 @@
       spotify
       nixpkgs-fmt
       speedcrunch
-      rnix-lsp
       signal-desktop
       discord
-      jetbrains.idea-ultimate
+      dbeaver-bin
     ]);
   };
 
