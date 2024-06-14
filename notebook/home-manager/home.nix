@@ -97,10 +97,9 @@
       firefox
       spotify
       nixpkgs-fmt
-      speedcrunch
       signal-desktop
       discord
-      dbeaver-bin
+      slack
     ]);
   };
 

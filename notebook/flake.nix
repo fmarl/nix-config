@@ -44,7 +44,7 @@
     );
 
     nixosConfigurations = {
-      soto = nixpkgs.lib.nixosSystem {
+      notebook = nixpkgs.lib.nixosSystem {
         pkgs = legacyPackages.x86_64-linux;
         specialArgs = { inherit inputs; };
         modules = [
@@ -56,7 +56,7 @@
     };
 
     homeConfigurations = {
-      "florian@soto" = home-manager.lib.homeManagerConfiguration {
+      "florian@notebook" = home-manager.lib.homeManagerConfiguration {
         pkgs = legacyPackages.x86_64-linux;
         extraSpecialArgs = { inherit inputs; };
         modules = [
