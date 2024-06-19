@@ -24,6 +24,7 @@
     sway.enable = true;
     sway.wallpaper = "${inputs.artwork}/wallpapers/nix-wallpaper-nineish-dark-gray.png";
     waybar.enable = true;
+    irssi.enable = true;
   };
 
   programs = {
@@ -73,6 +74,20 @@
     };
   };
 
+  wayland.windowManager.sway = {
+    extraOptions = [ "--unsupported-gpu" ];
+    config = rec {
+      output = {
+        "DPI-1" = {
+          pos = "0,0";
+        };
+        "HDMI-A-1" = {
+          pos = "1920,0";
+        };
+      };
+    };
+  };
+
   home = {
     username = "florian";
     homeDirectory = "/home/florian";
@@ -89,15 +104,19 @@
       firefox
       spotify
       nixpkgs-fmt
-      rnix-lsp
       cachix
       signal-desktop
       speedcrunch
-      discord
-      jetbrains.idea-ultimate
-      jetbrains.datagrip
-      kubectl
-      kubernetes-helm
+      dbeaver-bin
+      slack
+
+      wl-clipboard
+      alacritty
+      bemenu
+      imv
+      mpv
+      ranger
+      zathura
     ]);
   };
 
