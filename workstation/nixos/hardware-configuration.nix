@@ -68,6 +68,7 @@
       open = false;
 
       nvidiaSettings = false;
+      powerManagement.enable = false;
     };
   };
 }

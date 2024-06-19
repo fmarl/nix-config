@@ -3,7 +3,7 @@
   xdg.portal = {
     enable = true;
     config.common.default = "*";
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
   services = {
@@ -32,26 +32,20 @@
       pulse.enable = true;
     };
 
-    xserver.videoDrivers = [ "nvidia" ];
-
-    openssh = {
+    xserver = {
       enable = true;
-      settings = {
-        PermitRootLogin = "no";
-        PasswordAuthentication = true;
+
+      displayManager.gdm = {
+        enable = true;
+        wayland = true;
       };
-      hostKeys =
-        [
-          {
-            path = "/persist/etc/ssh/ssh_host_ed25519_key";
-            type = "ed25519";
-          }
-          {
-            path = "/persist/etc/ssh/ssh_host_rsa_key";
-            type = "rsa";
-            bits = 4096;
-          }
-        ];
+
+      videoDrivers = [ "nvidia" ];
+
+      xkb = {
+        layout = "us";
+        variant = "altgr-intl";
+      };
     };
   };
 
