@@ -1,17 +1,4 @@
 { config, pkgs, lib, inputs, ... }:
-let
-  extraEnv = {
-      SDL_VIDEODRIVER = "wayland";
-      CLUTTER_BACKEND = "wayland";
-      QT_QPA_PLATFORM = "wayland";
-      WLR_RENDERER = "vulkan";
-      QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
-      _JAVA_AWT_WM_NONREPARENTING = "1";
-      MOZ_ENABLE_WAYLAND = "1";
-      WLR_NO_HARDWARE_CURSORS = "1";
-      XWAYLAND_NO_GLAMOR = "1";
-    };
-in
 {
   imports =
     [
@@ -36,7 +23,7 @@ in
     };
 
     settings = {
-      trusted-users = [ "root" "florian" ];
+      trusted-users = [ "root" "marrero" ];
       allowed-users = [ "@wheel" ];
 
       trusted-public-keys = [
@@ -62,9 +49,9 @@ in
 
     zsh.enable = true;
     dconf.enable = true;
-    sway.enable = true;
   };
 
+  coco.xmonad.enable = true;
   environment = {
     shells = with pkgs; [ zsh ];
     pathsToLink = [ "/share/zsh" ];
@@ -76,8 +63,6 @@ in
         home-manager
         pinentry-curses
       ];
-    variables = extraEnv;
-    sessionVariables = extraEnv;
   };
 
   fonts.packages = with pkgs; [
@@ -96,7 +81,7 @@ in
         initialHashedPassword = "\$6\$a7aqpD33dBUhDyDy\$vExV0PWsMnOsvlVMPyFTNFRgiPLjZ8H4E7QmK.xaL/Z4mYullm9f8cq6uHiFztvOeQggvea80w1q./Hj/3QnJ.";
       };
 
-      florian = {
+      marrero = {
         isNormalUser = true;
         createHome = true;
         description = "Florian Marrero Liestmann";
@@ -104,12 +89,11 @@ in
         extraGroups = [ "wheel" "docker" "lxd" "scanner" "lp" ];
         group = "users";
         uid = 1000;
-        home = "/home/florian";
+        home = "/home/marrero";
         shell = pkgs.zsh;
 
         openssh.authorizedKeys.keys = [
-          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFBOAvFL34WZRnKtwMx27zAXq4Z8vQxK8oR+O+6UYwet eddsa-key-20221216"
-          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOCbnpc2pnr/wk64fHe+nI3ydgk6umjHflT8vkN6IPHL fb@fx-ttr.de"
+	        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA7qmgZlNHPIvKN0QMyFAgEB58WBsAMRc829UBA12N/M marrero@notebook"
         ];
       };
     };
@@ -117,24 +101,18 @@ in
 
   time.timeZone = "Europe/Berlin";
 
-  # virtualisation.docker = {
-  #   enable = true;
-  #   rootless = {
-  #     enable = true;
-  #     setSocketVariable = true;
-  #   };
-  #   daemon.settings = {
-  #     insecure-registries = [ "svc:5000" ];
-  #   };
-  # };
+  virtualisation.docker = {
+    enable = true;
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+    };
+    daemon.settings = {
+      insecure-registries = [ "svc:5000" ];
+    };
+  };
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.11"; # Did you read the comment?
+  system.stateVersion = "24.05";
 
   security.sudo.execWheelOnly = true;
 }
