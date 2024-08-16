@@ -9,11 +9,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixpkgs-wayland = {
-      url = "github:nix-community/nixpkgs-wayland";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     emacs-cfg = {
       url = "github:fxttr/emacs-cfg";
       flake = false;
@@ -31,6 +26,10 @@
 
     coco = {
       url = "github:fxttr/coco";
+    };
+
+    xmonad = {
+      url = "github:fxttr/xmonad-cfg";
     };
 
     artwork = {
@@ -54,23 +53,6 @@
         pkgs = legacyPackages.x86_64-linux;
         specialArgs = { inherit inputs; };
         modules = [
-          ({ pkgs, config, ... }: {
-            config =
-              {
-                nix.settings = {
-                  trusted-public-keys = [
-                    "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-                    "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
-                  ];
-                  substituters = [
-                    "https://cache.nixos.org"
-                    "https://nixpkgs-wayland.cachix.org"
-                  ];
-                };
-
-                nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ];
-              };
-          })
           ./nixos/configuration.nix
           inputs.sops-nix.nixosModules.sops
           inputs.coco.nixosModules.nixos
@@ -79,7 +61,7 @@
     };
 
     homeConfigurations = {
-      "florian@workstation" = home-manager.lib.homeManagerConfiguration {
+      "marrero@workstation" = home-manager.lib.homeManagerConfiguration {
         pkgs = legacyPackages.x86_64-linux;
         extraSpecialArgs = { inherit inputs; };
 

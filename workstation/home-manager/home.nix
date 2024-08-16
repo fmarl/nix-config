@@ -1,12 +1,17 @@
 { pkgs, config, inputs, lib, ... }:
 {
+  imports =
+    [
+      inputs.xmonad.defaultPackage.x86_64-linux
+    ];
+  
   nixpkgs.config.allowUnfree = true;
 
   sops = {
     defaultSopsFile = "${inputs.secrets}/systems/workstation.yaml";
 
     age = {
-      keyFile = "/home/florian/.config/sops/age/keys.txt";
+      keyFile = "/home/marrero/.config/sops/age/keys.txt";
       generateKey = true;
     };
 
@@ -21,9 +26,6 @@
     zsh.enable = true;
     emacs.enable = true;
     theme.enable = true;
-    sway.enable = true;
-    sway.wallpaper = "${inputs.artwork}/wallpapers/nix-wallpaper-nineish-dark-gray.png";
-    waybar.enable = true;
     irssi.enable = true;
   };
 
@@ -74,24 +76,10 @@
     };
   };
 
-  wayland.windowManager.sway = {
-    extraOptions = [ "--unsupported-gpu" ];
-    config = rec {
-      output = {
-        "DPI-1" = {
-          pos = "0,0";
-        };
-        "HDMI-A-1" = {
-          pos = "1920,0";
-        };
-      };
-    };
-  };
-
   home = {
-    username = "florian";
-    homeDirectory = "/home/florian";
-    stateVersion = "22.11";
+    username = "marrero";
+    homeDirectory = "/home/marrero";
+    stateVersion = "24.05";
 
     file = {
       ".emacs.d" = {
