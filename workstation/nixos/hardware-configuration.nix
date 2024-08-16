@@ -50,11 +50,10 @@
     sane.extraBackends = [ pkgs.hplipWithPlugin ];
 
     # Make sure opengl is enabled
-    opengl = {
+    graphics = {
       enable = true;
       extraPackages = with pkgs; [
-        vulkan-validation-layers
-      ];
+	];
     };
 
     nvidia = {
