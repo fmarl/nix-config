@@ -16,8 +16,6 @@
       enable = true;
     };
 
-    blueman.enable = true;
-
     pcscd.enable = true;
 
     pipewire = {
@@ -25,22 +23,6 @@
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
-    };
-
-    xserver = {
-      enable = true;
-
-      displayManager.gdm = {
-        enable = true;
-        wayland = true;
-      };
-
-      videoDrivers = [ "nvidia" ];
-
-      xkb = {
-        layout = "us";
-        variant = "altgr-intl";
-      };
     };
 
     openssh = {
