@@ -3,10 +3,10 @@
   nixpkgs.config.allowUnfree = true;
 
   sops = {
-    defaultSopsFile = "${inputs.secrets}/systems/ntb.yaml";
+    defaultSopsFile = "${inputs.secrets}/systems/notebook.yaml";
 
     age = {
-      keyFile = "/home/florian/.config/sops/age/keys.txt";
+      keyFile = "/home/marrero/.config/sops/age/keys.txt";
       generateKey = true;
     };
 
@@ -25,10 +25,6 @@
     sway.wallpaper = "${inputs.artwork}/wallpapers/nix-wallpaper-nineish-dark-gray.png";
     waybar.enable = true;
     waybar.mobile = true;
-  };
-
-  services = {
-    blueman-applet.enable = true;
   };
 
   programs = {
@@ -57,14 +53,14 @@
           user = "git";
           identityFile = config.sops.secrets.ssh.path;
         };
-        "rinzai" = {
-          hostname = "192.168.0.2";
-          user = "florian";
+        "workstation" = {
+          hostname = "192.168.0.200";
+          user = "marrero";
           identityFile = config.sops.secrets.ssh.path;
         };
         "rpi" = {
           hostname = "192.168.0.4";
-          user = "florian";
+          user = "marrero";
           identityFile = config.sops.secrets.ssh.path;
         };
       };
@@ -82,8 +78,8 @@
   };
 
   home = {
-    username = "florian";
-    homeDirectory = "/home/florian";
+    username = "marrero";
+    homeDirectory = "/home/marrero";
     stateVersion = "22.11";
 
     file = {
@@ -95,11 +91,10 @@
 
     packages = (with pkgs; [
       firefox
-      spotify
       nixpkgs-fmt
       signal-desktop
-      discord
-      slack
+      jetbrains.datagrip
+      jetbrains.idea-community
     ]);
   };
 

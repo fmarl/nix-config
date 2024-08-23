@@ -7,15 +7,7 @@
   };
 
   services = {
-    zfs = {
-      autoScrub.enable = true;
-      autoSnapshot.enable = true;
-    };
-
     dbus.enable = true;
-    pcscd.enable = true;
-    blueman.enable = true;
-    openssh.enable = false;
 
     pipewire = {
       enable = true;
@@ -24,7 +16,7 @@
       pulse.enable = true;
     };
   };
-  
+
   systemd = {
     coredump.enable = false;
   };
