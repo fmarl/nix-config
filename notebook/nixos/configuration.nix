@@ -23,7 +23,7 @@
     };
 
     settings = {
-      trusted-users = [ "root" "florian" ];
+      trusted-users = [ "root" "marrero" ];
       allowed-users = [ "@wheel" ];
 
       trusted-public-keys = [
@@ -68,6 +68,8 @@
         htop
         home-manager
         pinentry-curses
+        kubectl
+        kubernetes-helm
       ];
   };
 
@@ -77,7 +79,7 @@
   ];
 
   console = {
-    keyMap = "de";
+    keyMap = "us-acentos";
   };
 
   users = {
@@ -87,27 +89,33 @@
         initialHashedPassword = "\$6\$a7aqpD33dBUhDyDy\$vExV0PWsMnOsvlVMPyFTNFRgiPLjZ8H4E7QmK.xaL/Z4mYullm9f8cq6uHiFztvOeQggvea80w1q./Hj/3QnJ.";
       };
 
-      florian = {
+      marrero = {
         isNormalUser = true;
         createHome = true;
-        description = "Florian Büstgens";
+        description = "Florian Marrero Liestmann";
         initialHashedPassword = "\$6\$IynztI2Y8F2DIMUD\$REn16J9uoLpQqDDepvdP./HFGF4TK4od2NHBMhbkhL.0BYWdn6ztWY3Lmgsmrf8InEo5FO0h0mxlwzfmBdiA8/";
         extraGroups = [ "wheel" ];
         group = "users";
         uid = 1000;
-        home = "/home/florian";
+        home = "/home/marrero";
         shell = pkgs.zsh;
       };
     };
   };
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.11"; # Did you read the comment?
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "de_DE.UTF-8";
+    LC_IDENTIFICATION = "de_DE.UTF-8";
+    LC_MEASUREMENT = "de_DE.UTF-8";
+    LC_MONETARY = "de_DE.UTF-8";
+    LC_NAME = "de_DE.UTF-8";
+    LC_NUMERIC = "de_DE.UTF-8";
+    LC_PAPER = "de_DE.UTF-8";
+    LC_TELEPHONE = "de_DE.UTF-8";
+    LC_TIME = "de_DE.UTF-8";
+  };
+  
+  system.stateVersion = "24.05";
 
   security.sudo.execWheelOnly = true;
 }

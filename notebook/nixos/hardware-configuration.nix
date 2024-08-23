@@ -11,54 +11,35 @@
 
   fileSystems."/" =
     {
-      device = "rpool/local/root";
-      fsType = "zfs";
+      device = "/dev/disk/by-uuid/76bb198c-9c62-46d3-9f3e-be52e8daf149";
+      fsType = "xfs";
     };
+
+  boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/6610936c-d0b2-4205-a028-6433445ef6c0";
 
   fileSystems."/boot" =
     {
-      device = "/dev/disk/by-uuid/AE24-C94F";
+      device = "/dev/disk/by-uuid/3D9C-5E0A";
       fsType = "vfat";
+      options = [ "fmask=0022" "dmask=0022" ];
     };
 
-  fileSystems."/nix" =
-    {
-      device = "rpool/local/nix";
-      fsType = "zfs";
-    };
-
-  fileSystems."/home" =
-    {
-      device = "rpool/safe/home";
-      fsType = "zfs";
-    };
-
-  fileSystems."/persist" =
-    {
-      device = "rpool/safe/persist";
-      fsType = "zfs";
-      options = [ "noexec" ];
-    };
+  swapDevices = [ ];
 
   zramSwap = {
     enable = true;
     algorithm = "lz4";
   };
 
-  swapDevices = [ ];
-  
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   hardware = {
     cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
     pulseaudio.enable = false;
-    bluetooth.enable = true;
+    bluetooth.enable = false;
 
-    # Make sure opengl is enabled
     opengl = {
       enable = true;
-      driSupport = true;
-      driSupport32Bit = true;
       extraPackages = with pkgs; [
         vulkan-validation-layers
       ];

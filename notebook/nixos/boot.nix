@@ -9,11 +9,8 @@ with lib;
     kernelModules = [ "kvm-intel" ];
 
     initrd = {
-      availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
+      availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usb_storage" "sd_mod" "sdhci_pci" ];
       kernelModules = [ ];
-      postDeviceCommands = lib.mkAfter ''
-        	zfs rollback -r rpool/local/root@blank
-      '';
     };
 
     loader = {
