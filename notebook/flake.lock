@@ -1,21 +1,5 @@
 {
   "nodes": {
-    "artwork": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1719676066,
-        "narHash": "sha256-78FyNyGtDZogJUWcCT6A/T2MK87nGN/muC7ANH1b1V8=",
-        "owner": "NixOS",
-        "repo": "nixos-artwork",
-        "rev": "de03e887f03037e7e781a678b57fdae603c9ca20",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "repo": "nixos-artwork",
-        "type": "github"
-      }
-    },
     "coco": {
       "inputs": {
         "home-manager": "home-manager",
@@ -24,11 +8,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1724427738,
-        "narHash": "sha256-n8vzZaFQEuyoRYejpWF4tCWGWZhAgoGeCrpyjvliRaA=",
+        "lastModified": 1727150258,
+        "narHash": "sha256-wffXNdVRoDzzlAJruXeKLOKceWJnIfvPBRkYL3nOApg=",
         "owner": "fxttr",
         "repo": "coco",
-        "rev": "0fbd462ce15e6ad41c50c99273c3b0330c51095b",
+        "rev": "186ce46d2ad2a2719509821d033c59b26a40b0d4",
         "type": "github"
       },
       "original": {
@@ -82,11 +66,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1724412708,
-        "narHash": "sha256-tLr1k+UZLVumyqXRU8E5lBtLjsvHSy8e2NiamfkjpYg=",
+        "lastModified": 1727370457,
+        "narHash": "sha256-YlTm2rgsf+UxxNnUCE/B/8bL9A3HOfPZD8l8EjlWm/Y=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "b18f3ebc4029c22d437e3424014c8597a8b459a0",
+        "rev": "57e6b30d181ae6baff0909a61544ecbe1f642936",
         "type": "github"
       },
       "original": {
@@ -95,13 +79,29 @@
         "type": "github"
       }
     },
+    "media": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1559602186,
+        "narHash": "sha256-QAU34SfXtu5dF+1gqxcQv4oL5cAPLr7UcQ5m9kNAVIQ=",
+        "owner": "foxt",
+        "repo": "macOS-Wallpapers",
+        "rev": "232aec88c40fa9c687e2e98eb90478fff70ab757",
+        "type": "github"
+      },
+      "original": {
+        "owner": "foxt",
+        "repo": "macOS-Wallpapers",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1724363052,
-        "narHash": "sha256-Nf/iQWamRVAwAPFccQMfm5Qcf+rLLnU1rWG3f9orDVE=",
+        "lastModified": 1727266098,
+        "narHash": "sha256-AHTKbJ9ffR7Nx+XcR2XP0AYLI4OlUh2IGh4SAkdG5Ig=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "5de1564aed415bf9d0f281461babc2d101dd49ff",
+        "rev": "4f31540079322e6013930b5b2563fd10f96917f0",
         "type": "github"
       },
       "original": {
@@ -113,11 +113,11 @@
     },
     "nixpkgs-stable": {
       "locked": {
-        "lastModified": 1721524707,
-        "narHash": "sha256-5NctRsoE54N86nWd0psae70YSLfrOek3Kv1e8KoXe/0=",
+        "lastModified": 1725762081,
+        "narHash": "sha256-vNv+aJUW5/YurRy1ocfvs4q/48yVESwlC/yHzjkZSP8=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "556533a23879fc7e5f98dd2e0b31a6911a213171",
+        "rev": "dc454045f5b5d814e5862a6d057e7bb5c29edc05",
         "type": "github"
       },
       "original": {
@@ -129,10 +129,10 @@
     },
     "root": {
       "inputs": {
-        "artwork": "artwork",
         "coco": "coco",
         "emacs-cfg": "emacs-cfg",
         "home-manager": "home-manager_2",
+        "media": "media",
         "nixpkgs": "nixpkgs",
         "secrets": "secrets",
         "sops-nix": "sops-nix"
@@ -162,11 +162,11 @@
         "nixpkgs-stable": "nixpkgs-stable"
       },
       "locked": {
-        "lastModified": 1723501126,
-        "narHash": "sha256-N9IcHgj/p1+2Pvk8P4Zc1bfrMwld5PcosVA0nL6IGdE=",
+        "lastModified": 1726524647,
+        "narHash": "sha256-qis6BtOOBBEAfUl7FMHqqTwRLB61OL5OFzIsOmRz2J4=",
         "owner": "Mic92",
         "repo": "sops-nix",
-        "rev": "be0eec2d27563590194a9206f551a6f73d52fa34",
+        "rev": "e2d404a7ea599a013189aa42947f66cede0645c8",
         "type": "github"
       },
       "original": {

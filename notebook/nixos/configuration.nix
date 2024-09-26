@@ -7,6 +7,7 @@
       ./services.nix
       ./networking.nix
       ./security.nix
+      ./sway.nix
     ];
 
   nix = {
@@ -50,11 +51,6 @@
 
     zsh.enable = true;
     dconf.enable = true;
-  };
-
-  coco = {
-    sway.enable = true;
-    ntp.enable = true;
   };
 
   environment = {
