@@ -24,8 +24,8 @@
       flake = false;
     };
 
-    artwork = {
-      url = "github:NixOS/nixos-artwork";
+    media = {
+      url = "github:foxt/macOS-Wallpapers";
       flake = false;
     };
 

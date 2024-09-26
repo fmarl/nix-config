@@ -9,28 +9,23 @@
       (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
+
   fileSystems."/" =
-    {
-      device = "/dev/disk/by-uuid/76bb198c-9c62-46d3-9f3e-be52e8daf149";
+    { device = "/dev/disk/by-uuid/54b96458-f046-473b-b281-88bfa565f148";
       fsType = "xfs";
     };
 
-  boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/6610936c-d0b2-4205-a028-6433445ef6c0";
+  boot.initrd.luks.devices."crypted".device = "/dev/disk/by-uuid/c54c60e2-63e2-4a4a-a247-d1e66d6664bd";
 
   fileSystems."/boot" =
-    {
-      device = "/dev/disk/by-uuid/3D9C-5E0A";
+    { device = "/dev/disk/by-uuid/E189-0B67";
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };
 
-  swapDevices = [ ];
-
-  zramSwap = {
-    enable = true;
-    algorithm = "lz4";
-  };
-
+  swapDevices =
+    [ { device = "/dev/disk/by-uuid/1c02cf47-66c3-44ba-acd8-afe5a4b15f12"; }
+    ];
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   hardware = {
