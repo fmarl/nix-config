@@ -28,6 +28,8 @@
     theme.enable = true;
   };
 
+  fonts.fontconfig.enable = true;
+
   programs = {
     vscode = {
       enable = true;
@@ -56,11 +58,6 @@
         };
         "workstation" = {
           hostname = "192.168.0.200";
-          user = "marrero";
-          identityFile = config.sops.secrets.ssh.path;
-        };
-        "rpi" = {
-          hostname = "192.168.0.4";
           user = "marrero";
           identityFile = config.sops.secrets.ssh.path;
         };

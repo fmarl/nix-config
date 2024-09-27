@@ -6,17 +6,56 @@ let
   wallpaper = "${inputs.media}/El Capitan 2.jpg";
   colorscheme = import ./colors.nix;
   fontConf = {
-    names = [ "Source Code Pro" ];
+    names = [ "Inter" ];
     size = 11.0;
   };
 in
 {
+  programs.alacritty = {
+    enable = true;
+    settings = {
+      window = {
+        opacity = 0.95;
+        decorations = "none";
+      };
+
+      colors.primary = {
+        background = "#${colorscheme.dark.bg_0}";
+        foreground = "#${colorscheme.dark.fg_0}";
+        dim_foreground = "#${colorscheme.dark.dim_0}";
+      };
+
+      colors.normal = {
+        black = "#636363";
+        red = "#${colorscheme.dark.red}";
+        green = "#${colorscheme.dark.green}";
+        yellow = "#${colorscheme.dark.yellow}";
+        blue = "#${colorscheme.dark.blue}";
+        magenta = "#${colorscheme.dark.magenta}";
+        cyan = "#${colorscheme.dark.cyan}";
+        white = "#f7f7f7";
+      };
+
+      colors.bright = {
+        black = "#636363";
+        red = "#${colorscheme.dark.br_red}";
+        green = "#${colorscheme.dark.br_green}";
+        yellow = "#${colorscheme.dark.br_yellow}";
+        blue = "#${colorscheme.dark.br_blue}";
+        magenta = "#${colorscheme.dark.br_magenta}";
+        cyan = "#${colorscheme.dark.br_cyan}";
+        white = "#f7f7f7";
+      };
+    };
+  };
 
   services.mako = {
     enable = true;
 
-    backgroundColor = "#2d2a2e";
-    borderColor = "#a9dc76";
+    backgroundColor = "#${colorscheme.dark.bg_2}";
+    borderColor = "#${colorscheme.dark.bg_1}";
+    borderRadius = 12;
+    progressColor = "#${colorscheme.dark.br_cyan}";
   };
 
   services.swayidle = {
@@ -38,29 +77,48 @@ in
       modifier = "Mod4";
       terminal = "alacritty";
       fonts = fontConf;
+      gaps = {
+          bottom = 5;
+          horizontal = 5;
+          vertical = 5;
+          inner = 5;
+          left = 5;
+          outer = 5;
+          right = 5;
+          top = 5;
+          smartBorders = "on";
+          smartGaps = true;
+      };
 
-      input."type:keyboard" = {
-        xkb_layout = "us";
-        xkb_variant = "altgr-intl";
+      input = {
+        "type:keyboard" = {
+          xkb_layout = "us";
+          xkb_variant = "altgr-intl";
+        };
+        "type:touchpad" = {
+          tap = "enabled";
+        };
       };
 
       bars = [{ command = "waybar"; }];
 
       colors = {
         focused = {
-          border = "#${colorscheme.dark.green}";
-          background = "#${colorscheme.dark.green}";
-          text = "#${colorscheme.dark.bg_0}";
-          indicator = "#${colorscheme.dark.green}";
-          childBorder = "#${colorscheme.dark.green}";
-        };
-        focusedInactive = {
           border = "#${colorscheme.dark.bg_1}";
           background = "#${colorscheme.dark.bg_1}";
-          text = "#${colorscheme.dark.fg_0}";
+          text = "#${colorscheme.dark.fg_1}";
           indicator = "#${colorscheme.dark.bg_1}";
           childBorder = "#${colorscheme.dark.bg_1}";
         };
+
+        focusedInactive = {
+          border = "#${colorscheme.dark.bg_0}";
+          background = "#${colorscheme.dark.bg_0}";
+          text = "#${colorscheme.dark.fg_0}";
+          indicator = "#${colorscheme.dark.bg_0}";
+          childBorder = "#${colorscheme.dark.bg_0}";
+        };
+
         unfocused = {
           border = "#${colorscheme.dark.bg_0}";
           background = "#${colorscheme.dark.bg_0}";
@@ -68,6 +126,7 @@ in
           indicator = "#${colorscheme.dark.bg_0}";
           childBorder = "#${colorscheme.dark.bg_0}";
         };
+
         urgent = {
           border = "#${colorscheme.dark.red}";
           background = "#${colorscheme.dark.red}";
@@ -79,7 +138,7 @@ in
 
       menu = "bemenu-run -nb #${colorscheme.dark.bg_0} -sb #${colorscheme.dark.bg_0} -sf #${colorscheme.dark.green}";
 
-      output = { "*".bg = ''"${wallpaper}" fit''; };
+      output = { "*".bg = ''"${wallpaper}" fill''; };
 
       keybindings =
         let
@@ -147,5 +206,10 @@ in
           "${mod}+Shift+r" = "restart";
         };
     };
+
+    extraConfig = ''
+      bindgesture swipe:right workspace prev
+      bindgesture swipe:left workspace next
+    '';
   };
 }
