@@ -64,13 +64,12 @@
         htop
         home-manager
         pinentry-curses
-        kubectl
-        kubernetes-helm
       ];
   };
 
   fonts.packages = with pkgs; [
     source-code-pro
+    inter
     font-awesome
   ];
 

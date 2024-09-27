@@ -3,38 +3,25 @@ let
   colorscheme = import ./colors.nix;
 in
 {
+  home.packages = with pkgs; [
+    inter
+  ];
+
   programs.waybar =
     {
       enable = true;
       settings = [{
         height = 10;
-        modules-left = [ "sway/workspaces" "custom/right-arrow-dark" ];
-        modules-center = [
-          "custom/left-arrow-dark"
-          "clock#1"
-          "custom/left-arrow-light"
-          "custom/left-arrow-dark"
-          "clock#2"
-          "custom/right-arrow-dark"
-          "custom/right-arrow-light"
-          "clock#3"
-          "custom/right-arrow-dark"
-        ];
+        modules-left = [ "sway/workspaces" ];
+        modules-center = [ ];
         modules-right = [
-          "custom/left-arrow-dark"
-          "network"
-          "custom/left-arrow-light"
-          "custom/left-arrow-dark"
-          "memory"
-          "custom/left-arrow-light"
-          "custom/left-arrow-dark"
-          "cpu"
-          "custom/left-arrow-light"
-          "custom/left-arrow-dark"
-          "battery"
-          "custom/left-arrow-light"
-          "custom/left-arrow-dark"
           "tray"
+          "network"
+          "memory"
+          "cpu"
+          "battery"
+          "disk"
+          "clock"
         ];
         "sway/workspaces" = {
           all-outputs = true;
@@ -51,136 +38,80 @@ in
             default = "";
           };
         };
-        "custom/left-arrow-dark" = {
-          format = "";
-          tooltip = false;
-        };
-        "custom/left-arrow-light" = {
-          format = "";
-          tooltip = false;
-        };
-        "custom/right-arrow-dark" = {
-          format = "";
-          tooltip = false;
-        };
-        "custom/right-arrow-light" = {
-          format = "";
-          tooltip = false;
-        };
-        "clock#1" = {
-          format = "{:%a}";
-          tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-        };
-        "clock#2" = {
+
+        clock = {
           format = "{:%H:%M}";
-          tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-        };
-        "clock#3" = {
-          format = "{:%d.%m}";
+          format-alt = "{:%a %d.%m %H:%M}";
           tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
         };
 
         disk = {
           interval = 5;
-          format = "Disk {percentage_used:2}%";
+          format = "";
+          format-alt = "{percentage_used:2}% ";
           path = "/";
         };
 
         tray = {
           spacing = 10;
         };
+
         cpu = {
-          format = "{usage}% ";
+          format = "";
+          format-alt = "{usage}% ";
         };
+
         memory = {
-          format = "{}% ";
+          format = "";
+          format-alt = "{}% ";
         };
+
         battery = {
           bat = "BAT0";
           states = {
             warning = 30;
             critical = 15;
           };
-          format = "{capacity}% {icon}";
+          format = "{icon}";
           format-charging = "{capacity}% ";
           format-plugged = "{capacity}% ";
-          format-alt = "{time} {icon}";
+          format-alt = "{capacity}% {time} {icon}";
           format-icons = [ "" "" "" "" "" ];
         };
+
         network = {
-          format-wifi = "({signalStrength}%) ";
-          format-ethernet = "Ethernet ";
-          format-linked = "Ethernet (No IP) ";
-          format-disconnected = "Disconnected ";
-          format-alt = "{bandwidthDownBits}/{bandwidthUpBits}";
+          format-wifi = "";
+          format-ethernet = "";
+          format-linked = "(No IP) ";
+          format-disconnected = "";
+          format-alt = "{bandwidthDownBits}/{bandwidthUpBits} ({signalStrength}%) ";
         };
       }];
       style = ''
         * {
-        	font-size: 18px;
-        	font-family: monospace;
+            font-family: "Inter";
+            font-size: 14px;
+            color: #FFFFFF;
         }
 
-        window#waybar {
-        	background: #2d2a2e;
-        	color: #fdf6e3;
-        }
-
-        #custom-right-arrow-dark,
-        #custom-left-arrow-dark {
-        	color: #1a1a1a;
-        }
-        #custom-right-arrow-light,
-        #custom-left-arrow-light {
-        	color: #292b2e;
-        	background: #1a1a1a;
-        }
-
-        #workspaces,
-        #clock.1,
-        #clock.2,
-        #clock.3,
-        #network,
-        #memory,
-        #cpu,
-        #battery,
-        #disk,
-        #network,
-        #tray {
-        	background: #1a1a1a;
+        #waybar {
+            background: linear-gradient(0deg, rgba(28, 28, 30, 0.5) 0%, rgba(28, 28, 30, 0.85) 100%);
+            transition: background .2s ease-out;
+            padding: 5px 0;
         }
 
         #workspaces button {
-        	padding: 0 2px;
-        	color: #fdf6e3;
-        }
-        #workspaces button.focused {
-        	color: #268bd2;
-        }
-        #workspaces button:hover {
-        	box-shadow: inherit;
-        	text-shadow: inherit;
-        }
-        #workspaces button:hover {
-        	background: #1a1a1a;
-        	border: #1a1a1a;
-        	padding: 0 3px;
+            padding: 0 8px;
+            color: #F0F0F0;
+            margin: 0 2px;
         }
 
-        #network {
-        	color: #268bd2;
+        #workspaces button.focused {
+            background: linear-gradient(0deg, rgba(28, 28, 30, 0.65) 0%, rgba(28, 28, 30, 1) 100%);
         }
-        #memory {
-        	color: #2aa198;
-        }
-        #cpu {
-        	color: #6c71c4;
-        }
-        #battery {
-        	color: #859900;
-        }
-        #disk {
-        	color: #b58900;
+
+        #workspaces button:hover {
+            background: linear-gradient(0deg, rgba(28, 28, 30, 0.65) 0%, rgba(28, 28, 30, 1) 100%);
         }
 
         #clock,
@@ -189,7 +120,12 @@ in
         #cpu,
         #battery,
         #disk {
-        	padding: 0 10px;
+            padding: 0 10px;
+            margin: 0 2px;
+        }
+
+        #tray {
+            padding: 0 5px;
         }
       '';
     };
