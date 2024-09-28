@@ -50,8 +50,12 @@
     zsh.enable = true;
     dconf.enable = true;
   };
+  
+  coco = {
+    sway.enable = true;
+    ntp.enable = true;
+  };
 
-  coco.xmonad.enable = true;
   environment = {
     shells = with pkgs; [ zsh ];
     pathsToLink = [ "/share/zsh" ];

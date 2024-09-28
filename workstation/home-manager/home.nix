@@ -1,10 +1,5 @@
 { pkgs, config, inputs, lib, ... }:
 {
-  imports =
-    [
-      inputs.xmonad.defaultPackage.x86_64-linux
-    ];
-  
   nixpkgs.config.allowUnfree = true;
 
   sops = {
@@ -19,6 +14,17 @@
       ssh = {
         path = "/run/user/1000/secrets/ssh";
       };
+
+      github_token = {
+        path = "/run/user/1000/secrets/github_token";
+      };
+    };
+  };
+
+  nix = {
+    package = pkgs.nix;
+    settings = {
+      extra-access-tokens = "!include ${config.sops.secrets.github_token.path}";
     };
   };
 
@@ -27,6 +33,11 @@
     emacs.enable = true;
     theme.enable = true;
     irssi.enable = true;
+    sway.enable = true;
+    sway.wallpaper = "${inputs.artwork}/wallpapers/nix-wallpaper-nineish-dark-gray.png";
+    waybar.enable = true;
+    # i3.enable = true;
+    #    xmonad.wallpaper = "${inputs.media}/wallpaper/cyberpunk01.jpg";
   };
 
   programs = {
@@ -94,17 +105,11 @@
       nixpkgs-fmt
       cachix
       signal-desktop
+      discord
       speedcrunch
-      dbeaver-bin
-      slack
-
-      wl-clipboard
-      alacritty
-      bemenu
-      imv
+      jetbrains.datagrip
       mpv
       ranger
-      zathura
     ]);
   };
 

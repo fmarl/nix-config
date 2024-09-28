@@ -15,7 +15,7 @@
     {
       device = "/dev/disk/by-uuid/E159-2BB7";
       fsType = "vfat";
-      options = ["fmask=002" "dmask=002"];
+      options = [ "fmask=002" "dmask=002" ];
     };
 
   fileSystems."/nix" =
@@ -30,6 +30,12 @@
       fsType = "zfs";
     };
 
+  fileSystems."/mnt/minio" =
+    {
+      device = "/dev/disk/by-uuid/5ae78199-524e-4a99-9c66-aa6ae5ad5a4c";
+      fsType = "xfs";
+    };
+
   fileSystems."/persist" =
     {
       device = "rpool/safe/persist";
@@ -37,30 +43,26 @@
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/51fc34a7-6d37-4f8b-b356-8a293aadbf18"; }
-    ];
+    [{ device = "/dev/disk/by-uuid/51fc34a7-6d37-4f8b-b356-8a293aadbf18"; }];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  
+
   hardware = {
     cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
     pulseaudio.enable = false;
-    bluetooth.enable = true;
-    sane.enable = true;
-    sane.extraBackends = [ pkgs.hplipWithPlugin ];
+    bluetooth.enable = false;
 
     # Make sure opengl is enabled
     graphics = {
       enable = true;
       extraPackages = with pkgs; [
-	];
+      ];
     };
 
     nvidia = {
       modesetting.enable = true;
 
       open = false;
-
       nvidiaSettings = false;
       powerManagement.enable = false;
     };
