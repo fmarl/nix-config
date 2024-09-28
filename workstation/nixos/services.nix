@@ -2,14 +2,18 @@
 {
 
   services = {
-    printing = {
-      enable = true;
-      drivers = [ pkgs.hplip ];
-    };
-
     zfs = {
       autoScrub.enable = true;
       autoSnapshot.enable = true;
+    };
+
+    minio = {
+      enable = true;
+      browser = true;
+      accessKey = "access123";
+      secretKey = "secret123";
+      region = "eu-central-1";
+      dataDir = [ "/mnt/minio" ];
     };
 
     dbus = {

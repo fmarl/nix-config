@@ -28,14 +28,16 @@
       url = "github:fxttr/coco";
     };
 
-    xmonad = {
-      url = "github:fxttr/xmonad-cfg";
+    media = {
+      url = "github:fxttr/media";
+      flake = false;
     };
 
     artwork = {
       url = "github:NixOS/nixos-artwork";
       flake = false;
     };
+
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs: rec {
