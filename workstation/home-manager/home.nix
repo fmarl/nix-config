@@ -2,7 +2,7 @@
 {
   imports =
     [
-      inputs.xmonad.defaultPackage.x86_64-linux
+      ./sway.nix
     ];
   
   nixpkgs.config.allowUnfree = true;
