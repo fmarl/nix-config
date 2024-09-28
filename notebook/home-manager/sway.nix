@@ -87,7 +87,7 @@ in
           right = 5;
           top = 5;
           smartBorders = "on";
-          smartGaps = true;
+          smartGaps = false;
       };
 
       input = {
@@ -136,7 +136,7 @@ in
         };
       };
 
-      menu = "bemenu-run -nb #${colorscheme.dark.bg_0} -sb #${colorscheme.dark.bg_0} -sf #${colorscheme.dark.green}";
+      menu = "bemenu-run -c -R 10 -W 0.3 -l 15 -H 30 --fn Inter --nb '#${colorscheme.dark.bg_1}f2' --ab '#${colorscheme.dark.bg_1}f2' --tb '#${colorscheme.dark.bg_1}f2' --fb '#${colorscheme.dark.bg_1}f2' --hb '#${colorscheme.dark.bg_2}f2' --tf '#${colorscheme.dark.fg_0}' --hf '#${colorscheme.dark.fg_1}'";
 
       output = { "*".bg = ''"${wallpaper}" fill''; };
 
