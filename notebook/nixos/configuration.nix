@@ -7,6 +7,7 @@
       ./services.nix
       ./networking.nix
       ./security.nix
+      ./sway.nix
     ];
 
   nix = {
@@ -52,11 +53,6 @@
     dconf.enable = true;
   };
 
-  coco = {
-    sway.enable = true;
-    ntp.enable = true;
-  };
-
   environment = {
     shells = with pkgs; [ zsh ];
     pathsToLink = [ "/share/zsh" ];
@@ -68,13 +64,12 @@
         htop
         home-manager
         pinentry-curses
-        kubectl
-        kubernetes-helm
       ];
   };
 
   fonts.packages = with pkgs; [
     source-code-pro
+    inter
     font-awesome
   ];
 

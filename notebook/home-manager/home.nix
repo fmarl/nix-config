@@ -1,5 +1,10 @@
 { pkgs, config, inputs, lib, ... }:
 {
+  imports = [
+    ./sway.nix
+    ./waybar.nix
+  ];
+
   nixpkgs.config.allowUnfree = true;
 
   sops = {
@@ -21,11 +26,9 @@
     zsh.enable = true;
     emacs.enable = true;
     theme.enable = true;
-    sway.enable = true;
-    sway.wallpaper = "${inputs.artwork}/wallpapers/nix-wallpaper-nineish-dark-gray.png";
-    waybar.enable = true;
-    waybar.mobile = true;
   };
+
+  fonts.fontconfig.enable = true;
 
   programs = {
     vscode = {
@@ -55,11 +58,6 @@
         };
         "workstation" = {
           hostname = "192.168.0.200";
-          user = "marrero";
-          identityFile = config.sops.secrets.ssh.path;
-        };
-        "rpi" = {
-          hostname = "192.168.0.4";
           user = "marrero";
           identityFile = config.sops.secrets.ssh.path;
         };
@@ -93,8 +91,7 @@
       firefox
       nixpkgs-fmt
       signal-desktop
-      jetbrains.datagrip
-      jetbrains.idea-community
+      dbeaver-bin
     ]);
   };
 

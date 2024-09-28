@@ -9,8 +9,13 @@ with lib;
     kernelModules = [ "kvm-intel" ];
 
     initrd = {
-      availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usb_storage" "sd_mod" "sdhci_pci" ];
-      kernelModules = [ ];
+      availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usb_storage" "sd_mod" "sdhci_pci" "lz4" "z3fold" ];
+      kernelModules = [ "lz4" "z3fold" ];
+
+      preDeviceCommands = ''
+        printf lz4 > /sys/module/zswap/parameters/compressor
+        printf z3fold > /sys/module/zswap/parameters/zpool
+      '';
     };
 
     loader = {

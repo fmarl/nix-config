@@ -3,7 +3,7 @@
   networking = {
     hostName = "notebook";
     hostId = "04686870";
-    
+
     networkmanager = {
       enable = true;
       wifi.macAddress = "random";
@@ -16,5 +16,14 @@
     };
 
     useDHCP = lib.mkDefault true;
+
+    timeServers = [
+      "0.de.pool.ntp.org"
+      "1.de.pool.ntp.org"
+      "2.de.pool.ntp.org"
+      "3.de.pool.ntp.org"
+    ];
   };
+
+  time.timeZone = "Europe/Berlin";
 }
