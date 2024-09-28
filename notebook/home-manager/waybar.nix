@@ -40,15 +40,13 @@ in
         };
 
         clock = {
-          format = "{:%H:%M}";
-          format-alt = "{:%a %d.%m %H:%M}";
+          format = "{:%a %d.%m %H:%M}";
           tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
         };
 
         disk = {
           interval = 5;
-          format = "";
-          format-alt = "{percentage_used:2}% ";
+          format = "{percentage_used:2}% ";
           path = "/";
         };
 
@@ -57,13 +55,11 @@ in
         };
 
         cpu = {
-          format = "";
-          format-alt = "{usage}% ";
+          format = "{usage}% ";
         };
 
         memory = {
-          format = "";
-          format-alt = "{}% ";
+          format = "{}% ";
         };
 
         battery = {
@@ -72,19 +68,19 @@ in
             warning = 30;
             critical = 15;
           };
-          format = "{icon}";
+          format = "{capacity}% {icon}";
           format-charging = "{capacity}% ";
           format-plugged = "{capacity}% ";
-          format-alt = "{capacity}% {time} {icon}";
+          format-alt = "{time} {icon}";
           format-icons = [ "" "" "" "" "" ];
         };
 
         network = {
-          format-wifi = "";
-          format-ethernet = "";
+          format-wifi = "({signalStrength}%) ";
+          format-ethernet = "{bandwidthDownBits}/{bandwidthUpBits} ";
           format-linked = "(No IP) ";
           format-disconnected = "";
-          format-alt = "{bandwidthDownBits}/{bandwidthUpBits} ({signalStrength}%) ";
+          format-alt = "{bandwidthDownBits}/{bandwidthUpBits} ";
         };
       }];
       style = ''

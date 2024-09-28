@@ -7,6 +7,7 @@
       ./services.nix
       ./networking.nix
       ./boot.nix
+      ./sway.nix
     ];
 
   nix = {
