@@ -3,6 +3,7 @@
   imports =
     [
       ./sway.nix
+      ./waybar.nix
     ];
   
   nixpkgs.config.allowUnfree = true;
@@ -38,11 +39,6 @@
     emacs.enable = true;
     theme.enable = true;
     irssi.enable = true;
-    sway.enable = true;
-    sway.wallpaper = "${inputs.artwork}/wallpapers/nix-wallpaper-nineish-dark-gray.png";
-    waybar.enable = true;
-    # i3.enable = true;
-    #    xmonad.wallpaper = "${inputs.media}/wallpaper/cyberpunk01.jpg";
   };
 
   programs = {
