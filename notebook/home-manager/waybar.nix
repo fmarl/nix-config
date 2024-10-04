@@ -19,8 +19,8 @@ in
           "network"
           "memory"
           "cpu"
-          "battery"
           "disk"
+          "battery"
           "clock"
         ];
         "sway/workspaces" = {
