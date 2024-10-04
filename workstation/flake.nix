@@ -29,15 +29,9 @@
     };
 
     media = {
-      url = "github:fxttr/media";
+      url = "github:foxt/macOS-Wallpapers";
       flake = false;
     };
-
-    artwork = {
-      url = "github:NixOS/nixos-artwork";
-      flake = false;
-    };
-
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs: rec {

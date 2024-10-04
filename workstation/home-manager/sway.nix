@@ -173,6 +173,16 @@ in
           "${mod}+Shift+Up" = "move up";
           "${mod}+Shift+Right" = "move right";
 
+          "${mod}+Control+Shift+${left}" = "move to output left";
+          "${mod}+Control+Shift+${down}" = "move to output down";
+          "${mod}+Control+Shift+${up}" = "move to output up";
+          "${mod}+Control+Shift+${right}" = "move to output right";
+
+          "${mod}+Control+Shift+Left" = "move to output left";
+          "${mod}+Control+Shift+Down" = "move to output down";
+          "${mod}+Control+Shift+Up" = "move to output up";
+          "${mod}+Control+Shift+Right" = "move to output right";
+
           "${mod}+1" = "workspace number 1";
           "${mod}+2" = "workspace number 2";
           "${mod}+3" = "workspace number 3";
@@ -208,8 +218,8 @@ in
     };
 
     extraConfig = ''
-      bindgesture swipe:right workspace prev
-      bindgesture swipe:left workspace next
+      default_border none
+      default_floating_border none
     '';
   };
 }

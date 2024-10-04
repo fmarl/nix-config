@@ -1,21 +1,5 @@
 {
   "nodes": {
-    "artwork": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1719676066,
-        "narHash": "sha256-78FyNyGtDZogJUWcCT6A/T2MK87nGN/muC7ANH1b1V8=",
-        "owner": "NixOS",
-        "repo": "nixos-artwork",
-        "rev": "de03e887f03037e7e781a678b57fdae603c9ca20",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "repo": "nixos-artwork",
-        "type": "github"
-      }
-    },
     "coco": {
       "inputs": {
         "home-manager": "home-manager",
@@ -80,11 +64,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1727111745,
-        "narHash": "sha256-EYLvFRoTPWtD+3uDg2wwQvlz88OrIr3zld+jFE5gDcY=",
+        "lastModified": 1728026342,
+        "narHash": "sha256-3mGqKM1jSkc2DrJvR/HCTav0Chd1n8/s1eJ9Y5GzNVM=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "21c021862fa696c8199934e2153214ab57150cb6",
+        "rev": "30e04f3d477256de3eb6a7cff608e220087537d4",
         "type": "github"
       },
       "original": {
@@ -96,16 +80,16 @@
     "media": {
       "flake": false,
       "locked": {
-        "lastModified": 1724599569,
-        "narHash": "sha256-ubPfb5hE6bvZNYD/LWYrl1QwlUfUlFPz4Jpp++vU33g=",
-        "owner": "fxttr",
-        "repo": "media",
-        "rev": "3aab964e4f20d2f1823bf9796a781ce9cfd9b8ba",
+        "lastModified": 1559602186,
+        "narHash": "sha256-QAU34SfXtu5dF+1gqxcQv4oL5cAPLr7UcQ5m9kNAVIQ=",
+        "owner": "foxt",
+        "repo": "macOS-Wallpapers",
+        "rev": "232aec88c40fa9c687e2e98eb90478fff70ab757",
         "type": "github"
       },
       "original": {
-        "owner": "fxttr",
-        "repo": "media",
+        "owner": "foxt",
+        "repo": "macOS-Wallpapers",
         "type": "github"
       }
     },
@@ -143,11 +127,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1727089097,
-        "narHash": "sha256-ZMHMThPsthhUREwDebXw7GX45bJnBCVbfnH1g5iuSPc=",
+        "lastModified": 1727998858,
+        "narHash": "sha256-IeBVJ75Bd7yWz8i3m225x5Q25O1Wk8cBWi8DI7bCgSo=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "568bfef547c14ca438c56a0bece08b8bb2b71a9c",
+        "rev": "73bed75dbd3de6d4fca3f81ce25a0cc7766afff6",
         "type": "github"
       },
       "original": {
@@ -159,7 +143,6 @@
     },
     "root": {
       "inputs": {
-        "artwork": "artwork",
         "coco": "coco",
         "emacs-cfg": "emacs-cfg",
         "home-manager": "home-manager_2",
@@ -193,11 +176,11 @@
         "nixpkgs-stable": "nixpkgs-stable"
       },
       "locked": {
-        "lastModified": 1726524647,
-        "narHash": "sha256-qis6BtOOBBEAfUl7FMHqqTwRLB61OL5OFzIsOmRz2J4=",
+        "lastModified": 1727734513,
+        "narHash": "sha256-i47LQwoGCVQq4upV2YHV0OudkauHNuFsv306ualB/Sw=",
         "owner": "Mic92",
         "repo": "sops-nix",
-        "rev": "e2d404a7ea599a013189aa42947f66cede0645c8",
+        "rev": "3198a242e547939c5e659353551b0668ec150268",
         "type": "github"
       },
       "original": {
