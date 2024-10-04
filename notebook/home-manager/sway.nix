@@ -3,7 +3,7 @@
 with lib;
 
 let
-  wallpaper = "${inputs.media}/El Capitan 2.jpg";
+  wallpaper = "${inputs.media}/Yosemite 3.jpg";
   colorscheme = import ./colors.nix;
   fontConf = {
     names = [ "Inter" ];
