@@ -52,11 +52,8 @@
     pulseaudio.enable = false;
     bluetooth.enable = false;
 
-    # Make sure opengl is enabled
     graphics = {
       enable = true;
-      extraPackages = with pkgs; [
-      ];
     };
 
     nvidia = {

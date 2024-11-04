@@ -9,43 +9,38 @@
       (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
+
   fileSystems."/" =
     {
-      device = "rpool/local/root";
-      fsType = "zfs";
+      device = "/dev/disk/by-uuid/fa7cdd71-467c-4876-ab35-f5173e0035fe";
+      fsType = "xfs";
     };
+
+  boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/c86dc399-c2dd-4c6a-aad2-c80297386d6d";
 
   fileSystems."/boot" =
     {
-      device = "/dev/disk/by-uuid/C823-43D5";
+      device = "/dev/disk/by-uuid/2360-9BD9";
       fsType = "vfat";
+      options = [ "fmask=0022" "dmask=0022" ];
     };
 
-  fileSystems."/nix" =
-    {
-      device = "rpool/local/nix";
-      fsType = "zfs";
-    };
+  zramSwap.enable = true;
 
-  fileSystems."/home" =
-    {
-      device = "rpool/safe/home";
-      fsType = "zfs";
-    };
-
-  fileSystems."/persist" =
-    {
-      device = "rpool/safe/persist";
-      fsType = "zfs";
-    };
-
-  swapDevices =
-    [ { device = "/dev/disk/by-uuid/85b19f39-578e-4286-9fd1-ddb2682e33d5"; }
-    ];
+  swapDevices = [ ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  
+
   hardware = {
     cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+    pulseaudio.enable = false;
+    bluetooth.enable = false;
+
+    graphics = {
+      enable = true;
+      extraPackages = with pkgs; [
+        vulkan-validation-layers
+      ];
+    };
   };
 }

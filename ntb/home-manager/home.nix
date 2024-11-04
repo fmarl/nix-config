@@ -1,10 +1,5 @@
 { pkgs, config, inputs, lib, ... }:
 {
-  imports = [
-    ./sway.nix
-    ./waybar.nix
-  ];
-
   nixpkgs.config.allowUnfree = true;
 
   sops = {
@@ -24,13 +19,25 @@
 
   coco = {
     zsh.enable = true;
-    emacs.enable = true;
     theme.enable = true;
+    sway = {
+      enable = true;
+      wallpaper = "${inputs.media}/Yosemite 3.jpg";
+    };
+    
+    waybar = {
+      enable = true;
+      mobile = true;
+    };
   };
 
   fonts.fontconfig.enable = true;
 
   programs = {
+    firefox = {
+      enable = true;
+    };
+
     vscode = {
       enable = true;
       package = pkgs.vscode.fhs;
@@ -51,11 +58,7 @@
           user = "git";
           identityFile = config.sops.secrets.ssh.path;
         };
-        "codeberg" = {
-          hostname = "codeberg.org";
-          user = "git";
-          identityFile = config.sops.secrets.ssh.path;
-        };
+
         "workstation" = {
           hostname = "192.168.0.200";
           user = "marrero";
@@ -78,20 +81,13 @@
   home = {
     username = "marrero";
     homeDirectory = "/home/marrero";
-    stateVersion = "22.11";
-
-    file = {
-      ".emacs.d" = {
-        source = inputs.emacs-cfg;
-        recursive = true;
-      };
-    };
+    stateVersion = "24.05";
 
     packages = (with pkgs; [
-      firefox
       nixpkgs-fmt
       signal-desktop
       dbeaver-bin
+      spotify
     ]);
   };
 

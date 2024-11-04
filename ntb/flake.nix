@@ -9,8 +9,28 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    coco = {
+      url = "github:fxttr/coco";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     emacs-cfg = {
       url = "github:fxttr/emacs-cfg";
+      flake = false;
+    };
+
+    media = {
+      url = "github:foxt/macOS-Wallpapers";
+      flake = false;
+    };
+
+    secrets = {
+      url = "github:fxttr/secrets";
       flake = false;
     };
   };
@@ -24,21 +44,25 @@
     );
 
     nixosConfigurations = {
-      rinzai = nixpkgs.lib.nixosSystem {
+      ntb = nixpkgs.lib.nixosSystem {
         pkgs = legacyPackages.x86_64-linux;
         specialArgs = { inherit inputs; };
         modules = [
           ./nixos/configuration.nix
+          inputs.sops-nix.nixosModules.sops
+          inputs.coco.nixosModules.nixos
         ];
       };
     };
 
     homeConfigurations = {
-      "florian@rinzai" = home-manager.lib.homeManagerConfiguration {
+      "marrero@ntb" = home-manager.lib.homeManagerConfiguration {
         pkgs = legacyPackages.x86_64-linux;
         extraSpecialArgs = { inherit inputs; };
         modules = [
           ./home-manager/home.nix
+          inputs.coco.nixosModules.home-manager
+          inputs.sops-nix.homeManagerModules.sops
         ];
       };
     };
