@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 {
   networking = {
-    hostName = "notebook";
+    hostName = "ntb";
     hostId = "04686870";
 
     networkmanager = {

@@ -7,7 +7,6 @@
       ./services.nix
       ./networking.nix
       ./security.nix
-      ./sway.nix
     ];
 
   nix = {
@@ -36,11 +35,12 @@
       ];
     };
 
-    extraOptions = lib.optionalString (config.nix.package == pkgs.nixFlakes)
-      "experimental-features = nix-command flakes";
+    extraOptions = "experimental-features = nix-command flakes";
 
     optimise.automatic = true;
   };
+
+  virtualisation.libvirtd.enable = true;
 
   programs = {
     gnupg.agent = {
@@ -49,8 +49,10 @@
       pinentryPackage = pkgs.pinentry-curses;
     };
 
+    virt-manager.enable = true;
     zsh.enable = true;
     dconf.enable = true;
+    nano.enable = false;
   };
 
   environment = {
@@ -69,9 +71,10 @@
 
   fonts.packages = with pkgs; [
     source-code-pro
-    inter
     font-awesome
   ];
+
+  coco.sway.enable = true;
 
   console = {
     keyMap = "us-acentos";
@@ -111,6 +114,4 @@
   };
   
   system.stateVersion = "24.05";
-
-  security.sudo.execWheelOnly = true;
 }
