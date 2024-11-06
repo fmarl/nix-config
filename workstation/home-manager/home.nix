@@ -21,22 +21,21 @@
         path = "/run/user/1000/secrets/ssh";
       };
 
-      github_token = {
-        path = "/run/user/1000/secrets/github_token";
-      };
+      #github_token = {
+      # path = "/run/user/1000/secrets/github_token";
+      #};
     };
   };
 
   nix = {
     package = pkgs.nix;
-    settings = {
-      extra-access-tokens = "!include ${config.sops.secrets.github_token.path}";
-    };
+    #settings = {
+    #  extra-access-tokens = "!include ${config.sops.secrets.github_token.path}";
+    #};
   };
 
   coco = {
     zsh.enable = true;
-    emacs.enable = true;
     theme.enable = true;
     irssi.enable = true;
   };
@@ -93,13 +92,6 @@
     homeDirectory = "/home/marrero";
     stateVersion = "24.05";
 
-    file = {
-      ".emacs.d" = {
-        source = inputs.emacs-cfg;
-        recursive = true;
-      };
-    };
-
     packages = (with pkgs; [
       firefox
       spotify
@@ -107,12 +99,8 @@
       cachix
       signal-desktop
       discord
-      speedcrunch
-      jetbrains.datagrip
       mpv
       ranger
     ]);
   };
-
-  systemd.user.services.mbsync.Unit.After = [ "sops-nix.service" ];
 }

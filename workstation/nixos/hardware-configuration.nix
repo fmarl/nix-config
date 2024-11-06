@@ -13,7 +13,7 @@
 
   fileSystems."/boot" =
     {
-      device = "/dev/disk/by-uuid/E159-2BB7";
+      device = "/dev/disk/by-uuid/B4FE-552F";
       fsType = "vfat";
       options = [ "fmask=002" "dmask=002" ];
     };
@@ -30,12 +30,6 @@
       fsType = "zfs";
     };
 
-  fileSystems."/mnt/minio" =
-    {
-      device = "/dev/disk/by-uuid/5ae78199-524e-4a99-9c66-aa6ae5ad5a4c";
-      fsType = "xfs";
-    };
-
   fileSystems."/persist" =
     {
       device = "rpool/safe/persist";
@@ -43,7 +37,7 @@
     };
 
   swapDevices =
-    [{ device = "/dev/disk/by-uuid/51fc34a7-6d37-4f8b-b356-8a293aadbf18"; }];
+    [{ device = "/dev/disk/by-uuid/e265876b-a241-40c6-993a-d97f565b21b2"; }];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
@@ -52,7 +46,6 @@
     pulseaudio.enable = false;
     bluetooth.enable = false;
 
-    # Make sure opengl is enabled
     graphics = {
       enable = true;
       extraPackages = with pkgs; [
