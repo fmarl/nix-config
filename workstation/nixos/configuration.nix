@@ -36,8 +36,7 @@
       ];
     };
 
-    extraOptions = lib.optionalString (config.nix.package == pkgs.nixFlakes)
-      "experimental-features = nix-command flakes";
+    extraOptions = "experimental-features = nix-command flakes";
 
     optimise.automatic = true;
   };
