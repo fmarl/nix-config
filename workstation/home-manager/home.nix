@@ -1,10 +1,5 @@
 { pkgs, config, inputs, lib, ... }:
 {
-  imports =
-    [
-      ./sway.nix
-      ./waybar.nix
-    ];
   
   nixpkgs.config.allowUnfree = true;
 
@@ -38,6 +33,11 @@
     zsh.enable = true;
     theme.enable = true;
     irssi.enable = true;
+    sway = {
+	enable = true;
+	wallpaper = "${inputs.media}/Yosemite 3.jpg";
+    };
+    waybar.enable = true;
   };
 
   programs = {

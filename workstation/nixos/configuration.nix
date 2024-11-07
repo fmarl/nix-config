@@ -7,7 +7,6 @@
       ./services.nix
       ./networking.nix
       ./boot.nix
-      ./sway.nix
     ];
 
   nix = {
@@ -97,7 +96,7 @@
         shell = pkgs.zsh;
 
         openssh.authorizedKeys.keys = [
-	        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA7qmgZlNHPIvKN0QMyFAgEB58WBsAMRc829UBA12N/M marrero@notebook"
+	        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII5wD+zMGIVaENIRRxTwK0w+mqWfpeABf4JIp0zA7Vs3 marrero@ntb"
         ];
       };
     };
