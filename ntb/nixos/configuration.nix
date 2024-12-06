@@ -80,6 +80,14 @@
     keyMap = "us-acentos";
   };
 
+  virtualisation.docker = {
+    enable = true;
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+    };
+  };
+
   users = {
     mutableUsers = false;
     users = {
