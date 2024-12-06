@@ -20,6 +20,7 @@
   coco = {
     zsh.enable = true;
     theme.enable = true;
+    irssi.enable = true;
     sway = {
       enable = true;
       wallpaper = "${inputs.media}/Yosemite 3.jpg";
@@ -81,11 +82,12 @@
   home = {
     username = "marrero";
     homeDirectory = "/home/marrero";
-    stateVersion = "24.05";
+    stateVersion = "25.05";
 
     packages = (with pkgs; [
       nixpkgs-fmt
       signal-desktop
+      discord
       dbeaver-bin
       spotify
     ]);
