@@ -39,11 +39,6 @@
       enable = true;
     };
 
-    vscode = {
-      enable = true;
-      package = pkgs.vscode.fhs;
-    };
-
     direnv = {
       enable = true;
       nix-direnv.enable = true;
@@ -85,9 +80,7 @@
     stateVersion = "25.05";
 
     packages = (with pkgs; [
-      nixpkgs-fmt
       signal-desktop
-      discord
       dbeaver-bin
       spotify
     ]);
