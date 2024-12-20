@@ -37,7 +37,7 @@
     zsh.enable = true;
     dconf.enable = true;
   };
-  
+
   coco = {
     swm.enable = true;
     ntp.enable = true;
@@ -69,14 +69,14 @@
     mutableUsers = false;
     users = {
       root = {
-        initialHashedPassword = "\$6\$a7aqpD33dBUhDyDy\$vExV0PWsMnOsvlVMPyFTNFRgiPLjZ8H4E7QmK.xaL/Z4mYullm9f8cq6uHiFztvOeQggvea80w1q./Hj/3QnJ.";
+        hashedPasswordFile = config.sops.secrets.root-password.path;
       };
 
       marrero = {
         isNormalUser = true;
         createHome = true;
         description = "Florian Marrero Liestmann";
-        initialHashedPassword = "\$6\$IynztI2Y8F2DIMUD\$REn16J9uoLpQqDDepvdP./HFGF4TK4od2NHBMhbkhL.0BYWdn6ztWY3Lmgsmrf8InEo5FO0h0mxlwzfmBdiA8/";
+        hashedPasswordFile = config.sops.secrets.user-password.path;
         extraGroups = [ "wheel" "docker" "lxd" "scanner" "lp" ];
         group = "users";
         uid = 1000;
@@ -84,7 +84,7 @@
         shell = pkgs.zsh;
 
         openssh.authorizedKeys.keys = [
-	        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII5wD+zMGIVaENIRRxTwK0w+mqWfpeABf4JIp0zA7Vs3 marrero@ntb"
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII5wD+zMGIVaENIRRxTwK0w+mqWfpeABf4JIp0zA7Vs3 marrero@ntb"
         ];
       };
     };
