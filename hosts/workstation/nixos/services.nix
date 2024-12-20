@@ -22,7 +22,6 @@
 
     openssh = {
       enable = true;
-      passwordAuthentication = true;
       hostKeys =
         [
           {
