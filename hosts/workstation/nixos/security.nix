@@ -3,11 +3,6 @@
 with lib;
 
 {
-  imports =
-    [
-      (modulesPath + "/profiles/hardened.nix")
-    ];
-
   environment.memoryAllocator.provider = mkForce "libc";
   environment.extraInit = "umask 0077";
 
