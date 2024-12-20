@@ -17,15 +17,7 @@
         "/nix/var/nix/profiles/per-user/root/channels"
       ];
 
-    gc = {
-      automatic = true;
-      dates = "weekly";
-    };
-
     settings = {
-      trusted-users = [ "root" "marrero" ];
-      allowed-users = [ "@wheel" ];
-
       trusted-public-keys = [
         "fxttr.cachix.org-1:TBvPEn0MZT1PB89c1S8KWyWEmxbWMPW58lqODJuaH94="
       ];

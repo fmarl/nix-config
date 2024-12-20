@@ -5,8 +5,6 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     nix-code.url = "github:fxttr/nix-code";
-    systems.url = "github:nix-systems/x86_64-linux";
-    flake-utils.inputs.systems.follows = "systems";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -38,78 +36,125 @@
     };
   };
   outputs = { self, nixpkgs, flake-utils, home-manager, ... }@inputs:
-      let
-        legacyPackages = 
-          import inputs.nixpkgs {
-            config = {
-              allowUnfree = true;
-            };
-          };
+        let
+          hbuild = legacyPackages.writeShellScriptBin "hbuild" ''
+            #!/usr/bin/env bash
+            home-manager switch --flake . $@
+          '';
 
-        extensions = inputs.nix-vscode-extensions.extensions."x86_64-linux".vscode-marketplace;
+          nbuild = legacyPackages.writeShellScriptBin "nbuild" ''
+            #!/usr/bin/env bash
+            sudo nixos-rebuild switch --flake . $@
+          '';
 
-        commonModules = name: [
-          {
-            nix = {
-              gc = {
-                automatic = true;
-                dates = "weekly";
+          system = "x86_64-linux";
+
+          legacyPackages = 
+            import inputs.nixpkgs {
+              inherit system;
+              config = {
+                allowUnfree = true;
               };
-
-              settings = {
-                trusted-users = [ "root" "marrero" ];
-                allowed-users = [ "@wheel" ];
-              };
-
-              experimental-features = [ "nix-command" "flakes" ];
-
-              optimise.automatic = true;
             };
 
-            networking.hostName = name;
-          }
-          ./hosts/${name}
-        ];
+          extensions = inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace;
 
-        mkSystem = name: cfg: nixpkgs.lib.nixosSystem {
-          system = cfg.system or "x86_64-linux";
-          modules = (commonModules name) ++ (cfg.modules or []);
-          specialArgs = inputs;
-        };
+          commonNixOSModules = name: [
+            {
+              nix = {
+                gc = {
+                  automatic = true;
+                  dates = "weekly";
+                };
 
-        systems = {
-          workstation = {
-            modules = [
-                inputs.home-manager.nixosModules.home-manager
-                inputs.sops-nix.nixosModules.sops
-                inputs.coco.nixosModules.nixos
-            ];
-          };
+                settings = {
+                  trusted-users = [ "root" "marrero" ];
+                  allowed-users = [ "@wheel" ];
+                };
 
-          ntb = {
-            modules = [
-                inputs.home-manager.nixosModules.home-manager
-                inputs.sops-nix.nixosModules.sops
-                inputs.coco.nixosModules.nixos
-            ];
-          };
-        };
-      in
-      {
-        nixosConfigurations = nixpkgs.lib.mapAttrs mkSystem systems;
+                extraOptions = "experimental-features = nix-command flakes";
 
-        devShells.default = legacyPackages.mkShell {
-          nativeBuildInputs = with legacyPackages; [
-            nixpkgs-fmt
-            (inputs.nix-code.packages."x86_64-linux".default {
-              extensions = [
-                extensions.bbenoist.nix
-                extensions.mkhl.direnv
-              ];
+                optimise.automatic = true;
+              };
 
-              userDir = "$HOME/.vscode/${self}";
-            })
+              networking.hostName = name;
+            }
+            ./hosts/${name}/nixos/configuration.nix
+            inputs.sops-nix.nixosModules.sops
+            inputs.coco.nixosModules.nixos
           ];
+
+          commonHomeManagerModules = name: [
+            ./hosts/${name}/home-manager/home.nix
+            inputs.coco.nixosModules.home-manager
+            inputs.sops-nix.homeManagerModules.sops
+          ];
+
+          mkSystem = name: cfg: nixpkgs.lib.nixosSystem {
+            system = cfg.system or "x86_64-linux";
+
+            pkgs = import inputs.nixpkgs {
+              inherit system;
+              config = {
+                allowUnfree = true;
+              };
+            };
+
+            modules = (commonNixOSModules name) ++ (cfg.modules or []);
+
+            specialArgs = { inherit inputs; };
+          };
+
+          mkHomeManager = name: cfg: 
+            let
+              system = cfg.system or "x86_64-linux";
+              namePair = nixpkgs.lib.match "^(.*)@(.*)$" name;
+            in home-manager.lib.homeManagerConfiguration {
+              pkgs = import inputs.nixpkgs {
+                inherit system;
+                config = {
+                  allowUnfree = true;
+                };
+              };
+
+              modules = (commonHomeManagerModules (nixpkgs.lib.elemAt namePair 1)) ++ (cfg.modules or []);
+
+              extraSpecialArgs = { inherit inputs; };
+            };
+
+          systems = {
+            nixos = {
+              workstation = {};
+
+              ntb = {};
+            };
+
+            homes = {
+              "marrero@workstation" = {};
+
+              "marrero@ntb" = {};
+            };
+          };
+        in
+        {
+          nixosConfigurations = nixpkgs.lib.mapAttrs mkSystem systems.nixos;
+
+          homeConfigurations = nixpkgs.lib.mapAttrs mkHomeManager systems.homes;
+
+          devShells.${system}.default = legacyPackages.mkShell {
+            nativeBuildInputs = with legacyPackages; [
+              nixpkgs-fmt
+              hbuild
+              nbuild
+              (inputs.nix-code.packages.${system}.default {
+                extensions = [
+                  extensions.bbenoist.nix
+                  extensions.mkhl.direnv
+                ];
+
+                userDir = "$HOME/.vscode/${self}";
+              })
+            ];
+          };
         };
-      };
 }
