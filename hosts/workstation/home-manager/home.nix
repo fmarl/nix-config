@@ -1,6 +1,6 @@
 { pkgs, config, inputs, lib, ... }:
 {
-  
+
   nixpkgs.config.allowUnfree = true;
 
   sops = {
@@ -33,16 +33,13 @@
     zsh.enable = true;
     theme.enable = true;
     irssi.enable = true;
-    sway = {
-	enable = true;
-	wallpaper = "${inputs.media}/Yosemite 3.jpg";
+    swm = {
+      enable = true;
+      wallpaper = "${inputs.media}/Yosemite 3.jpg";
     };
-    waybar.enable = true;
   };
 
   programs = {
-    vscode.enable = true;
-
     direnv = {
       enable = true;
       nix-direnv.enable = true;
@@ -61,11 +58,6 @@
         "codeberg" = {
           hostname = "codeberg.org";
           user = "git";
-          identityFile = config.sops.secrets.ssh.path;
-        };
-        "svc" = {
-          hostname = "192.168.0.2";
-          user = "florian";
           identityFile = config.sops.secrets.ssh.path;
         };
         "rpi" = {
@@ -95,11 +87,7 @@
     packages = (with pkgs; [
       firefox
       spotify
-      nixpkgs-fmt
-      cachix
       signal-desktop
-      discord
-      mpv
       ranger
     ]);
   };

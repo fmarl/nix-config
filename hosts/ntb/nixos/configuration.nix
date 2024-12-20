@@ -40,8 +40,6 @@
     optimise.automatic = true;
   };
 
-  virtualisation.libvirtd.enable = true;
-
   programs = {
     gnupg.agent = {
       enable = true;
@@ -49,10 +47,8 @@
       pinentryPackage = pkgs.pinentry-curses;
     };
 
-    virt-manager.enable = true;
     zsh.enable = true;
     dconf.enable = true;
-    nano.enable = false;
   };
 
   environment = {

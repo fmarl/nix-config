@@ -5,6 +5,8 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     nix-code.url = "github:fxttr/nix-code";
+    systems.url = "github:nix-systems/x86_64-linux";
+    flake-utils.inputs.systems.follows = "systems";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -35,39 +37,71 @@
       flake = false;
     };
   };
-
-  outputs = { self, nixpkgs, flake-utils, nix-vscode-extensions, nix-code, home-manager, coco, sops-nix, ... }:
-    flake-utils.lib.eachDefaultSystem (system:
+  outputs = { self, nixpkgs, flake-utils, home-manager, ... }@inputs:
       let
-        pkgs = import nixpkgs {
-          inherit system;
-          config = {
-            allowUnfree = true;
+        legacyPackages = 
+          import inputs.nixpkgs {
+            config = {
+              allowUnfree = true;
+            };
           };
+
+        extensions = inputs.nix-vscode-extensions.extensions."x86_64-linux".vscode-marketplace;
+
+        commonModules = name: [
+          {
+            nix = {
+              gc = {
+                automatic = true;
+                dates = "weekly";
+              };
+
+              settings = {
+                trusted-users = [ "root" "marrero" ];
+                allowed-users = [ "@wheel" ];
+              };
+
+              experimental-features = [ "nix-command" "flakes" ];
+
+              optimise.automatic = true;
+            };
+
+            networking.hostName = name;
+          }
+          ./hosts/${name}
+        ];
+
+        mkSystem = name: cfg: nixpkgs.lib.nixosSystem {
+          system = cfg.system or "x86_64-linux";
+          modules = (commonModules name) ++ (cfg.modules or []);
+          specialArgs = inputs;
         };
 
-        extensions = nix-vscode-extensions.extensions.${system}.vscode-marketplace;
+        systems = {
+          workstation = {
+            modules = [
+                inputs.home-manager.nixosModules.home-manager
+                inputs.sops-nix.nixosModules.sops
+                inputs.coco.nixosModules.nixos
+            ];
+          };
 
-        hostname = pkgs.config.networking.hostName;
-        user = builtins.GetEnv "USER";
+          ntb = {
+            modules = [
+                inputs.home-manager.nixosModules.home-manager
+                inputs.sops-nix.nixosModules.sops
+                inputs.coco.nixosModules.nixos
+            ];
+          };
+        };
       in
       {
-        nixosConfigurations = {
-          ${hostname} = import ./${hostname}/flake.nix {
-            inherit self nixpkgs home-manager coco sops-nix;          
-          };
-        };
+        nixosConfigurations = nixpkgs.lib.mapAttrs mkSystem systems;
 
-        homeConfigurations = {
-           "${user}@${hostname}" = import ./${hostname}/flake.nix {
-            inherit self nixpkgs home-manager coco sops-nix;          
-          };
-        };
-
-        devShells.default = pkgs.mkShell {
-          nativeBuildInputs = with pkgs; [
+        devShells.default = legacyPackages.mkShell {
+          nativeBuildInputs = with legacyPackages; [
             nixpkgs-fmt
-            (nix-code.packages.${system}.default {
+            (inputs.nix-code.packages."x86_64-linux".default {
               extensions = [
                 extensions.bbenoist.nix
                 extensions.mkhl.direnv
@@ -77,5 +111,5 @@
             })
           ];
         };
-      });
+      };
 }
