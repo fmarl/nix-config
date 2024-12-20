@@ -9,6 +9,13 @@
       ./security.nix
     ];
 
+  sops = {
+    age = {
+      keyFile = "/home/marrero/.config/sops/age/keys.txt";
+      generateKey = true;
+    };
+  };
+
   nix = {
     nixPath =
       [
@@ -80,14 +87,14 @@
     mutableUsers = false;
     users = {
       root = {
-        initialHashedPassword = "REDACTED";
+        hashedPasswordFile = config.sops.secrets.root-password.path;
       };
 
       marrero = {
         isNormalUser = true;
         createHome = true;
         description = "Florian Marrero Liestmann";
-        initialHashedPassword = "REDACTED";
+        hashedPasswordFile = config.sops.secrets.user-password.path;
         extraGroups = [ "wheel" ];
         group = "users";
         uid = 1000;
@@ -97,17 +104,5 @@
     };
   };
 
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "de_DE.UTF-8";
-    LC_IDENTIFICATION = "de_DE.UTF-8";
-    LC_MEASUREMENT = "de_DE.UTF-8";
-    LC_MONETARY = "de_DE.UTF-8";
-    LC_NAME = "de_DE.UTF-8";
-    LC_NUMERIC = "de_DE.UTF-8";
-    LC_PAPER = "de_DE.UTF-8";
-    LC_TELEPHONE = "de_DE.UTF-8";
-    LC_TIME = "de_DE.UTF-8";
-  };
-  
   system.stateVersion = "24.05";
 }

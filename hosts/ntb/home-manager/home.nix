@@ -1,19 +1,9 @@
 { pkgs, config, inputs, lib, ... }:
 {
-  nixpkgs.config.allowUnfree = true;
-
   sops = {
-    defaultSopsFile = "${inputs.secrets}/systems/notebook.yaml";
-
     age = {
       keyFile = "/home/marrero/.config/sops/age/keys.txt";
       generateKey = true;
-    };
-
-    secrets = {
-      ssh = {
-        path = "/run/user/1000/secrets/ssh";
-      };
     };
   };
 
@@ -21,11 +11,12 @@
     zsh.enable = true;
     theme.enable = true;
     irssi.enable = true;
+
     sway = {
       enable = true;
       wallpaper = "${inputs.media}/Yosemite 3.jpg";
     };
-    
+
     waybar = {
       enable = true;
       mobile = true;
@@ -37,11 +28,6 @@
   programs = {
     firefox = {
       enable = true;
-    };
-
-    direnv = {
-      enable = true;
-      nix-direnv.enable = true;
     };
 
     ssh = {
@@ -75,16 +61,10 @@
   };
 
   home = {
-    username = "marrero";
-    homeDirectory = "/home/marrero";
-    stateVersion = "25.05";
-
     packages = (with pkgs; [
       signal-desktop
       dbeaver-bin
       spotify
     ]);
   };
-
-  systemd.user.services.mbsync.Unit.After = [ "sops-nix.service" ];
 }

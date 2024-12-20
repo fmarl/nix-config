@@ -1,34 +1,12 @@
 { pkgs, config, inputs, lib, ... }:
 {
-
-  nixpkgs.config.allowUnfree = true;
-
   sops = {
-    defaultSopsFile = "${inputs.secrets}/systems/workstation.yaml";
-
     age = {
       keyFile = "/home/marrero/.config/sops/age/keys.txt";
       generateKey = true;
     };
-
-    secrets = {
-      ssh = {
-        path = "/run/user/1000/secrets/ssh";
-      };
-
-      #github_token = {
-      # path = "/run/user/1000/secrets/github_token";
-      #};
-    };
   };
-
-  nix = {
-    package = pkgs.nix;
-    #settings = {
-    #  extra-access-tokens = "!include ${config.sops.secrets.github_token.path}";
-    #};
-  };
-
+  
   coco = {
     zsh.enable = true;
     theme.enable = true;
@@ -40,9 +18,8 @@
   };
 
   programs = {
-    direnv = {
+    firefox = {
       enable = true;
-      nix-direnv.enable = true;
     };
 
     ssh = {
@@ -67,25 +44,20 @@
         };
       };
     };
+  };
 
-    git = {
-      enable = true;
-      userName = "Florian Marrero Liestmann";
-      userEmail = "f.m.liestmann@fx-ttr.de";
-      signing = {
-        signByDefault = false;
-        key = "70E8553E95661A5A46D5C5C8D7B81BF6241910A0";
-      };
+  git = {
+    enable = true;
+    userName = "Florian Marrero Liestmann";
+    userEmail = "f.m.liestmann@fx-ttr.de";
+    signing = {
+      signByDefault = false;
+      key = "70E8553E95661A5A46D5C5C8D7B81BF6241910A0";
     };
   };
 
   home = {
-    username = "marrero";
-    homeDirectory = "/home/marrero";
-    stateVersion = "24.05";
-
     packages = (with pkgs; [
-      firefox
       spotify
       signal-desktop
       ranger
