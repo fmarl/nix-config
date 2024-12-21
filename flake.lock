@@ -19,22 +19,6 @@
         "type": "github"
       }
     },
-    "emacs-cfg": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1704465167,
-        "narHash": "sha256-xmwn3LkgnU31RwGGOuPii1gZz8S5m37DpnUJzGuvuJ8=",
-        "owner": "fxttr",
-        "repo": "emacs-cfg",
-        "rev": "bd1dbbeaa865f82a2e0b91befdbfcec3914aefdc",
-        "type": "github"
-      },
-      "original": {
-        "owner": "fxttr",
-        "repo": "emacs-cfg",
-        "type": "github"
-      }
-    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -338,7 +322,6 @@
     "root": {
       "inputs": {
         "coco": "coco",
-        "emacs-cfg": "emacs-cfg",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager_2",
         "media": "media",

@@ -11,11 +11,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    emacs-cfg = {
-      url = "github:fxttr/emacs-cfg";
-      flake = false;
-    };
-
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -35,6 +30,7 @@
       flake = false;
     };
   };
+  
   outputs = { self, nixpkgs, flake-utils, home-manager, ... }@inputs:
     let
       hbuild = legacyPackages.writeShellScriptBin "hbuild" ''
