@@ -26,10 +26,6 @@
     homeDirectory = "/home/${user}";
     stateVersion = "25.05";
   };
-
-  nix = {
-    package = legacyPackages.nix;
-  };
-
+  
   systemd.user.services.mbsync.Unit.After = [ "sops-nix.service" ];
 }
