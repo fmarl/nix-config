@@ -18,8 +18,4 @@
       pulse.enable = true;
     };
   };
-
-  systemd = {
-    coredump.enable = false;
-  };
 }

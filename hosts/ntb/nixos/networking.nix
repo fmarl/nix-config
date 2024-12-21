@@ -24,6 +24,4 @@
       "3.de.pool.ntp.org"
     ];
   };
-
-  time.timeZone = "Europe/Berlin";
 }

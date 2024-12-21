@@ -54,91 +54,18 @@
         };
 
       commonNixOSModules = host: [
-        {
-          sops = {
-            defaultSopsFile = "${inputs.secrets}/systems/${host}.yaml";
-
-            secrets = {
-              root-password = {
-                neededForUsers = true;
-              };
-
-              user-password = {
-                neededForUsers = true;
-              };
-            };
-          };
-
-          nix = {
-            gc = {
-              automatic = true;
-              dates = "weekly";
-            };
-
-            settings = {
-              trusted-users = [ "root" "marrero" ];
-              allowed-users = [ "@wheel" ];
-            };
-
-            extraOptions = "experimental-features = nix-command flakes";
-
-            optimise.automatic = true;
-          };
-
-          networking.hostName = host;
-
-          i18n.extraLocaleSettings = {
-            LC_ADDRESS = "de_DE.UTF-8";
-            LC_IDENTIFICATION = "de_DE.UTF-8";
-            LC_MEASUREMENT = "de_DE.UTF-8";
-            LC_MONETARY = "de_DE.UTF-8";
-            LC_NAME = "de_DE.UTF-8";
-            LC_NUMERIC = "de_DE.UTF-8";
-            LC_PAPER = "de_DE.UTF-8";
-            LC_TELEPHONE = "de_DE.UTF-8";
-            LC_TIME = "de_DE.UTF-8";
-          };
-        }
+        (import ./modules/nixos { 
+          inherit inputs host;
+        })
         ./hosts/${host}/nixos/configuration.nix
-        ./modules/nixos
         inputs.sops-nix.nixosModules.sops
       ];
 
       commonHomeManagerModules = user: host: [
-        {
-          nixpkgs.config.allowUnfree = true;
-
-          sops = {
-            defaultSopsFile = "${inputs.secrets}/systems/${host}.yaml";
-
-            secrets = {
-              ssh = {
-                path = "/run/user/1000/secrets/ssh";
-              };
-            };
-          };
-
-          programs = {
-            direnv = {
-              enable = true;
-              nix-direnv.enable = true;
-            };
-          };
-
-          home = {
-            username = "${user}";
-            homeDirectory = "/home/${user}";
-            stateVersion = "25.05";
-          };
-
-          nix = {
-            package = legacyPackages.nix;
-          };
-
-          systemd.user.services.mbsync.Unit.After = [ "sops-nix.service" ];
-        }
+        (import ./modules/home-manager { 
+          inherit inputs host user;
+        })
         ./hosts/${host}/home-manager/home.nix
-        ./modules/home-manager
         inputs.sops-nix.homeManagerModules.sops
       ];
 
