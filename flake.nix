@@ -4,7 +4,11 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
-    nix-code.url = "github:fxttr/nix-code";
+
+    nix-code = {
+      url = "github:fxttr/nix-code";
+      inputs.extensions.follows = "nix-vscode-extensions";
+    };
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -52,8 +56,6 @@
             allowUnfree = true;
           };
         };
-
-      extensions = inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace;
 
       commonNixOSModules = host: [
         {
@@ -116,14 +118,6 @@
             secrets = {
               ssh = {
                 path = "/run/user/1000/secrets/ssh";
-              };
-
-              root-password = {
-                neededForUsers = true;
-              };
-
-              user-password = {
-                neededForUsers = true;
               };
             };
           };
@@ -211,11 +205,11 @@
           nixpkgs-fmt
           hbuild
           nbuild
-          (inputs.nix-code.packages.${system}.default {
-            extensions = [
-              extensions.bbenoist.nix
-              extensions.jnoortheen.nix-ide
-              extensions.mkhl.direnv
+          (inputs.nix-code.vscode.${system} {
+            extensions = with inputs.nix-code.extensions.${system}; [
+              bbenoist.nix
+              jnoortheen.nix-ide
+              mkhl.direnv
             ];
 
             userDir = "$HOME/.vscode/${self}";
