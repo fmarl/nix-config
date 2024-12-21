@@ -7,7 +7,7 @@
     };
   };
 
-  coco = {
+  modules = {
     zsh.enable = true;
     theme.enable = true;
     irssi.enable = true;

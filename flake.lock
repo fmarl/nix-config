@@ -1,24 +1,5 @@
 {
   "nodes": {
-    "coco": {
-      "inputs": {
-        "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs"
-      },
-      "locked": {
-        "lastModified": 1734726755,
-        "narHash": "sha256-5IyegF+7vruA81RfW6qEO8pK06vhjOAY6r9soqALp2w=",
-        "owner": "fxttr",
-        "repo": "coco",
-        "rev": "a7c14fa31119daa7f7491cf20da7d4ac2e437684",
-        "type": "github"
-      },
-      "original": {
-        "owner": "fxttr",
-        "repo": "coco",
-        "type": "github"
-      }
-    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -90,28 +71,6 @@
     "home-manager": {
       "inputs": {
         "nixpkgs": [
-          "coco",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1706981411,
-        "narHash": "sha256-cLbLPTL1CDmETVh4p0nQtvoF+FSEjsnJTFpTxhXywhQ=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "652fda4ca6dafeb090943422c34ae9145787af37",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "ref": "release-23.11",
-        "repo": "home-manager",
-        "type": "github"
-      }
-    },
-    "home-manager_2": {
-      "inputs": {
-        "nixpkgs": [
           "nixpkgs"
         ]
       },
@@ -151,7 +110,7 @@
           "nix-vscode-extensions"
         ],
         "flake-utils": "flake-utils_2",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs"
       },
       "locked": {
         "lastModified": 1734777326,
@@ -171,7 +130,7 @@
       "inputs": {
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils_3",
-        "nixpkgs": "nixpkgs_3"
+        "nixpkgs": "nixpkgs_2"
       },
       "locked": {
         "lastModified": 1734745696,
@@ -189,22 +148,6 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1709200309,
-        "narHash": "sha256-lKdtMbhnBNU1lr978T+wEYet3sfIXXgyiDZNEgx8CV8=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "ebe6e807793e7c9cc59cf81225fdee1a03413811",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_2": {
-      "locked": {
         "lastModified": 1734435836,
         "narHash": "sha256-kMBQ5PRiFLagltK0sH+08aiNt3zGERC2297iB6vrvlU=",
         "owner": "NixOS",
@@ -219,7 +162,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_3": {
+    "nixpkgs_2": {
       "locked": {
         "lastModified": 1713805509,
         "narHash": "sha256-YgSEan4CcrjivCNO5ZNzhg7/8ViLkZ4CB/GrGBVSudo=",
@@ -235,7 +178,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_4": {
+    "nixpkgs_3": {
       "locked": {
         "lastModified": 1734435836,
         "narHash": "sha256-kMBQ5PRiFLagltK0sH+08aiNt3zGERC2297iB6vrvlU=",
@@ -253,13 +196,12 @@
     },
     "root": {
       "inputs": {
-        "coco": "coco",
         "flake-utils": "flake-utils",
-        "home-manager": "home-manager_2",
+        "home-manager": "home-manager",
         "media": "media",
         "nix-code": "nix-code",
         "nix-vscode-extensions": "nix-vscode-extensions",
-        "nixpkgs": "nixpkgs_4",
+        "nixpkgs": "nixpkgs_3",
         "secrets": "secrets",
         "sops-nix": "sops-nix"
       }

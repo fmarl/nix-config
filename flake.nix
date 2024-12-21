@@ -25,10 +25,6 @@
       flake = false;
     };
 
-    coco = {
-      url = "github:fxttr/coco";
-    };
-
     media = {
       url = "github:foxt/macOS-Wallpapers";
       flake = false;
@@ -104,8 +100,8 @@
           };
         }
         ./hosts/${host}/nixos/configuration.nix
+        ./modules/nixos
         inputs.sops-nix.nixosModules.sops
-        inputs.coco.nixosModules.nixos
       ];
 
       commonHomeManagerModules = user: host: [
@@ -142,7 +138,7 @@
           systemd.user.services.mbsync.Unit.After = [ "sops-nix.service" ];
         }
         ./hosts/${host}/home-manager/home.nix
-        inputs.coco.nixosModules.home-manager
+        ./modules/home-manager
         inputs.sops-nix.homeManagerModules.sops
       ];
 
