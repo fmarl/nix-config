@@ -69,7 +69,7 @@
     font-awesome
   ];
 
-  coco.sway.enable = true;
+  modules.sway.enable = true;
 
   console = {
     keyMap = "us-acentos";

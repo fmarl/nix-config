@@ -38,7 +38,7 @@
     dconf.enable = true;
   };
 
-  coco = {
+  modules = {
     swm.enable = true;
     ntp.enable = true;
   };
