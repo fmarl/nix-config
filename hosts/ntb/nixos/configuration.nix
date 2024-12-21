@@ -33,10 +33,6 @@
         "https://fxttr.cachix.org"
       ];
     };
-
-    extraOptions = "experimental-features = nix-command flakes";
-
-    optimise.automatic = true;
   };
 
   programs = {

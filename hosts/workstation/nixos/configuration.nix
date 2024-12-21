@@ -90,8 +90,6 @@
     };
   };
 
-  time.timeZone = "Europe/Berlin";
-
   virtualisation.docker = {
     enable = true;
     rootless = {
@@ -99,8 +97,4 @@
       setSocketVariable = true;
     };
   };
-
-  system.stateVersion = "24.05";
-
-  security.sudo.execWheelOnly = true;
 }
