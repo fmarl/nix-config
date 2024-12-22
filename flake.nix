@@ -134,8 +134,6 @@
               jnoortheen.nix-ide
               mkhl.direnv
             ];
-
-            userDir = "$HOME/.vscode/${self}";
           })
         ];
       };

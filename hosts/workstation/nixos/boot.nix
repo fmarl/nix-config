@@ -27,6 +27,8 @@ with lib;
 
     extraModulePackages = [ ];
     
+    tmp.cleanOnBoot = true;
+    
     # Restrict ptrace() usage to processes with a pre-defined relationship
     # (e.g., parent/child)
     kernel.sysctl = {

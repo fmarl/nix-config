@@ -113,11 +113,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1734777326,
-        "narHash": "sha256-Ftefr9jB5KD2ENq1MY4veOjiKY/VJKCaJlMFD+FLT70=",
+        "lastModified": 1734881879,
+        "narHash": "sha256-1esTUim/daZcZfaHRS9m4kJbZrZSvXZDGaOHcuoqe6c=",
         "owner": "fxttr",
         "repo": "nix-code",
-        "rev": "914c16838d2b5b828d11b6c8a4a6a3aa09783551",
+        "rev": "f48e9ce96254f98674944d2189e1a38ee90061c6",
         "type": "github"
       },
       "original": {
