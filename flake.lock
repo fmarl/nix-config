@@ -75,11 +75,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1734622215,
-        "narHash": "sha256-OOfI0XhSJGHblfdNDhfnn8QnZxng63rWk9eeJ2tCbiI=",
+        "lastModified": 1734862405,
+        "narHash": "sha256-bXZJvUMJ2A6sIpYcCUAGjYCD5UDzmpmQCdmJSkPhleU=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "1395379a7a36e40f2a76e7b9936cc52950baa1be",
+        "rev": "cb27edb5221d2f2920a03155f8becc502cf60e35",
         "type": "github"
       },
       "original": {
@@ -133,11 +133,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1734745696,
-        "narHash": "sha256-rTGDkcbzfcTL7jE4TtxhNQtDssD1QY8yLo8ApAv3XRs=",
+        "lastModified": 1734832456,
+        "narHash": "sha256-gyp5aVMSA83OV8kP/a1FBA6KGJqNkswUK9VdAh1hLS4=",
         "owner": "nix-community",
         "repo": "nix-vscode-extensions",
-        "rev": "113779a6601d5b5c8ef7c5b5c4ab3f377fd3e2c3",
+        "rev": "c567c5f3bc53723d726f286ea94d5aebac55d4c5",
         "type": "github"
       },
       "original": {
@@ -209,11 +209,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1734730408,
-        "narHash": "sha256-GXpyP/hy739LoLWSeDi7tP+BY71H5FxJ2QKLqxbEWJs=",
+        "lastModified": 1734870116,
+        "narHash": "sha256-4wZIURm/4TM6sfg49tQqdOWQm4kdmXZVUUM8F2SkxqE=",
         "owner": "fxttr",
         "repo": "secrets",
-        "rev": "88f153bbe8f781b81b2783dec522b0db6372827f",
+        "rev": "60ebf368ef3df6ec4ed4fc233ea4d371514a9fb7",
         "type": "github"
       },
       "original": {

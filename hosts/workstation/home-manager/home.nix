@@ -6,7 +6,7 @@
       generateKey = true;
     };
   };
-  
+
   modules = {
     zsh.enable = true;
     theme.enable = true;
@@ -44,15 +44,15 @@
         };
       };
     };
-  };
 
-  git = {
-    enable = true;
-    userName = "Florian Marrero Liestmann";
-    userEmail = "f.m.liestmann@fx-ttr.de";
-    signing = {
-      signByDefault = false;
-      key = "70E8553E95661A5A46D5C5C8D7B81BF6241910A0";
+    git = {
+      enable = true;
+      userName = "Florian Marrero Liestmann";
+      userEmail = "f.m.liestmann@fx-ttr.de";
+      signing = {
+        signByDefault = false;
+        key = "70E8553E95661A5A46D5C5C8D7B81BF6241910A0";
+      };
     };
   };
 
@@ -60,7 +60,6 @@
     packages = (with pkgs; [
       spotify
       signal-desktop
-      ranger
     ]);
   };
 }
