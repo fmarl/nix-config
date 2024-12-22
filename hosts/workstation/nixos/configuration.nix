@@ -9,6 +9,13 @@
       ./boot.nix
     ];
 
+  sops = {
+    age = {
+      keyFile = "/home/marrero/.config/sops/age/keys.txt";
+      generateKey = true;
+    };
+  };
+
   nix = {
     nixPath =
       [
