@@ -1,1 +1,1 @@
-{ imports = [ ./ntp.nix ]; }
+{ }
