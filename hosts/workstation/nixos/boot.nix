@@ -5,7 +5,7 @@ with lib;
 {
   boot = {
     kernelModules = [ "kvm-amd" ];
-
+    
     initrd = {
       availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "lz4" "z3fold" ];
       kernelModules = [ "lz4" "z3fold" ];
