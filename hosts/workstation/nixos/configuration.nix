@@ -39,20 +39,19 @@
     gnupg.agent = {
       enable = true;
       enableSSHSupport = true;
+      pinentryPackage = pkgs.pinentry-curses;
     };
 
     zsh.enable = true;
     dconf.enable = true;
   };
 
-  modules = {
-    swm.enable = true;
-    ntp.enable = true;
-  };
+  modules.swm.enable = true;
 
   environment = {
     shells = with pkgs; [ zsh ];
     pathsToLink = [ "/share/zsh" ];
+    defaultPackages = lib.mkForce [ ];
     systemPackages = with pkgs;
       [
         vim
@@ -67,10 +66,6 @@
     source-code-pro
     font-awesome
   ];
-
-  console = {
-    keyMap = "de";
-  };
 
   users = {
     mutableUsers = false;

@@ -2,6 +2,19 @@
 {
   imports = [ ./services ./programs ];
 
+  networking = {
+    hostName = host;
+
+    nameservers = [ "1.1.1.1" "8.8.8.8" ];
+
+    timeServers = [
+      "0.de.pool.ntp.org"
+      "1.de.pool.ntp.org"
+      "2.de.pool.ntp.org"
+      "3.de.pool.ntp.org"
+    ];
+  };
+
   sops = {
     defaultSopsFile = "${inputs.secrets}/systems/${host}.yaml";
 
@@ -32,13 +45,11 @@
     optimise.automatic = true;
   };
 
-  networking.hostName = host;
-
-  system.stateVersion = "24.05";
-
-  security.sudo.execWheelOnly = true;
-
   time.timeZone = "Europe/Berlin";
+
+  console = {
+    keyMap = "us-acentos";
+  };
 
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "de_DE.UTF-8";
@@ -52,7 +63,11 @@
     LC_TIME = "de_DE.UTF-8";
   };
 
+  security.sudo.execWheelOnly = true;
+
   systemd = {
     coredump.enable = false;
   };
+
+  system.stateVersion = "24.05";
 }

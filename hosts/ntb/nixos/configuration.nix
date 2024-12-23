@@ -46,6 +46,8 @@
     dconf.enable = true;
   };
 
+  modules.sway.enable = true;
+
   environment = {
     shells = with pkgs; [ zsh ];
     pathsToLink = [ "/share/zsh" ];
@@ -64,20 +66,6 @@
     source-code-pro
     font-awesome
   ];
-
-  modules.sway.enable = true;
-
-  console = {
-    keyMap = "us-acentos";
-  };
-
-  virtualisation.docker = {
-    enable = true;
-    rootless = {
-      enable = true;
-      setSocketVariable = true;
-    };
-  };
 
   users = {
     mutableUsers = false;
@@ -100,5 +88,11 @@
     };
   };
 
-  system.stateVersion = "24.05";
+  virtualisation.docker = {
+    enable = true;
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+    };
+  };
 }
