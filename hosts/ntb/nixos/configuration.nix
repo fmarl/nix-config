@@ -36,14 +36,7 @@
   };
 
   programs = {
-    gnupg.agent = {
-      enable = true;
-      enableSSHSupport = true;
-      pinentryPackage = pkgs.pinentry-curses;
-    };
-
     zsh.enable = true;
-    dconf.enable = true;
   };
 
   modules.sway.enable = true;
@@ -56,9 +49,7 @@
       [
         vim
         git
-        htop
         home-manager
-        pinentry-curses
       ];
   };
 
