@@ -10,6 +10,8 @@
     dbus.enable = true;
 
     pcscd.enable = true;
+    
+    udev.packages = with pkgs; [ yubikey-personalization libu2f-host ];
 
     pipewire = {
       enable = true;

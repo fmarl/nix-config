@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    pre-commit-hooks.url = "github:cachix/git-hooks.nix";
 
     nix-code = {
       url = "github:fxttr/nix-code";
@@ -30,22 +31,22 @@
       flake = false;
     };
   };
-  
+
   outputs = { self, nixpkgs, flake-utils, home-manager, ... }@inputs:
     let
-      hbuild = legacyPackages.writeShellScriptBin "hbuild" ''
+      hbuild = pkgs.writeShellScriptBin "hbuild" ''
         #!/usr/bin/env bash
         home-manager switch --flake . $@
       '';
 
-      nbuild = legacyPackages.writeShellScriptBin "nbuild" ''
+      nbuild = pkgs.writeShellScriptBin "nbuild" ''
         #!/usr/bin/env bash
         sudo nixos-rebuild switch --flake . $@
       '';
 
       system = "x86_64-linux";
 
-      legacyPackages =
+      pkgs =
         import inputs.nixpkgs {
           inherit system;
           config = {
@@ -54,7 +55,7 @@
         };
 
       commonNixOSModules = host: [
-        (import ./modules/nixos { 
+        (import ./modules/nixos {
           inherit inputs host;
         })
         ./hosts/${host}/nixos/configuration.nix
@@ -62,8 +63,8 @@
       ];
 
       commonHomeManagerModules = user: host: [
-        (import ./modules/home-manager { 
-          inherit inputs host user;
+        (import ./modules/home-manager {
+          inherit pkgs inputs host user;
         })
         ./hosts/${host}/home-manager/home.nix
         inputs.sops-nix.homeManagerModules.sops
@@ -119,12 +120,21 @@
       };
     in
     {
+      checks = {
+        pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
+          src = ./.;
+          hooks = {
+            nixpkgs-fmt.enable = true;
+          };
+        };
+      };
+
       nixosConfigurations = nixpkgs.lib.mapAttrs mkSystem systems.nixos;
 
       homeConfigurations = nixpkgs.lib.mapAttrs mkHomeManager systems.homes;
 
-      devShells.${system}.default = legacyPackages.mkShell {
-        nativeBuildInputs = with legacyPackages; [
+      devShells.${system}.default = pkgs.mkShell {
+        nativeBuildInputs = with pkgs; [
           nixpkgs-fmt
           hbuild
           nbuild
