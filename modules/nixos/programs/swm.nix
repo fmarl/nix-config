@@ -4,13 +4,6 @@ with lib;
 
 let
   cfg = config.modules.swm;
-  swm = ''${(pkgs.fetchFromGitHub {
-    owner = "fxttr";
-    repo = "swm";
-    rev = "c36a09504771cb944dfeecc085ac0878dc50235e";
-    sha256 = "sha256-NX5510fR0LqVOBrcLcGmWiqEqF18l96qyXW8U4FGxuI=";
-  })}/default.nix'';
-
 in
 {
   options.modules.swm.enable = mkEnableOption "Install swm";
@@ -28,7 +21,7 @@ in
           manage = "desktop";
           name = "swm";
           start = ''
-            ${(pkgs.callPackage swm { })}/bin/swm
+            ${pkgs.swm}/bin/swm
           '';
         }];
 

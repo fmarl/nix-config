@@ -5,20 +5,6 @@ with lib;
 let
   cfg = config.modules.swm;
   wallpaper = cfg.wallpaper;
-
-  stc = ''${(pkgs.fetchFromGitHub {
-    owner = "fxttr";
-    repo = "stc";
-    rev = "f65a5e19e2b0ff872ed27c0b3f90f320c17f1a5e";
-    sha256 = "sha256-IM9k7p9zDZr6lHZ0BlDufERKiLGWYsZ+jkBa9KBEqkc=";
-  })}/default.nix'';
-
-  symo = (pkgs.fetchFromGitHub {
-    owner = "fxttr";
-    repo = "symo";
-    rev = "257cd74cd6ce93ce47c656dc37fdec8a4f093d8b";
-    sha256 = "sha256-cxZynbKESIE8OLyMssMm5Rs9fcXTHtUWUWG4m/rdbeo=";
-  });
 in
 {
   options.modules.swm.enable = mkEnableOption "Install swm";
@@ -100,7 +86,7 @@ in
       };
 
       home.packages = [
-        (pkgs.callPackage stc { })
+        pkgs.stc
         pkgs.feh
         pkgs.ranger
         pkgs.dmenu
@@ -122,16 +108,7 @@ in
           ${pkgs.wmname}/bin/wmname "LG3D"
         '';
 
-        windowManager.command =
-          let
-            swm = ''${(pkgs.fetchFromGitHub {
-              owner = "fxttr";
-              repo = "swm";
-              rev = "2578e270c7f982364e2f553393041c58593647f4";
-              sha256 = "sha256-GsEXbTl8peDiFw89QKjHNJwa4oXOYHxmw1r7Fl7fI5k=";
-            })}/default.nix'';
-          in
-          "${(pkgs.callPackage swm { })}/bin/swm";
+        windowManager.command = "${pkgs.swm}/bin/swm";
       };
     };
 }
