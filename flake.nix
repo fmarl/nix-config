@@ -21,6 +21,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    swm = {
+      url = "github:fxttr/swm";
+    };
+
+    stc = {
+      url = "github:fxttr/stc";
+    };
+
     secrets = {
       url = "github:fxttr/secrets";
       flake = false;
@@ -47,17 +55,26 @@
       system = "x86_64-linux";
 
       pkgs =
-        import inputs.nixpkgs {
-          inherit system;
-          config = {
-            allowUnfree = true;
+        import inputs.nixpkgs
+          {
+            inherit system;
+            config = {
+              allowUnfree = true;
+            };
           };
-        };
+
+      customNixpkgs = ({
+          nixpkgs.overlays = [
+            (final: prev: { swm = inputs.swm.defaultPackage.${system}; })
+            (final: prev: { stc = inputs.stc.defaultPackage.${system}; })
+          ];
+        });
 
       commonNixOSModules = host: [
         (import ./modules/nixos {
           inherit inputs host;
         })
+        customNixpkgs
         ./hosts/${host}/nixos/configuration.nix
         inputs.sops-nix.nixosModules.sops
       ];
@@ -66,19 +83,15 @@
         (import ./modules/home-manager {
           inherit pkgs inputs host user;
         })
+        customNixpkgs
         ./hosts/${host}/home-manager/home.nix
         inputs.sops-nix.homeManagerModules.sops
       ];
 
       mkSystem = name: cfg: nixpkgs.lib.nixosSystem {
-        system = cfg.system or "x86_64-linux";
+        inherit pkgs;
 
-        pkgs = import inputs.nixpkgs {
-          inherit system;
-          config = {
-            allowUnfree = true;
-          };
-        };
+        system = cfg.system or "x86_64-linux";
 
         modules = (commonNixOSModules name) ++ (cfg.modules or [ ]);
 
@@ -93,12 +106,7 @@
           host = nixpkgs.lib.elemAt namePair 1;
         in
         home-manager.lib.homeManagerConfiguration {
-          pkgs = import inputs.nixpkgs {
-            inherit system;
-            config = {
-              allowUnfree = true;
-            };
-          };
+          inherit pkgs;
 
           modules = (commonHomeManagerModules user host) ++ (cfg.modules or [ ]);
 
