@@ -41,6 +41,12 @@
           identityFile = config.sops.secrets.ssh.path;
         };
 
+        "codeberg" = {
+          hostname = "codeberg.org";
+          user = "git";
+          identityFile = config.sops.secrets.ssh.path;
+        };
+
         "workstation" = {
           hostname = "192.168.0.200";
           user = "marrero";
