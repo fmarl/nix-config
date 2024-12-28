@@ -10,10 +10,19 @@
   modules = {
     zsh.enable = true;
     theme.enable = true;
-    irssi.enable = true;
-    swm = {
+
+    irssi = {
+      enable = true;
+      user = "fxttr";
+    };
+
+    sway = {
       enable = true;
       wallpaper = "${inputs.media}/Yosemite 3.jpg";
+    };
+
+    waybar = {
+      enable = true;
     };
   };
 
@@ -32,11 +41,13 @@
           user = "git";
           identityFile = config.sops.secrets.ssh.path;
         };
+
         "codeberg" = {
           hostname = "codeberg.org";
           user = "git";
           identityFile = config.sops.secrets.ssh.path;
         };
+
         "rpi" = {
           hostname = "192.168.0.4";
           user = "florian";
@@ -50,16 +61,17 @@
       userName = "Florian Marrero Liestmann";
       userEmail = "f.m.liestmann@fx-ttr.de";
       signing = {
-        signByDefault = false;
-        key = "70E8553E95661A5A46D5C5C8D7B81BF6241910A0";
+        signByDefault = true;
+        key = "D1912EEBC3FBEBB4";
       };
     };
   };
 
   home = {
     packages = (with pkgs; [
-      spotify
       signal-desktop
+      dbeaver-bin
+      spotify
     ]);
   };
 }

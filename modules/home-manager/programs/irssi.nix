@@ -21,13 +21,27 @@ in {
             type = "IRC";
             nick = cfg.user;
             name = cfg.user;
+
             server = {
               address = "irc.libera.chat";
               port = 6697;
               autoConnect = false;
             };
+
             channels = {
               nixos.autoJoin = true;
+            };
+          };
+
+          hackint = {
+            type = "IRC";
+            nick = cfg.user;
+            name = cfg.user;
+            
+            server = {
+              address = "irc.hackint.org";
+              port = 6697;
+              autoConnect = false;
             };
           };
         };

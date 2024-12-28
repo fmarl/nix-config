@@ -17,7 +17,12 @@
     defaultGateway = "192.168.0.1";
 
     useDHCP = lib.mkDefault false;
-  };
 
-  time.timeZone = "Europe/Berlin";
+    timeServers = [
+      "0.de.pool.ntp.org"
+      "1.de.pool.ntp.org"
+      "2.de.pool.ntp.org"
+      "3.de.pool.ntp.org"
+    ];
+  };
 }

@@ -36,17 +36,10 @@
   };
 
   programs = {
-    gnupg.agent = {
-      enable = true;
-      enableSSHSupport = true;
-      pinentryPackage = pkgs.pinentry-curses;
-    };
-
     zsh.enable = true;
-    dconf.enable = true;
   };
 
-  modules.swm.enable = true;
+  modules.sway.enable = true;
 
   environment = {
     shells = with pkgs; [ zsh ];
@@ -55,10 +48,8 @@
     systemPackages = with pkgs;
       [
         vim
-        htop
         git
         home-manager
-        pinentry-curses
       ];
   };
 
@@ -79,7 +70,7 @@
         createHome = true;
         description = "Florian Marrero Liestmann";
         hashedPasswordFile = config.sops.secrets.user-password.path;
-        extraGroups = [ "wheel" "docker" "lxd" "scanner" "lp" ];
+        extraGroups = [ "wheel" ];
         group = "users";
         uid = 1000;
         home = "/home/marrero";
