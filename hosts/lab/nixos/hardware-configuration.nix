@@ -13,7 +13,7 @@
 
   fileSystems."/boot" =
     {
-      device = "/dev/disk/by-uuid/B4FE-552F";
+      device = "/dev/disk/by-uuid/7B17-D3DC";
       fsType = "vfat";
       options = [ "fmask=002" "dmask=002" ];
     };
@@ -36,28 +36,8 @@
       fsType = "zfs";
     };
 
-  swapDevices =
-    [{ device = "/dev/disk/by-uuid/e265876b-a241-40c6-993a-d97f565b21b2"; }];
+  swapDevices = [];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  
-  services.xserver.videoDrivers = [ "nvidia" ];
-  
-  hardware = {
-    cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-    pulseaudio.enable = false;
-    bluetooth.enable = false;
-
-    graphics = {
-      enable = true;
-    };
-
-    nvidia = {
-      modesetting.enable = true;
-
-      open = false;
-      nvidiaSettings = false;
-      powerManagement.enable = false;
-    };
-  };
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

@@ -48,9 +48,9 @@
           identityFile = config.sops.secrets.ssh.path;
         };
 
-        "rpi" = {
-          hostname = "192.168.0.4";
-          user = "florian";
+        "lab" = {
+          hostname = "192.168.0.201";
+          user = "marrero";
           identityFile = config.sops.secrets.ssh.path;
         };
       };
