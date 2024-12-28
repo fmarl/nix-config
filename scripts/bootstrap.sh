@@ -83,7 +83,7 @@ function setup_zfs {
     export ZFS_DS_PERSIST="${ZFS_SAFE}/persist"
     export ZFS_BLANK_SNAPSHOT="${ZFS_DS_ROOT}@blank"
 
-    zpool create -o ashift=13 -o atime=off -o xattr=sa -o compression=lz4 -f "$ZFS_POOL" "$DISK_PART_ROOT"
+    zpool create -o ashift=12 -O compression=lz4 -O acltype=posixacl -O xattr=sa -O relatime=on -o autotrim=on -f "$ZFS_POOL" "$DISK_PART_ROOT"
 
     info "Creating ZFS datasets ..."
     zfs create -p -o mountpoint=legacy "$ZFS_DS_ROOT"
