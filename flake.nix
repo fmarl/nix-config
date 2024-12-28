@@ -49,7 +49,14 @@
 
       nbuild = pkgs.writeShellScriptBin "nbuild" ''
         #!/usr/bin/env bash
-        sudo nixos-rebuild switch --flake . $@
+
+        if [ -z ''${REMOTE+x} ]; then
+          sudo nixos-rebuild switch --flake . $@ 
+        else
+          HOSTNAME=''${REMOTE}
+
+          nixos-rebuild switch --flake . --use-remote-sudo --build-host $@ --target-host $@
+        fi
       '';
 
       system = "x86_64-linux";
@@ -118,6 +125,8 @@
           workstation = { };
 
           ntb = { };
+
+	  lab = { };
         };
 
         homes = {
