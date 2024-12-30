@@ -11,6 +11,7 @@
     zsh.enable = true;
     theme.enable = true;
     irssi.enable = true;
+    librewolf.enable = true;
 
     sway = {
       enable = true;
@@ -26,10 +27,6 @@
   fonts.fontconfig.enable = true;
 
   programs = {
-    firefox = {
-      enable = true;
-    };
-
     ssh = {
       enable = true;
       hashKnownHosts = true;
@@ -69,6 +66,8 @@
   home = {
     packages = (with pkgs; [
       signal-desktop
+      element-desktop
+      telegram-desktop
       dbeaver-bin
       spotify
     ]);
