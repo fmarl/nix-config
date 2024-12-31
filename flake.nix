@@ -6,9 +6,12 @@
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     pre-commit-hooks.url = "github:cachix/git-hooks.nix";
 
-    nix-code = {
-      url = "github:fxttr/nix-code";
-      inputs.extensions.follows = "nix-vscode-extensions";
+    code-nix = {
+      url = "github:fxttr/code-nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        extensions.follows = "nix-vscode-extensions";
+      };
     };
 
     home-manager = {
@@ -71,11 +74,11 @@
           };
 
       customNixpkgs = ({
-          nixpkgs.overlays = [
-            (final: prev: { swm = inputs.swm.defaultPackage.${system}; })
-            (final: prev: { stc = inputs.stc.defaultPackage.${system}; })
-          ];
-        });
+        nixpkgs.overlays = [
+          (final: prev: { swm = inputs.swm.defaultPackage.${system}; })
+          (final: prev: { stc = inputs.stc.defaultPackage.${system}; })
+        ];
+      });
 
       commonNixOSModules = host: [
         (import ./modules/nixos {
@@ -126,7 +129,7 @@
 
           ntb = { };
 
-	  lab = { };
+          lab = { };
         };
 
         homes = {
@@ -135,6 +138,8 @@
           "marrero@ntb" = { };
         };
       };
+
+      code = inputs.code-nix.packages.${system}.default;
     in
     {
       checks = {
@@ -155,12 +160,12 @@
           nixpkgs-fmt
           hbuild
           nbuild
-          (inputs.nix-code.vscode.${system} {
-            extensions = with inputs.nix-code.extensions.${system}; [
-              bbenoist.nix
-              jnoortheen.nix-ide
-              mkhl.direnv
-            ];
+          (code {
+            profiles = {
+              nix = {
+                enable = true;
+              };
+            };
           })
         ];
       };
