@@ -10,6 +10,7 @@
   modules = {
     zsh.enable = true;
     theme.enable = true;
+    librewolf.enable = true;
 
     irssi = {
       enable = true;
@@ -27,10 +28,6 @@
   };
 
   programs = {
-    firefox = {
-      enable = true;
-    };
-
     ssh = {
       enable = true;
       hashKnownHosts = true;
@@ -70,6 +67,8 @@
   home = {
     packages = (with pkgs; [
       signal-desktop
+      element-desktop
+      telegram-desktop
       dbeaver-bin
       spotify
     ]);
