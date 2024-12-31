@@ -10,8 +10,12 @@
   modules = {
     zsh.enable = true;
     theme.enable = true;
-    irssi.enable = true;
     librewolf.enable = true;
+
+    irssi = {
+      enable = true;
+      user = "fxttr";
+    };
 
     sway = {
       enable = true;

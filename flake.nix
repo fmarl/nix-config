@@ -29,6 +29,11 @@
       url = "github:fxttr/stc";
     };
 
+    irssi-themes = {
+      url = "github:fxttr/irssi-themes";
+      flake = false;
+    };
+
     secrets = {
       url = "github:fxttr/secrets";
       flake = false;

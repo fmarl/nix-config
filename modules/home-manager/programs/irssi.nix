@@ -13,6 +13,13 @@ in {
   };
 
   config = mkIf cfg.enable {
+    file = {
+      ".irssi" = {
+        source = inputs.irssi-themes;
+        recursive = true;
+      };
+    };
+
     programs.irssi = {
       enable = true;
       networks =
@@ -45,6 +52,13 @@ in {
             };
           };
         };
+        extraConfig = ''
+settings = {
+  core = { real_name = "ef von ix"; user_name = "${cfg.user}"; nick = "${cfg.user}"; };
+  "fe-text" = { actlist_sort = "refnum"; };
+  "fe-common/core" = { theme = "screwer-redux"; };
+};
+        '';
     };
   };
 }
