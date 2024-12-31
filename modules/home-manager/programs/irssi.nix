@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, inputs, lib, pkgs, ... }:
 
 with lib;
 
@@ -13,7 +13,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    file = {
+    home.file = {
       ".irssi" = {
         source = inputs.irssi-themes;
         recursive = true;
