@@ -27,8 +27,4 @@
         ];
     };
   };
-
-  systemd = {
-    coredump.enable = false;
-  };
 }

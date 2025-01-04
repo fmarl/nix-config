@@ -19,7 +19,7 @@
 
     sway = {
       enable = true;
-      wallpaper = "${inputs.media}/Yosemite 3.jpg";
+      wallpaper = "${inputs.media}/wallpaper/38c3.jpg";
     };
 
     waybar = {

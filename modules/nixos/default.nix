@@ -66,7 +66,7 @@
   security.sudo.execWheelOnly = true;
 
   systemd = {
-    coredump.enable = false;
+    coredump.enable = true;
   };
 
   system.stateVersion = "24.05";

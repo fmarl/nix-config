@@ -43,7 +43,7 @@
     };
 
     media = {
-      url = "github:foxt/macOS-Wallpapers";
+      url = "github:fxttr/media";
       flake = false;
     };
   };
