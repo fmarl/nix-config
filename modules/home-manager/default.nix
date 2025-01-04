@@ -1,4 +1,4 @@
-{ pkgs, inputs, host, user, ... }:
+{ pkgs, self, inputs, host, user, ... }:
 {
   imports = [ ./services ./programs ./theme.nix ];
 
@@ -49,7 +49,7 @@
   };
 
   sops = {
-    defaultSopsFile = "${inputs.secrets}/systems/${host}.yaml";
+    defaultSopsFile = "${self}/hosts/${host}/secrets.yaml";
 
     secrets = {
       ssh = {

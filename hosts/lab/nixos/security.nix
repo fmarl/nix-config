@@ -48,6 +48,7 @@ with lib;
       # Disable debugfs
       "debugfs=off"
     ];
+    
     blacklistedKernelModules = [
       # Obscure network protocols
       "ax25"
