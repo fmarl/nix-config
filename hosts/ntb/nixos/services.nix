@@ -10,6 +10,8 @@
     dbus.enable = true;
 
     pcscd.enable = true;
+
+    pulseaudio.enable = false;
     
     udev.packages = with pkgs; [ yubikey-personalization libu2f-host ];
 

@@ -37,11 +37,6 @@
       flake = false;
     };
 
-    secrets = {
-      url = "github:fxttr/secrets";
-      flake = false;
-    };
-
     media = {
       url = "github:fxttr/media";
       flake = false;
@@ -87,7 +82,7 @@
 
       commonNixOSModules = host: [
         (import ./modules/nixos {
-          inherit inputs host;
+          inherit self inputs host;
         })
         customNixpkgs
         ./hosts/${host}/nixos/configuration.nix
@@ -96,7 +91,7 @@
 
       commonHomeManagerModules = user: host: [
         (import ./modules/home-manager {
-          inherit pkgs inputs host user;
+          inherit pkgs self inputs host user;
         })
         customNixpkgs
         ./hosts/${host}/home-manager/home.nix
@@ -165,12 +160,9 @@
           nixpkgs-fmt
           hbuild
           nbuild
+          sops
           (code {
-            profiles = {
-              nix = {
-                enable = true;
-              };
-            };
+            profiles.nix.enable = true;
           })
         ];
       };

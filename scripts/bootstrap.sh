@@ -64,6 +64,9 @@ function setup_filesystem {
         ext4)
             setup_ext4
             ;;
+        xfs)
+            setup_xfs
+            ;;
         *)
             err "Unsupported filesystem type: ${FS_TYPE}"
             exit 1
@@ -113,6 +116,16 @@ function setup_ext4 {
     mkfs.ext4 -L nixos_root "$DISK_PART_ROOT"
 
     info "Mounting ext4 filesystem ..."
+    mount "$DISK_PART_ROOT" /mnt
+    mkdir -p /mnt/boot
+    mount "$DISK_PART_BOOT" /mnt/boot
+}
+
+function setup_xfs {
+    info "Setting up xfs on ${DISK_PART_ROOT} ..."
+    mkfs.xfs -L nixos_root "$DISK_PART_ROOT"
+
+    info "Mounting xfs filesystem ..."
     mount "$DISK_PART_ROOT" /mnt
     mkdir -p /mnt/boot
     mount "$DISK_PART_BOOT" /mnt/boot

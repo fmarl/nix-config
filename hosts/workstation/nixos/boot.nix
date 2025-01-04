@@ -14,10 +14,6 @@ with lib;
         printf lz4 > /sys/module/zswap/parameters/compressor
         printf z3fold > /sys/module/zswap/parameters/zpool
       '';
-
-      postDeviceCommands = lib.mkAfter ''
-        	zfs rollback -r rpool/local/root@blank
-      '';
     };
 
     loader = {

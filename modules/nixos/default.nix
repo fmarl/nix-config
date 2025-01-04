@@ -1,4 +1,4 @@
-{ inputs, host, ... }:
+{ self, inputs, host, ... }:
 {
   imports = [ ./services ./programs ];
 
@@ -16,7 +16,7 @@
   };
 
   sops = {
-    defaultSopsFile = "${inputs.secrets}/systems/${host}.yaml";
+    defaultSopsFile = "${self}/hosts/${host}/secrets.yaml";
 
     secrets = {
       root-password = {
