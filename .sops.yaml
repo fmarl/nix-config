@@ -3,6 +3,7 @@ keys:
       - &marrero D1912EEBC3FBEBB4
   - &hosts:
     - &workstation age1dwu9ccy3t86c4tgd4ufs4jkmv572jfflkvdejm5kvjf95r3qsgus847qgd
+    - &ntb age15sxuul96gh4slua9ju6xkgkx3d9lcvt6glx56a8e39kfwxanqc7q6p8un2
     
 creation_rules:
   - path_regex: hosts/workstation/secrets.yaml$
@@ -14,7 +15,7 @@ creation_rules:
   - path_regex: hosts/ntb/secrets.yaml$
     key_groups:
       - age:
-        - *workstation
+        - *ntb
         pgp:
         - *marrero
   - path_regex: hosts/lab/secrets.yaml$
