@@ -6,7 +6,7 @@ export COLOR_RESET="\033[0m"
 export RED_BG="\033[41m"
 export BLUE_BG="\033[44m"
 export DISK=$1
-export FS_TYPE=${2:-zfs}
+export FS_TYPE=${2:-xfs}
 export HOSTNAME=$3
 
 function err {
@@ -22,6 +22,22 @@ function check_root {
         err "Must run as root"
         exit 1
     fi
+}
+
+function ask_yn {
+    while true; do
+        read -p "$1 (y/n): " answer
+        case $answer in
+            [Yy]) return 0 ;;
+            [Nn]) return 1 ;;
+            *) echo "Please answer y/n" ;;  # Invalid input, prompt again
+        esac
+    done
+}
+
+function ask {
+  read -p "$1: " answer
+  echo "$answer"
 }
 
 function validate_inputs {
@@ -46,11 +62,11 @@ function validate_inputs {
 function partition_disk {
     info "Partitioning disk ${DISK_PATH} for UEFI (GPT) ..."
     parted "$DISK_PATH" -- mklabel gpt
-    parted "$DISK_PATH" -- mkpart primary 512MiB 100%
     parted "$DISK_PATH" -- mkpart ESP fat32 1MiB 512MiB
-    parted "$DISK_PATH" -- set 2 boot on
-    export DISK_PART_ROOT="${DISK_PATH}1"
-    export DISK_PART_BOOT="${DISK_PATH}2"
+    parted "$DISK_PATH" -- mkpart primary 512MiB 100%
+    parted "$DISK_PATH" -- set 1 boot on
+    export DISK_PART_BOOT="${DISK_PATH}1"
+    export DISK_PART_ROOT="${DISK_PATH}2"
 
     info "Formatting boot partition ..."
     mkfs.fat -F 32 -n boot "$DISK_PART_BOOT"
@@ -123,7 +139,7 @@ function setup_ext4 {
 
 function setup_xfs {
     info "Setting up xfs on ${DISK_PART_ROOT} ..."
-    mkfs.xfs -L nixos_root "$DISK_PART_ROOT"
+    mkfs.xfs -L nix "$DISK_PART_ROOT"
 
     info "Mounting xfs filesystem ..."
     mount "$DISK_PART_ROOT" /mnt
