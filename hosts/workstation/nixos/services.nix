@@ -6,10 +6,8 @@
       autoSnapshot.enable = true;
     };
 
-    dbus = {
-      enable = true;
-    };
-
+    dbus.enable = true;
+    
     pcscd.enable = true;
 
     pulseaudio.enable = false;
@@ -25,6 +23,15 @@
 
     openssh = {
       enable = true;
+
+      settings = {
+        PasswordAuthentication = false;
+        PermitRootLogin = "no";
+        StreamLocalBindUnlink = "yes";
+        X11Forwarding = false;
+        allowSFTP = false;
+      };
+
       hostKeys =
         [
           {

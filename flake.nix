@@ -85,7 +85,7 @@
           inherit self inputs host;
         })
         customNixpkgs
-        ./hosts/${host}/nixos/configuration.nix
+        ./hosts/${host}/nixos
         inputs.sops-nix.nixosModules.sops
       ];
 
@@ -94,7 +94,7 @@
           inherit pkgs self inputs host user;
         })
         customNixpkgs
-        ./hosts/${host}/home-manager/home.nix
+        ./hosts/${host}/home-manager
         inputs.sops-nix.homeManagerModules.sops
       ];
 
