@@ -1,5 +1,5 @@
 {
-  description = "NixOS";
+  description = "fx's nix-config";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
