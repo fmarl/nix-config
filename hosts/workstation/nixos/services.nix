@@ -29,7 +29,6 @@
         PermitRootLogin = "no";
         StreamLocalBindUnlink = "yes";
         X11Forwarding = false;
-        allowSFTP = false;
       };
 
       hostKeys =
