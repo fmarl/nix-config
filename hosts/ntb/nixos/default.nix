@@ -3,15 +3,15 @@
   imports =
     [
       ./hardware-configuration.nix
-      ./security.nix
+      ./boot.nix
       ./services.nix
       ./networking.nix
-      ./boot.nix
+      ./security.nix
     ];
 
   sops = {
     age = {
-      keyFile = "/sops/age/keys.txt";
+      keyFile = "/home/marrero/.config/sops/age/keys.txt";
       generateKey = true;
     };
   };
@@ -20,7 +20,6 @@
     nixPath =
       [
         "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
-        "nixos-config=/persist/etc/nixos/configuration.nix"
         "/nix/var/nix/profiles/per-user/root/channels"
       ];
 
@@ -57,37 +56,4 @@
     source-code-pro
     font-awesome
   ];
-
-  users = {
-    mutableUsers = false;
-    users = {
-      root = {
-        hashedPasswordFile = config.sops.secrets.root-password.path;
-      };
-
-      marrero = {
-        isNormalUser = true;
-        createHome = true;
-        description = "Florian Marrero Liestmann";
-        hashedPasswordFile = config.sops.secrets.user-password.path;
-        extraGroups = [ "wheel" "tss" ];
-        group = "users";
-        uid = 1000;
-        home = "/home/marrero";
-        shell = pkgs.zsh;
-
-        openssh.authorizedKeys.keys = [
-          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII5wD+zMGIVaENIRRxTwK0w+mqWfpeABf4JIp0zA7Vs3 marrero@ntb"
-        ];
-      };
-    };
-  };
-
-  virtualisation.docker = {
-    enable = true;
-    rootless = {
-      enable = true;
-      setSocketVariable = true;
-    };
-  };
 }

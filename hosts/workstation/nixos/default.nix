@@ -3,15 +3,15 @@
   imports =
     [
       ./hardware-configuration.nix
-      ./boot.nix
+      ./security.nix
       ./services.nix
       ./networking.nix
-      ./security.nix
+      ./boot.nix
     ];
 
   sops = {
     age = {
-      keyFile = "/home/marrero/.config/sops/age/keys.txt";
+      keyFile = "/sops/age/keys.txt";
       generateKey = true;
     };
   };
@@ -60,21 +60,22 @@
 
   users = {
     mutableUsers = false;
-    users = {
-      root = {
-        hashedPasswordFile = config.sops.secrets.root-password.path;
-      };
 
+    users = {
       marrero = {
         isNormalUser = true;
         createHome = true;
         description = "Florian Marrero Liestmann";
         hashedPasswordFile = config.sops.secrets.user-password.path;
-        extraGroups = [ "wheel" ];
+        extraGroups = [ "wheel" "tss" ];
         group = "users";
         uid = 1000;
         home = "/home/marrero";
         shell = pkgs.zsh;
+
+        openssh.authorizedKeys.keys = [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII5wD+zMGIVaENIRRxTwK0w+mqWfpeABf4JIp0zA7Vs3 marrero@ntb"
+        ];
       };
     };
   };
