@@ -40,23 +40,10 @@
     [{ device = "/dev/disk/by-uuid/e265876b-a241-40c6-993a-d97f565b21b2"; }];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  
-  services.xserver.videoDrivers = [ "nvidia" ];
-  
+
   hardware = {
     cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
     bluetooth.enable = false;
-
-    graphics = {
-      enable = true;
-    };
-
-    nvidia = {
-      modesetting.enable = true;
-
-      open = false;
-      nvidiaSettings = false;
-      powerManagement.enable = false;
-    };
+    graphics.enable = true;
   };
 }
