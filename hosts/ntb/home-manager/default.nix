@@ -62,6 +62,22 @@
       enable = true;
       userName = "Florian Marrero Liestmann";
       userEmail = "f.m.liestmann@fx-ttr.de";
+      ignores = [
+        ".direnv/"
+        ".cache/"
+      ];
+      extraConfig = {
+        core = {
+          editor = "vim";
+          whitespace = "-trailing-space";
+        };
+        log = {
+          abbrevCommit = true;
+        };
+        pull = {
+          rebase = false;
+        };
+      };
       signing = {
         signByDefault = true;
         key = "D1912EEBC3FBEBB4";

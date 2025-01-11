@@ -35,9 +35,7 @@
     };
   };
 
-  programs = {
-    zsh.enable = true;
-  };
+  programs.zsh.enable = true;
 
   modules.sway.enable = true;
 
@@ -77,14 +75,6 @@
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII5wD+zMGIVaENIRRxTwK0w+mqWfpeABf4JIp0zA7Vs3 marrero@ntb"
         ];
       };
-    };
-  };
-
-  virtualisation.docker = {
-    enable = true;
-    rootless = {
-      enable = true;
-      setSocketVariable = true;
     };
   };
 }
