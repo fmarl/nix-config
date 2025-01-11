@@ -11,6 +11,8 @@
     zsh.enable = true;
     theme.enable = true;
     librewolf.enable = true;
+    tmux.enable = true;
+    neovim.enable = true;
 
     irssi = {
       enable = true;
@@ -71,7 +73,6 @@
     packages = (with pkgs; [
       signal-desktop
       element-desktop
-      telegram-desktop
       dbeaver-bin
       spotify
     ]);

@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    impermanence.url = "github:nix-community/impermanence";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     pre-commit-hooks.url = "github:cachix/git-hooks.nix";
 
@@ -127,7 +128,11 @@
         nixos = {
           workstation = { };
 
-          ntb = { };
+          ntb = {
+            modules = [
+              inputs.impermanence.nixosModules.impermanence
+            ];
+          };
 
           lab = { };
         };

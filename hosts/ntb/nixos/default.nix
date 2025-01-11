@@ -7,6 +7,8 @@
       ./services.nix
       ./networking.nix
       ./security.nix
+      ./users.nix
+      ./impermanence.nix
     ];
 
   sops = {
@@ -36,6 +38,7 @@
 
   programs = {
     zsh.enable = true;
+    fuse.userAllowOther = true;
   };
 
   modules.sway.enable = true;
