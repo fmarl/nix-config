@@ -12,7 +12,7 @@
 
     pulseaudio.enable = false;
 
-    udev.packages = with pkgs; [ yubikey-personalization libu2f-host ];
+    udev.packages = with pkgs; [ yubikey-personalization libu2f-host android-udev-rules ];
 
     pipewire = {
       enable = true;
