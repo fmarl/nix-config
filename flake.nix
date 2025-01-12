@@ -41,7 +41,7 @@
     media = {
       url = "github:fxttr/media";
       flake = false;
-    };
+    };  
   };
 
   outputs = { self, nixpkgs, flake-utils, home-manager, ... }@inputs:
