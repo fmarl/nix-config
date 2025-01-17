@@ -38,10 +38,9 @@
 
   services.gpg-agent = {
     enable = true;
-
-    # https://github.com/drduh/config/blob/master/gpg-agent.conf
     defaultCacheTtl = 60;
     maxCacheTtl = 120;
+    enableSshSupport = true;
     pinentryPackage = pkgs.pinentry-curses;
     extraConfig = ''
       ttyname $GPG_TTY
