@@ -6,6 +6,7 @@ let cfg = config.modules.irssi;
 
 in {
   options.modules.irssi.enable = mkEnableOption "Install and configure irssi";
+  
   options.modules.irssi.user = mkOption {
     type = types.str;
     description = "Set the nick and name variable";
