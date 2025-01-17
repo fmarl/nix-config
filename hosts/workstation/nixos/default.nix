@@ -35,7 +35,10 @@
     };
   };
 
-  programs.zsh.enable = true;
+  programs = {
+    zsh.enable = true;
+    adb.enable = true;
+  };
 
   modules.sway.enable = true;
 
@@ -65,7 +68,7 @@
         createHome = true;
         description = "Florian Marrero Liestmann";
         hashedPasswordFile = config.sops.secrets.user-password.path;
-        extraGroups = [ "wheel" "tss" ];
+        extraGroups = [ "wheel" "tss" "adbusers" ];
         group = "users";
         uid = 1000;
         home = "/home/marrero";

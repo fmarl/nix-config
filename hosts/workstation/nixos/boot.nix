@@ -4,6 +4,8 @@ with lib;
 
 {
   boot = {
+    kernelPackages = pkgs.linuxPackages_6_6_hardened;
+
     kernelModules = [ "kvm-amd" ];
 
     initrd = {

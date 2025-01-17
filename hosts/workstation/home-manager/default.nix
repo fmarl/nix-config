@@ -11,6 +11,10 @@
     zsh.enable = true;
     theme.enable = true;
     librewolf.enable = true;
+    tmux.enable = true;
+    neovim.enable = true;
+    waybar.enable = true;
+#    emacs.enable = true;
 
     irssi = {
       enable = true;
@@ -20,10 +24,6 @@
     sway = {
       enable = true;
       wallpaper = "${inputs.media}/wallpaper/38c3.jpg";
-    };
-
-    waybar = {
-      enable = true;
     };
   };
 
