@@ -19,7 +19,7 @@
     librewolf.enable = true;
     tmux.enable = true;
     neovim.enable = true;
-
+    
     mail = {
       enable = true;
       password = config.sops.secrets.ionos-password.path;
@@ -108,12 +108,11 @@
     };
   };
 
-  home = {
-    packages = (with pkgs; [
-      signal-desktop
-      element-desktop
-      dbeaver-bin
-      spotify
-    ]);
-  };
+  home.packages = (with pkgs; [
+    signal-desktop
+    element-desktop
+    discord
+    dbeaver-bin
+    spotify
+  ]);
 }
