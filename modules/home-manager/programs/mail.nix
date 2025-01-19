@@ -52,6 +52,9 @@ in {
             subscribe linux-hardening@vger.kernel.org
             color index color30 default "~C linux-hardening@vger.kernel.org"
 
+            subscribe kernel-hardening@lists.openwall.com
+            color index color26 default "~C linux-hardening@vger.kernel.org"
+
             lists .*@vger.kernel.org
 
             set edit_headers = yes
@@ -101,7 +104,7 @@ in {
         sidebar.enable = true;
         sort = "reverse-date";
       };
-
+      
       mbsync.enable = true;
       msmtp.enable = true;
     };
