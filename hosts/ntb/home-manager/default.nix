@@ -5,25 +5,12 @@
       keyFile = "/home/marrero/.config/sops/age/keys.txt";
       generateKey = true;
     };
-
-    secrets = {
-      ionos-password = {
-        path = "/run/user/1000/secrets/ionos";
-      };
-    };
   };
 
   modules = {
     zsh.enable = true;
     theme.enable = true;
     librewolf.enable = true;
-    tmux.enable = true;
-    neovim.enable = true;
-    
-    mail = {
-      enable = true;
-      password = config.sops.secrets.ionos-password.path;
-    };
 
     irssi = {
       enable = true;
