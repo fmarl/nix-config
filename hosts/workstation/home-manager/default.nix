@@ -5,21 +5,19 @@
       keyFile = "/home/marrero/.config/sops/age/keys.txt";
       generateKey = true;
     };
+
+    secrets = {
+      ionos-password = {
+        path = "/run/user/1000/secrets/ionos";
+      };
+    };
   };
 
   modules = {
     zsh.enable = true;
     theme.enable = true;
     librewolf.enable = true;
-    tmux.enable = true;
-    neovim.enable = true;
     waybar.enable = true;
-#    emacs.enable = true;
-
-    irssi = {
-      enable = true;
-      user = "fxttr";
-    };
 
     sway = {
       enable = true;
@@ -45,7 +43,7 @@
           identityFile = config.sops.secrets.ssh.path;
         };
 
-        "lab" = {
+        "lab0" = {
           hostname = "192.168.0.201";
           user = "marrero";
           identityFile = config.sops.secrets.ssh.path;
@@ -68,7 +66,7 @@
     packages = (with pkgs; [
       signal-desktop
       element-desktop
-      telegram-desktop
+      discord
       dbeaver-bin
       spotify
     ]);

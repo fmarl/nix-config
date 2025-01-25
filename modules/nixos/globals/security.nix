@@ -9,7 +9,7 @@ with lib;
   security = {
     sudo.execWheelOnly = true;
 
-    lockKernelModules = mkDefault true;
+    lockKernelModules = mkDefault false;
 
     protectKernelImage = mkDefault true;
 
