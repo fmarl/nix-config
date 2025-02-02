@@ -40,7 +40,10 @@
     adb.enable = true;
   };
 
-  modules.sway.enable = true;
+  modules = {
+    sway.enable = true;
+    docker.enable = true;
+  };
 
   environment = {
     shells = with pkgs; [ zsh ];
