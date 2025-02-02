@@ -36,9 +36,10 @@
     };
   };
 
+  modules.docker.enable = true;
+
   programs = {
     zsh.enable = true;
-    fuse.userAllowOther = true;
   };
 
   modules.sway.enable = true;

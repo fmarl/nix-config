@@ -89,7 +89,7 @@
         };
       };
       signing = {
-        signByDefault = true;
+        signByDefault = false;
         key = "D1912EEBC3FBEBB4";
       };
     };

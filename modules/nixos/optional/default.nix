@@ -1,1 +1,1 @@
-{ imports = [ ./sway.nix ./swm.nix ./xmonad.nix ./i3.nix ./docker.nix ]; }
+{ imports = [ ./sway.nix ./swm.nix ./docker.nix ./xmonad.nix ./i3.nix ]; }
