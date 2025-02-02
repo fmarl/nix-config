@@ -14,6 +14,18 @@
       keyFile = "/sops/age/keys.txt";
       generateKey = true;
     };
+
+    secrets = {
+      minio-credentials = { };
+    };
+  };
+
+  services.minio = {
+    enable = true;
+    browser = true;
+    rootCredentialsFile = config.sops.secrets.minio-credentials.path;
+    region = "eu-central-1";
+    dataDir = [ "/mnt/minio" ];
   };
 
   nix = {
