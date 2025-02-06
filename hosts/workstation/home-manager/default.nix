@@ -26,6 +26,8 @@
   };
 
   programs = {
+    vscode.enable = true;
+
     ssh = {
       enable = true;
       hashKnownHosts = true;
@@ -64,11 +66,15 @@
 
   home = {
     packages = (with pkgs; [
+      temurin-bin-23
+      sbt
+      metals
+      coursier
+      maven
       signal-desktop
-      element-desktop
-      discord
       dbeaver-bin
       spotify
+      jetbrains.idea-community-bin
     ]);
   };
 }

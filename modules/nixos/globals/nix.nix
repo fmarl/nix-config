@@ -5,7 +5,7 @@
     gc = {
       automatic = true;
       dates = "weekly";
-      options = "--delete-older-than +5";
+      options = "--delete-older-than 14d";
     };
 
     settings = {
