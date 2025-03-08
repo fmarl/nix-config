@@ -2,7 +2,7 @@
 {
   sops = {
     age = {
-      keyFile = "/home/marrero/.config/sops/age/keys.txt";
+      keyFile = "/persist/home/marrero/.config/sops/age/keys.txt";
       generateKey = true;
     };
   };
@@ -31,6 +31,8 @@
   fonts.fontconfig.enable = true;
 
   programs = {
+    vscode.enable = true;
+    
     ssh = {
       enable = true;
       hashKnownHosts = true;
@@ -76,6 +78,7 @@
         ".direnv/"
         ".cache/"
       ];
+      
       extraConfig = {
         core = {
           editor = "vim";
@@ -88,6 +91,7 @@
           rebase = false;
         };
       };
+
       signing = {
         signByDefault = false;
         key = "D1912EEBC3FBEBB4";
@@ -97,8 +101,6 @@
 
   home.packages = (with pkgs; [
     signal-desktop
-    element-desktop
-    discord
     dbeaver-bin
     spotify
   ]);
