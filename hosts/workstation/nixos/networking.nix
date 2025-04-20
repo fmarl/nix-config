@@ -4,7 +4,7 @@
     hostId = "04686870";
 
     firewall = {
-      allowedTCPPorts = [ 22 9001 8888 8063 3070 ];
+      allowedTCPPorts = [ 22 ];
       allowedUDPPorts = [ ];
     };
 

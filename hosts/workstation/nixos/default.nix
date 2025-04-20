@@ -19,15 +19,7 @@
       minio-credentials = { };
     };
   };
-
-  services.minio = {
-    enable = true;
-    browser = true;
-    rootCredentialsFile = config.sops.secrets.minio-credentials.path;
-    region = "eu-central-1";
-    dataDir = [ "/mnt/minio" ];
-  };
-
+  
   nix = {
     nixPath =
       [
@@ -49,7 +41,6 @@
 
   programs = {
     zsh.enable = true;
-    adb.enable = true;
   };
 
   modules = {
@@ -83,7 +74,7 @@
         createHome = true;
         description = "Florian Marrero Liestmann";
         hashedPasswordFile = config.sops.secrets.user-password.path;
-        extraGroups = [ "wheel" "tss" "adbusers" ];
+        extraGroups = [ "wheel" "tss" "libvirtd" ];
         group = "users";
         uid = 1000;
         home = "/home/marrero";
@@ -95,4 +86,21 @@
       };
     };
   };
+
+  virtualisation.libvirtd = {
+  	enable = true;
+  	qemu = {
+    		package = pkgs.qemu_kvm;
+    		runAsRoot = true;
+    		swtpm.enable = true;
+    		ovmf = {
+      			enable = true;
+      			packages = [(pkgs.OVMF.override {
+       				secureBoot = true;
+        			tpmSupport = true;
+      			}).fd];
+    		};
+  	};
+  };
+
 }
