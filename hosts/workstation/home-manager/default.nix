@@ -66,15 +66,8 @@
 
   home = {
     packages = (with pkgs; [
-      temurin-bin-23
-      sbt
-      metals
-      coursier
-      maven
       signal-desktop
-      dbeaver-bin
       spotify
-      jetbrains.idea-community-bin
     ]);
   };
 }

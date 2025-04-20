@@ -36,13 +36,6 @@
       fsType = "zfs";
     };
 
-  fileSystems."/mnt/minio" =
-    {
-      device = "/dev/disk/by-uuid/1c16bcb4-ec80-4a6f-99f0-d1c9f57311e6";
-      fsType = "xfs";
-      options = [ "nofail" "users" ];
-    };
-
   swapDevices =
     [{ device = "/dev/disk/by-uuid/e265876b-a241-40c6-993a-d97f565b21b2"; }];
 
@@ -52,5 +45,13 @@
     cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
     bluetooth.enable = false;
     graphics.enable = true;
+
+    nvidia = {
+      modesetting.enable = true;
+
+      open = false;
+      nvidiaSettings = false;
+      powerManagement.enable = false;
+    };
   };
 }
