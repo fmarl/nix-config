@@ -15,14 +15,9 @@
 
   modules = {
     zsh.enable = true;
-    theme.enable = true;
     librewolf.enable = true;
-    waybar.enable = true;
 
-    sway = {
-      enable = true;
-      wallpaper = "${inputs.media}/wallpaper/38c3.jpg";
-    };
+    labwc.enable = true;
   };
 
   programs = {
@@ -66,8 +61,12 @@
 
   home = {
     packages = (with pkgs; [
-      signal-desktop
+      signal-desktop-bin
       spotify
+      (writeShellScriptBin "nrun" ''
+        #!/usr/bin/env bash
+        nix run nixpkgs#$1 
+      '')
     ]);
   };
 }

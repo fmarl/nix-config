@@ -10,6 +10,8 @@ with lib;
       tctiEnvironment.enable = true;
     };
 
+    polkit.enable = true;
+
     pam = {
       services = {
         login.u2fAuth = true;
