@@ -44,8 +44,7 @@
   };
 
   modules = {
-    sway.enable = true;
-    docker.enable = true;
+    labwc.enable = true;
   };
 
   environment = {
