@@ -68,6 +68,9 @@
     packages = (with pkgs; [
       signal-desktop
       spotify
+      (writeShellScriptBin "nrun" ''
+        NIXPKGS_ALLOW_UNFREE=1 nix run --impure nixpkgs#$1
+      '')
     ]);
   };
 }

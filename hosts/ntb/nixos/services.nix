@@ -7,7 +7,13 @@
 
     pulseaudio.enable = false;
     
-    udev.packages = with pkgs; [ yubikey-personalization libu2f-host ];
+    udev = {
+      extraRules = ''
+        SUBSYSTEM=="usbmon", GROUP="wireshark", MODE="0640"
+      '';
+      
+      packages = with pkgs; [ yubikey-personalization libu2f-host ];
+    };
 
     pipewire = {
       enable = true;

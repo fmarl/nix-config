@@ -40,6 +40,7 @@
 
   programs = {
     zsh.enable = true;
+    labwc.enable = true;
   };
 
   modules.sway.enable = true;
