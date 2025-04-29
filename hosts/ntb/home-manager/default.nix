@@ -100,8 +100,11 @@
   };
 
   home.packages = (with pkgs; [
-    signal-desktop
-    dbeaver-bin
+    signal-desktop-bin
     spotify
+    discord
+    (writeShellScriptBin "nrun" ''
+      NIXPKGS_ALLOW_UNFREE=1 nix run --impure nixpkgs#$1
+    '')
   ]);
 }
