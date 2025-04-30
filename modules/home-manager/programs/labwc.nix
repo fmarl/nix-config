@@ -96,10 +96,10 @@ conky.text = [[
 ''${color #BEC8CB}''${battery_bar 5}
 
 ''$alignc''${color grey}Network
-''$alignc''${if_up usb0}''${color #00a558}USB''${else}''${if_existing /proc/net/route wlan0}''${color #49A3FC}''${wireless_essid wlan0} [WIFI]''${else}''${color #e66529}Not Connected''${endif}''${endif}
-''${if_up usb0}''${color grey}Up''${goto 143.5}''${color grey}Down
-''${color #BEC8CB}''${upspeedgraph usb0 25,120 #ffd4a8 #ffd4a8}''${alignr}''${downspeedgraph usb0 25,120 #a8ffa8 #a8ffa8}
-''${color grey}''${upspeedf usb0} kib/s''${goto 143.5}''${color grey}''${downspeedf usb0} kib/s
+''$alignc''${if_up enp5s0}''${color #00a558}ETHERNET''${else}''${if_existing /proc/net/route wlan0}''${color #49A3FC}''${wireless_essid wlan0} [WIFI]''${else}''${color #e66529}Not Connected''${endif}''${endif}
+''${if_up enp5s0}''${color grey}Up''${goto 143.5}''${color grey}Down
+''${color #BEC8CB}''${upspeedgraph enp5s0 25,120 #ffd4a8 #ffd4a8}''${alignr}''${downspeedgraph enp5s0 25,120 #a8ffa8 #a8ffa8}
+''${color grey}''${upspeedf enp5s0} kib/s''${goto 143.5}''${color grey}''${downspeedf enp5s0} kib/s
 ''${endif}''${if_existing /proc/net/route wlan0}
 ''${color grey}Up''${goto 143.5}''${color grey}Down
 ''${color #BEC8CB}''${upspeedgraph wlan0 25,120 #ffd4a8 #ffd4a8}''${alignr}''${downspeedgraph wlan0 25,120 #a8ffa8 #a8ffa8}
