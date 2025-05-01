@@ -66,6 +66,9 @@
       (writeShellScriptBin "nrun" ''
         NIXPKGS_ALLOW_UNFREE=1 nix run --impure nixpkgs#$1
       '')
+      (writeShellScriptBin "metaflake" ''
+        nix develop github:flmarrero/metaflakes?dir=$1 --no-write-lock-file
+      '')
     ]);
   };
 }
