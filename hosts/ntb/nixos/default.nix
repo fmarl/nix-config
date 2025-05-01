@@ -36,14 +36,11 @@
     };
   };
 
-  modules.docker.enable = true;
-
   programs = {
     zsh.enable = true;
-    labwc.enable = true;
   };
 
-  modules.sway.enable = true;
+  modules.labwc.enable = true;
 
   environment = {
     shells = with pkgs; [ zsh ];

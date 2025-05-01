@@ -17,15 +17,7 @@
       user = "fxttr";
     };
 
-    sway = {
-      enable = true;
-      wallpaper = "${inputs.media}/wallpaper/38c3.jpg";
-    };
-
-    waybar = {
-      enable = true;
-      mobile = true;
-    };
+    labwc.enable = true;
   };
 
   fonts.fontconfig.enable = true;
@@ -105,6 +97,9 @@
     discord
     (writeShellScriptBin "nrun" ''
       NIXPKGS_ALLOW_UNFREE=1 nix run --impure nixpkgs#$1
+    '')
+    (writeShellScriptBin "metaflake" ''
+      nix develop github:flmarrero/metaflakes#$1 --no-write-lock-file
     '')
   ]);
 }
