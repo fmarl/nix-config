@@ -18,6 +18,7 @@ in {
         vimPlugins.nvim-cmp
         vimPlugins.luasnip
         vimPlugins.nvim-tree-lua
+        vimPlugins.telescope-nvim
       ];
       extraLuaConfig = ''
         -- disable netrw at the very start of your init.lua
@@ -143,6 +144,14 @@ in {
         vim.opt.cursorline = true
 
         vim.opt.colorcolumn = '100'
+
+        local function find_symbols_in_buffer()
+          local symbols = vim.fn.input("Symbols to search: ")
+
+          return require('telescope.builtin').lsp_document_symbols({ symbols = symbols})
+        end
+
+        vim.keymap.set('n', '<leader>f', find_symbols_in_buffer, opts)
       '';
     };
   };

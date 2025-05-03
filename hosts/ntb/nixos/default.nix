@@ -51,6 +51,7 @@
         vim
         git
         home-manager
+	      htop
       ];
   };
 
