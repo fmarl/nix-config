@@ -9,8 +9,8 @@
 
   modules = {
     zsh.enable = true;
-    theme.enable = true;
     librewolf.enable = true;
+    neovim.enable = true;
 
     irssi = {
       enable = true;
@@ -94,7 +94,6 @@
   home.packages = (with pkgs; [
     signal-desktop-bin
     spotify
-    discord
     (writeShellScriptBin "nrun" ''
       NIXPKGS_ALLOW_UNFREE=1 nix run --impure nixpkgs#$1
     '')
