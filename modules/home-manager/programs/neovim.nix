@@ -152,7 +152,7 @@ in {
         vim.api.nvim_set_option("clipboard","unnamed") 
 
         vim.keymap.set('n', 'f', fzf.lsp_document_symbols, { noremap = true, silent = true })
-
+        vim.keymap.set('n', 'b', fzf.buffers, { noremap = true, silent = true })
       '';
     };
   };
