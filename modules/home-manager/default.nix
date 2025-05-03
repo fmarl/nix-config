@@ -68,6 +68,11 @@
     username = "${user}";
     homeDirectory = "/home/${user}";
     stateVersion = "25.05";
+    packages = with pkgs; [
+        fzf
+        ranger
+        ripgrep
+    ];
   };
 
   systemd.user.services.mbsync.Unit.After = [ "sops-nix.service" ];

@@ -18,7 +18,7 @@ in {
         vimPlugins.nvim-cmp
         vimPlugins.luasnip
         vimPlugins.nvim-tree-lua
-        vimPlugins.telescope-nvim
+        vimPlugins.fzf-lua
       ];
       extraLuaConfig = ''
         -- disable netrw at the very start of your init.lua
@@ -52,15 +52,20 @@ in {
         local luasnip = require 'luasnip'
         local capabilities = require('cmp_nvim_lsp').default_capabilities()
         local lspconfig = require('lspconfig')
+        local fzf = require('fzf-lua')
 
-        lspconfig.rust_analyzer.setup {
-                capabilities = capabilities,
-        }
+        vim.lsp.enable('clangd')
+        vim.lsp.config('clangd', {
+          cmd = { 'clangd' }
+        })
 
-        lspconfig.clangd.setup {
-                capabilities = capabilities,
-        	cmd = { 'clangd' }
-        }
+        vim.lsp.enable('rust_analyzer')
+        vim.lsp.config('rust_analyzer', {
+          -- Server-specific settings. See `:help lsp-quickstart`
+          settings = {
+            ['rust-analyzer'] = {},
+          },
+        })
 
         luasnip.config.setup {}
 
@@ -144,14 +149,10 @@ in {
         vim.opt.cursorline = true
 
         vim.opt.colorcolumn = '100'
+        vim.api.nvim_set_option("clipboard","unnamed") 
 
-        local function find_symbols_in_buffer()
-          local symbols = vim.fn.input("Symbols to search: ")
+        vim.keymap.set('n', 'f', fzf.lsp_document_symbols, { noremap = true, silent = true })
 
-          return require('telescope.builtin').lsp_document_symbols({ symbols = symbols})
-        end
-
-        vim.keymap.set('n', '<leader>f', find_symbols_in_buffer, opts)
       '';
     };
   };
