@@ -29,8 +29,20 @@ in {
 
       sessionVariables = {
         GPG_TTY = "$(tty)";
+        FZF_DEFAULT_COMMAND = "rg --files --hidden --glob '!.git' --glob '!.direnv'";
         _JAVA_AWT_WM_NONREPARENTING = "1";
       };
+
+      shellAliases = {
+        edit = "nvim $(fzf)";
+      };
+
+      initContent = '' 
+        if [ -n "''${commands[fzf-share]}" ]; then
+                source "$(fzf-share)/key-bindings.zsh"
+                source "$(fzf-share)/completion.zsh"
+        fi
+      '';
     };
   };
 }
