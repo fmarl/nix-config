@@ -18,6 +18,7 @@
     };
 
     river.enable = true;
+    waybar.enable = true;
   };
 
   fonts.fontconfig.enable = true;

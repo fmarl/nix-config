@@ -20,7 +20,7 @@ in
         enable = true;
         settings = [{
           height = 10;
-          modules-left = [ "sway/workspaces" "custom/right-arrow-dark" ];
+          modules-left = [ "river/tags" "custom/right-arrow-dark" ];
           modules-center = [
             "custom/left-arrow-dark"
             "clock#1"
@@ -64,20 +64,8 @@ in
               "custom/left-arrow-dark"
               "tray"
             ];
-          "sway/workspaces" = {
-            all-outputs = true;
-            disable-scroll = true;
-            format = "{icon}";
-            format-icons = {
-              "1" = "";
-              "2" = "";
-              "3" = "";
-              "4" = "";
-              "5" = "";
-              "6" = "";
-              urgent = "";
-              default = "";
-            };
+          "river/tags" = {
+            num-tags = 9;  
           };
           "custom/left-arrow-dark" = {
             format = "";
@@ -164,7 +152,7 @@ in
           	background: #1a1a1a;
           }
 
-          #workspaces,
+          #tags,
           #clock.1,
           #clock.2,
           #clock.3,
@@ -178,18 +166,18 @@ in
           	background: #1a1a1a;
           }
 
-          #workspaces button {
+          #tags button {
           	padding: 0 2px;
           	color: #fdf6e3;
           }
-          #workspaces button.focused {
+          #tags button.focused {
           	color: #268bd2;
           }
-          #workspaces button:hover {
+          #tags button:hover {
           	box-shadow: inherit;
           	text-shadow: inherit;
           }
-          #workspaces button:hover {
+          #tags button:hover {
           	background: #1a1a1a;
           	border: #1a1a1a;
           	padding: 0 3px;

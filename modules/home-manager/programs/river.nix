@@ -36,36 +36,42 @@ in
           progressColor = "#${colorscheme.dark.br_cyan}";
         };
       };
-
-      xdg.configFile."river/init" = {
-        executable = true;
-        text = ''
-#!/bin/sh
-
-riverctl set-keyboard-layout 0 us altgr-intl
-
-### Launcher (bemenu) ###
+      
+      wayland.windowManager.river = {
+        enable = true;
+        extraConfig = ''
+### App Launcher ###
 riverctl map normal Super P spawn bemenu-run
-
-### Terminal ###
+riverctl map normal Super+Shift D spawn "alacritty -e ranger"
 riverctl map normal Super+Shift Return spawn alacritty
 
-### Close window ###
+### General WM Control ###
 riverctl map normal Super+Shift C close
 riverctl map normal Super Q exit
 
-### Ranger ###
-riverctl map normal Super+Shift D spawn alacritty -e ranger
+### Navigation ###
+# Views
+riverctl map normal Super J focus-view next
+riverctl map normal Super K focus-view previous
+riverctl map normal Super+Shift J swap next
+riverctl map normal Super+Shift K swap previous
 
-riverctl map normal $mod H move left 100
-riverctl map normal $mod L move right 100
-riverctl map normal $mod J move down 100
-riverctl map normal $mod K move up 100
+# Outputs
+riverctl map normal Super Period focus-output next
+riverctl map normal Super Comma focus-output previous
+riverctl map normal Super+Shift Period send-to-output next
+riverctl map normal Super+Shift Comma send-to-output previous
 
-riverctl map normal Super+Shift H send-layout-command rivertile "move left"
-riverctl map normal Super+Shift L send-layout-command rivertile "move right"
-riverctl map normal Super+Shift J send-layout-command rivertile "move down"
-riverctl map normal Super+Shift K send-layout-command rivertile "move up"
+riverctl map normal Super Return zoom
+
+riverctl map normal Super H send-layout-cmd rivertile "main-ratio -0.05"
+riverctl map normal Super L send-layout-cmd rivertile "main-ratio +0.05"
+riverctl map normal Super+Shift H send-layout-cmd rivertile "main-count +1"
+riverctl map normal Super+Shift L send-layout-cmd rivertile "main-count -1"
+
+riverctl map-pointer normal Super BTN_LEFT move-view
+riverctl map-pointer normal Super BTN_RIGHT resize-view
+riverctl map-pointer normal Super BTN_MIDDLE toggle-float
 
 for i in $(seq 1 9); do
   tags=$((1 << ($i - 1)))
@@ -83,8 +89,20 @@ for i in $(seq 1 9); do
   riverctl map normal Super+Shift+Control $i toggle-view-tags $tags
 done
 
+### Tiling ###
 riverctl default-layout rivertile
 rivertile -view-padding 6 -outer-padding 6 &
+
+### Rules ###
+riverctl rule-add -app-id 'ghidra-Ghidra' float
+riverctl rule-add -app-id 'burp-StartBurp' float
+riverctl rule-add -app-id 'org.wireshark.Wireshark' float
+riverctl rule-add -app-id 'Signal' float
+
+### Keyboard Layout ###
+riverctl keyboard-layout -variant altgr-intl us
+
+systemctl --user start waybar
         '';
       };
    };
