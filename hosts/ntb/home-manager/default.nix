@@ -17,14 +17,12 @@
       user = "fxttr";
     };
 
-    labwc.enable = true;
+    river.enable = true;
   };
 
   fonts.fontconfig.enable = true;
 
-  programs = {
-    vscode.enable = true;
-    
+  programs = { 
     ssh = {
       enable = true;
       hashKnownHosts = true;

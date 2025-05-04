@@ -153,6 +153,7 @@ in {
 
         vim.keymap.set('n', 'f', fzf.lsp_document_symbols, { noremap = true, silent = true })
         vim.keymap.set('n', 'b', fzf.buffers, { noremap = true, silent = true })
+        vim.keymap.set('n', '<leader>f', fzf.files, { noremap = true, silent = true })
       '';
     };
   };

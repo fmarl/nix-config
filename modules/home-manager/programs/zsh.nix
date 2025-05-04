@@ -33,10 +33,6 @@ in {
         _JAVA_AWT_WM_NONREPARENTING = "1";
       };
 
-      shellAliases = {
-        edit = "nvim $(fzf)";
-      };
-
       initContent = '' 
         if [ -n "''${commands[fzf-share]}" ]; then
                 source "$(fzf-share)/key-bindings.zsh"
