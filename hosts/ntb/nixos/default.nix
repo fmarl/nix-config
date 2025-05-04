@@ -40,7 +40,9 @@
     zsh.enable = true;
   };
 
-  modules.labwc.enable = true;
+  modules = {
+    river.enable = true;
+  };
 
   environment = {
     shells = with pkgs; [ zsh ];
