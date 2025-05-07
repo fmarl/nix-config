@@ -16,12 +16,21 @@
   modules = {
     zsh.enable = true;
     librewolf.enable = true;
-
-    labwc.enable = true;
+    neovim.enable = true;
+    river.enable = true;
+    waybar.enable = true;
   };
 
   programs = {
-    vscode.enable = true;
+    tmux = {
+        enable = true;
+        shell = "${pkgs.zsh}/bin/zsh";
+        terminal = "tmux-256color";
+        historyLimit = 100000;
+        extraConfig = ''
+        set -g mouse on
+        '';
+    };
 
     ssh = {
       enable = true;
@@ -37,12 +46,6 @@
         "codeberg" = {
           hostname = "codeberg.org";
           user = "git";
-          identityFile = config.sops.secrets.ssh.path;
-        };
-
-        "lab0" = {
-          hostname = "192.168.0.201";
-          user = "marrero";
           identityFile = config.sops.secrets.ssh.path;
         };
       };
@@ -67,7 +70,7 @@
         NIXPKGS_ALLOW_UNFREE=1 nix run --impure nixpkgs#$1
       '')
       (writeShellScriptBin "metaflake" ''
-        nix develop github:flmarrero/metaflakes?dir=$1 --no-write-lock-file
+        nix develop github:flmarrero/metaflakes#$1 --no-write-lock-file
       '')
     ]);
   };

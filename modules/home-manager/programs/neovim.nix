@@ -19,6 +19,8 @@ in {
         vimPlugins.luasnip
         vimPlugins.nvim-tree-lua
         vimPlugins.fzf-lua
+        (vimPlugins.nvim-treesitter.withPlugins (p: [ p.c p.go p.rust ] ))
+        vimPlugins.go-nvim
       ];
       extraLuaConfig = ''
         -- disable netrw at the very start of your init.lua
@@ -53,6 +55,20 @@ in {
         local capabilities = require('cmp_nvim_lsp').default_capabilities()
         local lspconfig = require('lspconfig')
         local fzf = require('fzf-lua')
+
+        -- GO
+        require('go').setup()
+        local format_sync_group = vim.api.nvim_create_augroup("GoFormat", {})
+        vim.api.nvim_create_autocmd("BufWritePre", {
+                pattern = "*.go",
+                callback = function()
+                        require('go.format').goimports()
+                end,
+                group = format_sync_group,
+        })
+
+        -- Treesitter
+        require('nvim-treesitter.configs').setup {}
 
         vim.lsp.enable('clangd')
         vim.lsp.config('clangd', {

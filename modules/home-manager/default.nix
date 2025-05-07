@@ -72,6 +72,7 @@
         fzf
         ranger
         ripgrep
+        lazygit
     ];
   };
 

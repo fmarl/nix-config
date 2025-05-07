@@ -14,10 +14,6 @@
       keyFile = "/sops/age/keys.txt";
       generateKey = true;
     };
-
-    secrets = {
-      minio-credentials = { };
-    };
   };
   
   nix = {
@@ -44,7 +40,7 @@
   };
 
   modules = {
-    labwc.enable = true;
+    river.enable = true;
   };
 
   environment = {
@@ -56,6 +52,7 @@
         vim
         git
         home-manager
+        htop
       ];
   };
 
