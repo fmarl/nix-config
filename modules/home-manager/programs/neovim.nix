@@ -21,8 +21,11 @@ in {
         vimPlugins.fzf-lua
         (vimPlugins.nvim-treesitter.withPlugins (p: [ p.c p.go p.rust ] ))
         vimPlugins.go-nvim
+        vimPlugins.sonokai
       ];
       extraLuaConfig = ''
+        vim.cmd 'colorscheme sonokai'
+
         -- disable netrw at the very start of your init.lua
         vim.g.loaded_netrw = 1
         vim.g.loaded_netrwPlugin = 1
@@ -160,7 +163,7 @@ in {
         	syntax enable
         ]]
 
-        vim.g.airline_theme = 'luna'
+        vim.g.airline_theme = 'sonokai'
         vim.g.airline_powerline_fonts = 1
         vim.opt.cursorline = true
 
