@@ -83,7 +83,7 @@
 (load-conf-file "nasm.el")
 (load-conf-file "cc.el")
 (load-conf-file "org.el")
-(load-conf-file "mu4e.el")
+;; (load-conf-file "mu4e.el")
 
 ;; Backup-diretory and Server
 (setf backup-directory-alist '((".*" . "~/.saves/")))
