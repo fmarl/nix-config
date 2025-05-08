@@ -24,22 +24,10 @@ in {
         vimPlugins.sonokai
       ];
       extraLuaConfig = ''
-        vim.cmd 'colorscheme sonokai'
-
-        -- disable netrw at the very start of your init.lua
+        -- Disable netrw at the very start
         vim.g.loaded_netrw = 1
         vim.g.loaded_netrwPlugin = 1
-        vim.g.nvim_tree_show_icons = {
-          folders = 0,
-          files = 0,
-          git = 0,
-          folder_arrows = 0,
-        }
 
-        -- optionally enable 24-bit colour
-        vim.opt.termguicolors = true
-
-        -- empty setup using defaults
         require("nvim-tree").setup({
                 renderer = {
                         icons = {
@@ -52,14 +40,29 @@ in {
                 },
         })
 
-        -- LSP Configuration
         local cmp = require 'cmp'
         local luasnip = require 'luasnip'
         local capabilities = require('cmp_nvim_lsp').default_capabilities()
         local lspconfig = require('lspconfig')
         local fzf = require('fzf-lua')
 
+        -- NvimTree
+        vim.g.nvim_tree_show_icons = {
+          folders = 0,
+          files = 0,
+          git = 0,
+          folder_arrows = 0,
+        }
+
+        -- Theme
+        vim.cmd 'colorscheme sonokai'
+        vim.opt.termguicolors = true
+
+        -- Treesitter
+        require('nvim-treesitter.configs').setup {}
+        
         -- GO
+        vim.lsp.enable('gopls')
         require('go').setup()
         local format_sync_group = vim.api.nvim_create_augroup("GoFormat", {})
         vim.api.nvim_create_autocmd("BufWritePre", {
@@ -70,24 +73,19 @@ in {
                 group = format_sync_group,
         })
 
-        -- Treesitter
-        require('nvim-treesitter.configs').setup {}
-
+        -- C/C++
         vim.lsp.enable('clangd')
         vim.lsp.config('clangd', {
           cmd = { 'clangd' }
         })
 
+        -- Rust
         vim.lsp.enable('rust_analyzer')
-        vim.lsp.config('rust_analyzer', {
-          -- Server-specific settings. See `:help lsp-quickstart`
-          settings = {
-            ['rust-analyzer'] = {},
-          },
-        })
 
+        -- Luasnip
         luasnip.config.setup {}
 
+        -- CMP
         cmp.setup {
            snippet = {
             expand = function(args)
