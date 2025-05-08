@@ -4,16 +4,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     impermanence.url = "github:nix-community/impermanence";
-    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
-    pre-commit-hooks.url = "github:cachix/git-hooks.nix";
-
-    code-nix = {
-      url = "github:fxttr/code-nix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        extensions.follows = "nix-vscode-extensions";
-      };
-    };
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -23,14 +13,6 @@
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    swm = {
-      url = "github:fxttr/swm";
-    };
-
-    stc = {
-      url = "github:fxttr/stc";
     };
     
     irssi-themes = {
@@ -74,18 +56,10 @@
             };
           };
 
-      customNixpkgs = ({
-        nixpkgs.overlays = [
-          (final: prev: { swm = inputs.swm.defaultPackage.${system}; })
-          (final: prev: { stc = inputs.stc.defaultPackage.${system}; })
-        ];
-      });
-
       commonNixOSModules = host: [
         (import ./modules/nixos {
           inherit self inputs host;
         })
-        customNixpkgs
         ./hosts/${host}/nixos
         inputs.sops-nix.nixosModules.sops
       ];
@@ -94,7 +68,6 @@
         (import ./modules/home-manager {
           inherit pkgs self inputs host user;
         })
-        customNixpkgs
         ./hosts/${host}/home-manager
         inputs.sops-nix.homeManagerModules.sops
       ];
@@ -133,29 +106,18 @@
               inputs.impermanence.nixosModules.impermanence
             ];
           };
-
-          lab = { };
         };
 
         homes = {
           "marrero@workstation" = { };
 
           "marrero@ntb" = { };
+
+          "marrero@lg-etl-prd" = { };
         };
       };
-
-      code = inputs.code-nix.packages.${system}.default;
     in
     {
-      checks = {
-        pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
-          src = ./.;
-          hooks = {
-            nixpkgs-fmt.enable = true;
-          };
-        };
-      };
-
       nixosConfigurations = nixpkgs.lib.mapAttrs mkSystem systems.nixos;
 
       homeConfigurations = nixpkgs.lib.mapAttrs mkHomeManager systems.homes;
@@ -166,9 +128,6 @@
           hbuild
           nbuild
           sops
-          (code {
-            profiles.nix.enable = true;
-          })
         ];
       };
     };

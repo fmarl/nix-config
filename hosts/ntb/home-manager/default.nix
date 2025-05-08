@@ -5,6 +5,11 @@
       keyFile = "/persist/home/marrero/.config/sops/age/keys.txt";
       generateKey = true;
     };
+    secrets = {
+      ssh = {
+        path = "/run/user/1000/secrets/ssh";
+      };
+     };
   };
 
   modules = {
@@ -46,18 +51,6 @@
           user = "marrero";
           identityFile = config.sops.secrets.ssh.path;
         };
-
-        "lab0" = {
-          hostname = "192.168.0.201";
-          user = "marrero";
-          identityFile = config.sops.secrets.ssh.path;
-        };
-
-        "rpi" = {
-          hostname = "192.168.0.202";
-          user = "marrero";
-          identityFile = config.sops.secrets.ssh.path;
-        };
       };
     };
 
@@ -72,7 +65,7 @@
       
       extraConfig = {
         core = {
-          editor = "vim";
+          editor = "nvim";
           whitespace = "-trailing-space";
         };
         log = {
