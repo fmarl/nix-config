@@ -4,6 +4,7 @@ keys:
   - &hosts:
     - &workstation age1dwu9ccy3t86c4tgd4ufs4jkmv572jfflkvdejm5kvjf95r3qsgus847qgd
     - &ntb age15sxuul96gh4slua9ju6xkgkx3d9lcvt6glx56a8e39kfwxanqc7q6p8un2
+    - &lg-etl-prd age1jauu6jnfsgt4ah887dv733dpt0cz6vc0jgpg83rnth8g0mw9su9sk0tmus
     
 creation_rules:
   - path_regex: hosts/workstation/secrets.yaml$
@@ -18,9 +19,7 @@ creation_rules:
         - *ntb
         pgp:
         - *marrero
-  - path_regex: hosts/lab/secrets.yaml$
+  - path_regex: hosts/lg-etl-prd/secrets.yaml$
     key_groups:
       - age:
-        - *workstation
-        pgp:
-        - *marrero
+        - *lg-etl-prd

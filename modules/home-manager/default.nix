@@ -49,12 +49,6 @@
 
   sops = {
     defaultSopsFile = "${self}/hosts/${host}/secrets.yaml";
-
-    secrets = {
-      ssh = {
-        path = "/run/user/1000/secrets/ssh";
-      };
-    };
   };
 
   programs = {

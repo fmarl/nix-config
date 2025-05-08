@@ -7,8 +7,8 @@
     };
 
     secrets = {
-      ionos-password = {
-        path = "/run/user/1000/secrets/ionos";
+      ssh = {
+        path = "/run/user/1000/secrets/ssh";
       };
     };
   };
