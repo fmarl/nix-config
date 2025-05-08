@@ -5,7 +5,7 @@
       (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/c86dc399-c2dd-4c6a-aad2-c80297386d6d";
+  boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/356cd7c2-b018-45bf-84aa-62aa91ab4c20";
 
   fileSystems = {
     "/" = {
@@ -16,13 +16,13 @@
     };
 
     "/persist" = {
-      device = "/dev/disk/by-uuid/fa7cdd71-467c-4876-ab35-f5173e0035fe";
+      device = "/dev/disk/by-uuid/41bb8a88-80c5-43dc-b4ba-97f6a22f9bc1";
       fsType = "xfs";
       neededForBoot = true;
     };
 
     "/boot" = {
-      device = "/dev/disk/by-uuid/2360-9BD9";
+      device = "/dev/disk/by-uuid/220F-1456";
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" "noexec" "nodev" "nosuid" ];
     };
