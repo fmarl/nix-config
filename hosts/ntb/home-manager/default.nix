@@ -23,7 +23,10 @@
     };
 
     river.enable = true;
-    waybar.enable = true;
+    waybar = {
+        enable = true;
+        mobile = true;
+    };
   };
 
   fonts.fontconfig.enable = true;

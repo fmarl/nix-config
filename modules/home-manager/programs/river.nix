@@ -102,6 +102,9 @@ riverctl rule-add -app-id 'Signal' float
 ### Keyboard Layout ###
 riverctl keyboard-layout -variant altgr-intl us
 
+### Touchpad ###
+riverctl input pointer-1267-35-Elan_Touchpad tap enabled
+
 systemctl --user start waybar
         '';
       };
