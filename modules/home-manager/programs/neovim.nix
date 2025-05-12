@@ -82,6 +82,9 @@ in {
         -- Rust
         vim.lsp.enable('rust_analyzer')
 
+        -- Python
+        vim.lsp.enable('pyright')
+
         -- Luasnip
         luasnip.config.setup {}
 
@@ -165,12 +168,32 @@ in {
         vim.g.airline_powerline_fonts = 1
         vim.opt.cursorline = true
 
+        vim.opt.timeoutlen = 100
+        vim.opt.ttimeoutlen = 0
         vim.opt.colorcolumn = '100'
         vim.api.nvim_set_option("clipboard","unnamed") 
 
-        vim.keymap.set('n', 'f', fzf.lsp_document_symbols, { noremap = true, silent = true })
+        -- FZF
         vim.keymap.set('n', 'b', fzf.buffers, { noremap = true, silent = true })
         vim.keymap.set('n', '<leader>f', fzf.files, { noremap = true, silent = true })
+       
+        -- LSP
+        vim.keymap.set('n', 'f', fzf.lsp_document_symbols, { noremap = true, silent = true })
+        vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { noremap = true, silent = true })
+        
+        -- Useful utils
+        vim.keymap.set('n', '<leader>sr', [[:%s/<C-r><C-w>//gc<Left><Left><Left>]])
+
+        -- Buffer Navigation
+        vim.keymap.set('n', '<leader>c', [[:bd<CR>]])
+        vim.keymap.set('n', '<S-TAB>', [[:bp<CR>]])
+        vim.keymap.set('n', '<TAB>', [[:bn<CR>]])
+
+        -- Code Navigation
+        vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
+        vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+        vim.keymap.set("v", "<", "<gv", { noremap = true, silent = true })
+        vim.keymap.set("v", ">", ">gv", { noremap = true, silent = true })
       '';
     };
   };
