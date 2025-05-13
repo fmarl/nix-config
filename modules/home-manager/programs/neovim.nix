@@ -136,10 +136,12 @@ in {
         -- Incremental search
         vim.opt.incsearch = true
 
-        -- Autoindent with tab being 4 spaces
+        -- Autoindent with tab being 2 spaces
         vim.opt.autoindent = true
-        vim.opt.tabstop = 4
+        vim.opt.softtabstop = 2
+        vim.opt.tabstop = 2
         vim.opt.expandtab = true
+        vim.opt.shiftwidth = 2
 
         -- Airline always show numbered listed of buffers
         vim.g['airline#extensions#tabline#enabled'] = 1
