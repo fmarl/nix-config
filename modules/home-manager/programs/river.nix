@@ -29,11 +29,13 @@ in
       services = {
         mako = {
           enable = true;
-
-          backgroundColor = "#${colorscheme.dark.bg_2}";
-          borderColor = "#${colorscheme.dark.bg_1}";
-          borderRadius = 12;
-          progressColor = "#${colorscheme.dark.br_cyan}";
+                
+          settings = {
+                  background-color = "#${colorscheme.dark.bg_2}";
+                  border-color = "#${colorscheme.dark.bg_1}";
+                  border-radius = 12;
+                  progress-color = "#${colorscheme.dark.br_cyan}";
+          };
         };
       };
       
@@ -104,6 +106,15 @@ riverctl keyboard-layout -variant altgr-intl us
 
 ### Touchpad ###
 riverctl input pointer-1267-35-Elan_Touchpad tap enabled
+
+### Brightness ###
+riverctl map $mode None XF86MonBrightnessUp   spawn '${pkgs.brightnessctl}/bin/brightnessctl set +5%'
+riverctl map $mode None XF86MonBrightnessDown spawn '${pkgs.brightnessctl}/bin/brightnessctl set 5%-'
+
+### Volume ###
+riverctl map $mode None XF86AudioRaiseVolume  spawn '${pkgs.pamixer}/bin/pamixer -i 5'
+riverctl map $mode None XF86AudioLowerVolume  spawn '${pkgs.pamixer}/bin/pamixer -d 5'
+riverctl map $mode None XF86AudioMute         spawn '${pkgs.pamixer}/bin/pamixer --toggle-mute'
 
 systemctl --user start waybar
         '';
