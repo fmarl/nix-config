@@ -1,21 +1,28 @@
 { config, pkgs, lib, ... }:
 
 with lib;
+let
+  kernel = (pkgs.linuxManualConfig {
+    pname = builtins.hashString "sha256" (builtins.readFile ./kernel.config);
+    src = pkgs.linux.src;
+    version = pkgs.linux.version;
+    modDirVersion = pkgs.linux.modDirVersion;
 
+    configfile = ./kernel.config;
+    kernelPatches = [];
+    
+    allowImportFromDerivation = true;
+  });
+in
 {
   boot = {
-    kernelPackages = pkgs.linuxPackages_6_6_hardened;
+    kernelPackages = pkgs.linuxPackagesFor kernel;
 
     kernelModules = [ "kvm-amd" ];
 
     initrd = {
-      availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "lz4" "z3fold" ];
-      kernelModules = [ "lz4" "z3fold" ];
-
-      preDeviceCommands = ''
-        printf lz4 > /sys/module/zswap/parameters/compressor
-        printf z3fold > /sys/module/zswap/parameters/zpool
-      '';
+      includeDefaultModules = false;
+      availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "nvme" ];
 
       postDeviceCommands = lib.mkAfter ''
         zfs rollback -r rpool/local/root@blank

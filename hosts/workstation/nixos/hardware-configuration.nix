@@ -36,8 +36,9 @@
       fsType = "zfs";
     };
 
-  swapDevices =
-    [{ device = "/dev/disk/by-uuid/e265876b-a241-40c6-993a-d97f565b21b2"; }];
+  zramSwap.enable = true;
+  
+  swapDevices = [];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
