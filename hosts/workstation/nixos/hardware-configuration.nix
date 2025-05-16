@@ -46,13 +46,5 @@
     cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
     bluetooth.enable = false;
     graphics.enable = true;
-
-    nvidia = {
-      modesetting.enable = true;
-
-      open = false;
-      nvidiaSettings = false;
-      powerManagement.enable = false;
-    };
   };
 }
