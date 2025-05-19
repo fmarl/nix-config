@@ -42,7 +42,7 @@
         };
 
         "lg-ai-accel01" = {
-          hostname = "10.100.52.92";
+          hostname = "10.100.48.11";
           user = "pideu";
           identityFile = config.sops.secrets.ssh.path;
         };
