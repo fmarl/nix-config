@@ -1,5 +1,4 @@
-{ lib, ... }:
-{
+{ lib, ... }: {
   networking = {
     hostId = "04686870";
 
@@ -14,9 +13,7 @@
     wireless.iwd = {
       enable = true;
       settings = {
-        General = {
-          AddressRandomization = "once";
-        };
+        General = { AddressRandomization = "once"; };
         Network = {
           EnableIPv6 = false;
           NameResolvingService = "systemd";

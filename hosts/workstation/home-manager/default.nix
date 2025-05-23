@@ -1,16 +1,11 @@
-{ pkgs, config, inputs, lib, ... }:
-{
+{ pkgs, config, inputs, lib, ... }: {
   sops = {
     age = {
       keyFile = "/home/marrero/.config/sops/age/keys.txt";
       generateKey = true;
     };
 
-    secrets = {
-      ssh = {
-        path = "/run/user/1000/secrets/ssh";
-      };
-    };
+    secrets = { ssh = { path = "/run/user/1000/secrets/ssh"; }; };
   };
 
   modules = {
@@ -22,14 +17,15 @@
   };
 
   programs = {
+    vscode.enable = true;
     tmux = {
-        enable = true;
-        shell = "${pkgs.zsh}/bin/zsh";
-        terminal = "tmux-256color";
-        historyLimit = 100000;
-        extraConfig = ''
+      enable = true;
+      shell = "${pkgs.zsh}/bin/zsh";
+      terminal = "tmux-256color";
+      historyLimit = 100000;
+      extraConfig = ''
         set -g mouse on
-        '';
+      '';
     };
 
     ssh = {

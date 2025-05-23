@@ -1,18 +1,13 @@
-{ self, inputs, host, ... }:
-{
+{ self, inputs, host, ... }: {
   imports = [ ./optional ./globals ];
 
   sops = {
     defaultSopsFile = "${self}/hosts/${host}/secrets.yaml";
 
     secrets = {
-      root-password = {
-        neededForUsers = true;
-      };
+      root-password = { neededForUsers = true; };
 
-      user-password = {
-        neededForUsers = true;
-      };
+      user-password = { neededForUsers = true; };
     };
   };
 

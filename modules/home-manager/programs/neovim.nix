@@ -19,7 +19,7 @@ in {
         vimPlugins.luasnip
         vimPlugins.nvim-tree-lua
         vimPlugins.fzf-lua
-        (vimPlugins.nvim-treesitter.withPlugins (p: [ p.c p.go p.rust ] ))
+        (vimPlugins.nvim-treesitter.withPlugins (p: [ p.c p.go p.rust ]))
         vimPlugins.go-nvim
         vimPlugins.sonokai
       ];
@@ -60,7 +60,7 @@ in {
 
         -- Treesitter
         require('nvim-treesitter.configs').setup {}
-        
+
         -- GO
         vim.lsp.enable('gopls')
         require('go').setup()
@@ -178,11 +178,11 @@ in {
         -- FZF
         vim.keymap.set('n', 'b', fzf.buffers, { noremap = true, silent = true })
         vim.keymap.set('n', '<leader>f', fzf.files, { noremap = true, silent = true })
-       
+
         -- LSP
         vim.keymap.set('n', 'f', fzf.lsp_document_symbols, { noremap = true, silent = true })
         vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { noremap = true, silent = true })
-        
+
         -- Useful utils
         vim.keymap.set('n', '<leader>sr', [[:%s/<C-r><C-w>//gc<Left><Left><Left>]])
 

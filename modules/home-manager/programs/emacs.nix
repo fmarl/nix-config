@@ -24,13 +24,11 @@ in {
           pkgs.mu
           pkgs.emacsPackages.mu4e
           pkgs.emacsPackages.use-package
-        ]) ++
-        (with epkgs.melpaPackages; [
+        ]) ++ (with epkgs.melpaPackages; [
           monokai-pro-theme
           clang-format
           google-c-style
-        ]) ++
-        (with epkgs.melpaStablePackages; [
+        ]) ++ (with epkgs.melpaStablePackages; [
           smart-mode-line
           smart-mode-line-powerline-theme
           smex

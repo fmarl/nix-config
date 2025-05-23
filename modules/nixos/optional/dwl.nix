@@ -2,15 +2,14 @@
 
 with lib;
 
-let
-  cfg = config.modules.dwl;
+let cfg = config.modules.dwl;
 in {
   options.modules.dwl = {
     enable = mkEnableOption "Install and configure dwl";
-     
+
     patches = mkOption {
       type = types.listOf types.path;
-      default = [];
+      default = [ ];
       description = "List of patch files to apply to dwl";
     };
 
@@ -51,19 +50,23 @@ in {
 
         patches = cfg.patches;
 
-        nativeBuildInputs = with pkgs; [ pkg-config wayland-protocols wayland-scanner ];
+        nativeBuildInputs = with pkgs; [
+          pkg-config
+          wayland-protocols
+          wayland-scanner
+        ];
 
         buildInputs = with pkgs; [
-            libinput
-            xorg.libxcb
-            libxkbcommon
-            pixman
-            wayland
-            wayland-protocols
-            wlroots
-            xorg.libX11
-            xwayland
-            xorg.xcbutilwm
+          libinput
+          xorg.libxcb
+          libxkbcommon
+          pixman
+          wayland
+          wayland-protocols
+          wlroots
+          xorg.libX11
+          xwayland
+          xorg.xcbutilwm
         ];
 
         postPatch = ''
@@ -75,9 +78,9 @@ in {
         configHasChanged = builtins.hashString "sha256" (toString cfg.config);
 
         installPhase = ''
-                runHook preInstall
-                make install DESTDIR=$out PREFIX=
-                runHook postInstall
+          runHook preInstall
+          make install DESTDIR=$out PREFIX=
+          runHook postInstall
         '';
       })
     ];
