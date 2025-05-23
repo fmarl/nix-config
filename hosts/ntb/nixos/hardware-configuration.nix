@@ -1,11 +1,8 @@
-{ config, lib, pkgs, modulesPath, ... }:
-{
-  imports =
-    [
-      (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+{ config, lib, pkgs, modulesPath, ... }: {
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/356cd7c2-b018-45bf-84aa-62aa91ab4c20";
+  boot.initrd.luks.devices."cryptroot".device =
+    "/dev/disk/by-uuid/356cd7c2-b018-45bf-84aa-62aa91ab4c20";
 
   fileSystems = {
     "/" = {
@@ -35,14 +32,13 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   hardware = {
-    cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+    cpu.intel.updateMicrocode =
+      lib.mkDefault config.hardware.enableRedistributableFirmware;
     bluetooth.enable = false;
 
     graphics = {
       enable = true;
-      extraPackages = with pkgs; [
-        vulkan-validation-layers
-      ];
+      extraPackages = with pkgs; [ vulkan-validation-layers ];
     };
   };
 }

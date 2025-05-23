@@ -29,12 +29,14 @@ in {
 
       sessionVariables = {
         GPG_TTY = "$(tty)";
-        FZF_DEFAULT_COMMAND = "rg --files --hidden --glob '!.git' --glob '!.direnv' --global '!.cache'";
-        FZF_CTRL_T_COMMAND = "rg --files --hidden --glob '!.git' --glob '!.direnv' --glob '!.cache'";
+        FZF_DEFAULT_COMMAND =
+          "rg --files --hidden --glob '!.git' --glob '!.direnv' --global '!.cache'";
+        FZF_CTRL_T_COMMAND =
+          "rg --files --hidden --glob '!.git' --glob '!.direnv' --glob '!.cache'";
         _JAVA_AWT_WM_NONREPARENTING = "1";
       };
 
-      initContent = '' 
+      initContent = ''
         if [ -n "''${commands[fzf-share]}" ]; then
                 source "$(fzf-share)/key-bindings.zsh"
                 source "$(fzf-share)/completion.zsh"

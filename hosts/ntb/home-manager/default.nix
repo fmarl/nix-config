@@ -1,15 +1,10 @@
-{ pkgs, config, inputs, lib, ... }:
-{
+{ pkgs, config, inputs, lib, ... }: {
   sops = {
     age = {
       keyFile = "/persist/home/marrero/.config/sops/age/keys.txt";
       generateKey = true;
     };
-    secrets = {
-      ssh = {
-        path = "/run/user/1000/secrets/ssh";
-      };
-     };
+    secrets = { ssh = { path = "/run/user/1000/secrets/ssh"; }; };
   };
 
   modules = {
@@ -24,14 +19,14 @@
 
     river.enable = true;
     waybar = {
-        enable = true;
-        mobile = true;
+      enable = true;
+      mobile = true;
     };
   };
 
   fonts.fontconfig.enable = true;
 
-  programs = { 
+  programs = {
     ssh = {
       enable = true;
       hashKnownHosts = true;
@@ -61,22 +56,15 @@
       enable = true;
       userName = "Florian Marrero Liestmann";
       userEmail = "f.m.liestmann@fx-ttr.de";
-      ignores = [
-        ".direnv/"
-        ".cache/"
-      ];
-      
+      ignores = [ ".direnv/" ".cache/" ];
+
       extraConfig = {
         core = {
           editor = "nvim";
           whitespace = "-trailing-space";
         };
-        log = {
-          abbrevCommit = true;
-        };
-        pull = {
-          rebase = false;
-        };
+        log = { abbrevCommit = true; };
+        pull = { rebase = false; };
       };
 
       signing = {

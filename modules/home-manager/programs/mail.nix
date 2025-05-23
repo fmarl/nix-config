@@ -87,7 +87,7 @@ in {
           text = "4116 19F1 14F9 83A9 7FCE 16FC D191 2EEB C3FB EBB4";
           showSignature = "append";
         };
-        
+
         passwordCommand = "cat ${cfg.password}";
       };
     };
@@ -104,7 +104,7 @@ in {
         sidebar.enable = true;
         sort = "reverse-date";
       };
-      
+
       mbsync.enable = true;
       msmtp.enable = true;
     };

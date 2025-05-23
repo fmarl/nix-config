@@ -1,5 +1,4 @@
-{ config, pkgs, lib, inputs, ... }:
-{
+{ config, pkgs, lib, inputs, ... }: {
   environment.persistence."/persist" = {
     enable = true;
     hideMounts = true;
@@ -11,8 +10,6 @@
       { directory = "/home/marrero"; }
       { directory = "/nix"; }
     ];
-    files = [
-      "/etc/machine-id"
-    ];
+    files = [ "/etc/machine-id" ];
   };
 }
