@@ -31,7 +31,7 @@
 
   programs = { zsh.enable = true; };
 
-  modules = { river.enable = true; };
+  modules = { gnome.enable = true; };
 
   environment = {
     shells = with pkgs; [ zsh ];
@@ -51,7 +51,7 @@
         createHome = true;
         description = "Florian Marrero Liestmann";
         hashedPasswordFile = config.sops.secrets.user-password.path;
-        extraGroups = [ "wheel" "tss" "libvirtd" ];
+        extraGroups = [ "wheel" "tss" "libvirtd" "podman" ];
         group = "users";
         uid = 1000;
         home = "/home/marrero";
@@ -64,20 +64,29 @@
     };
   };
 
-  virtualisation.libvirtd = {
-    enable = true;
-    qemu = {
-      package = pkgs.qemu_kvm;
-      runAsRoot = true;
-      swtpm.enable = true;
-      ovmf = {
-        enable = true;
-        packages = [
-          (pkgs.OVMF.override {
-            secureBoot = true;
-            tpmSupport = true;
-          }).fd
-        ];
+  virtualisation = {
+    containers.enable = true;
+    podman = {
+      enable = true;
+      dockerCompat = true;
+      defaultNetwork.settings.dns_enabled = true;
+    };
+
+    libvirtd = {
+      enable = true;
+      qemu = {
+        package = pkgs.qemu_kvm;
+        runAsRoot = true;
+        swtpm.enable = true;
+        ovmf = {
+          enable = true;
+          packages = [
+            (pkgs.OVMF.override {
+              secureBoot = true;
+              tpmSupport = true;
+            }).fd
+          ];
+        };
       };
     };
   };

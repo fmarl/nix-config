@@ -13,5 +13,6 @@
     ./neovim.nix
     ./librewolf.nix
     ./labwc.nix
+    ./gnome.nix
   ];
 }
