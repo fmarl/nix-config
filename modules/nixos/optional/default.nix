@@ -7,5 +7,6 @@
     ./docker.nix
     ./mate.nix
     ./labwc.nix
+    ./gnome.nix
   ];
 }
