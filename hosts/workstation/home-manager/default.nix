@@ -12,8 +12,7 @@
     zsh.enable = true;
     librewolf.enable = true;
     neovim.enable = true;
-    river.enable = true;
-    waybar.enable = true;
+    gnome.enable = true;
   };
 
   programs = {
