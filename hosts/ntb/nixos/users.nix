@@ -7,7 +7,7 @@
       createHome = true;
       description = "Florian Marrero Liestmann";
       hashedPasswordFile = config.sops.secrets.user-password.path;
-      extraGroups = [ "wheel" "wireshark" ];
+      extraGroups = [ "wheel" "wireshark" "tss" "libvirtd" ];
       group = "users";
       uid = 1000;
       home = "/home/marrero";

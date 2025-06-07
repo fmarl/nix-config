@@ -11,13 +11,13 @@
     zsh.enable = true;
     librewolf.enable = true;
     neovim.enable = true;
+    river.enable = true;
 
     irssi = {
       enable = true;
       user = "fxttr";
     };
 
-    river.enable = true;
     waybar = {
       enable = true;
       mobile = true;
@@ -27,6 +27,7 @@
   fonts.fontconfig.enable = true;
 
   programs = {
+    vscode.enable = true; 
     ssh = {
       enable = true;
       hashKnownHosts = true;

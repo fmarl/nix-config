@@ -7,6 +7,7 @@
       { directory = "/etc/NetworkManager/system-connections"; }
       { directory = "/var/lib/systemd/coredump"; }
       { directory = "/var/lib/nixos"; }
+      { directory = "/var/lib/libvirt"; }
       { directory = "/home/marrero"; }
       { directory = "/nix"; }
     ];
