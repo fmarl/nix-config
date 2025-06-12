@@ -60,7 +60,6 @@
   home = {
     packages = (with pkgs; [
       signal-desktop-bin
-      spotify
       (writeShellScriptBin "nrun" ''
         NIXPKGS_ALLOW_UNFREE=1 nix run --impure nixpkgs#$1
       '')
