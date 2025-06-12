@@ -113,7 +113,7 @@
       homeConfigurations = nixpkgs.lib.mapAttrs mkHomeManager systems.homes;
 
       devShells.${system}.default = pkgs.mkShell {
-        nativeBuildInputs = with pkgs; [ nixfmt hbuild nbuild sops ];
+        nativeBuildInputs = with pkgs; [ nixfmt hbuild nbuild sops nil ];
       };
     };
 }
