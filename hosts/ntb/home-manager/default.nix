@@ -27,7 +27,7 @@
   fonts.fontconfig.enable = true;
 
   programs = {
-    vscode.enable = true; 
+    vscode.enable = true;
     ssh = {
       enable = true;
       hashKnownHosts = true;
@@ -41,6 +41,12 @@
 
         "codeberg" = {
           hostname = "codeberg.org";
+          user = "git";
+          identityFile = config.sops.secrets.ssh.path;
+        };
+
+        "bitbucket" = {
+          hostname = "bitbucket.org";
           user = "git";
           identityFile = config.sops.secrets.ssh.path;
         };
