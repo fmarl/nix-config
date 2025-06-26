@@ -43,6 +43,12 @@
           user = "git";
           identityFile = config.sops.secrets.ssh.path;
         };
+
+        "bitbucket" = {
+          hostname = "bitbucket.org";
+          user = "git";
+          identityFile = config.sops.secrets.ssh.path;
+        };
       };
     };
 
@@ -60,6 +66,8 @@
   home = {
     packages = (with pkgs; [
       signal-desktop-bin
+      spotify
+      obsidian
       (writeShellScriptBin "nrun" ''
         NIXPKGS_ALLOW_UNFREE=1 nix run --impure nixpkgs#$1
       '')
