@@ -13,20 +13,11 @@
     librewolf.enable = true;
     neovim.enable = true;
     gnome.enable = true;
+    tmux.enable = true;
   };
 
   programs = {
     vscode.enable = true;
-    tmux = {
-      enable = true;
-      shell = "${pkgs.zsh}/bin/zsh";
-      terminal = "tmux-256color";
-      historyLimit = 100000;
-      extraConfig = ''
-        set -g mouse on
-      '';
-    };
-
     ssh = {
       enable = true;
       hashKnownHosts = true;
@@ -66,7 +57,6 @@
   home = {
     packages = (with pkgs; [
       signal-desktop-bin
-      spotify
       obsidian
       (writeShellScriptBin "nrun" ''
         NIXPKGS_ALLOW_UNFREE=1 nix run --impure nixpkgs#$1

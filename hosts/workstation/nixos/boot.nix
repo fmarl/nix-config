@@ -1,19 +1,7 @@
 { config, pkgs, lib, ... }:
 
 with lib;
-let
-  kernel = (pkgs.linuxManualConfig {
-    pname = builtins.hashString "sha256" (builtins.readFile ./kernel.config);
-    src = pkgs.linux.src;
-    version = pkgs.linux.version;
-    modDirVersion = pkgs.linux.modDirVersion;
-
-    configfile = ./kernel.config;
-    kernelPatches = [ ];
-
-    allowImportFromDerivation = true;
-  });
-in {
+{
   boot = {
     kernelPackages = pkgs.linuxPackages_hardened;
 
