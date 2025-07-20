@@ -1,4 +1,9 @@
-{ config, pkgs, lib, inputs, ... }: {
+{
+  pkgs,
+  lib,
+  ...
+}:
+{
   imports = [
     ./hardware-configuration.nix
     ./boot.nix
@@ -23,25 +28,36 @@
     ];
 
     settings = {
-      trusted-public-keys =
-        [ "fxttr.cachix.org-1:TBvPEn0MZT1PB89c1S8KWyWEmxbWMPW58lqODJuaH94=" ];
+      trusted-public-keys = [ "fxttr.cachix.org-1:TBvPEn0MZT1PB89c1S8KWyWEmxbWMPW58lqODJuaH94=" ];
 
       substituters = [ "https://fxttr.cachix.org" ];
     };
   };
 
-  programs = { zsh.enable = true; };
+  programs = {
+    zsh.enable = true;
+  };
 
-  modules = { river.enable = true; };
+  modules = {
+    river.enable = true;
+  };
 
   environment = {
     shells = with pkgs; [ zsh ];
     pathsToLink = [ "/share/zsh" ];
     defaultPackages = lib.mkForce [ ];
-    systemPackages = with pkgs; [ vim git home-manager htop ];
+    systemPackages = with pkgs; [
+      vim
+      git
+      home-manager
+      htop
+    ];
   };
 
-  fonts.packages = with pkgs; [ source-code-pro font-awesome ];
+  fonts.packages = with pkgs; [
+    source-code-pro
+    font-awesome
+  ];
 
   virtualisation = {
     containers.enable = true;

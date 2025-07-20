@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   services = {
     dbus.enable = true;
 
@@ -11,7 +12,10 @@
         SUBSYSTEM=="usbmon", GROUP="wireshark", MODE="0640"
       '';
 
-      packages = with pkgs; [ yubikey-personalization libu2f-host ];
+      packages = with pkgs; [
+        yubikey-personalization
+        libu2f-host
+      ];
     };
 
     pipewire = {

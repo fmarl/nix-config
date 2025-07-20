@@ -1,10 +1,17 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
-let cfg = config.modules.sway;
+let
+  cfg = config.modules.sway;
 
-in {
+in
+{
   options.modules.sway.enable = mkEnableOption "Install and configure sway";
 
   config = mkIf cfg.enable {
@@ -17,7 +24,9 @@ in {
     services.xserver = {
       enable = true;
 
-      displayManager = { lightdm.enable = true; };
+      displayManager = {
+        lightdm.enable = true;
+      };
 
       xkb = {
         layout = "us";

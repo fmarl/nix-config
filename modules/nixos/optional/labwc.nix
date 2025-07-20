@@ -1,10 +1,17 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
-let cfg = config.modules.labwc;
+let
+  cfg = config.modules.labwc;
 
-in {
+in
+{
   options.modules.labwc.enable = mkEnableOption "Install and configure labwc";
 
   config = mkIf cfg.enable {
@@ -17,7 +24,9 @@ in {
     services.xserver = {
       enable = true;
 
-      displayManager = { lightdm.enable = true; };
+      displayManager = {
+        lightdm.enable = true;
+      };
 
       xkb = {
         layout = "us";
@@ -25,6 +34,8 @@ in {
       };
     };
 
-    programs = { labwc.enable = true; };
+    programs = {
+      labwc.enable = true;
+    };
   };
 }

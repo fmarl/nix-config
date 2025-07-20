@@ -1,9 +1,16 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
-let cfg = config.modules.dwl;
-in {
+let
+  cfg = config.modules.dwl;
+in
+{
   options.modules.dwl = {
     enable = mkEnableOption "Install and configure dwl";
 

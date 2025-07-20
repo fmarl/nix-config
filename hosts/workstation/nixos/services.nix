@@ -1,4 +1,5 @@
-{ config, pkgs, lib, ... }: {
+{ pkgs, ... }:
+{
   services = {
     zfs = {
       autoScrub.enable = true;
@@ -11,7 +12,10 @@
 
     pulseaudio.enable = false;
 
-    udev.packages = with pkgs; [ yubikey-personalization libu2f-host ];
+    udev.packages = with pkgs; [
+      yubikey-personalization
+      libu2f-host
+    ];
 
     pipewire = {
       enable = true;

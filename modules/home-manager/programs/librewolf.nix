@@ -1,11 +1,16 @@
-{ self, config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  ...
+}:
 
 with lib;
 
-let cfg = config.modules.librewolf;
-in {
-  options.modules.librewolf.enable =
-    mkEnableOption "Install and configure librewolf";
+let
+  cfg = config.modules.librewolf;
+in
+{
+  options.modules.librewolf.enable = mkEnableOption "Install and configure librewolf";
 
   config = mkIf cfg.enable {
     programs.librewolf = {

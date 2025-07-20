@@ -1,10 +1,17 @@
-{ pkgs, lib, config, nixosConfigurations, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 with lib;
 
-let cfg = config.modules.tmux;
+let
+  cfg = config.modules.tmux;
 
-in {
+in
+{
   options.modules.tmux.enable = mkEnableOption "Install and configure tmux";
 
   config = mkIf cfg.enable {

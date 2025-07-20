@@ -1,4 +1,11 @@
-{ config, lib, pkgs, modulesPath, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
+{
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   boot.initrd.luks.devices."cryptroot".device =
@@ -9,7 +16,11 @@
       device = "none";
       fsType = "tmpfs";
       neededForBoot = true;
-      options = [ "defaults" "size=10G" "mode=755" ];
+      options = [
+        "defaults"
+        "size=10G"
+        "mode=755"
+      ];
     };
 
     "/persist" = {
@@ -21,7 +32,13 @@
     "/boot" = {
       device = "/dev/disk/by-uuid/220F-1456";
       fsType = "vfat";
-      options = [ "fmask=0022" "dmask=0022" "noexec" "nodev" "nosuid" ];
+      options = [
+        "fmask=0022"
+        "dmask=0022"
+        "noexec"
+        "nodev"
+        "nosuid"
+      ];
     };
   };
 
@@ -32,8 +49,7 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   hardware = {
-    cpu.intel.updateMicrocode =
-      lib.mkDefault config.hardware.enableRedistributableFirmware;
+    cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
     bluetooth.enable = false;
 
     graphics = {

@@ -1,6 +1,4 @@
-{ config, pkgs, lib, ... }:
-
-with lib;
+{ pkgs, lib, ... }:
 {
   boot = {
     kernelPackages = pkgs.linuxPackages_hardened;
@@ -9,8 +7,15 @@ with lib;
 
     initrd = {
       includeDefaultModules = false;
-      availableKernelModules =
-        [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "nvme" ];
+      availableKernelModules = [
+        "xhci_pci"
+        "ehci_pci"
+        "ahci"
+        "usbhid"
+        "usb_storage"
+        "sd_mod"
+        "nvme"
+      ];
 
       postDeviceCommands = lib.mkAfter ''
         zfs rollback -r rpool/local/root@blank

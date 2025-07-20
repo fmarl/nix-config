@@ -1,10 +1,17 @@
-{ pkgs, lib, config, nixosConfigurations, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 with lib;
 
-let cfg = config.modules.mail;
+let
+  cfg = config.modules.mail;
 
-in {
+in
+{
   options.modules.mail.enable = mkEnableOption "Install and configure mail";
 
   options.modules.mail.password = mkOption {

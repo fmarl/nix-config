@@ -1,10 +1,17 @@
-{ pkgs, lib, config, nixosConfigurations, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 with lib;
 
-let cfg = config.modules.zsh;
+let
+  cfg = config.modules.zsh;
 
-in {
+in
+{
   options.modules.zsh.enable = mkEnableOption "Install and configure irssi";
 
   config = mkIf cfg.enable {
@@ -29,10 +36,8 @@ in {
 
       sessionVariables = {
         GPG_TTY = "$(tty)";
-        FZF_DEFAULT_COMMAND =
-          "rg --files --hidden --glob '!.git' --glob '!.direnv' --global '!.cache'";
-        FZF_CTRL_T_COMMAND =
-          "rg --files --hidden --glob '!.git' --glob '!.direnv' --glob '!.cache'";
+        FZF_DEFAULT_COMMAND = "rg --files --hidden --glob '!.git' --glob '!.direnv' --global '!.cache'";
+        FZF_CTRL_T_COMMAND = "rg --files --hidden --glob '!.git' --glob '!.direnv' --glob '!.cache'";
         _JAVA_AWT_WM_NONREPARENTING = "1";
       };
 

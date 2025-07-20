@@ -1,11 +1,17 @@
-{ self, config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
   cfg = config.modules.swm;
   wallpaper = cfg.wallpaper;
-in {
+in
+{
   options.modules.swm.enable = mkEnableOption "Install swm";
 
   options.modules.swm.wallpaper = mkOption {
@@ -85,7 +91,12 @@ in {
       };
     };
 
-    home.packages = [ pkgs.stc pkgs.feh pkgs.ranger pkgs.dmenu ];
+    home.packages = [
+      pkgs.stc
+      pkgs.feh
+      pkgs.ranger
+      pkgs.dmenu
+    ];
 
     xsession = {
       enable = true;
@@ -107,4 +118,3 @@ in {
     };
   };
 }
-

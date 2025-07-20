@@ -1,11 +1,15 @@
-{ self, config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  ...
+}:
 
 with lib;
 
 let
-  colorscheme = import ./../../colors.nix;
   cfg = config.modules.gnome;
-in {
+in
+{
   options.modules.gnome.enable = mkEnableOption "Install and configure gnome";
 
   config = mkIf cfg.enable {

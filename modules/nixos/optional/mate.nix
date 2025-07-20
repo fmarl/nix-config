@@ -1,10 +1,17 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
-let cfg = config.modules.mate;
+let
+  cfg = config.modules.mate;
 
-in {
+in
+{
   options.modules.mate.enable = mkEnableOption "Install and configure mate";
 
   config = mkIf cfg.enable {
