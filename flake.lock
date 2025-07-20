@@ -11,11 +11,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1752842208,
-        "narHash": "sha256-qakG1Zo3etFWsdqxjsYPCfboq1ivQtTcm5puiiwORxk=",
+        "lastModified": 1752999233,
+        "narHash": "sha256-7dBH8p44zSwAqIQD2bFa0GhM3+Rp9DO+8Sl+HtFG0dc=",
         "owner": "fmarl",
         "repo": "code-nix",
-        "rev": "0435b0e976d8394a40cd07c2ce80d08f15ec4233",
+        "rev": "3b7634457d00bc07a37aa351bbee64e87134f984",
         "type": "github"
       },
       "original": {

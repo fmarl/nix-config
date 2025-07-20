@@ -64,30 +64,6 @@
       [
         signal-desktop-bin
         obsidian
-        (writeShellScriptBin "nrun" ''
-          NIXPKGS_ALLOW_UNFREE=1 nix run --impure nixpkgs#$1
-        '')
-        (writeShellScriptBin "metaflake" ''
-          nix develop github:flmarrero/metaflakes#$1 --no-write-lock-file
-        '')
-        (writeShellScriptBin "notify" ''
-          cmd="$*"
-
-          if [ ''${#cmd} -gt 15 ]; then
-              name="''${cmd:0:12}..."
-          else
-              name="''$cmd"
-          fi
-
-          eval "''$cmd"
-          exit_code=''$?
-
-          if [ ''$exit_code -eq 0 ]; then
-              ${libnotify}/bin/notify-send "$name done!"
-          else
-              ${libnotify}/bin/notify-send "$name failed with exit ''$exit_code."
-          fi
-        '')
       ]
     );
   };
