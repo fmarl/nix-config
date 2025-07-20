@@ -1,11 +1,17 @@
-{ self, config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
   colorscheme = import ./../../colors.nix;
   cfg = config.modules.river;
-in {
+in
+{
   options.modules.river.enable = mkEnableOption "Install and configure river";
 
   config = mkIf cfg.enable {
@@ -18,7 +24,9 @@ in {
       imv.enable = true;
     };
 
-    home = { packages = (with pkgs; [ wl-clipboard ]); };
+    home = {
+      packages = (with pkgs; [ wl-clipboard ]);
+    };
 
     services = {
       mako = {

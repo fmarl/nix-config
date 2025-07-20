@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -24,7 +29,8 @@ let
   #  '';
 
   cfg = config.modules.xmonad;
-in {
+in
+{
   options.modules.xmonad.enable = mkEnableOption "Install xmonad";
 
   options.modules.xmonad.wallpaper = mkOption {
@@ -104,7 +110,11 @@ in {
       };
     };
 
-    home.packages = [ pkgs.feh pkgs.ranger pkgs.dmenu ];
+    home.packages = [
+      pkgs.feh
+      pkgs.ranger
+      pkgs.dmenu
+    ];
 
     programs.alacritty = {
       enable = true;
@@ -153,7 +163,10 @@ in {
       windowManager.xmonad = {
         enable = true;
         enableContribAndExtras = true;
-        extraPackages = hp: [ hp.dbus hp.monad-logger ];
+        extraPackages = hp: [
+          hp.dbus
+          hp.monad-logger
+        ];
         config = pkgs.writeText "xmonad.hs" ''
           import           Control.Monad                         ( replicateM_ )
           import           Data.Foldable                         ( traverse_ )

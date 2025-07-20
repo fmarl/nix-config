@@ -1,10 +1,17 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
-let cfg = config.modules.river;
+let
+  cfg = config.modules.river;
 
-in {
+in
+{
   options.modules.river.enable = mkEnableOption "Install and configure river";
 
   config = mkIf cfg.enable {
@@ -17,7 +24,9 @@ in {
     services.xserver = {
       enable = true;
 
-      displayManager = { lightdm.enable = true; };
+      displayManager = {
+        lightdm.enable = true;
+      };
 
       xkb = {
         layout = "us";
@@ -25,6 +34,8 @@ in {
       };
     };
 
-    programs = { river.enable = true; };
+    programs = {
+      river.enable = true;
+    };
   };
 }

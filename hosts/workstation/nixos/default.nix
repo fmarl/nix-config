@@ -1,4 +1,10 @@
-{ config, pkgs, lib, inputs, ... }: {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
   imports = [
     ./hardware-configuration.nix
     ./security.nix
@@ -22,25 +28,36 @@
     ];
 
     settings = {
-      trusted-public-keys =
-        [ "fxttr.cachix.org-1:TBvPEn0MZT1PB89c1S8KWyWEmxbWMPW58lqODJuaH94=" ];
+      trusted-public-keys = [ "fxttr.cachix.org-1:TBvPEn0MZT1PB89c1S8KWyWEmxbWMPW58lqODJuaH94=" ];
 
       substituters = [ "https://fxttr.cachix.org" ];
     };
   };
 
-  programs = { zsh.enable = true; };
+  programs = {
+    zsh.enable = true;
+  };
 
-  modules = { gnome.enable = true; };
+  modules = {
+    gnome.enable = true;
+  };
 
   environment = {
     shells = with pkgs; [ zsh ];
     pathsToLink = [ "/share/zsh" ];
     defaultPackages = lib.mkForce [ ];
-    systemPackages = with pkgs; [ vim git home-manager htop ];
+    systemPackages = with pkgs; [
+      vim
+      git
+      home-manager
+      htop
+    ];
   };
 
-  fonts.packages = with pkgs; [ source-code-pro font-awesome ];
+  fonts.packages = with pkgs; [
+    source-code-pro
+    font-awesome
+  ];
 
   users = {
     mutableUsers = false;
@@ -51,7 +68,12 @@
         createHome = true;
         description = "Florian Marrero Liestmann";
         hashedPasswordFile = config.sops.secrets.user-password.path;
-        extraGroups = [ "wheel" "tss" "libvirtd" "podman" ];
+        extraGroups = [
+          "wheel"
+          "tss"
+          "libvirtd"
+          "podman"
+        ];
         group = "users";
         uid = 1000;
         home = "/home/marrero";
@@ -70,24 +92,6 @@
       enable = true;
       dockerCompat = true;
       defaultNetwork.settings.dns_enabled = true;
-    };
-
-    libvirtd = {
-      enable = true;
-      qemu = {
-        package = pkgs.qemu_kvm;
-        runAsRoot = true;
-        swtpm.enable = true;
-        ovmf = {
-          enable = true;
-          packages = [
-            (pkgs.OVMF.override {
-              secureBoot = true;
-              tpmSupport = true;
-            }).fd
-          ];
-        };
-      };
     };
   };
 

@@ -1,11 +1,17 @@
-{ self, config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
   colorscheme = import ./../../colors.nix;
   cfg = config.modules.labwc;
-in {
+in
+{
   options.modules.labwc.enable = mkEnableOption "Install and configure labwc";
 
   config = mkIf cfg.enable {
@@ -18,7 +24,9 @@ in {
       imv.enable = true;
     };
 
-    home = { packages = (with pkgs; [ wl-clipboard ]); };
+    home = {
+      packages = (with pkgs; [ wl-clipboard ]);
+    };
 
     services = {
       mako = {

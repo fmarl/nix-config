@@ -1,4 +1,10 @@
-{ config, lib, pkgs, modulesPath, ... }: {
+{
+  config,
+  lib,
+  modulesPath,
+  ...
+}:
+{
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   fileSystems."/" = {
@@ -9,7 +15,10 @@
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/B4FE-552F";
     fsType = "vfat";
-    options = [ "fmask=002" "dmask=002" ];
+    options = [
+      "fmask=002"
+      "dmask=002"
+    ];
   };
 
   fileSystems."/nix" = {
@@ -34,8 +43,7 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   hardware = {
-    cpu.amd.updateMicrocode =
-      lib.mkDefault config.hardware.enableRedistributableFirmware;
+    cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
     bluetooth.enable = false;
     graphics.enable = true;
   };

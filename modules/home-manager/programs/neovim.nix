@@ -1,10 +1,17 @@
-{ pkgs, lib, config, nixosConfigurations, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 with lib;
 
-let cfg = config.modules.neovim;
+let
+  cfg = config.modules.neovim;
 
-in {
+in
+{
   options.modules.neovim.enable = mkEnableOption "Install and configure neovim";
 
   config = mkIf cfg.enable {
@@ -19,7 +26,11 @@ in {
         vimPlugins.luasnip
         vimPlugins.nvim-tree-lua
         vimPlugins.fzf-lua
-        (vimPlugins.nvim-treesitter.withPlugins (p: [ p.c p.go p.rust ]))
+        (vimPlugins.nvim-treesitter.withPlugins (p: [
+          p.c
+          p.go
+          p.rust
+        ]))
         vimPlugins.go-nvim
         vimPlugins.sonokai
       ];

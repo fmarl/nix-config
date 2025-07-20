@@ -1,11 +1,15 @@
-{ pkgs, config, lib, ... }:
+{
+  config,
+  lib,
+  ...
+}:
 
 with lib;
 
 let
-  colorscheme = import ./../../colors.nix;
   cfg = config.modules.waybar;
-in {
+in
+{
   options.modules.waybar.enable = mkEnableOption "Install and configure waybar";
   options.modules.waybar.mobile = mkOption {
     type = types.bool;
@@ -16,116 +20,139 @@ in {
   config = mkIf cfg.enable {
     programs.waybar = {
       enable = true;
-      settings = [{
-        height = 10;
-        modules-left = [ "river/tags" "custom/right-arrow-dark" ];
-        modules-center = [
-          "custom/left-arrow-dark"
-          "clock#1"
-          "custom/left-arrow-light"
-          "custom/left-arrow-dark"
-          "clock#2"
-          "custom/right-arrow-dark"
-          "custom/right-arrow-light"
-          "clock#3"
-          "custom/right-arrow-dark"
-        ];
-        modules-right = if cfg.mobile then [
-          "custom/left-arrow-dark"
-          "network"
-          "custom/left-arrow-light"
-          "custom/left-arrow-dark"
-          "memory"
-          "custom/left-arrow-light"
-          "custom/left-arrow-dark"
-          "cpu"
-          "custom/left-arrow-light"
-          "custom/left-arrow-dark"
-          "battery"
-          "custom/left-arrow-light"
-          "custom/left-arrow-dark"
-          "tray"
-        ] else [
-          "custom/left-arrow-dark"
-          "network"
-          "custom/left-arrow-light"
-          "custom/left-arrow-dark"
-          "memory"
-          "custom/left-arrow-light"
-          "custom/left-arrow-dark"
-          "cpu"
-          "custom/left-arrow-light"
-          "custom/left-arrow-dark"
-          "disk"
-          "custom/left-arrow-light"
-          "custom/left-arrow-dark"
-          "tray"
-        ];
-        "river/tags" = { num-tags = 9; };
-        "custom/left-arrow-dark" = {
-          format = "";
-          tooltip = false;
-        };
-        "custom/left-arrow-light" = {
-          format = "";
-          tooltip = false;
-        };
-        "custom/right-arrow-dark" = {
-          format = "";
-          tooltip = false;
-        };
-        "custom/right-arrow-light" = {
-          format = "";
-          tooltip = false;
-        };
-        "clock#1" = {
-          format = "{:%a}";
-          tooltip-format = ''
-            <big>{:%Y %B}</big>
-            <tt><small>{calendar}</small></tt>'';
-        };
-        "clock#2" = {
-          format = "{:%H:%M}";
-          tooltip-format = ''
-            <big>{:%Y %B}</big>
-            <tt><small>{calendar}</small></tt>'';
-        };
-        "clock#3" = {
-          format = "{:%d.%m}";
-          tooltip-format = ''
-            <big>{:%Y %B}</big>
-            <tt><small>{calendar}</small></tt>'';
-        };
-
-        disk = {
-          interval = 5;
-          format = "Disk {percentage_used:2}%";
-          path = "/";
-        };
-
-        tray = { spacing = 10; };
-        cpu = { format = "{usage}% "; };
-        memory = { format = "{}% "; };
-        battery = {
-          bat = "BAT0";
-          states = {
-            warning = 30;
-            critical = 15;
+      settings = [
+        {
+          height = 10;
+          modules-left = [
+            "river/tags"
+            "custom/right-arrow-dark"
+          ];
+          modules-center = [
+            "custom/left-arrow-dark"
+            "clock#1"
+            "custom/left-arrow-light"
+            "custom/left-arrow-dark"
+            "clock#2"
+            "custom/right-arrow-dark"
+            "custom/right-arrow-light"
+            "clock#3"
+            "custom/right-arrow-dark"
+          ];
+          modules-right =
+            if cfg.mobile then
+              [
+                "custom/left-arrow-dark"
+                "network"
+                "custom/left-arrow-light"
+                "custom/left-arrow-dark"
+                "memory"
+                "custom/left-arrow-light"
+                "custom/left-arrow-dark"
+                "cpu"
+                "custom/left-arrow-light"
+                "custom/left-arrow-dark"
+                "battery"
+                "custom/left-arrow-light"
+                "custom/left-arrow-dark"
+                "tray"
+              ]
+            else
+              [
+                "custom/left-arrow-dark"
+                "network"
+                "custom/left-arrow-light"
+                "custom/left-arrow-dark"
+                "memory"
+                "custom/left-arrow-light"
+                "custom/left-arrow-dark"
+                "cpu"
+                "custom/left-arrow-light"
+                "custom/left-arrow-dark"
+                "disk"
+                "custom/left-arrow-light"
+                "custom/left-arrow-dark"
+                "tray"
+              ];
+          "river/tags" = {
+            num-tags = 9;
           };
-          format = "{capacity}% {icon}";
-          format-charging = "{capacity}% ";
-          format-plugged = "{capacity}% ";
-          format-alt = "{time} {icon}";
-          format-icons = [ "" "" "" "" "" ];
-        };
-        network = {
-          format-wifi = "({signalStrength}%) ";
-          format-ethernet = "Ethernet ";
-          format-linked = "Ethernet (No IP) ";
-          format-disconnected = "Disconnected ";
-          format-alt = "{bandwidthDownBits}/{bandwidthUpBits}";
-        };
-      }];
+          "custom/left-arrow-dark" = {
+            format = "";
+            tooltip = false;
+          };
+          "custom/left-arrow-light" = {
+            format = "";
+            tooltip = false;
+          };
+          "custom/right-arrow-dark" = {
+            format = "";
+            tooltip = false;
+          };
+          "custom/right-arrow-light" = {
+            format = "";
+            tooltip = false;
+          };
+          "clock#1" = {
+            format = "{:%a}";
+            tooltip-format = ''
+              <big>{:%Y %B}</big>
+              <tt><small>{calendar}</small></tt>'';
+          };
+          "clock#2" = {
+            format = "{:%H:%M}";
+            tooltip-format = ''
+              <big>{:%Y %B}</big>
+              <tt><small>{calendar}</small></tt>'';
+          };
+          "clock#3" = {
+            format = "{:%d.%m}";
+            tooltip-format = ''
+              <big>{:%Y %B}</big>
+              <tt><small>{calendar}</small></tt>'';
+          };
+
+          disk = {
+            interval = 5;
+            format = "Disk {percentage_used:2}%";
+            path = "/";
+          };
+
+          tray = {
+            spacing = 10;
+          };
+          cpu = {
+            format = "{usage}% ";
+          };
+          memory = {
+            format = "{}% ";
+          };
+          battery = {
+            bat = "BAT0";
+            states = {
+              warning = 30;
+              critical = 15;
+            };
+            format = "{capacity}% {icon}";
+            format-charging = "{capacity}% ";
+            format-plugged = "{capacity}% ";
+            format-alt = "{time} {icon}";
+            format-icons = [
+              ""
+              ""
+              ""
+              ""
+              ""
+            ];
+          };
+          network = {
+            format-wifi = "({signalStrength}%) ";
+            format-ethernet = "Ethernet ";
+            format-linked = "Ethernet (No IP) ";
+            format-disconnected = "Disconnected ";
+            format-alt = "{bandwidthDownBits}/{bandwidthUpBits}";
+          };
+        }
+      ];
       style = ''
         * {
         	font-size: 18px;

@@ -15,6 +15,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    code-nix = {
+      url = "github:fmarl/code-nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        extensions.follows = "nix-vscode-extensions";
+      };
+    };
+
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+
     irssi-themes = {
       url = "github:fxttr/irssi-themes";
       flake = false;
@@ -26,7 +36,15 @@
     };
   };
 
-  outputs = { self, nixpkgs, flake-utils, home-manager, ... }@inputs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      flake-utils,
+      home-manager,
+      code-nix,
+      ...
+    }@inputs:
     let
       hbuild = pkgs.writeShellScriptBin "hbuild" ''
         #!/usr/bin/env bash
@@ -49,7 +67,9 @@
 
       pkgs = import inputs.nixpkgs {
         inherit system;
-        config = { allowUnfree = true; };
+        config = {
+          allowUnfree = true;
+        };
       };
 
       commonNixOSModules = host: [
@@ -59,12 +79,21 @@
       ];
 
       commonHomeManagerModules = user: host: [
-        (import ./modules/home-manager { inherit pkgs self inputs host user; })
+        (import ./modules/home-manager {
+          inherit
+            pkgs
+            self
+            inputs
+            host
+            user
+            ;
+        })
         ./hosts/${host}/home-manager
         inputs.sops-nix.homeManagerModules.sops
       ];
 
-      mkSystem = name: cfg:
+      mkSystem =
+        name: cfg:
         nixpkgs.lib.nixosSystem {
           inherit pkgs;
 
@@ -75,17 +104,17 @@
           specialArgs = { inherit inputs; };
         };
 
-      mkHomeManager = name: cfg:
+      mkHomeManager =
+        name: cfg:
         let
-          system = cfg.system or "x86_64-linux";
           namePair = nixpkgs.lib.match "^(.*)@(.*)$" name;
           user = nixpkgs.lib.elemAt namePair 0;
           host = nixpkgs.lib.elemAt namePair 1;
-        in home-manager.lib.homeManagerConfiguration {
+        in
+        home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
 
-          modules = (commonHomeManagerModules user host)
-            ++ (cfg.modules or [ ]);
+          modules = (commonHomeManagerModules user host) ++ (cfg.modules or [ ]);
 
           extraSpecialArgs = { inherit inputs; };
         };
@@ -107,13 +136,24 @@
           "marrero@lg-etl-prd" = { };
         };
       };
-    in {
+
+      code = code-nix.packages.${system}.default {
+        profiles.nix.enable = true;
+      };
+    in
+    {
       nixosConfigurations = nixpkgs.lib.mapAttrs mkSystem systems.nixos;
 
       homeConfigurations = nixpkgs.lib.mapAttrs mkHomeManager systems.homes;
 
       devShells.${system}.default = pkgs.mkShell {
-        nativeBuildInputs = with pkgs; [ nixfmt hbuild nbuild sops nil ];
+        nativeBuildInputs = with pkgs; [
+          hbuild
+          nbuild
+          sops
+          code.editor
+          code.tooling
+        ];
       };
     };
 }
