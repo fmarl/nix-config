@@ -8,5 +8,6 @@
     ./mate.nix
     ./labwc.nix
     ./gnome.nix
+    ./niri.nix
   ];
 }
