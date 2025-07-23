@@ -17,7 +17,7 @@ in {
     services.xserver = {
       enable = true;
 
-      displayManager = { lightdm.enable = true; };
+      displayManager.lightdm.enable = true;
 
       xkb = {
         layout = "us";
@@ -25,6 +25,6 @@ in {
       };
     };
 
-    programs = { river.enable = true; };
+    programs.river.enable = true;
   };
 }
