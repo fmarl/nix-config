@@ -1,10 +1,17 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
-let cfg = config.modules.river;
+let
+  cfg = config.modules.river;
 
-in {
+in
+{
   options.modules.river.enable = mkEnableOption "Install and configure river";
 
   config = mkIf cfg.enable {

@@ -9,7 +9,10 @@
     };
 
     settings = {
-      trusted-users = [ "root" "@wheel" ];
+      trusted-users = [
+        "root"
+        "@wheel"
+      ];
       allowed-users = [ "@wheel" ];
     };
 

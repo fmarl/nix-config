@@ -1,4 +1,9 @@
-{ self, config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -11,7 +16,8 @@ let
   };
 
   cfg = config.modules.i3;
-in {
+in
+{
   options.modules.i3.enable = mkEnableOption "Install and configure i3";
 
   options.modules.i3.wallpaper = mkOption {
@@ -21,7 +27,11 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home.packages = [ pkgs.feh pkgs.ranger pkgs.dmenu ];
+    home.packages = [
+      pkgs.feh
+      pkgs.ranger
+      pkgs.dmenu
+    ];
 
     programs.alacritty = {
       enable = true;
@@ -71,7 +81,7 @@ in {
         for_window [ class="^.*" ] border pixel 1
       '';
 
-      config = rec {
+      config = {
         modifier = "Mod4";
         floating.modifier = "Mod4";
         terminal = "alacritty";
@@ -166,60 +176,61 @@ in {
           };
         };
 
-        menu =
-          "${pkgs.dmenu}/bin/dmenu_run -nb #${colorscheme.dark.bg_0} -sb #${colorscheme.dark.bg_0} -sf #${colorscheme.dark.green}";
+        menu = "${pkgs.dmenu}/bin/dmenu_run -nb #${colorscheme.dark.bg_0} -sb #${colorscheme.dark.bg_0} -sf #${colorscheme.dark.green}";
 
-        keybindings = let
-          mod = config.xsession.windowManager.i3.config.modifier;
-          inherit (config.xsession.windowManager.i3.config) menu terminal;
-        in {
-          "${mod}+Shift+Return" = "exec ${terminal}";
-          "${mod}+Shift+c" = "kill";
-          "${mod}+p" = "exec ${menu}";
-          "${mod}+Shift+d" = "exec ${terminal} -e ranger";
+        keybindings =
+          let
+            mod = config.xsession.windowManager.i3.config.modifier;
+            inherit (config.xsession.windowManager.i3.config) menu terminal;
+          in
+          {
+            "${mod}+Shift+Return" = "exec ${terminal}";
+            "${mod}+Shift+c" = "kill";
+            "${mod}+p" = "exec ${menu}";
+            "${mod}+Shift+d" = "exec ${terminal} -e ranger";
 
-          "${mod}+h" = "focus left";
-          "${mod}+j" = "focus down";
-          "${mod}+k" = "focus up";
-          "${mod}+l" = "focus right";
+            "${mod}+h" = "focus left";
+            "${mod}+j" = "focus down";
+            "${mod}+k" = "focus up";
+            "${mod}+l" = "focus right";
 
-          "${mod}+Shift+h" = "move left";
-          "${mod}+Shift+j" = "move down";
-          "${mod}+Shift+k" = "move up";
-          "${mod}+Shift+l" = "move right";
+            "${mod}+Shift+h" = "move left";
+            "${mod}+Shift+j" = "move down";
+            "${mod}+Shift+k" = "move up";
+            "${mod}+Shift+l" = "move right";
 
-          "${mod}+1" = "workspace number 1";
-          "${mod}+2" = "workspace number 2";
-          "${mod}+3" = "workspace number 3";
-          "${mod}+4" = "workspace number 4";
-          "${mod}+5" = "workspace number 5";
-          "${mod}+6" = "workspace number 6";
-          "${mod}+7" = "workspace number 7";
-          "${mod}+8" = "workspace number 8";
-          "${mod}+9" = "workspace number 9";
-          "${mod}+0" = "workspace number 10";
+            "${mod}+1" = "workspace number 1";
+            "${mod}+2" = "workspace number 2";
+            "${mod}+3" = "workspace number 3";
+            "${mod}+4" = "workspace number 4";
+            "${mod}+5" = "workspace number 5";
+            "${mod}+6" = "workspace number 6";
+            "${mod}+7" = "workspace number 7";
+            "${mod}+8" = "workspace number 8";
+            "${mod}+9" = "workspace number 9";
+            "${mod}+0" = "workspace number 10";
 
-          "${mod}+Shift+1" = "move container to workspace number 1";
-          "${mod}+Shift+2" = "move container to workspace number 2";
-          "${mod}+Shift+3" = "move container to workspace number 3";
-          "${mod}+Shift+4" = "move container to workspace number 4";
-          "${mod}+Shift+5" = "move container to workspace number 5";
-          "${mod}+Shift+6" = "move container to workspace number 6";
-          "${mod}+Shift+7" = "move container to workspace number 7";
-          "${mod}+Shift+8" = "move container to workspace number 8";
-          "${mod}+Shift+9" = "move container to workspace number 9";
-          "${mod}+Shift+0" = "move container to workspace number 10";
+            "${mod}+Shift+1" = "move container to workspace number 1";
+            "${mod}+Shift+2" = "move container to workspace number 2";
+            "${mod}+Shift+3" = "move container to workspace number 3";
+            "${mod}+Shift+4" = "move container to workspace number 4";
+            "${mod}+Shift+5" = "move container to workspace number 5";
+            "${mod}+Shift+6" = "move container to workspace number 6";
+            "${mod}+Shift+7" = "move container to workspace number 7";
+            "${mod}+Shift+8" = "move container to workspace number 8";
+            "${mod}+Shift+9" = "move container to workspace number 9";
+            "${mod}+Shift+0" = "move container to workspace number 10";
 
-          "${mod}+Shift+f" = "fullscreen toggle";
-          "${mod}+Shift+s" = "layout stacking";
-          "${mod}+Shift+t" = "layout tabbed";
-          "${mod}+t" = "layout toggle split";
-          "${mod}+a" = "focus parent";
-          "${mod}+s" = "focus child";
+            "${mod}+Shift+f" = "fullscreen toggle";
+            "${mod}+Shift+s" = "layout stacking";
+            "${mod}+Shift+t" = "layout tabbed";
+            "${mod}+t" = "layout toggle split";
+            "${mod}+a" = "focus parent";
+            "${mod}+s" = "focus child";
 
-          "${mod}+r" = "reload";
-          "${mod}+Shift+r" = "restart";
-        };
+            "${mod}+r" = "reload";
+            "${mod}+Shift+r" = "restart";
+          };
       };
     };
   };

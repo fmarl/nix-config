@@ -1,10 +1,17 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
-let cfg = config.modules.emacs;
+let
+  cfg = config.modules.emacs;
 
-in {
+in
+{
   options.modules.emacs.enable = mkEnableOption "Install and configure emacs";
 
   config = mkIf cfg.enable {
@@ -19,16 +26,19 @@ in {
     programs.emacs = {
       enable = true;
 
-      extraPackages = (epkgs:
+      extraPackages = (
+        epkgs:
         (with pkgs; [
           pkgs.mu
           pkgs.emacsPackages.mu4e
           pkgs.emacsPackages.use-package
-        ]) ++ (with epkgs.melpaPackages; [
+        ])
+        ++ (with epkgs.melpaPackages; [
           monokai-pro-theme
           clang-format
           google-c-style
-        ]) ++ (with epkgs.melpaStablePackages; [
+        ])
+        ++ (with epkgs.melpaStablePackages; [
           smart-mode-line
           smart-mode-line-powerline-theme
           smex
@@ -56,7 +66,8 @@ in {
           lsp-ui
           lsp-ivy
           magit
-        ]));
+        ])
+      );
     };
   };
 }

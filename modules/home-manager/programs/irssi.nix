@@ -1,10 +1,17 @@
-{ config, inputs, lib, pkgs, ... }:
+{
+  config,
+  inputs,
+  lib,
+  ...
+}:
 
 with lib;
 
-let cfg = config.modules.irssi;
+let
+  cfg = config.modules.irssi;
 
-in {
+in
+{
   options.modules.irssi.enable = mkEnableOption "Install and configure irssi";
 
   options.modules.irssi.user = mkOption {
@@ -35,7 +42,9 @@ in {
             autoConnect = false;
           };
 
-          channels = { nixos.autoJoin = true; };
+          channels = {
+            nixos.autoJoin = true;
+          };
         };
 
         hackint = {
