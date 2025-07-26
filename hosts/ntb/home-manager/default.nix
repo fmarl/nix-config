@@ -21,6 +21,7 @@
     librewolf.enable = true;
     neovim.enable = true;
     river.enable = true;
+    emacs.enable = true;
 
     irssi = {
       enable = true;
@@ -36,7 +37,6 @@
   fonts.fontconfig.enable = true;
 
   programs = {
-    vscode.enable = true;
     ssh = {
       enable = true;
       hashKnownHosts = true;
