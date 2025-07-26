@@ -15,8 +15,8 @@
 
   modules = {
     zsh.enable = true;
+    emacs.enable = true;
     librewolf.enable = true;
-    neovim.enable = true;
     gnome.enable = true;
     tmux.enable = true;
   };
