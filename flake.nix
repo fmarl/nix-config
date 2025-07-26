@@ -15,8 +15,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    code-nix = {
-      url = "github:fmarl/code-nix";
+    edinix = {
+      url = "github:fmarl/edinix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         extensions.follows = "nix-vscode-extensions";
@@ -42,7 +42,7 @@
       nixpkgs,
       flake-utils,
       home-manager,
-      code-nix,
+      edinix,
       ...
     }@inputs:
     let
@@ -137,7 +137,7 @@
         };
       };
 
-      code = code-nix.packages.${system}.default {
+      code = edinix.packages.${system}.code {
         profiles.nix.enable = true;
       };
     in
