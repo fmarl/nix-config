@@ -18,10 +18,9 @@
 
   modules = {
     zsh.enable = true;
-    librewolf.enable = true;
-    neovim.enable = true;
-    river.enable = true;
     emacs.enable = true;
+    librewolf.enable = true;
+    river.enable = true;
 
     irssi = {
       enable = true;
