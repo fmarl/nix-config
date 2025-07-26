@@ -8,12 +8,19 @@ with lib;
 
 let
   cfg = config.modules.emacs;
-
 in
 {
   options.modules.emacs.enable = mkEnableOption "Install and configure emacs";
 
   config = mkIf cfg.enable {
+    home.file = {
+      ".emacs.d" = {
+        source = ./emacs;
+        recursive = true;
+      };
+    };
+
+    services.emacs.enable = true;
     programs.emacs = {
       enable = true;
 
@@ -22,10 +29,8 @@ in
         [
           epkgs.use-package
         ]
-        ++ (with epkgs.melpaPackages; [
-          monokai-pro-theme
-        ])
         ++ (with epkgs.melpaStablePackages; [
+          zenburn-theme
           smart-mode-line
           smart-mode-line-powerline-theme
           smex
