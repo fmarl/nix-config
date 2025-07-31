@@ -3,9 +3,9 @@
 (use-package smart-mode-line)
 (use-package markdown-mode)
 
-(use-package monokai-pro-theme
+(use-package zenburn-theme
   :config
-  (load-theme 'monokai-pro t))
+  (load-theme 'zenburn t))
 
 (use-package beacon
   :config

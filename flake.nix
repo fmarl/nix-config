@@ -137,7 +137,7 @@
         };
       };
 
-      code = edinix.packages.${system}.code {
+      code = edinix.code.${system} {
         profiles.nix.enable = true;
       };
     in
