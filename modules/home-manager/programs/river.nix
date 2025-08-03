@@ -18,7 +18,7 @@ in
     programs = {
       alacritty.enable = true;
       bemenu.enable = true;
-      ranger.enable = true;
+      lf.enable = true;
       zathura.enable = true;
       mpv.enable = true;
       imv.enable = true;
@@ -46,7 +46,7 @@ in
       extraConfig = ''
         ### App Launcher ###
         riverctl map normal Super P spawn bemenu-run
-        riverctl map normal Super+Shift D spawn "alacritty -e ranger"
+        riverctl map normal Super+Shift D spawn "alacritty -e lf"
         riverctl map normal Super+Shift Return spawn alacritty
 
         ### General WM Control ###

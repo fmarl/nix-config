@@ -149,7 +149,7 @@ in
             "${mod}+Shift+Return" = "exec ${terminal}";
             "${mod}+Shift+c" = "kill";
             "${mod}+p" = "exec ${menu}";
-            "${mod}+Shift+d" = "exec ${terminal} -e ranger";
+            "${mod}+Shift+d" = "exec ${terminal} -e lf";
             "${mod}+Shift+b" = "exec swaylock -i ${wallpaper}";
 
             "${mod}+${left}" = "focus left";

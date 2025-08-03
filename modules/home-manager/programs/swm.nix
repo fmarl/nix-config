@@ -94,7 +94,7 @@ in
     home.packages = [
       pkgs.stc
       pkgs.feh
-      pkgs.ranger
+      pkgs.lf
       pkgs.dmenu
     ];
 

@@ -46,7 +46,7 @@ in
         bemenu
         imv
         mpv
-        ranger
+        lf
         zathura
       ];
 

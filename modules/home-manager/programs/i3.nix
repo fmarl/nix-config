@@ -29,7 +29,7 @@ in
   config = mkIf cfg.enable {
     home.packages = [
       pkgs.feh
-      pkgs.ranger
+      pkgs.lf
       pkgs.dmenu
     ];
 
@@ -187,7 +187,7 @@ in
             "${mod}+Shift+Return" = "exec ${terminal}";
             "${mod}+Shift+c" = "kill";
             "${mod}+p" = "exec ${menu}";
-            "${mod}+Shift+d" = "exec ${terminal} -e ranger";
+            "${mod}+Shift+d" = "exec ${terminal} -e lf";
 
             "${mod}+h" = "focus left";
             "${mod}+j" = "focus down";
