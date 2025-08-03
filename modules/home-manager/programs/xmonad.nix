@@ -112,7 +112,7 @@ in
 
     home.packages = [
       pkgs.feh
-      pkgs.ranger
+      pkgs.lf
       pkgs.dmenu
     ];
 
@@ -301,7 +301,7 @@ in
           --
 
           myTerminal   = "urxvt"
-          fileManager  = "urxvt -e ranger"
+          fileManager  = "urxvt -e lf"
           appLauncher  = "dmenu_run"
           screenLocker = "multilockscreen -l dim"
           playerctl c  = "playerctl --player=spotify,%any " <> c

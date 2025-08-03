@@ -1,6 +1,11 @@
 {
   networking = {
-    firewall.enable = true;
+    firewall = {
+      enable = false;
+      trustedInterfaces = [
+        "virbr0"
+      ];
+    };
 
     nameservers = [
       "1.1.1.1"
