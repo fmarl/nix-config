@@ -9,27 +9,23 @@
       keyFile = "/persist/home/marrero/.config/sops/age/keys.txt";
       generateKey = true;
     };
-    secrets = {
-      ssh = {
-        path = "/run/user/1000/secrets/ssh";
-      };
-    };
+
+    secrets.ssh.path = "/run/user/1000/secrets/ssh";
   };
 
   modules = {
     zsh.enable = true;
-    emacs.enable = true;
     librewolf.enable = true;
     river.enable = true;
-
-    irssi = {
-      enable = true;
-      user = "fxttr";
-    };
 
     waybar = {
       enable = true;
       mobile = true;
+    };
+
+    irssi = {
+      enable = true;
+      user = "fxttr";
     };
   };
 
@@ -53,12 +49,6 @@
           identityFile = config.sops.secrets.ssh.path;
         };
 
-        "bitbucket" = {
-          hostname = "bitbucket.org";
-          user = "git";
-          identityFile = config.sops.secrets.ssh.path;
-        };
-
         "workstation" = {
           hostname = "192.168.0.200";
           user = "marrero";
@@ -78,7 +68,7 @@
 
       extraConfig = {
         core = {
-          editor = "nvim";
+          editor = "hx";
           whitespace = "-trailing-space";
         };
         log = {
@@ -96,12 +86,8 @@
     };
   };
 
-  home.packages = (
-    with pkgs;
-    [
-      signal-desktop-bin
-      spotify
-      obsidian
-    ]
-  );
+  home.packages = with pkgs; [
+    signal-desktop-bin
+    obsidian
+  ];
 }

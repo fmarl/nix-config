@@ -20,26 +20,17 @@
     };
   };
 
-  nix = {
-    nixPath = [
-      "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
-      "nixos-config=/persist/etc/nixos/configuration.nix"
-      "/nix/var/nix/profiles/per-user/root/channels"
-    ];
-
-    settings = {
-      trusted-public-keys = [ "fxttr.cachix.org-1:TBvPEn0MZT1PB89c1S8KWyWEmxbWMPW58lqODJuaH94=" ];
-
-      substituters = [ "https://fxttr.cachix.org" ];
-    };
-  };
+  nix.nixPath = [
+    "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
+    "/nix/var/nix/profiles/per-user/root/channels"
+  ];
 
   programs = {
     zsh.enable = true;
   };
 
   modules = {
-    gnome.enable = true;
+    river.enable = true;
   };
 
   environment = {
@@ -71,8 +62,8 @@
         extraGroups = [
           "wheel"
           "tss"
-          "libvirtd"
           "podman"
+          "wireshark"
         ];
         group = "users";
         uid = 1000;
@@ -94,5 +85,4 @@
       defaultNetwork.settings.dns_enabled = true;
     };
   };
-
 }

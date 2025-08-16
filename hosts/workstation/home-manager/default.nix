@@ -6,19 +6,20 @@
       generateKey = true;
     };
 
-    secrets = {
-      ssh = {
-        path = "/run/user/1000/secrets/ssh";
-      };
-    };
+    secrets.ssh.path = "/run/user/1000/secrets/ssh";
   };
 
   modules = {
     zsh.enable = true;
-    emacs.enable = true;
     librewolf.enable = true;
-    gnome.enable = true;
     tmux.enable = true;
+    river.enable = true;
+    waybar.enable = true;
+
+    irssi = {
+      enable = true;
+      user = "fxttr";
+    };
   };
 
   programs = {
@@ -38,12 +39,6 @@
           user = "git";
           identityFile = config.sops.secrets.ssh.path;
         };
-
-        "bitbucket" = {
-          hostname = "bitbucket.org";
-          user = "git";
-          identityFile = config.sops.secrets.ssh.path;
-        };
       };
     };
 
@@ -51,6 +46,24 @@
       enable = true;
       userName = "Florian Marrero Liestmann";
       userEmail = "f.m.liestmann@fx-ttr.de";
+      ignores = [
+        ".direnv/"
+        ".cache/"
+      ];
+
+      extraConfig = {
+        core = {
+          editor = "hx";
+          whitespace = "-trailing-space";
+        };
+        log = {
+          abbrevCommit = true;
+        };
+        pull = {
+          rebase = false;
+        };
+      };
+
       signing = {
         signByDefault = false;
         key = "D1912EEBC3FBEBB4";
@@ -58,13 +71,8 @@
     };
   };
 
-  home = {
-    packages = (
-      with pkgs;
-      [
-        signal-desktop-bin
-        obsidian
-      ]
-    );
-  };
+  home.packages = with pkgs; [
+    signal-desktop-bin
+    obsidian
+  ];
 }

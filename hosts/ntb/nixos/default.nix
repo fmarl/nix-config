@@ -21,18 +21,10 @@
     };
   };
 
-  nix = {
-    nixPath = [
-      "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
-      "/nix/var/nix/profiles/per-user/root/channels"
-    ];
-
-    settings = {
-      trusted-public-keys = [ "fxttr.cachix.org-1:TBvPEn0MZT1PB89c1S8KWyWEmxbWMPW58lqODJuaH94=" ];
-
-      substituters = [ "https://fxttr.cachix.org" ];
-    };
-  };
+  nix.nixPath = [
+    "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
+    "/nix/var/nix/profiles/per-user/root/channels"
+  ];
 
   programs = {
     zsh.enable = true;
@@ -65,24 +57,6 @@
       enable = true;
       dockerCompat = true;
       defaultNetwork.settings.dns_enabled = true;
-    };
-
-    libvirtd = {
-      enable = true;
-      qemu = {
-        package = pkgs.qemu_kvm;
-        runAsRoot = true;
-        swtpm.enable = true;
-        ovmf = {
-          enable = true;
-          packages = [
-            (pkgs.OVMF.override {
-              secureBoot = true;
-              tpmSupport = true;
-            }).fd
-          ];
-        };
-      };
     };
   };
 }
