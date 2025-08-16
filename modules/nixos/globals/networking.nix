@@ -1,10 +1,8 @@
 {
   networking = {
     firewall = {
-      enable = false;
-      trustedInterfaces = [
-        "virbr0"
-      ];
+      enable = true;
+      trustedInterfaces = [ ];
     };
 
     nameservers = [

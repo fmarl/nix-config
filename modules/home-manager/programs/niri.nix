@@ -1,10 +1,17 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
-let cfg = config.modules.niri;
+let
+  cfg = config.modules.niri;
 
-in {
+in
+{
   options.modules.niri.enable = mkEnableOption "Install and configure niri";
 
   config = mkIf cfg.enable {
@@ -44,7 +51,7 @@ in {
         mod-key "Super"
         mod-key-nested "Alt"
       }
-      
+
       layout {
           gaps 16
 
@@ -540,5 +547,5 @@ in {
           Mod+Shift+P { power-off-monitors; }
       }
     '';
-    };
+  };
 }

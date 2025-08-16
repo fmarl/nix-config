@@ -11,8 +11,8 @@
       extraGroups = [
         "wheel"
         "wireshark"
+        "podman"
         "tss"
-        "libvirtd"
       ];
       group = "users";
       uid = 1000;

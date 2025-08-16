@@ -137,7 +137,7 @@
         };
       };
 
-      code = edinix.code.${system} {
+      helix = edinix.helix.${system} {
         profiles.nix.enable = true;
       };
     in
@@ -151,8 +151,8 @@
           hbuild
           nbuild
           sops
-          code.editor
-          code.tooling
+          helix.editor
+          helix.tooling
         ];
       };
     };
