@@ -19,19 +19,11 @@
       url = "github:fmarl/edinix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        extensions.follows = "nix-vscode-extensions";
       };
     };
 
-    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
-
     irssi-themes = {
       url = "github:fxttr/irssi-themes";
-      flake = false;
-    };
-
-    media = {
-      url = "github:fxttr/media";
       flake = false;
     };
   };
