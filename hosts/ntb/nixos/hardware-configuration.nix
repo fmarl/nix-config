@@ -50,7 +50,7 @@
 
   hardware = {
     cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-    bluetooth.enable = false;
+    bluetooth.enable = true;
 
     graphics = {
       enable = true;
