@@ -15,5 +15,6 @@
     ./labwc.nix
     ./gnome.nix
     ./niri.nix
+    ./lf.nix
   ];
 }

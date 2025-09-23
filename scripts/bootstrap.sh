@@ -5,9 +5,39 @@ set -euo pipefail
 export COLOR_RESET="\033[0m"
 export RED_BG="\033[41m"
 export BLUE_BG="\033[44m"
+
+if [ -z "${1-}" ]; then
+    echo "Disk isn't specified"
+    exit 1
+fi
+
+if [ -z "${2-}" ]; then
+    echo "Filesystem isn't specified. Choose between xfs, ext4, and zfs"
+    exit 1
+fi
+
+if [ -z "${3-}" ]; then
+    echo "Hostname isn't specified"
+    exit 1
+fi
+
 export DISK=$1
-export FS_TYPE=${2:-xfs}
+export DISK_PATH="/dev/${DISK}"
+export FS_TYPE=$2
 export HOSTNAME=$3
+
+if [[ ! -b "$DISK_PATH" ]]; then
+    err "Invalid disk: ${DISK_PATH} does not exist or is not a valid block device."
+    exit 1
+fi
+
+if [[ "$DISK_PATH" == *"nvme"* ]]; then
+    export PART_BOOT="${DISK_PATH}p1"
+    export PART_ROOT="${DISK_PATH}p2"
+else
+    export PART_BOOT="${DISK_PATH}1"
+    export PART_ROOT="${DISK_PATH}2"
+fi
 
 function err {
     echo -e "${RED_BG}$1${COLOR_RESET}"
@@ -24,65 +54,20 @@ function check_root {
     fi
 }
 
-function ask_yn {
-    while true; do
-        read -p "$1 (y/n): " answer
-        case $answer in
-            [Yy]) return 0 ;;
-            [Nn]) return 1 ;;
-            *) echo "Please answer y/n" ;;  # Invalid input, prompt again
-        esac
-    done
-}
-
-function ask {
-  read -p "$1: " answer
-  echo "$answer"
-}
-
-function validate_inputs {
-    if [[ -z "$DISK" ]]; then
-        err "Missing argument. Expected block device name, e.g., 'sda'"
-        exit 1
-    fi
-
-    if [[ -z "$HOSTNAME" ]]; then
-        err "Missing argument. Expected hostname, e.g., 'nixos'"
-        exit 1
-    fi
-
-    export DISK_PATH="/dev/${DISK}"
-
-    if [[ ! -b "$DISK_PATH" ]]; then
-        err "Invalid argument: '${DISK_PATH}' is not a block special file"
-        exit 1
-    fi
-}
-
 function partition_disk {
     info "Partitioning disk ${DISK_PATH} for UEFI (GPT) ..."
     parted "$DISK_PATH" -- mklabel gpt
     parted "$DISK_PATH" -- mkpart ESP fat32 1MiB 512MiB
     parted "$DISK_PATH" -- mkpart primary 512MiB 100%
     parted "$DISK_PATH" -- set 1 boot on
-    export DISK_PART_BOOT="${DISK_PATH}1"
-    export DISK_PART_ROOT="${DISK_PATH}2"
-
-    info "Formatting boot partition ..."
-    mkfs.fat -F 32 -n boot "$DISK_PART_BOOT"
+    mkfs.fat -F 32 -n boot "${PART_BOOT}"
 }
 
 function setup_filesystem {
     case "$FS_TYPE" in
-        zfs)
-            setup_zfs
-            ;;
-        ext4)
-            setup_ext4
-            ;;
-        xfs)
-            setup_xfs
-            ;;
+        zfs) setup_zfs ;;
+        ext4) setup_ext4 ;;
+        xfs) setup_xfs ;;
         *)
             err "Unsupported filesystem type: ${FS_TYPE}"
             exit 1
@@ -91,118 +76,72 @@ function setup_filesystem {
 }
 
 function setup_zfs {
-    info "Setting up ZFS on ${DISK_PART_ROOT} ..."
-
+    info "Setting up ZFS on ${PART_ROOT} ..."
     export ZFS_POOL="rpool"
-    export ZFS_LOCAL="${ZFS_POOL}/local"
-    export ZFS_DS_ROOT="${ZFS_LOCAL}/root"
-    export ZFS_DS_NIX="${ZFS_LOCAL}/nix"
-    export ZFS_SAFE="${ZFS_POOL}/safe"
-    export ZFS_DS_HOME="${ZFS_SAFE}/home"
-    export ZFS_DS_PERSIST="${ZFS_SAFE}/persist"
-    export ZFS_BLANK_SNAPSHOT="${ZFS_DS_ROOT}@blank"
-
-    zpool create -o ashift=12 -O compression=lz4 -O acltype=posixacl -O xattr=sa -O relatime=on -o autotrim=on -f "$ZFS_POOL" "$DISK_PART_ROOT"
+    zpool create -o ashift=12 -O compression=lz4 -O acltype=posixacl -O xattr=sa -O relatime=on -o autotrim=on -f "$ZFS_POOL" "$PART_ROOT"
 
     info "Creating ZFS datasets ..."
-    zfs create -p -o mountpoint=legacy "$ZFS_DS_ROOT"
-    zfs set xattr=sa "$ZFS_DS_ROOT"
-    zfs set acltype=posixacl "$ZFS_DS_ROOT"
-    zfs snapshot "$ZFS_BLANK_SNAPSHOT"
-
-    zfs create -p -o mountpoint=legacy "$ZFS_DS_NIX"
-    zfs set atime=off "$ZFS_DS_NIX"
-    zfs create -p -o mountpoint=legacy "$ZFS_DS_HOME"
-    zfs create -p -o mountpoint=legacy "$ZFS_DS_PERSIST"
+    zfs create -p -o mountpoint=legacy "$ZFS_POOL/root"
+    zfs create -p -o mountpoint=legacy "$ZFS_POOL/nix"
+    zfs create -p -o mountpoint=legacy "$ZFS_POOL/home"
+    zfs create -p -o mountpoint=legacy "$ZFS_POOL/persist"
 
     info "Mounting ZFS datasets ..."
-    mount -t zfs "$ZFS_DS_ROOT" /mnt
+    mount -t zfs "$ZFS_POOL/root" /mnt
     mkdir -p /mnt/{boot,nix,home,persist}
-    mount -t vfat "$DISK_PART_BOOT" /mnt/boot
-    mount -t zfs "$ZFS_DS_NIX" /mnt/nix
-    mount -t zfs "$ZFS_DS_HOME" /mnt/home
-    mount -t zfs "$ZFS_DS_PERSIST" /mnt/persist
+    mount -t vfat -o noexec,nosuid "$PART_BOOT" /mnt/boot
+    mount -t zfs "$ZFS_POOL/nix" /mnt/nix
+    mount -t zfs "$ZFS_POOL/home" /mnt/home
+    mount -t zfs "$ZFS_POOL/persist" /mnt/persist
+}
 
-    zfs set com.sun:auto-snapshot=true "$ZFS_DS_HOME"
-    zfs set com.sun:auto-snapshot=true "$ZFS_DS_PERSIST"
+function setup_luks {
+    info "Setting up LUKS encryption on ${PART_ROOT} ..."
+    cryptsetup luksFormat --type luks2 "$PART_ROOT"
+    cryptsetup open "$PART_ROOT" cryptroot
 }
 
 function setup_ext4 {
-    info "Setting up ext4 on ${DISK_PART_ROOT} ..."
-    mkfs.ext4 -L nixos_root "$DISK_PART_ROOT"
+    setup_luks
 
-    info "Mounting ext4 filesystem ..."
-    mount "$DISK_PART_ROOT" /mnt
+    info "Setting up ext4 on the encrypted volume ..."
+    mkfs.ext4 -L nixos_root /dev/mapper/cryptroot
+
+    info "Mounting encrypted ext4 filesystem ..."
+    mount /dev/mapper/cryptroot /mnt
     mkdir -p /mnt/boot
-    mount "$DISK_PART_BOOT" /mnt/boot
+    mount -o noexec,nosuid "$PART_BOOT" /mnt/boot
 }
 
 function setup_xfs {
-    info "Setting up xfs on ${DISK_PART_ROOT} ..."
-    mkfs.xfs -L nix "$DISK_PART_ROOT"
+    setup_luks
 
-    info "Mounting xfs filesystem ..."
-    mount "$DISK_PART_ROOT" /mnt
+    info "Setting up xfs on the encrypted volume ..."
+    mkfs.xfs -L nix /dev/mapper/cryptroot
+
+    info "Mounting encrypted xfs filesystem ..."
+    mount /dev/mapper/cryptroot /mnt
     mkdir -p /mnt/boot
-    mount "$DISK_PART_BOOT" /mnt/boot
+    mount -o noexec,nosuid "$PART_BOOT" /mnt/boot
 }
 
 function generate_nixos_config {
     info "Generating NixOS configuration ..."
     nixos-generate-config --root /mnt
 
-    info "Prompting for user credentials ..."
+    # Prompt for root and user passwords
     info "Enter password for the root user ..."
     ROOT_PASSWORD_HASH="$(mkpasswd -m sha-512 | sed 's/\$/\\$/g')"
 
     info "Enter personal user name ..."
     read USER_NAME
 
-    info "Enter password for '${USER_NAME}' user ..."
+    info "Enter password for user '${USER_NAME}' ..."
     USER_PASSWORD_HASH="$(mkpasswd -m sha-512 | sed 's/\$/\\$/g')"
 
+    # Create configuration.nix
     info "Writing NixOS configuration ..."
-    if [[ "$FS_TYPE" == "zfs" ]]; then
-        mkdir -p /mnt/persist/etc/nixos
-        mv /mnt/etc/nixos/hardware-configuration.nix /mnt/persist/etc/nixos/
-
-        cat <<EOF > /mnt/persist/etc/nixos/configuration.nix
-{ config, pkgs, lib, ... }:
-{
-  imports = [ ./hardware-configuration.nix ];
-
-  nix.nixPath = [
-    "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
-    "nixos-config=/persist/etc/nixos/configuration.nix"
-    "/nix/var/nix/profiles/per-user/root/channels"
-  ];
-
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  networking.hostId = "$(head -c 8 /etc/machine-id)";
-  networking.useDHCP = true;
-
-  networking.hostName = "${HOSTNAME}";
-  environment.systemPackages = with pkgs; [ vim htop git ];
-
-  users.mutableUsers = false;
-  users.users = {
-    root = { initialHashedPassword = "${ROOT_PASSWORD_HASH}"; };
-    ${USER_NAME} = {
-      isNormalUser = true;
-      initialHashedPassword = "${USER_PASSWORD_HASH}";
-      extraGroups = [ "wheel" ];
-    };
-  };
-
-  system.stateVersion = "23.11";
-}
-EOF
-    else
-        mv /mnt/etc/nixos/hardware-configuration.nix /mnt/etc/nixos/
-
-        cat <<EOF > /mnt/etc/nixos/configuration.nix
+    cat <<EOF > /mnt/etc/nixos/configuration.nix
 { config, pkgs, lib, ... }:
 {
   imports = [ ./hardware-configuration.nix ];
@@ -229,23 +168,50 @@ EOF
   system.stateVersion = "23.11";
 }
 EOF
-    fi
+    chmod 600 /mnt/etc/nixos/configuration.nix
 }
 
+# Install NixOS
 function install_nixos {
     info "Installing NixOS ..."
-    if [[ "$FS_TYPE" == "zfs" ]]; then
-        rm -rf /mnt/etc/nixos/configuration.nix
-        ln -s /mnt/persist/etc/nixos/configuration.nix /mnt/etc/nixos/configuration.nix
-        nixos-install -I "nixos-config=/mnt/persist/etc/nixos/configuration.nix" --no-root-passwd
-    else
-        nixos-install --no-root-passwd
-    fi
+    nixos-install --no-root-passwd
 }
+
+# Cleanup function to rollback changes in case of failure
+function cleanup {
+    err "An error occurred, performing cleanup..."
+
+    # Unmount all mounted partitions
+    info "Unmounting filesystems..."
+    if mountpoint -q /mnt/boot; then umount /mnt/boot; fi
+    if mountpoint -q /mnt/nix; then umount /mnt/nix; fi
+    if mountpoint -q /mnt/home; then umount /mnt/home; fi
+    if mountpoint -q /mnt/persist; then umount /mnt/persist; fi
+    if mountpoint -q /mnt; then umount /mnt; fi
+
+    # If ZFS is used, destroy the pool and datasets
+    if [[ "$FS_TYPE" == "zfs" ]]; then
+        info "Destroying ZFS pool and datasets..."
+        zpool destroy "$ZFS_POOL" || true
+    fi
+
+    # Remove the partitions created (if any)
+    info "Deleting partitions from disk..."
+    parted "$DISK_PATH" -- rm 1 || true
+    parted "$DISK_PATH" -- rm 2 || true
+
+    # Optionally, reset the partition table to GPT
+    info "Resetting partition table to GPT..."
+    parted "$DISK_PATH" -- mklabel gpt || true
+
+    info "Cleanup complete."
+}
+
+# Trap errors and invoke cleanup function
+trap cleanup ERR
 
 # Main script
 check_root
-validate_inputs
 partition_disk
 setup_filesystem
 generate_nixos_config
