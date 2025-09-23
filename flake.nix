@@ -31,11 +31,6 @@
       url = "github:fxttr/irssi-themes";
       flake = false;
     };
-
-    media = {
-      url = "github:fxttr/media";
-      flake = false;
-    };
   };
 
   outputs =
