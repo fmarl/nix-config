@@ -15,15 +15,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    microvm = {
+      url = "github:microvm-nix/microvm.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     edinix = {
       url = "github:fmarl/edinix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        extensions.follows = "nix-vscode-extensions";
       };
     };
-
-    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
     irssi-themes = {
       url = "github:fxttr/irssi-themes";
@@ -55,7 +57,7 @@
         #!/usr/bin/env bash
 
         if [ -z ''${REMOTE+x} ]; then
-          sudo nixos-rebuild switch --flake . $@ 
+          sudo nixos-rebuild switch --flake . $@
         else
           HOSTNAME=''${REMOTE}
 
@@ -73,6 +75,7 @@
       };
 
       commonNixOSModules = host: [
+        inputs.microvm.nixosModules.host
         (import ./modules/nixos { inherit self inputs host; })
         ./hosts/${host}/nixos
         inputs.sops-nix.nixosModules.sops
@@ -92,12 +95,30 @@
         inputs.sops-nix.homeManagerModules.sops
       ];
 
+      commonMicroVMModules = name: [
+        inputs.microvm.nixosModules.microvm
+        ./microvms/${name}
+      ];
+
       mkSystem =
         name: cfg:
         nixpkgs.lib.nixosSystem {
-          inherit pkgs;
-
           system = cfg.system or "x86_64-linux";
+
+          pkgs = import inputs.nixpkgs {
+            inherit system;
+            config = {
+              allowUnfree = true;
+            };
+            overlays = (
+              builtins.map (
+                name:
+                (prev: super: {
+                  ${name} = self.nixosConfigurations.${name}.config.microvm.declaredRunner;
+                })
+              ) (cfg.microvms or [ ])
+            );
+          };
 
           modules = (commonNixOSModules name) ++ (cfg.modules or [ ]);
 
@@ -119,9 +140,39 @@
           extraSpecialArgs = { inherit inputs; };
         };
 
+      mkMicroVM =
+        name: cfg:
+        nixpkgs.lib.nixosSystem {
+          system = cfg.system or "x86_64-linux";
+
+          pkgs = import inputs.nixpkgs {
+            inherit system;
+            config = {
+              allowUnfree = true;
+            };
+            overlays = [
+              inputs.microvm.overlays.default
+            ];
+          };
+
+          modules = (commonMicroVMModules name) ++ (cfg.modules or [ ]);
+
+          specialArgs = { inherit self; };
+        };
+
       systems = {
+        microvms = {
+          www = { };
+          devel = { };
+        };
+
         nixos = {
-          workstation = { };
+          workstation = {
+            microvms = [
+              "www"
+              "devel"
+            ];
+          };
 
           ntb = {
             modules = [ inputs.impermanence.nixosModules.impermanence ];
@@ -142,7 +193,8 @@
       };
     in
     {
-      nixosConfigurations = nixpkgs.lib.mapAttrs mkSystem systems.nixos;
+      nixosConfigurations =
+        (nixpkgs.lib.mapAttrs mkSystem systems.nixos) // (nixpkgs.lib.mapAttrs mkMicroVM systems.microvms);
 
       homeConfigurations = nixpkgs.lib.mapAttrs mkHomeManager systems.homes;
 

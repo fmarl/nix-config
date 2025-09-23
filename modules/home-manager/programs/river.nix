@@ -18,7 +18,6 @@ in
     programs = {
       alacritty.enable = true;
       bemenu.enable = true;
-      lf.enable = true;
       zathura.enable = true;
       mpv.enable = true;
       imv.enable = true;

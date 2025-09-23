@@ -42,6 +42,7 @@
       git
       home-manager
       htop
+      www
     ];
   };
 
@@ -63,7 +64,7 @@
           "wheel"
           "tss"
           "podman"
-          "wireshark"
+          "kvm"
         ];
         group = "users";
         uid = 1000;
