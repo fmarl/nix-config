@@ -57,9 +57,9 @@
     '';
   };
 
-  sops = {
-    defaultSopsFile = "${self}/hosts/${host}/secrets.yaml";
-  };
+  #  sops = {
+  #    defaultSopsFile = "${self}/hosts/${host}/secrets.yaml";
+  #  };
 
   programs = {
     direnv = {
@@ -104,6 +104,4 @@
       '')
     ];
   };
-
-  systemd.user.services.mbsync.Unit.After = [ "sops-nix.service" ];
 }

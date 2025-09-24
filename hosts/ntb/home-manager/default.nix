@@ -4,14 +4,14 @@
   ...
 }:
 {
-  sops = {
-    age = {
-      keyFile = "/persist/home/marrero/.config/sops/age/keys.txt";
-      generateKey = true;
-    };
-
-    secrets.ssh.path = "/run/user/1000/secrets/ssh";
-  };
+ # sops = {
+ #   age = {
+ #     keyFile = "/persist/home/marrero/.config/sops/age/keys.txt";
+ #     generateKey = true;
+ #   };
+#
+#    secrets.ssh.path = "/run/user/1000/secrets/ssh";
+#  };
 
   modules = {
     zsh.enable = true;
@@ -32,27 +32,53 @@
   fonts.fontconfig.enable = true;
 
   programs = {
+    zed-editor.enable = true;
+    
     ssh = {
       enable = true;
-      hashKnownHosts = true;
+      enableDefaultConfig = false;
 
       matchBlocks = {
         "github" = {
           hostname = "github.com";
           user = "git";
-          identityFile = config.sops.secrets.ssh.path;
+          hashKnownHosts = true;
+          forwardAgent = false;
+          compression = false;
+          forwardX11 = false;
+          forwardX11Trusted = false;
+          serverAliveInterval = 0;
+          serverAliveCountMax = 1;
+          controlPersist = "no";
+#          identityFile = config.sops.secrets.ssh.path;
         };
 
         "codeberg" = {
           hostname = "codeberg.org";
           user = "git";
-          identityFile = config.sops.secrets.ssh.path;
+          hashKnownHosts = true;
+          forwardAgent = false;
+          compression = false;
+          forwardX11 = false;
+          forwardX11Trusted = false;
+          serverAliveInterval = 0;
+          serverAliveCountMax = 1;
+          controlPersist = "no";
+#          identityFile = config.sops.secrets.ssh.path;
         };
 
         "workstation" = {
           hostname = "192.168.0.200";
           user = "marrero";
-          identityFile = config.sops.secrets.ssh.path;
+          hashKnownHosts = true;
+          forwardAgent = false;
+          compression = false;
+          forwardX11 = false;
+          forwardX11Trusted = false;
+          serverAliveInterval = 0;
+          serverAliveCountMax = 2;
+          controlPersist = "no";
+#          identityFile = config.sops.secrets.ssh.path;
         };
       };
     };

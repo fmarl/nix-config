@@ -22,9 +22,7 @@
 
     edinix = {
       url = "github:fmarl/edinix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     irssi-themes = {
