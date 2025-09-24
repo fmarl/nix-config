@@ -1,13 +1,13 @@
 { pkgs, config, ... }:
 {
-  sops = {
-    age = {
-      keyFile = "/home/marrero/.config/sops/age/keys.txt";
-      generateKey = true;
-    };
-
-    secrets.ssh.path = "/run/user/1000/secrets/ssh";
-  };
+#  sops = {
+#    age = {
+#      keyFile = "/home/marrero/.config/sops/age/keys.txt";
+#      generateKey = true;
+#    };
+#
+#    secrets.ssh.path = "/run/user/1000/secrets/ssh";
+#  };
 
   modules = {
     zsh.enable = true;
@@ -34,13 +34,13 @@
         "github" = {
           hostname = "github.com";
           user = "git";
-          identityFile = config.sops.secrets.ssh.path;
+#          identityFile = config.sops.secrets.ssh.path;
         };
 
         "codeberg" = {
           hostname = "codeberg.org";
           user = "git";
-          identityFile = config.sops.secrets.ssh.path;
+#          identityFile = config.sops.secrets.ssh.path;
         };
       };
     };
