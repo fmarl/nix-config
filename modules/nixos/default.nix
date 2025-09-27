@@ -13,10 +13,6 @@
     defaultSopsFile = "${self}/hosts/${host}/secrets.yaml";
 
     secrets = {
-      root-password = {
-        neededForUsers = true;
-      };
-
       user-password = {
         neededForUsers = true;
       };

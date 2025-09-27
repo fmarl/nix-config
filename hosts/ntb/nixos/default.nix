@@ -51,6 +51,8 @@
     font-awesome
   ];
 
+  services.blueman.enable = true;
+
   virtualisation = {
     containers.enable = true;
     podman = {
