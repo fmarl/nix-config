@@ -4,14 +4,14 @@
   ...
 }:
 {
- # sops = {
- #   age = {
- #     keyFile = "/persist/home/marrero/.config/sops/age/keys.txt";
- #     generateKey = true;
- #   };
-#
-#    secrets.ssh.path = "/run/user/1000/secrets/ssh";
-#  };
+  sops = {
+    age = {
+      keyFile = "/persist/home/marrero/.config/sops/age/keys.txt";
+      generateKey = true;
+    };
+
+    secrets.ssh.path = "/run/user/1000/secrets/ssh";
+  };
 
   modules = {
     zsh.enable = true;
@@ -33,7 +33,7 @@
 
   programs = {
     zed-editor.enable = true;
-    
+
     ssh = {
       enable = true;
       enableDefaultConfig = false;
@@ -50,7 +50,7 @@
           serverAliveInterval = 0;
           serverAliveCountMax = 1;
           controlPersist = "no";
-#          identityFile = config.sops.secrets.ssh.path;
+          identityFile = config.sops.secrets.ssh.path;
         };
 
         "codeberg" = {
@@ -64,7 +64,7 @@
           serverAliveInterval = 0;
           serverAliveCountMax = 1;
           controlPersist = "no";
-#          identityFile = config.sops.secrets.ssh.path;
+          identityFile = config.sops.secrets.ssh.path;
         };
 
         "workstation" = {
@@ -78,7 +78,7 @@
           serverAliveInterval = 0;
           serverAliveCountMax = 2;
           controlPersist = "no";
-#          identityFile = config.sops.secrets.ssh.path;
+          identityFile = config.sops.secrets.ssh.path;
         };
       };
     };
