@@ -16,7 +16,7 @@
     river.enable = true;
     waybar.enable = true;
     lf.enable = true;
-    
+
     irssi = {
       enable = true;
       user = "fxttr";
@@ -25,7 +25,7 @@
 
   programs = {
     zed-editor.enable = true;
-    
+
     ssh = {
       enable = true;
       hashKnownHosts = true;

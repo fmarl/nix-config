@@ -3,9 +3,7 @@ keys:
       - &marrero D1912EEBC3FBEBB4
   - &hosts:
     - &workstation age1dwu9ccy3t86c4tgd4ufs4jkmv572jfflkvdejm5kvjf95r3qsgus847qgd
-    - &ntb age15sxuul96gh4slua9ju6xkgkx3d9lcvt6glx56a8e39kfwxanqc7q6p8un2
-    - &lg-etl-prd age1jauu6jnfsgt4ah887dv733dpt0cz6vc0jgpg83rnth8g0mw9su9sk0tmus
-    
+    - &ntb age139uawl46z2thc9y5h4jemcx37jxhn3xx24lkvrdappyy4neard0qjku2e5    
 creation_rules:
   - path_regex: hosts/workstation/secrets.yaml$
     key_groups:
@@ -19,7 +17,3 @@ creation_rules:
         - *ntb
         pgp:
         - *marrero
-  - path_regex: hosts/lg-etl-prd/secrets.yaml$
-    key_groups:
-      - age:
-        - *lg-etl-prd

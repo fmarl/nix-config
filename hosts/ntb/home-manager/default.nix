@@ -32,26 +32,52 @@
   fonts.fontconfig.enable = true;
 
   programs = {
+    zed-editor.enable = true;
+
     ssh = {
       enable = true;
-      hashKnownHosts = true;
+      enableDefaultConfig = false;
 
       matchBlocks = {
         "github" = {
           hostname = "github.com";
           user = "git";
+          hashKnownHosts = true;
+          forwardAgent = false;
+          compression = false;
+          forwardX11 = false;
+          forwardX11Trusted = false;
+          serverAliveInterval = 0;
+          serverAliveCountMax = 1;
+          controlPersist = "no";
           identityFile = config.sops.secrets.ssh.path;
         };
 
         "codeberg" = {
           hostname = "codeberg.org";
           user = "git";
+          hashKnownHosts = true;
+          forwardAgent = false;
+          compression = false;
+          forwardX11 = false;
+          forwardX11Trusted = false;
+          serverAliveInterval = 0;
+          serverAliveCountMax = 1;
+          controlPersist = "no";
           identityFile = config.sops.secrets.ssh.path;
         };
 
         "workstation" = {
           hostname = "192.168.0.200";
           user = "marrero";
+          hashKnownHosts = true;
+          forwardAgent = false;
+          compression = false;
+          forwardX11 = false;
+          forwardX11Trusted = false;
+          serverAliveInterval = 0;
+          serverAliveCountMax = 2;
+          controlPersist = "no";
           identityFile = config.sops.secrets.ssh.path;
         };
       };

@@ -104,6 +104,4 @@
       '')
     ];
   };
-
-  systemd.user.services.mbsync.Unit.After = [ "sops-nix.service" ];
 }

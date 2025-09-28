@@ -7,9 +7,8 @@
 }:
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
-
   boot.initrd.luks.devices."cryptroot".device =
-    "/dev/disk/by-uuid/356cd7c2-b018-45bf-84aa-62aa91ab4c20";
+    "/dev/disk/by-uuid/a4b3f5a6-764a-45eb-bcdd-d2b9e5d5c665";
 
   fileSystems = {
     "/" = {
@@ -24,13 +23,14 @@
     };
 
     "/persist" = {
-      device = "/dev/disk/by-uuid/41bb8a88-80c5-43dc-b4ba-97f6a22f9bc1";
+      device = "/dev/disk/by-uuid/52ec9d7e-b72c-491e-a3bb-1e2f93013942";
       fsType = "xfs";
       neededForBoot = true;
     };
 
     "/boot" = {
-      device = "/dev/disk/by-uuid/220F-1456";
+      device = "/dev/disk/by-uuid/7460-3156";
+
       fsType = "vfat";
       options = [
         "fmask=0022"
