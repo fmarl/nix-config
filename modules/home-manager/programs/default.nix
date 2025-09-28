@@ -14,6 +14,7 @@
     ./librewolf.nix
     ./labwc.nix
     ./gnome.nix
+    ./plasma.nix
     ./niri.nix
     ./lf.nix
   ];
