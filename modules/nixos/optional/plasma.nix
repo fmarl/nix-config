@@ -20,4 +20,5 @@ in
 
       displayManager.sddm.wayland.enable = true;
     };
+  };
 }

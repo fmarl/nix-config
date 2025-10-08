@@ -4,17 +4,17 @@
 }:
 {
   microvm = {
-    hypervisor = "cloud-hypervisor";
+    hypervisor = "firecracker";
     mem = 2048;
     vcpu = 2;
-    shares = [
-      {
-        source = "/nix/store";
-        mountPoint = "/nix/.ro-store";
-        tag = "ro-store";
-        proto = "virtiofs";
-      }
-    ];
+    # shares = [
+    #   {
+    #     source = "/nix/store";
+    #     mountPoint = "/nix/.ro-store";
+    #     tag = "ro-store";
+    #     proto = "virtiofs";
+    #   }
+    # ];
   };
 
   networking.hostName = "devel-microvm";

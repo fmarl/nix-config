@@ -25,6 +25,7 @@
 
   programs = {
     zed-editor.enable = true;
+    helix.enable = true;
 
     ssh = {
       enable = true;
