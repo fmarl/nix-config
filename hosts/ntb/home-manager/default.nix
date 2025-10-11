@@ -22,11 +22,6 @@
       enable = true;
       mobile = true;
     };
-
-    irssi = {
-      enable = true;
-      user = "fxttr";
-    };
   };
 
   fonts.fontconfig.enable = true;
