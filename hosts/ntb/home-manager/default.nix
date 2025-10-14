@@ -17,6 +17,7 @@
     zsh.enable = true;
     librewolf.enable = true;
     river.enable = true;
+    lf.enable = true;
     emacs.enable = true;
 
     waybar = {

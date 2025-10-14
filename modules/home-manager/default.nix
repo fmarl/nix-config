@@ -74,9 +74,7 @@
     stateVersion = "25.05";
     packages = with pkgs; [
       fzf
-      lf
       ripgrep
-      lazygit
 
       (writeShellScriptBin "nrun" ''
         NIXPKGS_ALLOW_UNFREE=1 nix run --impure nixpkgs#$1
