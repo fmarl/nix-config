@@ -11,6 +11,7 @@
       extraGroups = [
         "wheel"
         "wireshark"
+        "libvirtd"
         "podman"
         "tss"
       ];

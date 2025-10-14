@@ -17,6 +17,7 @@
     zsh.enable = true;
     librewolf.enable = true;
     river.enable = true;
+    emacs.enable = true;
 
     waybar = {
       enable = true;
@@ -27,7 +28,47 @@
   fonts.fontconfig.enable = true;
 
   programs = {
-    zed-editor.enable = true;
+    helix = {
+      enable = true;
+
+      settings = {
+        theme = "autumn";
+
+        editor = {
+          bufferline = "multiple";
+          cursorline = true;
+          rulers = [ 120 ];
+          true-color = true;
+
+          cursor-shape = {
+            insert = "bar";
+            normal = "block";
+            select = "underline";
+          };
+
+          lsp = {
+            auto-signature-help = false;
+            display-messages = true;
+          };
+
+          statusline = {
+            left = [
+              "mode"
+              "spinner"
+              "version-control"
+              "file-name"
+            ];
+          };
+
+          end-of-line-diagnostics = "hint";
+
+          inline-diagnostics = {
+            cursor-line = "error";
+            other-lines = "disable";
+          };
+        };
+      };
+    };
 
     ssh = {
       enable = true;
@@ -89,7 +130,7 @@
 
       extraConfig = {
         core = {
-          editor = "hx";
+          editor = "emacsclient -c -a '' -w";
           whitespace = "-trailing-space";
         };
         log = {
@@ -109,6 +150,5 @@
 
   home.packages = with pkgs; [
     signal-desktop-bin
-    obsidian
   ];
 }
