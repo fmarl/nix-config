@@ -12,35 +12,84 @@
   modules = {
     zsh.enable = true;
     librewolf.enable = true;
-    tmux.enable = true;
     river.enable = true;
+    emacs.enable = true;
     waybar.enable = true;
-    lf.enable = true;
-
-    irssi = {
-      enable = true;
-      user = "fxttr";
-    };
   };
 
   programs = {
-    zed-editor.enable = true;
-    helix.enable = true;
+    helix = {
+      enable = true;
+
+      settings = {
+        theme = "autumn";
+
+        editor = {
+          bufferline = "multiple";
+          cursorline = true;
+          rulers = [ 120 ];
+          true-color = true;
+
+          cursor-shape = {
+            insert = "bar";
+            normal = "block";
+            select = "underline";
+          };
+
+          lsp = {
+            auto-signature-help = false;
+            display-messages = true;
+          };
+
+          statusline = {
+            left = [
+              "mode"
+              "spinner"
+              "version-control"
+              "file-name"
+            ];
+          };
+
+          end-of-line-diagnostics = "hint";
+
+          inline-diagnostics = {
+            cursor-line = "error";
+            other-lines = "disable";
+          };
+        };
+      };
+    };
 
     ssh = {
       enable = true;
-      hashKnownHosts = true;
+      enableDefaultConfig = false;
 
       matchBlocks = {
         "github" = {
           hostname = "github.com";
           user = "git";
+          hashKnownHosts = true;
+          forwardAgent = false;
+          compression = false;
+          forwardX11 = false;
+          forwardX11Trusted = false;
+          serverAliveInterval = 0;
+          serverAliveCountMax = 1;
+          controlPersist = "no";
           identityFile = config.sops.secrets.ssh.path;
         };
 
         "codeberg" = {
           hostname = "codeberg.org";
           user = "git";
+          hashKnownHosts = true;
+          forwardAgent = false;
+          compression = false;
+          forwardX11 = false;
+          forwardX11Trusted = false;
+          serverAliveInterval = 0;
+          serverAliveCountMax = 1;
+          controlPersist = "no";
           identityFile = config.sops.secrets.ssh.path;
         };
       };
@@ -57,7 +106,7 @@
 
       extraConfig = {
         core = {
-          editor = "hx";
+          editor = "emacsclient -c -a '' -w";
           whitespace = "-trailing-space";
         };
         log = {
@@ -77,6 +126,5 @@
 
   home.packages = with pkgs; [
     signal-desktop-bin
-    obsidian
   ];
 }
