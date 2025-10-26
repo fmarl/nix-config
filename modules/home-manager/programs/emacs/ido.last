@@ -1,0 +1,52 @@
+;;; -*- coding: utf-8 -*-
+
+;; ----- ido-last-directory-list -----
+(
+ ("/home/marrero/Devel/nix-config/modules/home-manager/programs/" . "emacs/")
+ ("/home/marrero/Devel/nix-config/modules/home-manager/" . "programs/")
+ ("/home/marrero/Devel/nix-config/modules/" . "home-manager/")
+ ("/home/marrero/Devel/nix-config/" . "modules/")
+ ("/home/marrero/Devel/" . "nix-config/")
+ ("/home/marrero/" . "Devel/")
+)
+
+;; ----- ido-work-directory-list -----
+(
+ "/home/marrero/.emacs.d/"
+ "/home/marrero/Devel/nix-config/modules/home-manager/programs/"
+)
+
+;; ----- ido-work-file-list -----
+(
+ "init.el"
+ "magit.el"
+ "scheme.el"
+ "cc.el"
+ "zig.el"
+ "rust.el"
+ "lsp.el"
+ "completion.el"
+ "emacs.nix"
+)
+
+;; ----- ido-dir-file-cache -----
+(
+ ("/home/marrero/.emacs.d/" (26860 3631 925335 104000) "magit.el" "magit.el~" "scheme.el" "scheme.el~" "zig.el" "zig.el~" "lsp.el" "cc.el" "cc.el~" "rust.el" "rust.el~" "completion.el" "completion.el~" "init.el" "nix.el" "nasm.el" "ide.el" "clojure.el" "auto-save-list/" "eln-cache/" "../" "./")
+
+ ("/home/marrero/Devel/nix-config/modules/home-manager/programs/" (26860 2751 62706 658000) "emacs.nix" "plasma.nix" "default.nix" "zsh.nix" "tmux.nix" "swm.nix" "sway.nix" "river.nix" "niri.nix" "neovim.nix" "mail.nix" "librewolf.nix" "lf.nix" "labwc.nix" "irssi.nix" "gnome.nix" "emacs/" "../" "./")
+
+ ("/home/marrero/Devel/nix-config/modules/home-manager/programs/emacs/" (26859 61485 152563 950000) "rust.el" "nix.el" "nasm.el" "ide.el" "haskell.el" "clojure.el" "cc.el" "ats2.el" "init.el" "../" "./")
+
+ ("/home/marrero/Devel/nix-config/modules/home-manager/" (26836 19237 262281 443000) "default.nix" "theme.nix" "services/" "programs/" "../" "./")
+
+ ("/home/marrero/Devel/nix-config/modules/" (26835 35883 336045 158000) "nixos/" "home-manager/" "colors.nix" "../" "./")
+
+ ("/home/marrero/Devel/nix-config/" (26858 6668 69974 107000) "flake.lock" ".github/" ".sops.yaml" "flake.nix" ".direnv/" "scripts/" "modules/" "microvms/" "hosts/" "README.md" "LICENSE" ".gitignore" ".envrc" ".git/" "../" "./")
+
+ ("/home/marrero/Devel/" (26859 61165 906870 496000) "edinix/" "dotfiles/" "nix-config/" "../" "./")
+
+ ("/home/marrero/" (26860 1951 154380 213000) ".smex-items" ".emacs.d/" ".xsession-errors" "guix-system-install-1.4.0.x86_64-linux.iso" "Desktop/" ".xsession-errors.old" ".gnupg/" "Pictures/" "Devel/" ".pki/" "Downloads/" ".zcompdump" ".compose-cache/" ".zshrc" ".zshenv" ".ssh/" ".mozilla/" ".librewolf/" ".viminfo" ".bash_history" ".nix-profile/" ".local/" ".nix-defexpr/" ".zsh_history" ".config/" ".cache/" "../" "./")
+)
+
+;; ----- ido-unc-hosts-cache -----
+t

@@ -38,14 +38,12 @@
 (use-package zenburn-theme
   :config (load-theme 'zenburn t))
 
-;; Mode Line
-(use-package smart-mode-line
+;; Modeline
+(use-package moody
   :config
-  (setq sml/no-confirm-load-theme t)
-  (sml/setup))
-(use-package smart-mode-line-powerline-theme
-  :after smart-mode-line
-  :config (sml/apply-theme 'powerline))
+  (moody-replace-mode-line-front-space)
+  (moody-replace-mode-line-buffer-identification)
+  (moody-replace-vc-mode))
 
 ;; Which-key (Shortcut-Hilfe)
 (use-package which-key :config (which-key-mode))
@@ -55,19 +53,12 @@
   :init (projectile-mode +1)
   :bind-keymap ("C-c p" . projectile-command-map))
 
-;; Treemacs (Projekt-Explorer)
-(use-package treemacs
-  :defer t
-  :bind (("M-0" . treemacs-select-window)
-         ("C-x t t" . treemacs)
-         ("C-x t C-t" . treemacs-find-file))
+;; File Explorer
+(use-package dirvish
+  :init (dirvish-override-dired-mode)
   :config
-  (setq treemacs-width 30
-        treemacs-follow-after-init t
-        treemacs-show-hidden-files t)
-  (treemacs-follow-mode 1)
-  (treemacs-filewatch-mode 1))
-(use-package treemacs-projectile :after (treemacs projectile))
+  (setq dirvish-default-layout '(0 0.3 0.7)
+        dirvish-attributes '(subtree-state collapse git-msg)))
 
 ;; Ace / Jump Navigation
 (use-package ace-window :bind (("M-p" . ace-window)))
@@ -146,28 +137,13 @@
 
   (define-prefix-command 'my/search-map)
   (global-set-key (kbd "M-f") 'my/search-map)
-  ;; Tweak the register preview for `consult-register-load',
-  ;; `consult-register-store' and the built-in commands.  This improves the
-  ;; register formatting, adds thin separator lines, register sorting and hides
-  ;; the window mode line.
   (advice-add #'register-preview :override #'consult-register-window)
   (setq register-preview-delay 0.5)
 
-  ;; Use Consult to select xref locations with preview
   (setq xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref)
 
-  ;; Configure other variables and modes in the :config section,
-  ;; after lazily loading the package.
   :config
-
-  ;; Optionally configure preview. The default value
-  ;; is 'any, such that any key triggers the preview.
-  ;; (setq consult-preview-key 'any)
-  ;; (setq consult-preview-key "M-.")
-  ;; (setq consult-preview-key '("S-<down>" "S-<up>"))
-  ;; For some commands and buffer sources it is useful to configure the
-  ;; :preview-key on a per-command basis using the `consult-customize' macro.
   (consult-customize
    consult-theme :preview-key '(:debounce 0.2 any)
    consult-ripgrep consult-git-grep consult-grep consult-man
@@ -184,15 +160,6 @@
 (use-package marginalia
   :init (marginalia-mode))
 
-(use-package embark
-  :bind
-  (("C-." . embark-act)
-   ("C-;" . embark-dwim)))
-
-(use-package embark-consult
-  :after (embark consult)
-  :hook (embark-collect-mode . consult-preview-at-point-mode))
-
 (use-package orderless
   :init
   (setq completion-styles '(orderless)
@@ -207,12 +174,32 @@
   (load-file (concat (concat (getenv "HOME") "/.emacs.d/") file)))
 
 (load-conf-file "completion.el")
-(load-conf-file "lsp.el")
+(load-conf-file "eglot.el")
 (load-conf-file "rust.el")
 (load-conf-file "scheme.el")
-(load-conf-file "zig.el")
 (load-conf-file "magit.el")
 (load-conf-file "cc.el")
 (load-conf-file "nix.el")
+(load-conf-file "org.el")
+
+;; pretty print json files when they're opened
+(add-to-list 'auto-mode-alist
+             '("\\.json\\'" . (lambda ()
+                                (javascript-mode)
+                                (json-pretty-print (point-min) (point-max))
+                                (goto-char (point-min))
+                                (set-buffer-modified-p nil))))
 
 (provide 'init)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

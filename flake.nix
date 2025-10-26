@@ -19,12 +19,7 @@
       url = "github:microvm-nix/microvm.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    edinix = {
-      url = "github:fmarl/edinix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
+    
     irssi-themes = {
       url = "github:fxttr/irssi-themes";
       flake = false;
@@ -37,7 +32,6 @@
       nixpkgs,
       flake-utils,
       home-manager,
-      edinix,
       ...
     }@inputs:
     let
@@ -180,10 +174,6 @@
           "marrero@lg-etl-prd" = { };
         };
       };
-
-      helix = edinix.helix.${system} {
-        profiles.nix.enable = true;
-      };
     in
     {
       nixosConfigurations =
@@ -196,8 +186,6 @@
           hbuild
           nbuild
           sops
-          helix.editor
-          helix.tooling
         ];
       };
     };

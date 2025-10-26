@@ -15,23 +15,8 @@ in
   options.modules.zsh.enable = mkEnableOption "Install and configure irssi";
 
   config = mkIf cfg.enable {
-    programs.powerline-go = {
+    programs.starship = {
       enable = true;
-      modules = [
-        "cwd"
-        "perms"
-        "hg"
-        "jobs"
-        "exit"
-        "newline"
-        "ssh"
-        "direnv"
-        "venv"
-        "root"
-      ];
-      modulesRight = [
-        "git"
-      ];
     };
 
     programs.zsh = {
