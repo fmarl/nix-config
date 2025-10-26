@@ -29,17 +29,14 @@ in
           # Core
           use-package
           zenburn-theme
-          smart-mode-line
-          smart-mode-line-powerline-theme
+          moody
           smex
           ace-window
-          ace-jump-mode
+          avy
           direnv
           posframe
           magit
           projectile
-          treemacs
-          treemacs-projectile
           dap-mode
           yasnippet
           yasnippet-snippets
@@ -48,16 +45,16 @@ in
           rainbow-delimiters
           marginalia
           orderless
-          embark
-          embark-consult
           consult
           vertico
+          dirvish
+          eat
+
+          # Org
+          org-modern
 
           # LSP
-          lsp-mode
-          lsp-ui
-          lsp-ivy
-          kind-icon
+          consult-eglot
           cape
           corfu
 
@@ -66,10 +63,7 @@ in
 
           # C
           clang-format
-
-          # Zig
-          zig-mode
-
+          
           # Rust
           rustic
           rust-mode
