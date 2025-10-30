@@ -21,17 +21,16 @@ in
       extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
     };
 
-    services.xserver = {
+    services.greetd = {
       enable = true;
-
-      displayManager.lightdm.enable = true;
-
-      xkb = {
-        layout = "us";
-        variant = "altgr-intl";
+      settings = rec {
+        initial_session = {
+          command = "${pkgs.river-classic}/bin/river";
+          user = "marrero";
+        };
+        
+        default_session = initial_session;
       };
     };
-
-    programs.river.enable = true;
   };
 }
