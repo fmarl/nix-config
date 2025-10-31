@@ -13,12 +13,12 @@ in
   options.modules.emacs.enable = mkEnableOption "Install and configure emacs";
 
   config = mkIf cfg.enable {
-    # home.file = {
-    #   ".emacs.d" = {
-    #     source = ./emacs;
-    #     recursive = true;
-    #   };
-    # };
+    home.file = {
+      ".emacs.d" = {
+        source = ./emacs;
+        recursive = true;
+      };
+    };
 
     services.emacs.enable = true;
     programs.emacs = {
@@ -37,6 +37,8 @@ in
           posframe
           magit
           projectile
+	        kind-icon
+	        svg-lib
           dap-mode
           yasnippet
           yasnippet-snippets
@@ -72,6 +74,5 @@ in
           geiser
         ];
     };
-
   };
 }

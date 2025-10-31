@@ -26,7 +26,7 @@
 (show-paren-mode 1)
 (electric-pair-mode 1)
 (global-prettify-symbols-mode 1)
-(set-frame-font "Source Code Pro:size=14")
+;; (set-frame-font "Source Code Pro:size=14")
 (set-cursor-color "#ffffff")
 (setq ring-bell-function 'ignore)
 
@@ -38,7 +38,7 @@
 (use-package zenburn-theme
   :config (load-theme 'zenburn t))
 
-;; Modeline
+;; Mode Line
 (use-package moody
   :config
   (moody-replace-mode-line-front-space)
@@ -62,7 +62,11 @@
 
 ;; Ace / Jump Navigation
 (use-package ace-window :bind (("M-p" . ace-window)))
-(use-package ace-jump-mode :bind (("C-c SPC" . ace-jump-mode)))
+(use-package avy
+  :bind (("C-:" . avy-goto-char-timer)
+	 ("M-g -" . avy-kill-region)
+	 ("M-g =" . avy-move-region)
+	 ("M-g +" . avy-copy-region)))
 
 ;; Smex (M-x)
 (use-package smex
@@ -72,6 +76,9 @@
 
 ;; Markdown
 (use-package markdown-mode :mode "\\.md\\'")
+
+;; Terminal
+(use-package eat)
 
 ;; Direnv
 (use-package direnv
@@ -134,12 +141,10 @@
 
   :hook (completion-list-mode . consult-preview-at-point-mode)
   :init
-
   (define-prefix-command 'my/search-map)
   (global-set-key (kbd "M-f") 'my/search-map)
   (advice-add #'register-preview :override #'consult-register-window)
   (setq register-preview-delay 0.5)
-
   (setq xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref)
 
@@ -150,7 +155,6 @@
    consult-bookmark consult-recent-file consult-xref
    consult--source-bookmark consult--source-file-register
    consult--source-recent-file consult--source-project-recent-file
-   ;; :preview-key "M-."
    :preview-key '(:debounce 0.4 any))
   (setq consult-narrow-key "<") ;; "C-+"
   (setq consult-ripgrep-command
@@ -179,10 +183,8 @@
 (load-conf-file "scheme.el")
 (load-conf-file "magit.el")
 (load-conf-file "cc.el")
-(load-conf-file "nix.el")
 (load-conf-file "org.el")
 
-;; pretty print json files when they're opened
 (add-to-list 'auto-mode-alist
              '("\\.json\\'" . (lambda ()
                                 (javascript-mode)
@@ -191,15 +193,3 @@
                                 (set-buffer-modified-p nil))))
 
 (provide 'init)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages nil))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
