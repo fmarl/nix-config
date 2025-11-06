@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    impermanence.url = "github:nix-community/impermanence";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -19,7 +18,7 @@
       url = "github:microvm-nix/microvm.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    
+
     irssi-themes = {
       url = "github:fxttr/irssi-themes";
       flake = false;
@@ -161,17 +160,15 @@
             ];
           };
 
-          ntb = {
-            modules = [ inputs.impermanence.nixosModules.impermanence ];
+          lepton = {
+
           };
         };
 
         homes = {
           "marrero@workstation" = { };
 
-          "marrero@ntb" = { };
-
-          "marrero@lg-etl-prd" = { };
+          "marrero@lepton" = { };
         };
       };
     in
@@ -186,6 +183,8 @@
           hbuild
           nbuild
           sops
+          nixfmt-rfc-style
+          nixfmt-tree
         ];
       };
     };

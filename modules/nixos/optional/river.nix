@@ -28,7 +28,7 @@ in
           command = "${pkgs.river-classic}/bin/river";
           user = "marrero";
         };
-        
+
         default_session = initial_session;
       };
     };
