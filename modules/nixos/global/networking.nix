@@ -5,7 +5,7 @@
 {
   networking = {
     hostName = host;
-    
+
     firewall = {
       enable = true;
       trustedInterfaces = [ ];

@@ -7,7 +7,14 @@
 }:
 {
   imports = [
-    (import ./global { inherit pkgs self host user; })
+    (import ./global {
+      inherit
+        pkgs
+        self
+        host
+        user
+        ;
+    })
     ./optional
   ];
 }
