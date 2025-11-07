@@ -51,9 +51,9 @@
     '';
   };
 
-  sops = {
-    defaultSopsFile = "${self}/hosts/${host}/secrets.yaml";
-  };
+#  sops = {
+#    defaultSopsFile = "${self}/hosts/${host}/secrets.yaml";
+#  };
 
   programs = {
     direnv = {
@@ -70,6 +70,7 @@
       htop
       fzf
       ripgrep
+      nh
 
       (writeShellScriptBin "nrun" ''
         NIXPKGS_ALLOW_UNFREE=1 nix run --impure nixpkgs#$1
