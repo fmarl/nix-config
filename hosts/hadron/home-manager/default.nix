@@ -24,7 +24,7 @@
       enableDefaultConfig = false;
 
       matchBlocks = {
-        "github" = {
+        "github.com" = {
           hostname = "github.com";
           user = "git";
           hashKnownHosts = true;
@@ -38,7 +38,7 @@
           identityFile = config.sops.secrets.ssh.path;
         };
 
-        "codeberg" = {
+        "codeberg.org" = {
           hostname = "codeberg.org";
           user = "git";
           hashKnownHosts = true;
