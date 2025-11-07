@@ -13,12 +13,12 @@
     ./boot.nix
   ];
 
-  #sops = {
-  #  age = {
-  #    keyFile = "/sops/age/keys.txt";
-  #    generateKey = true;
-  #  };
-  #};
+  sops = {
+    age = {
+      keyFile = "/sops/age/keys.txt";
+      generateKey = true;
+    };
+  };
 
   nix.nixPath = [
     "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
@@ -51,9 +51,8 @@
         isNormalUser = true;
         createHome = true;
         description = "Florian Marrero Liestmann";
-        #hashedPasswordFile = config.sops.secrets.user-password.path;
-      initialHashedPassword = "\$6\$evo8YlCWC4DLIsho\$M2q2sMIGI5FV3fVWMpdZ03qZ1mDM2u8ZyVlYRoDtZiW2T93kvrAM8YOgpSI0qAbWQedF.veZQwVbZmFdW3YKJ1";
-	extraGroups = [
+        hashedPasswordFile = config.sops.secrets.user-password.path;
+	      extraGroups = [
           "wheel"
           "tss"
           "podman"

@@ -51,9 +51,9 @@
     '';
   };
 
-#  sops = {
-#    defaultSopsFile = "${self}/hosts/${host}/secrets.yaml";
-#  };
+  sops = {
+    defaultSopsFile = "${self}/hosts/${host}/secrets.yaml";
+  };
 
   programs = {
     direnv = {
