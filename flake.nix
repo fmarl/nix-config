@@ -154,7 +154,7 @@
         };
 
         nixos = {
-          workstation = {
+          hadron = {
             microvms = [
               "www"
               "devel"
@@ -167,7 +167,7 @@
         };
 
         homes = {
-          "marrero@workstation" = { };
+          "marrero@hadron" = { };
 
           "marrero@ntb" = { };
 

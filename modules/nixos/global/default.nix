@@ -11,15 +11,15 @@
     ./security.nix
   ];
 
-  sops = {
-    defaultSopsFile = "${self}/hosts/${host}/secrets.yaml";
+#  sops = {
+#    defaultSopsFile = "${self}/hosts/${host}/secrets.yaml";
 
-    secrets = {
-      user-password = {
-        neededForUsers = true;
-      };
-    };
-  };
+ #   secrets = {
+ #     user-password = {
+ #       neededForUsers = true;
+ #     };
+ #   };
+ # };
 
   time.timeZone = "Europe/Berlin";
 
