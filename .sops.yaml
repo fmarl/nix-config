@@ -2,7 +2,7 @@ keys:
   - &users:
       - &marrero D1912EEBC3FBEBB4
   - &hosts:
-    - &workstation age1dwu9ccy3t86c4tgd4ufs4jkmv572jfflkvdejm5kvjf95r3qsgus847qgd
+    - &hadron age14v0pler7zgmuqr80usy72vztc3yxt4sgnmm3v6qj7ajv7gf4wdcqwfn590
     - &lepton age177etrm4t59vtagmenpdf8tdv5wgvt8qdh8f3rhya5w94lzy6mq9s828wfn
 creation_rules:
   - path_regex: hosts/hadron/secrets.yaml$
