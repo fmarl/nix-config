@@ -6,7 +6,7 @@
 {
   sops = {
     age = {
-      keyFile = "/persist/home/marrero/.config/sops/age/keys.txt";
+      keyFile = "/home/marrero/.config/sops/age/keys.txt";
       generateKey = true;
     };
 
@@ -76,7 +76,7 @@
       enableDefaultConfig = false;
 
       matchBlocks = {
-        "github" = {
+        "github.com" = {
           hostname = "github.com";
           user = "git";
           hashKnownHosts = true;
@@ -90,7 +90,7 @@
           identityFile = config.sops.secrets.ssh.path;
         };
 
-        "codeberg" = {
+        "codeberg.org" = {
           hostname = "codeberg.org";
           user = "git";
           hashKnownHosts = true;

@@ -11,12 +11,11 @@
     ./networking.nix
     ./security.nix
     ./users.nix
-    ./impermanence.nix
   ];
 
   sops = {
     age = {
-      keyFile = "/persist/home/marrero/.config/sops/age/keys.txt";
+      keyFile = "/home/marrero/.config/sops/age/keys.txt";
       generateKey = true;
     };
   };

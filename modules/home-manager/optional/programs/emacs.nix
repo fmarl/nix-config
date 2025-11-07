@@ -37,8 +37,8 @@ in
           posframe
           magit
           projectile
-	        kind-icon
-	        svg-lib
+          kind-icon
+          svg-lib
           dap-mode
           yasnippet
           yasnippet-snippets
@@ -65,7 +65,7 @@ in
 
           # C
           clang-format
-          
+
           # Rust
           rustic
           rust-mode

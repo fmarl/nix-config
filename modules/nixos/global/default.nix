@@ -36,7 +36,7 @@
     LC_TELEPHONE = "de_DE.UTF-8";
     LC_TIME = "de_DE.UTF-8";
   };
-  
+
   systemd.coredump.enable = true;
 
   system.stateVersion = "24.05";

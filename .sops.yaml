@@ -3,7 +3,7 @@ keys:
       - &marrero D1912EEBC3FBEBB4
   - &hosts:
     - &hadron age14v0pler7zgmuqr80usy72vztc3yxt4sgnmm3v6qj7ajv7gf4wdcqwfn590
-    - &ntb age139uawl46z2thc9y5h4jemcx37jxhn3xx24lkvrdappyy4neard0qjku2e5    
+    - &lepton age177etrm4t59vtagmenpdf8tdv5wgvt8qdh8f3rhya5w94lzy6mq9s828wfn
 creation_rules:
   - path_regex: hosts/hadron/secrets.yaml$
     key_groups:
@@ -11,9 +11,9 @@ creation_rules:
         - *hadron
         pgp:
         - *marrero
-  - path_regex: hosts/ntb/secrets.yaml$
+  - path_regex: hosts/lepton/secrets.yaml$
     key_groups:
       - age:
-        - *ntb
+        - *lepton
         pgp:
         - *marrero
