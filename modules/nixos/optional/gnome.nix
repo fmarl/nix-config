@@ -25,7 +25,7 @@ in
       evince
       # file-roller
       geary
-      # gnome-disk-utility
+      gnome-disk-utility
       # seahorse
       # sushi
       # sysprof
@@ -34,7 +34,7 @@ in
       #
       # adwaita-icon-theme
       # nixos-background-info
-      gnome-backgrounds
+      # gnome-backgrounds
       # gnome-bluetooth
       # gnome-color-manager
       # gnome-control-center
@@ -60,7 +60,7 @@ in
       gnome-logs
       gnome-maps
       gnome-music
-      # gnome-system-monitor
+      gnome-system-monitor
       gnome-weather
       # loupe
       # nautilus

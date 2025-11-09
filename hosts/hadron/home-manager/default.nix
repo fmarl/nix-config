@@ -12,10 +12,8 @@
   modules = {
     zsh.enable = true;
     librewolf.enable = true;
-    river.enable = true;
-    lf.enable = true;
+    gnome.enable = true;
     emacs.enable = true;
-    waybar.enable = true;
   };
 
   programs = {
