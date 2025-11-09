@@ -70,8 +70,8 @@ in
           rustic
           rust-mode
 
-          # Scheme
-          geiser
+          # Mail & IRC
+          
         ];
     };
   };

@@ -46,10 +46,10 @@
       fsType = "zfs";
     };
 
-  swapDevices =
-    [ { device = "/dev/disk/by-uuid/c29f5522-3307-4df8-a60d-f6db3f4fbf25"; priority = 20; }
-      { device = "/dev/disk/by-uuid/72f4cf01-fc2a-4c74-8c1c-d3785a8e313f"; priority = 10; }
-    ];
+#  swapDevices =
+#    [ { device = "/dev/disk/by-uuid/c29f5522-3307-4df8-a60d-f6db3f4fbf25"; priority = 20; }
+#      { device = "/dev/disk/by-uuid/72f4cf01-fc2a-4c74-8c1c-d3785a8e313f"; priority = 10; }
+#    ];
 
 
   zramSwap.enable = true;

@@ -27,7 +27,7 @@
 
   programs.zsh.enable = true;
 
-  modules.river.enable = true;
+  modules.gnome.enable = true;
 
   environment = {
     shells = with pkgs; [ zsh ];
