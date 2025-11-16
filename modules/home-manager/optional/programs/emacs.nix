@@ -71,7 +71,7 @@ in
           rust-mode
 
           # Mail & IRC
-          
+          circe
         ];
     };
   };

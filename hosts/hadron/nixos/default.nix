@@ -15,7 +15,7 @@
 
   sops = {
     age = {
-      keyFile = "/sops/age/keys.txt";
+      keyFile = "/home/marrero/.config/sops/age/keys.txt";
       generateKey = true;
     };
   };
