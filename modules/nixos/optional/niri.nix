@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 
@@ -14,14 +15,16 @@ in
   options.modules.niri.enable = mkEnableOption "Install and configure niri";
 
   config = mkIf cfg.enable {
-    services.xserver = {
+    services.greetd = {
       enable = true;
+      
+      settings = rec {
+        initial_session = {
+          command = "${pkgs.niri}/bin/niri";
+          user = "marrero";
+        };
 
-      displayManager.lightdm.enable = true;
-
-      xkb = {
-        layout = "us";
-        variant = "altgr-intl";
+        default_session = initial_session;
       };
     };
 

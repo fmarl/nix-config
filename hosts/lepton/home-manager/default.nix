@@ -16,7 +16,7 @@
   modules = {
     zsh.enable = true;
     librewolf.enable = true;
-    river.enable = true;
+    niri.enable = true;
     lf.enable = true;
     emacs.enable = true;
 

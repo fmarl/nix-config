@@ -8,65 +8,76 @@
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
+  boot.initrd.luks.devices."enc".device = "/dev/disk/by-uuid/3c943af2-73dc-44bc-999a-fa838d561716";
+
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/ca073fd5-a50a-4c19-89ac-3ff42a4fcf3e";
-    fsType = "btrfs";
-    options = [ "subvol=@" ];
-  };
-
-  boot.initrd.luks.devices."enc".device = "/dev/disk/by-uuid/4636f8ec-643b-4352-b918-b545938b88df";
-
-  fileSystems."/home" = {
-    device = "/dev/disk/by-uuid/ca073fd5-a50a-4c19-89ac-3ff42a4fcf3e";
+    device = "/dev/disk/by-uuid/cf0cf877-a9bf-4132-8537-3f5721108d37";
     fsType = "btrfs";
     options = [
-      "subvol=@home"
-      "compress=zstd:3"
+      "subvol=@"
+      "compress-force=zstd"
       "noatime"
       "ssd"
       "discard=async"
+      "space_cache=v2"
+    ];
+  };
+  
+  fileSystems."/home" = {
+    device = "/dev/disk/by-uuid/cf0cf877-a9bf-4132-8537-3f5721108d37";
+    fsType = "btrfs";
+    options = [
+      "subvol=@home"
+      "compress-force=zstd"
+      "noatime"
+      "ssd"
+      "discard=async"
+      "space_cache=v2"
     ];
   };
 
   fileSystems."/nix" = {
-    device = "/dev/disk/by-uuid/ca073fd5-a50a-4c19-89ac-3ff42a4fcf3e";
+    device = "/dev/disk/by-uuid/cf0cf877-a9bf-4132-8537-3f5721108d37";
     fsType = "btrfs";
     options = [
       "subvol=@nix"
-      "compress=zstd:1"
+      "compress-force=zstd"
       "noatime"
       "ssd"
       "discard=async"
+      "space_cache=v2"
     ];
   };
 
   fileSystems."/persist" = {
-    device = "/dev/disk/by-uuid/ca073fd5-a50a-4c19-89ac-3ff42a4fcf3e";
+    device = "/dev/disk/by-uuid/cf0cf877-a9bf-4132-8537-3f5721108d37";
     fsType = "btrfs";
     options = [
       "subvol=@persist"
-      "compress=zstd:3"
+      "compress-force=zstd"
       "noatime"
       "ssd"
       "discard=async"
+      "space_cache=v2"
     ];
   };
 
   fileSystems."/var/log" = {
-    device = "/dev/disk/by-uuid/ca073fd5-a50a-4c19-89ac-3ff42a4fcf3e";
+    device = "/dev/disk/by-uuid/cf0cf877-a9bf-4132-8537-3f5721108d37";
     fsType = "btrfs";
     options = [
       "subvol=@volatile-log"
-      "compress=zstd:3"
+      "compress-force=zstd"
       "noatime"
       "ssd"
       "discard=async"
+      "space_cache=v2"
     ];
     neededForBoot = true;
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/74F0-047D";
+    device = "/dev/disk/by-uuid/CE94-679E";
     fsType = "vfat";
     options = [
       "fmask=0022"
@@ -76,7 +87,7 @@
 
   zramSwap.enable = true;
 
-  swapDevices = [ ];
+  swapDevices = [ { device = "/dev/disk/by-uuid/98f80efd-ddbe-4556-b70a-e317fe8c539d"; priority = 20; } ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 

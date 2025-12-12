@@ -3,7 +3,7 @@ keys:
       - &marrero D1912EEBC3FBEBB4
   - &hosts:
     - &hadron age14v0pler7zgmuqr80usy72vztc3yxt4sgnmm3v6qj7ajv7gf4wdcqwfn590
-    - &lepton age177etrm4t59vtagmenpdf8tdv5wgvt8qdh8f3rhya5w94lzy6mq9s828wfn
+    - &lepton age1av4y9te3g9qpfd2cltx6v52txm29z30y20cl2ddksd82ucnw8pjqcvemz8
 creation_rules:
   - path_regex: hosts/hadron/secrets.yaml$
     key_groups:
