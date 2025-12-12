@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 
@@ -23,7 +24,8 @@ in
     services.emacs.enable = true;
     programs.emacs = {
       enable = true;
-
+      package = pkgs.emacs-pgtk;
+      
       extraPackages =
         epkgs: with epkgs; [
           # Core
@@ -37,9 +39,6 @@ in
           posframe
           magit
           projectile
-          kind-icon
-          svg-lib
-          dap-mode
           yasnippet
           yasnippet-snippets
           markdown-mode
@@ -50,11 +49,7 @@ in
           consult
           vertico
           dirvish
-          eat
-
-          # Org
-          org-modern
-
+          
           # LSP
           consult-eglot
           cape
@@ -68,8 +63,15 @@ in
 
           # Rust
           rustic
-          rust-mode
 
+          # OCaml
+          tuareg
+          dune
+          utop
+
+          # Clojure
+          cider
+          
           # Mail & IRC
           circe
         ];

@@ -30,7 +30,7 @@
   };
 
   modules = {
-    river.enable = true;
+    niri.enable = true;
   };
 
   environment = {
