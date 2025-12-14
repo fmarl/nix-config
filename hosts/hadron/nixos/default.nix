@@ -27,7 +27,7 @@
 
   programs.zsh.enable = true;
 
-  modules.gnome.enable = true;
+  modules.niri.enable = true;
 
   environment = {
     shells = with pkgs; [ zsh ];
@@ -77,15 +77,6 @@
       enable = true;
       dockerCompat = true;
       defaultNetwork.settings.dns_enabled = true;
-    };
-
-    libvirtd = {
-      enable = true;
-      qemu = {
-        package = pkgs.qemu_kvm;
-        runAsRoot = true;
-        swtpm.enable = true;
-      };
     };
   };
 }

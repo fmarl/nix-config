@@ -56,7 +56,7 @@ in
           corfu
 
           # Nix Mode
-          nix-mode
+          nix-ts-mode
 
           # C
           clang-format
@@ -71,9 +71,21 @@ in
 
           # Clojure
           cider
+
+          # Gleam
+          gleam-ts-mode
           
           # Mail & IRC
           circe
+
+	  # Treesitter
+	  tree-sitter-langs
+	  (treesit-grammars.with-grammars (grammars: [
+	    grammars.tree-sitter-rust
+	    grammars.tree-sitter-ocaml
+	    grammars.tree-sitter-nix
+	    grammars.tree-sitter-gleam
+	  ]))
         ];
     };
   };
