@@ -25,6 +25,7 @@ in
           height = 10;
           modules-left = [
             "river/tags"
+            "niri/workspaces"
             "custom/right-arrow-dark"
           ];
           modules-center = [
@@ -168,6 +169,7 @@ in
         #custom-left-arrow-dark {
         	color: #1a1a1a;
         }
+
         #custom-right-arrow-light,
         #custom-left-arrow-light {
         	color: #292b2e;
@@ -175,6 +177,7 @@ in
         }
 
         #tags,
+        #workspaces,
         #clock.1,
         #clock.2,
         #clock.3,
@@ -188,18 +191,25 @@ in
         	background: #1a1a1a;
         }
 
-        #tags button {
+        #tags,
+        #workspaces button {
         	padding: 0 2px;
         	color: #fdf6e3;
         }
-        #tags button.focused {
+        
+        #tags,
+        #workspaces  button.focused {
         	color: #268bd2;
         }
-        #tags button:hover {
+
+        #tags,
+        #workspaces  button:hover {
         	box-shadow: inherit;
         	text-shadow: inherit;
         }
-        #tags button:hover {
+        
+        #tags,
+        #workspaces button:hover {
         	background: #1a1a1a;
         	border: #1a1a1a;
         	padding: 0 3px;
@@ -208,15 +218,19 @@ in
         #network {
         	color: #268bd2;
         }
+
         #memory {
         	color: #2aa198;
         }
+
         #cpu {
         	color: #6c71c4;
         }
+
         #battery {
         	color: #859900;
         }
+
         #disk {
         	color: #b58900;
         }

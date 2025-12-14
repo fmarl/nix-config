@@ -1,9 +1,9 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   boot = {
     kernelPackages = pkgs.linuxPackages_hardened;
 
-    kernelModules = [ "kvm-intel" ];
+    kernelModules = [ "kvm-intel" "v4l2loopback" ];
 
     initrd.availableKernelModules = [
       "xhci_pci"
@@ -14,6 +14,6 @@
       "sdhci_pci"
     ];
 
-    extraModulePackages = [ ];
+    extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
   };
 }
