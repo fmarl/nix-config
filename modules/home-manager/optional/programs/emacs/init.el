@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (require 'package)
 (package-initialize)
 
@@ -26,7 +28,7 @@
 (show-paren-mode 1)
 (electric-pair-mode 1)
 (global-prettify-symbols-mode 1)
-;; (set-frame-font "Source Code Pro:size=14")
+(set-frame-font "Source Code Pro:size=14")
 (set-cursor-color "#ffffff")
 (setq ring-bell-function 'ignore)
 
@@ -180,11 +182,12 @@
 (load-conf-file "circe.el")
 (load-conf-file "magit.el")
 (load-conf-file "mu4e.el")
-(load-conf-file "scheme.el")
 (load-conf-file "cc.el")
 (load-conf-file "clojure.el")
 (load-conf-file "ocaml.el")
 (load-conf-file "rust.el")
+(load-conf-file "gleam.el")
+(load-conf-file "nix.el")
 
 (defun pinentry-emacs (desc prompt ok error)
   (let ((str (read-passwd (concat (replace-regexp-in-string "%22" "\"" (replace-regexp-in-string "%0A" "\n" desc)) prompt ": "))))

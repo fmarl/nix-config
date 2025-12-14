@@ -1,4 +1,4 @@
-;;; eglot.el --- Modernes LSP-Setup mit Eglot + LSP-Booster -*- lexical-binding: t; -*-
+;; -*- lexical-binding: t; -*-
 
 (use-package eglot
   :ensure t
@@ -26,6 +26,3 @@
               ("C-c M-?" . consult-eglot-symbols)
               ("C-c a" . eglot-code-actions)
               ("C-c r" . eglot-rename)))
-
-(provide 'eglot-setup)
-;;; eglot.el ends here
