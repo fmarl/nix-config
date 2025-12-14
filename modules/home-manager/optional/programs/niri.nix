@@ -19,7 +19,7 @@ in
 prefer-no-csd
 
 cursor {
-    xcursor-theme "Adwaita"
+    xcursor-theme "Numix-Cursor"
     xcursor-size 24
 }
 
