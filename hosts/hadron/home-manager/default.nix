@@ -16,6 +16,7 @@
     lf.enable = true;
     emacs.enable = true;
     waybar.enable = true;
+    theme.enable = true;
   };
 
   programs = {
