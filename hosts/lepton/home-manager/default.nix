@@ -24,53 +24,13 @@
       enable = true;
       mobile = true;
     };
+
+    theme.enable = true;
   };
 
   fonts.fontconfig.enable = true;
 
   programs = {
-    helix = {
-      enable = true;
-
-      settings = {
-        theme = "autumn";
-
-        editor = {
-          bufferline = "multiple";
-          cursorline = true;
-          rulers = [ 120 ];
-          true-color = true;
-
-          cursor-shape = {
-            insert = "bar";
-            normal = "block";
-            select = "underline";
-          };
-
-          lsp = {
-            auto-signature-help = false;
-            display-messages = true;
-          };
-
-          statusline = {
-            left = [
-              "mode"
-              "spinner"
-              "version-control"
-              "file-name"
-            ];
-          };
-
-          end-of-line-diagnostics = "hint";
-
-          inline-diagnostics = {
-            cursor-line = "error";
-            other-lines = "disable";
-          };
-        };
-      };
-    };
-
     ssh = {
       enable = true;
       enableDefaultConfig = false;
@@ -122,21 +82,26 @@
 
     git = {
       enable = true;
-      userName = "Florian Marrero Liestmann";
-      userEmail = "f.m.liestmann@fx-ttr.de";
       ignores = [
         ".direnv/"
         ".cache/"
       ];
 
-      extraConfig = {
+      settings = {
+	user = {
+	  name = "Florian Marrero Liestmann";
+	  email = "f.m.liestmann@fx-ttr.de";
+	};
+	
         core = {
           editor = "emacsclient -c -a '' -w";
           whitespace = "-trailing-space";
         };
+	
         log = {
           abbrevCommit = true;
         };
+	
         pull = {
           rebase = false;
         };
