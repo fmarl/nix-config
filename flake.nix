@@ -60,10 +60,16 @@
         };
       };
 
+      config = self.config;
+
+      lib = pkgs.lib;
+
+      clib = (import ./lib/containers { inherit config pkgs; });
+
       commonNixOSModules = host: [
         inputs.microvm.nixosModules.host
-        (import ./modules/nixos { inherit self inputs host; })
-        ./hosts/${host}/nixos
+        (import ./modules/nixos { inherit self inputs host clib; })
+        (import ./hosts/${host}/nixos { inherit config pkgs lib clib; })
         inputs.sops-nix.nixosModules.sops
       ];
 
