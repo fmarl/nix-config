@@ -1,15 +1,6 @@
-{
-  config,
-  pkgs,
-  ...
-}:
-
-with pkgs.lib;
-
-let
-  waylandContainer = { hmConfig }: 
+lib: {
+  gen = { hmConfig }: 
     let
-      hostCfg = config;
       userName = "marrero";
       userUid = 1000;
     in {
@@ -43,5 +34,4 @@ let
 	};
       };
     };
-in
-  waylandContainer
+}

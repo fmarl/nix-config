@@ -53,6 +53,9 @@
 
       system = "x86_64-linux";
 
+      lib = nixpkgs.lib.extend
+        (final: prev: (import ./lib final));
+      
       pkgs = import inputs.nixpkgs {
         inherit system;
         config = {
@@ -60,16 +63,10 @@
         };
       };
 
-      config = self.config;
-
-      lib = pkgs.lib;
-
-      clib = (import ./lib/containers { inherit config pkgs; });
-
       commonNixOSModules = host: [
         inputs.microvm.nixosModules.host
-        (import ./modules/nixos { inherit self inputs host clib; })
-        (import ./hosts/${host}/nixos { inherit config pkgs lib clib; })
+        (import ./modules/nixos { inherit self inputs host lib; })
+        (import ./hosts/${host}/nixos { inherit pkgs lib; })
         inputs.sops-nix.nixosModules.sops
       ];
 

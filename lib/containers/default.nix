@@ -1,10 +1,3 @@
-{
-  config,
-  pkgs,
-  ...
-}:
-{
-  imports = [
-    ./wayland.nix
-  ];
+lib: {
+  wayland = import ./wayland.nix lib;
 }
