@@ -29,7 +29,7 @@
 (electric-pair-mode 1)
 (global-prettify-symbols-mode 1)
 (set-cursor-color "#ffffff")
-(set-frame-font "Aporetic Sans Mono 14" nil t)
+(set-frame-font "Aporetic Sans Mono 12" nil t)
 (setq ring-bell-function 'ignore)
 
 ;;; Security ----------------
