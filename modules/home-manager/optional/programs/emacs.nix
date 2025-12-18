@@ -15,13 +15,6 @@ in
   options.modules.emacs.enable = mkEnableOption "Install and configure emacs";
 
   config = mkIf cfg.enable {
-    home.file = {
-      ".emacs.d" = {
-        source = ./emacs;
-        recursive = true;
-      };
-    };
-
     services.emacs.enable = true;
     programs.emacs = {
       enable = true;
