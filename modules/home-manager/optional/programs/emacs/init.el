@@ -28,24 +28,36 @@
 (show-paren-mode 1)
 (electric-pair-mode 1)
 (global-prettify-symbols-mode 1)
-(set-frame-font "Source Code Pro:size=14")
 (set-cursor-color "#ffffff")
+(set-frame-font "Aporetic Sans Mono 14" nil t)
 (setq ring-bell-function 'ignore)
+
+;;; Security ----------------
+(setq enable-local-variables :safe)
+
+;;; -------------------------
+
+;;; Custom global keybinds --
+
+;; Kill the last word instead of using backspace
+(global-set-key "\C-w" 'backward-kill-word)
+(global-set-key "\C-x\C-k" 'kill-region)
+
+;;; -------------------------
 
 ;; Backup und Auto-Save
 (setq backup-directory-alist '((".*" . "~/.saves/"))
       auto-save-default nil)
 
 ;; Theme
-(use-package zenburn-theme
-  :config (load-theme 'zenburn t))
-
-;; Mode Line
-(use-package moody
+(use-package ef-themes
+  :init
+  (ef-themes-take-over-modus-themes-mode 1)
+  :bind
+  (("M-<f5>" . modus-themes-rotate)
+   ("C-<f5>" . modus-themes-select))
   :config
-  (moody-replace-mode-line-front-space)
-  (moody-replace-mode-line-buffer-identification)
-  (moody-replace-vc-mode))
+  (modus-themes-load-theme 'ef-maris-dark))
 
 ;; Which-key (Shortcut-Hilfe)
 (use-package which-key :config (which-key-mode))

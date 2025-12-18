@@ -15,5 +15,6 @@
     ./plasma.nix
     ./niri.nix
     ./lf.nix
+    ./helix.nix
   ];
 }

@@ -4,6 +4,8 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
+    jail-nix.url = "sourcehut:~alexdavid/jail.nix";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -64,13 +66,15 @@
       };
 
       commonNixOSModules = host: [
+	({ pkgs, ... }: { _module.args.jail = inputs.jail-nix.lib.init pkgs; })
         inputs.microvm.nixosModules.host
         (import ./modules/nixos { inherit self inputs host lib; })
-        (import ./hosts/${host}/nixos { inherit pkgs lib; })
+        (import ./hosts/${host}/nixos { inherit self pkgs lib; })
         inputs.sops-nix.nixosModules.sops
       ];
 
       commonHomeManagerModules = user: host: [
+	({ pkgs, ... }: { _module.args.jail = inputs.jail-nix.lib.init pkgs; })
         (import ./modules/home-manager {
           inherit
             pkgs
