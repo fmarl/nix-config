@@ -117,7 +117,7 @@
   };
 
   fonts.packages = with pkgs; [
-    source-code-pro
+    aporetic
     font-awesome
   ];
 
