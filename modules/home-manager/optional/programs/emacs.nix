@@ -1,4 +1,5 @@
 {
+  jail,
   config,
   lib,
   pkgs,
@@ -30,8 +31,7 @@ in
         epkgs: with epkgs; [
           # Core
           use-package
-          zenburn-theme
-          moody
+          ef-themes
           smex
           ace-window
           avy

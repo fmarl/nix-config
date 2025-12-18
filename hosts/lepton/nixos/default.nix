@@ -33,76 +33,76 @@
     niri.enable = true;
   };
 
-  containers.emacs = lib.containerUtils.wayland.gen {
-    hmConfig = {
-      programs.emacs = {
-	enable = true;
-	package = pkgs.emacs-pgtk;
+  # containers.emacs = lib.containerUtils.wayland.gen {
+  #   hmConfig = {
+  #     programs.emacs = {
+  # 	enable = true;
+  # 	package = pkgs.emacs-pgtk;
       
-	extraPackages =
-          epkgs: with epkgs; [
-            # Core
-            use-package
-            zenburn-theme
-            moody
-            smex
-            ace-window
-            avy
-            direnv
-            posframe
-            magit
-            projectile
-            yasnippet
-            yasnippet-snippets
-            markdown-mode
-            paredit
-            rainbow-delimiters
-            marginalia
-            orderless
-            consult
-            vertico
-            dirvish
+  # 	extraPackages =
+  #         epkgs: with epkgs; [
+  #           # Core
+  #           use-package
+  #           zenburn-theme
+  #           moody
+  #           smex
+  #           ace-window
+  #           avy
+  #           direnv
+  #           posframe
+  #           magit
+  #           projectile
+  #           yasnippet
+  #           yasnippet-snippets
+  #           markdown-mode
+  #           paredit
+  #           rainbow-delimiters
+  #           marginalia
+  #           orderless
+  #           consult
+  #           vertico
+  #           dirvish
           
-            # LSP
-            consult-eglot
-            cape
-            corfu
+  #           # LSP
+  #           consult-eglot
+  #           cape
+  #           corfu
 
-            # Nix Mode
-            nix-ts-mode
+  #           # Nix Mode
+  #           nix-ts-mode
 
-            # C
-            clang-format
+  #           # C
+  #           clang-format
 
-            # Rust
-            rustic
+  #           # Rust
+  #           rustic
 
-            # OCaml
-            tuareg
-            dune
-            utop
+  #           # OCaml
+  #           tuareg
+  #           dune
+  #           utop
 
-            # Clojure
-            cider
+  #           # Clojure
+  #           cider
 
-            # Gleam
-            gleam-ts-mode
+  #           # Gleam
+  #           gleam-ts-mode
           
-            # Mail & IRC
-            circe
+  #           # Mail & IRC
+  #           circe
 
-	    # Treesitter
-	    tree-sitter-langs
-	    (treesit-grammars.with-grammars (grammars: [
-	      grammars.tree-sitter-rust
-	      grammars.tree-sitter-ocaml
-	      grammars.tree-sitter-nix
-	      grammars.tree-sitter-gleam
-	    ]))
-          ];
-      };
-    };
-  };
+  # 	    # Treesitter
+  # 	    tree-sitter-langs
+  # 	    (treesit-grammars.with-grammars (grammars: [
+  # 	      grammars.tree-sitter-rust
+  # 	      grammars.tree-sitter-ocaml
+  # 	      grammars.tree-sitter-nix
+  # 	      grammars.tree-sitter-gleam
+  # 	    ]))
+  #         ];
+  #     };
+  #   };
+  # };
 
   environment = {
     shells = with pkgs; [ zsh ];
