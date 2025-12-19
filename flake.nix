@@ -3,27 +3,17 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-
-    jail-nix.url = "sourcehut:~alexdavid/jail.nix";
+    nix-darwin.url = "github:nix-darwin/nix-darwin/master";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
+    fenix = {
+      url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    microvm = {
-      url = "github:microvm-nix/microvm.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    irssi-themes = {
-      url = "github:fxttr/irssi-themes";
-      flake = false;
     };
   };
 
@@ -33,166 +23,52 @@
       nixpkgs,
       flake-utils,
       home-manager,
+      nix-darwin,
+      fenix,
       ...
     }@inputs:
     let
-      hbuild = pkgs.writeShellScriptBin "hbuild" ''
-        #!/usr/bin/env bash
-        home-manager switch --flake . $@
-      '';
+      system = "aarch64-darwin";
 
-      nbuild = pkgs.writeShellScriptBin "nbuild" ''
-        #!/usr/bin/env bash
-
-        if [ -z ''${REMOTE+x} ]; then
-          sudo nixos-rebuild switch --flake . $@
-        else
-          HOSTNAME=''${REMOTE}
-
-          nixos-rebuild switch --flake . --use-remote-sudo --build-host $@ --target-host $@
-        fi
-      '';
-
-      system = "x86_64-linux";
-
-      lib = nixpkgs.lib.extend
-        (final: prev: (import ./lib final));
-      
-      pkgs = import inputs.nixpkgs {
+      pkgs = import nixpkgs {
         inherit system;
-        config = {
-          allowUnfree = true;
-        };
-      };
-
-      commonNixOSModules = host: [
-	({ pkgs, ... }: { _module.args.jail = inputs.jail-nix.lib.init pkgs; })
-        inputs.microvm.nixosModules.host
-        (import ./modules/nixos { inherit self inputs host lib; })
-        (import ./hosts/${host}/nixos { inherit self pkgs lib; })
-        inputs.sops-nix.nixosModules.sops
-      ];
-
-      commonHomeManagerModules = user: host: [
-	({ pkgs, ... }: { _module.args.jail = inputs.jail-nix.lib.init pkgs; })
-        (import ./modules/home-manager {
-          inherit
-            pkgs
-            self
-            inputs
-            host
-            user
-            ;
-        })
-        ./hosts/${host}/home-manager
-        inputs.sops-nix.homeManagerModules.sops
-      ];
-
-      commonMicroVMModules = name: [
-        inputs.microvm.nixosModules.microvm
-        ./microvms/${name}
-      ];
-
-      mkSystem =
-        name: cfg:
-        nixpkgs.lib.nixosSystem {
-          system = cfg.system or "x86_64-linux";
-
-          pkgs = import inputs.nixpkgs {
-            inherit system;
-            config = {
-              allowUnfree = true;
-            };
-            overlays = (
-              builtins.map (
-                name:
-                (prev: super: {
-                  ${name} = self.nixosConfigurations.${name}.config.microvm.declaredRunner;
-                })
-              ) (cfg.microvms or [ ])
-            );
-          };
-
-          modules = (commonNixOSModules name) ++ (cfg.modules or [ ]);
-
-          specialArgs = { inherit inputs; };
-        };
-
-      mkHomeManager =
-        name: cfg:
-        let
-          namePair = nixpkgs.lib.match "^(.*)@(.*)$" name;
-          user = nixpkgs.lib.elemAt namePair 0;
-          host = nixpkgs.lib.elemAt namePair 1;
-        in
-        home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-
-          modules = (commonHomeManagerModules user host) ++ (cfg.modules or [ ]);
-
-          extraSpecialArgs = { inherit inputs; };
-        };
-
-      mkMicroVM =
-        name: cfg:
-        nixpkgs.lib.nixosSystem {
-          system = cfg.system or "x86_64-linux";
-
-          pkgs = import inputs.nixpkgs {
-            inherit system;
-            config = {
-              allowUnfree = true;
-            };
-            overlays = [
-              inputs.microvm.overlays.default
-            ];
-          };
-
-          modules = (commonMicroVMModules name) ++ (cfg.modules or [ ]);
-
-          specialArgs = { inherit self; };
-        };
-
-      systems = {
-        microvms = {
-          www = { };
-          devel = { };
-        };
-
-        nixos = {
-          hadron = {
-            microvms = [
-              "www"
-              "devel"
-            ];
-          };
-
-          lepton = {
-
-          };
-        };
-
-        homes = {
-          "marrero@hadron" = { };
-
-          "marrero@lepton" = { };
-        };
+        config.allowUnfree = true;
+        overlays = [
+          fenix.overlays.default
+        ];
       };
     in
     {
-      nixosConfigurations =
-        (nixpkgs.lib.mapAttrs mkSystem systems.nixos) // (nixpkgs.lib.mapAttrs mkMicroVM systems.microvms);
+      homeConfigurations."florian.marreroliestmann" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [
+          ./modules/home-manager
+          ./host/home-manager
+        ];
+      };
 
-      homeConfigurations = nixpkgs.lib.mapAttrs mkHomeManager systems.homes;
+      darwinConfigurations = {
+        HGDEMLFR003777 = nix-darwin.lib.darwinSystem {
+          inherit system pkgs;
+          modules = [
+            ./host/darwin
+            home-manager.darwinModules.home-manager
+            {
+              home-manager.useUserPackages = true;
+              home-manager.useGlobalPkgs = true;
+              home-manager.users."florian.marreroliestmann" = {
+                imports = [
+                  ./modules/home-manager
+                  ./host/home-manager
+                ];
+              };
+            }
+          ];
+        };
+      };
 
       devShells.${system}.default = pkgs.mkShell {
-        nativeBuildInputs = with pkgs; [
-          hbuild
-          nbuild
-          sops
-          nixfmt-rfc-style
-          nixfmt-tree
-        ];
+        nativeBuildInputs = [];
       };
     };
 }
