@@ -125,58 +125,6 @@ function setup_xfs {
     mount -o noexec,nosuid "$PART_BOOT" /mnt/boot
 }
 
-function generate_nixos_config {
-    info "Generating NixOS configuration ..."
-    nixos-generate-config --root /mnt
-
-    # Prompt for root and user passwords
-    info "Enter password for the root user ..."
-    ROOT_PASSWORD_HASH="$(mkpasswd -m sha-512 | sed 's/\$/\\$/g')"
-
-    info "Enter personal user name ..."
-    read USER_NAME
-
-    info "Enter password for user '${USER_NAME}' ..."
-    USER_PASSWORD_HASH="$(mkpasswd -m sha-512 | sed 's/\$/\\$/g')"
-
-    # Create configuration.nix
-    info "Writing NixOS configuration ..."
-    cat <<EOF > /mnt/etc/nixos/configuration.nix
-{ config, pkgs, lib, ... }:
-{
-  imports = [ ./hardware-configuration.nix ];
-
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  networking.hostId = "$(head -c 8 /etc/machine-id)";
-  networking.useDHCP = true;
-
-  networking.hostName = "${HOSTNAME}";
-  environment.systemPackages = with pkgs; [ vim htop git ];
-
-  users.mutableUsers = false;
-  users.users = {
-    root = { initialHashedPassword = "${ROOT_PASSWORD_HASH}"; };
-    ${USER_NAME} = {
-      isNormalUser = true;
-      initialHashedPassword = "${USER_PASSWORD_HASH}";
-      extraGroups = [ "wheel" ];
-    };
-  };
-
-  system.stateVersion = "23.11";
-}
-EOF
-    chmod 600 /mnt/etc/nixos/configuration.nix
-}
-
-# Install NixOS
-function install_nixos {
-    info "Installing NixOS ..."
-    nixos-install --no-root-passwd
-}
-
 # Cleanup function to rollback changes in case of failure
 function cleanup {
     err "An error occurred, performing cleanup..."
@@ -214,5 +162,5 @@ trap cleanup ERR
 check_root
 partition_disk
 setup_filesystem
-generate_nixos_config
-install_nixos
+
+hostname $HOSTNAME
