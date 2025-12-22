@@ -48,9 +48,10 @@
       defaultCacheTtl = 60;
       maxCacheTtl = 120;
       enableSshSupport = true;
-      pinentry.package = pkgs.pinentry-emacs;
+      pinentry.package = pkgs.pinentry_mac;
       extraConfig = ''
         ttyname $GPG_TTY
+	allow-emacs-pinentry
       '';
     };
   };
@@ -70,7 +71,6 @@
       fzf
       lf
       ripgrep
-      lazygit
     ];
   };
 }
