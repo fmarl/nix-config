@@ -3,7 +3,7 @@
   boot = {
     kernelPackages = pkgs.linuxPackages_hardened;
 
-    kernelModules = [ "kvm-intel" "v4l2loopback" ];
+    kernelModules = [ "kvm-intel" ];
 
     initrd.availableKernelModules = [
       "xhci_pci"
@@ -14,6 +14,6 @@
       "sdhci_pci"
     ];
 
-    extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
+    extraModulePackages = with config.boot.kernelPackages; [ ];
   };
 }
