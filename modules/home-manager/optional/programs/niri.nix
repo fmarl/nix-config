@@ -9,12 +9,30 @@ with lib;
 
 let
   cfg = config.modules.niri;
-
 in
 {
   options.modules.niri.enable = mkEnableOption "Install and configure niri";
 
   config = mkIf cfg.enable {
+    programs = {
+      zathura.enable = true;
+      mpv.enable = true;
+      imv.enable = true;
+    };
+
+    services = {
+      mako = {
+        enable = true;
+
+        settings = {
+          background-color = "#403e41";
+          border-color = "#353236";
+          border-radius = 12;
+          progress-color = "#78dce8";
+        };
+      };
+    };
+	
     home.file.".config/niri/config.kdl".text = ''
 prefer-no-csd
 

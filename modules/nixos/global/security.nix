@@ -85,7 +85,7 @@ with lib;
 
     kernel.sysctl = {
       "kernel.yama.ptrace_scope" = mkOverride 500 1;
-      # "kernel.unprivileged_userns_clone" = mkDefault true;
+      "kernel.unprivileged_userns_clone" = mkDefault 1;
       "net.ipv4.conf.default.accept_source_route" = mkDefault 0;
       "kernel.sysrq" = mkDefault 0;
       "kernel.unprivileged_bpf_disabled" = mkDefault 1;

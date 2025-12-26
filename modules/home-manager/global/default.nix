@@ -48,6 +48,7 @@
     pinentry.package = pkgs.pinentry-curses;
     extraConfig = ''
       ttyname $GPG_TTY
+      allow-emacs-pinentry
     '';
   };
 
