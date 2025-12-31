@@ -71,6 +71,9 @@ in
           # Mail & IRC
           circe
 
+	  # RSS
+	  elfeed
+
 	  # Treesitter
 	  tree-sitter-langs
 	  (treesit-grammars.with-grammars (grammars: [
