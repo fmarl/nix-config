@@ -65,8 +65,8 @@ in
           # Clojure
           cider
 
-          # Gleam
-          gleam-ts-mode
+          # Zig
+          zig-mode
           
           # Mail & IRC
           circe
@@ -78,9 +78,9 @@ in
 	  tree-sitter-langs
 	  (treesit-grammars.with-grammars (grammars: [
 	    grammars.tree-sitter-rust
-	    grammars.tree-sitter-ocaml
 	    grammars.tree-sitter-nix
-	    grammars.tree-sitter-gleam
+	    grammars.tree-sitter-zig
+	    grammars.tree-sitter-clojure
 	  ]))
         ];
     };
