@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 {
   users = {
-    mutableUsers = false;
+    mutableUsers = true;
 
     users.marrero = {
       isNormalUser = true;

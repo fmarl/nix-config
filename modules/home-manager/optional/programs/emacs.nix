@@ -65,15 +65,18 @@ in
           # Clojure
           cider
 
+	  # Common Lisp
+	  sly
+
           # Zig
           zig-mode
           
-          # Mail & IRC
+          # Utils
           circe
-
-	  # RSS
+	  mu4e
 	  elfeed
-
+	  ement
+	  
 	  # Treesitter
 	  tree-sitter-langs
 	  (treesit-grammars.with-grammars (grammars: [
