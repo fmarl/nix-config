@@ -58,15 +58,15 @@ in
           rustic
 
           # OCaml
-          tuareg
-          dune
-          utop
+          # tuareg
+          # dune
+          # utop
 
           # Clojure
-          cider
+          # cider
 
 	  # Common Lisp
-	  sly
+	  # sly
 
           # Zig
           zig-mode
@@ -74,6 +74,7 @@ in
           # Utils
           circe
 	  mu4e
+	  verb
 	  elfeed
 	  ement
 	  
@@ -83,7 +84,7 @@ in
 	    grammars.tree-sitter-rust
 	    grammars.tree-sitter-nix
 	    grammars.tree-sitter-zig
-	    grammars.tree-sitter-clojure
+	    #grammars.tree-sitter-clojure
 	  ]))
         ];
     };

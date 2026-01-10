@@ -79,7 +79,7 @@
         };
       };
     };
-
+    
     git = {
       enable = true;
       ignores = [
@@ -103,8 +103,22 @@
         };
 	
         pull = {
-          rebase = false;
+          rebase = true;
         };
+
+	sendemail = {
+	  smtpserver = "${pkgs.msmtp}/bin/msmtp";
+	  smtpserveroption = "-a";
+	  from = "Florian Marrero Liestmann <f.m.liestmann@fx-ttr.de>";
+	  thread = true;
+	  chainreplyto = false;
+	  suppresscc = "self";
+	  confirm = "always";
+	};
+
+	format = {
+	  subjectPrefix = "PATCH";
+	};
       };
 
       signing = {
@@ -116,5 +130,9 @@
 
   home.packages = with pkgs; [
     signal-desktop-bin
+    isync
+    msmtp
+    mu
+    age
   ];
 }
