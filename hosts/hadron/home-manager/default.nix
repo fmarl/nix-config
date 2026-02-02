@@ -58,7 +58,7 @@
 
     git = {
       enable = true;
-      
+
       ignores = [
         ".direnv/"
         ".cache/"
@@ -69,16 +69,16 @@
           name = "Florian Marrero Liestmann";
           email = "f.m.liestmann@fx-ttr.de";
         };
-        
+
         core = {
           editor = "emacsclient -c -a '' -w";
           whitespace = "-trailing-space";
         };
-        
+
         log = {
           abbrevCommit = true;
         };
-        
+
         pull = {
           rebase = false;
         };

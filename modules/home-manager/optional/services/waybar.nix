@@ -196,7 +196,7 @@ in
         	padding: 0 2px;
         	color: #fdf6e3;
         }
-        
+
         #tags,
         #workspaces  button.focused {
         	color: #268bd2;
@@ -207,7 +207,7 @@ in
         	box-shadow: inherit;
         	text-shadow: inherit;
         }
-        
+
         #tags,
         #workspaces button:hover {
         	background: #1a1a1a;

@@ -2,7 +2,7 @@
 {
   services = {
     logrotate.checkConfig = false;
-    
+
     dbus.enable = true;
 
     pcscd.enable = true;

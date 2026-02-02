@@ -79,7 +79,7 @@
         };
       };
     };
-    
+
     git = {
       enable = true;
       ignores = [
@@ -88,36 +88,36 @@
       ];
 
       settings = {
-	user = {
-	  name = "Florian Marrero Liestmann";
-	  email = "f.m.liestmann@fx-ttr.de";
-	};
-	
+        user = {
+          name = "Florian Marrero Liestmann";
+          email = "f.m.liestmann@fx-ttr.de";
+        };
+
         core = {
           editor = "emacsclient -c -a '' -w";
           whitespace = "-trailing-space";
         };
-	
+
         log = {
           abbrevCommit = true;
         };
-	
+
         pull = {
           rebase = true;
         };
 
-	sendemail = {
-	  sendmailCmd = "${pkgs.msmtp}/bin/msmtp";
-	  from = "Florian Marrero Liestmann <f.m.liestmann@fx-ttr.de>";
-	  thread = true;
-	  chainreplyto = false;
-	  suppresscc = "self";
-	  confirm = "always";
-	};
+        sendemail = {
+          sendmailCmd = "${pkgs.msmtp}/bin/msmtp";
+          from = "Florian Marrero Liestmann <f.m.liestmann@fx-ttr.de>";
+          thread = true;
+          chainreplyto = false;
+          suppresscc = "self";
+          confirm = "always";
+        };
 
-	format = {
-	  subjectPrefix = "PATCH";
-	};
+        format = {
+          subjectPrefix = "PATCH";
+        };
       };
 
       signing = {
