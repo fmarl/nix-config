@@ -190,7 +190,7 @@
           hbuild
           nbuild
           sops
-          nixfmt-rfc-style
+          nixfmt
           nixfmt-tree
         ];
       };
