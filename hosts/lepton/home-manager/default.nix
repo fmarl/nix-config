@@ -133,6 +133,5 @@
     msmtp
     mu
     age
-    obs-studio
   ];
 }
