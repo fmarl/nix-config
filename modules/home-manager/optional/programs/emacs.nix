@@ -19,7 +19,7 @@ in
     programs.emacs = {
       enable = true;
       package = pkgs.emacs-pgtk;
-      
+
       extraPackages =
         epkgs: with epkgs; [
           # Core
@@ -42,7 +42,7 @@ in
           consult
           vertico
           dirvish
-          
+
           # LSP
           consult-eglot
           cape
@@ -65,32 +65,32 @@ in
           # Clojure
           # cider
 
-	  # Common Lisp
-	  # sly
+          # Common Lisp
+          # sly
 
           # Zig
           zig-mode
-          
+
           # Utils
           circe
-	  mu4e
-	  verb
-	  elfeed
-	  ement
+          mu4e
+          verb
+          elfeed
+          ement
 
-	  org-roam
-	  org-modern
+          org-roam
+          org-modern
           denote
-	  meow
-	  
-	  # Treesitter
-	  tree-sitter-langs
-	  (treesit-grammars.with-grammars (grammars: [
-	    grammars.tree-sitter-rust
-	    grammars.tree-sitter-nix
-	    grammars.tree-sitter-zig
-	    #grammars.tree-sitter-clojure
-	  ]))
+          meow
+
+          # Treesitter
+          tree-sitter-langs
+          (treesit-grammars.with-grammars (grammars: [
+            grammars.tree-sitter-rust
+            grammars.tree-sitter-nix
+            grammars.tree-sitter-zig
+            #grammars.tree-sitter-clojure
+          ]))
         ];
     };
   };

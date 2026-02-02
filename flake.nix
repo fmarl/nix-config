@@ -55,9 +55,8 @@
 
       system = "x86_64-linux";
 
-      lib = nixpkgs.lib.extend
-        (final: prev: (import ./lib final));
-      
+      lib = nixpkgs.lib.extend (final: prev: (import ./lib final));
+
       pkgs = import inputs.nixpkgs {
         inherit system;
         config = {
@@ -66,15 +65,32 @@
       };
 
       commonNixOSModules = host: [
-	({ pkgs, ... }: { _module.args.jail = inputs.jail-nix.lib.init pkgs; })
+        (
+          { pkgs, ... }:
+          {
+            _module.args.jail = inputs.jail-nix.lib.init pkgs;
+          }
+        )
         inputs.microvm.nixosModules.host
-        (import ./modules/nixos { inherit self inputs host lib; })
+        (import ./modules/nixos {
+          inherit
+            self
+            inputs
+            host
+            lib
+            ;
+        })
         (import ./hosts/${host}/nixos { inherit self pkgs lib; })
         inputs.sops-nix.nixosModules.sops
       ];
 
       commonHomeManagerModules = user: host: [
-	({ pkgs, ... }: { _module.args.jail = inputs.jail-nix.lib.init pkgs; })
+        (
+          { pkgs, ... }:
+          {
+            _module.args.jail = inputs.jail-nix.lib.init pkgs;
+          }
+        )
         (import ./modules/home-manager {
           inherit
             pkgs
