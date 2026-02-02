@@ -107,8 +107,7 @@
         };
 
 	sendemail = {
-	  smtpserver = "${pkgs.msmtp}/bin/msmtp";
-	  smtpserveroption = "-a";
+	  sendmailCmd = "${pkgs.msmtp}/bin/msmtp";
 	  from = "Florian Marrero Liestmann <f.m.liestmann@fx-ttr.de>";
 	  thread = true;
 	  chainreplyto = false;
@@ -134,5 +133,6 @@
     msmtp
     mu
     age
+    obs-studio
   ];
 }

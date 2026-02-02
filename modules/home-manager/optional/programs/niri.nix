@@ -140,6 +140,7 @@ binds {
     Mod+Shift+Return hotkey-overlay-title="Open alacritty" { spawn "${pkgs.alacritty}/bin/alacritty"; }
     Mod+P hotkey-overlay-title="Run bemenu" { spawn "${pkgs.bemenu}/bin/bemenu-run" "--tb" "#000000" "--tf" "#ffffff" "--line-height" "26" "--prompt" "λ ~>"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen" { spawn "${pkgs.waylock}/bin/waylock"; }
+    Mod+Shift+D hotkey-overlay-title="Start dirvish" { spawn-sh "${pkgs.emacs-pgtk}/bin/emacsclient -c -n -e '(dirvish-dwim)'"; }
     
     XF86AudioRaiseVolume allow-when-locked=true { spawn "${pkgs.wireplumber}/bin/wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn "${pkgs.wireplumber}/bin/wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"; }
