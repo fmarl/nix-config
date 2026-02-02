@@ -3,6 +3,8 @@
   ...
 }:
 {
+  services.mullvad-vpn.enable = true;
+
   networking = {
     hostName = host;
 
