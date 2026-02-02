@@ -77,6 +77,11 @@ in
 	  verb
 	  elfeed
 	  ement
+
+	  org-roam
+	  org-modern
+          denote
+	  meow
 	  
 	  # Treesitter
 	  tree-sitter-langs

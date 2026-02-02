@@ -1,13 +1,12 @@
 { config, pkgs, ... }:
 {
   users = {
-    mutableUsers = false;
+    mutableUsers = true;
 
     users.marrero = {
       isNormalUser = true;
       createHome = true;
       description = "Florian Marrero Liestmann";
-      hashedPasswordFile = config.sops.secrets.user-password.path;
       extraGroups = [
         "wheel"
         "wireshark"
