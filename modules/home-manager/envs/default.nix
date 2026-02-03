@@ -7,5 +7,6 @@
     ./rust.nix
     ./lisp.nix
     ./clojure.nix
+    ./zig.nix
   ];
 }

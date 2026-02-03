@@ -16,7 +16,7 @@ in
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       jdt-language-server
-      openjdk21
+      openjdk25
       gradle
       maven
     ];

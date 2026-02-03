@@ -15,11 +15,10 @@ in
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      (python312.withPackages (python-pkgs: [
-        python-pkgs.black
-      	python-pkgs.pylint
-      	python-pkgs.ruff
-      	python-pkgs.python-lsp-ruff
+      (python312.withPackages (python-pkgs: with python-pkgs; [
+	pip
+      	ruff
+      	python-lsp-ruff
       ]))
       pipenv
       pyenv

@@ -7,17 +7,15 @@
     zsh.enable = true;
     owl.enable = true;
     emacs.enable = true;
-    lf.enable = true;
-    tmux.enable = true;
     helix.enable = true;
 
     envs = {
       python.enable = true;
       go.enable = true;
-      java.enable = true;
       ocaml.enable = true;
       clojure.enable = true;
       rust.enable = true;
+      java.enable = true;
     };
   };
 
@@ -96,6 +94,8 @@
   home.packages = with pkgs; [
     insomnia
     awscli2
+    claude-code
+    gitleaks
   ];
 
   home.stateVersion = "25.05";

@@ -1,26 +1,26 @@
 {
-	pkgs,
-	lib,
-	config,
-	...
+  pkgs,
+  lib,
+  config,
+  ...
 }:
 
 with lib;
 
 let
-	cfg = config.modules.envs.clojure;
+  cfg = config.modules.envs.clojure;
 in
-{
-  options.modules.envs.clojure.enable = mkEnableOption "Install and configure Clojure";
+  {
+    options.modules.envs.clojure.enable = mkEnableOption "Install and configure Clojure";
 
-  config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      openjdk21
-      clojure
-      rlwrap
-      clj-kondo
-      cljstyle
-      clojure-lsp
-    ];
-  };
-}
+    config = mkIf cfg.enable {
+      home.packages = with pkgs; [
+	clojure
+	rlwrap
+	clj-kondo
+	cljstyle
+	clojure-lsp
+	leiningen
+      ];
+    };
+  }
