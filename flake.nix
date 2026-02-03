@@ -55,14 +55,14 @@
 
       system = "x86_64-linux";
 
-      lib = nixpkgs.lib.extend (final: prev: (import ./lib final));
-
       pkgs = import inputs.nixpkgs {
         inherit system;
         config = {
           allowUnfree = true;
         };
       };
+
+      lib = nixpkgs.lib;
 
       commonNixOSModules = host: [
         (
