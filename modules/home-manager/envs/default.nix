@@ -8,5 +8,6 @@
     ./lisp.nix
     ./clojure.nix
     ./zig.nix
+    ./sec.nix
   ];
 }

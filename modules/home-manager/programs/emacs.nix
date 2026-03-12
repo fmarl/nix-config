@@ -78,25 +78,29 @@ in
           rustic
 
           # OCaml
-          tuareg
-          dune
-          utop
+          # tuareg
+          # dune
+          # utop
+
+	  # Zig
+	  zig-mode
 
           # Clojure
           cider
 
-	  vterm
-	  inheritenv
+	  # Gleam
+	  # gleam-ts-mode
 
+	  # Meow-edit
 	  meow
 	  
 	  # Treesitter
 	  tree-sitter-langs
 	  (treesit-grammars.with-grammars (grammars: [
 	    grammars.tree-sitter-rust
-	    grammars.tree-sitter-ocaml
+	    # grammars.tree-sitter-ocaml 
 	    grammars.tree-sitter-nix
-	    grammars.tree-sitter-gleam
+	    # grammars.tree-sitter-gleam
 	    grammars.tree-sitter-clojure
 	    grammars.tree-sitter-zig
 	  ]))

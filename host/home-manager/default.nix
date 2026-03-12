@@ -12,9 +12,10 @@
     envs = {
       python.enable = true;
       go.enable = true;
-      ocaml.enable = true;
+      #zig.enable = true;
       clojure.enable = true;
       rust.enable = true;
+      sec.enable = true;
       java.enable = true;
     };
   };

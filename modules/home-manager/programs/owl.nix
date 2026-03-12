@@ -22,6 +22,10 @@ in
           echo "owl <secret-name> <env-variable>"
           echo
           echo "Example usage: owl snyk-token SNYK_TOKEN"
+	  echo
+          echo "Alternative: Use owl to wrap a program and inject the secret into it's process environment."
+	  echo
+          echo "Example usage: owl snyk-token SNYK_TOKEN ./get-issues.py"
           exit 0
         fi
 
@@ -41,15 +45,21 @@ in
           exit 1
         fi
 
-        KEEPASS_ENTRY="''$(${pkgs.keepassxc}/bin/keepassxc-cli show -s ''$OWL_DB ''$1)"
-
-        ENTRY_PASSWORD="''$(echo "''$KEEPASS_ENTRY" | grep -i 'password:' | cut -d ' ' -f 2)"
-
-        unset KEEPASS_ENTRY
-
+        SECRET_NAME="$1"
+        VARIABLE_NAME="$2"
+        ENTRY_PASSWORD="''$(${pkgs.keepassxc}/bin/keepassxc-cli show -s -a password ''$OWL_DB ''$SECRET_NAME)"
+	
         if [[ -n "''$ENTRY_PASSWORD" ]]; then
-          echo "export ''$2=\"''$ENTRY_PASSWORD\""
-        fi
+          if [[ -z "''$3" ]]; then
+            echo "export ''$VARIABLE_NAME=\"''$ENTRY_PASSWORD\""
+	    unset SECRET_NAME
+            unset VARIABLE_NAME
+	    unset ENTRY_PASSWORD
+          else
+	    shift 2
+            env -i "''$VARIABLE_NAME=''$ENTRY_PASSWORD" PATH="''$PATH" "''$@"
+          fi
+	fi
       '')
     ];
   };
