@@ -4,20 +4,19 @@
   ...
 }:
 
-with lib;
 
 let
   cfg = config.modules.waybar;
 in
 {
-  options.modules.waybar.enable = mkEnableOption "Install and configure waybar";
-  options.modules.waybar.mobile = mkOption {
-    type = types.bool;
+  options.modules.waybar.enable = lib.mkEnableOption "Install and configure waybar";
+  options.modules.waybar.mobile = lib.mkOption {
+    type = lib.types.bool;
     description = "Enable a smaller version of waybar for mobile devices";
     default = false;
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs.waybar = {
       enable = true;
       settings = [

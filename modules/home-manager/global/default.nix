@@ -1,11 +1,15 @@
 {
   pkgs,
-  self,
-  host,
   user,
   ...
 }:
 {
+  imports = [
+    ./sops.nix
+    ./ssh.nix
+    ./git.nix
+  ];
+
   nixpkgs.config.allowUnfree = true;
 
   programs.gpg = {
@@ -52,19 +56,13 @@
     '';
   };
 
-  sops = {
-    defaultSopsFile = "${self}/hosts/${host}/secrets.yaml";
-  };
-
-  programs = {
-    direnv = {
-      enable = true;
-      nix-direnv.enable = true;
-    };
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
   };
 
   home = {
-    username = "${user}";
+    username = user;
     homeDirectory = "/home/${user}";
     stateVersion = "25.05";
     packages = with pkgs; [

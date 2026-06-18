@@ -5,16 +5,15 @@
   ...
 }:
 
-with lib;
 
 let
   cfg = config.modules.zsh;
 
 in
 {
-  options.modules.zsh.enable = mkEnableOption "Install and configure irssi";
+  options.modules.zsh.enable = lib.mkEnableOption "Install and configure irssi";
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs.starship = {
       enable = true;
     };

@@ -1,13 +1,11 @@
+{ lib, ... }:
+let
+  here = ./.;
+  isModule =
+    name: type:
+    type == "regular" && lib.hasSuffix ".nix" name && name != "default.nix";
+  children = lib.attrNames (lib.filterAttrs isModule (builtins.readDir here));
+in
 {
-  imports = [
-    ./river.nix
-    ./dwl.nix
-    ./sway.nix
-    ./swm.nix
-    ./mate.nix
-    ./labwc.nix
-    ./gnome.nix
-    ./niri.nix
-    ./plasma.nix
-  ];
+  imports = map (n: here + "/${n}") children;
 }

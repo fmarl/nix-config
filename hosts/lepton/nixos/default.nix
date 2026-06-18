@@ -13,25 +13,14 @@
     ./users.nix
   ];
 
-  sops = {
-    age = {
-      keyFile = "/home/marrero/.config/sops/age/keys.txt";
-      generateKey = true;
-    };
-  };
-
   nix.nixPath = [
     "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
     "/nix/var/nix/profiles/per-user/root/channels"
   ];
 
-  programs = {
-    zsh.enable = true;
-  };
+  programs.zsh.enable = true;
 
-  modules = {
-    niri.enable = true;
-  };
+  modules.niri.enable = true;
 
   environment = {
     shells = with pkgs; [ zsh ];

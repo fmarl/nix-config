@@ -5,16 +5,15 @@
   ...
 }:
 
-with lib;
 
 let
   cfg = config.modules.theme;
 
 in
 {
-  options.modules.theme.enable = mkEnableOption "Install and configure GTK themes";
+  options.modules.theme.enable = lib.mkEnableOption "Install and configure GTK themes";
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     gtk = {
       enable = true;
 

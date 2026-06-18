@@ -1,18 +1,14 @@
 {
   pkgs,
   config,
+  user,
+  users,
   ...
 }:
+let
+  me = users.${user};
+in
 {
-  sops = {
-    age = {
-      keyFile = "/home/marrero/.config/sops/age/keys.txt";
-      generateKey = true;
-    };
-
-    secrets.ssh.path = "/run/user/1000/secrets/ssh";
-  };
-
   modules = {
     zsh.enable = true;
     librewolf.enable = true;
@@ -31,99 +27,33 @@
   fonts.fontconfig.enable = true;
 
   programs = {
-    ssh = {
-      enable = true;
-      enableDefaultConfig = false;
-
-      matchBlocks = {
-        "github.com" = {
-          hostname = "github.com";
-          user = "git";
-          hashKnownHosts = true;
-          forwardAgent = false;
-          compression = false;
-          forwardX11 = false;
-          forwardX11Trusted = false;
-          serverAliveInterval = 0;
-          serverAliveCountMax = 1;
-          controlPersist = "no";
-          identityFile = config.sops.secrets.ssh.path;
-        };
-
-        "codeberg.org" = {
-          hostname = "codeberg.org";
-          user = "git";
-          hashKnownHosts = true;
-          forwardAgent = false;
-          compression = false;
-          forwardX11 = false;
-          forwardX11Trusted = false;
-          serverAliveInterval = 0;
-          serverAliveCountMax = 1;
-          controlPersist = "no";
-          identityFile = config.sops.secrets.ssh.path;
-        };
-
-        "workstation" = {
-          hostname = "192.168.0.200";
-          user = "marrero";
-          hashKnownHosts = true;
-          forwardAgent = false;
-          compression = false;
-          forwardX11 = false;
-          forwardX11Trusted = false;
-          serverAliveInterval = 0;
-          serverAliveCountMax = 2;
-          controlPersist = "no";
-          identityFile = config.sops.secrets.ssh.path;
-        };
-      };
+    ssh.settings."workstation" = {
+      hostname = "192.168.0.200";
+      user = "marrero";
+      hashKnownHosts = true;
+      forwardAgent = false;
+      compression = false;
+      forwardX11 = false;
+      forwardX11Trusted = false;
+      serverAliveInterval = 0;
+      serverAliveCountMax = 2;
+      controlPersist = "no";
+      identityFile = config.sops.secrets.ssh.path;
     };
 
-    git = {
-      enable = true;
-      ignores = [
-        ".direnv/"
-        ".cache/"
-      ];
+    git.settings = {
+      pull.rebase = true;
 
-      settings = {
-        user = {
-          name = "Florian Marrero Liestmann";
-          email = "f.m.liestmann@fx-ttr.de";
-        };
-
-        core = {
-          editor = "emacsclient -c -a '' -w";
-          whitespace = "-trailing-space";
-        };
-
-        log = {
-          abbrevCommit = true;
-        };
-
-        pull = {
-          rebase = true;
-        };
-
-        sendemail = {
-          sendmailCmd = "${pkgs.msmtp}/bin/msmtp";
-          from = "Florian Marrero Liestmann <f.m.liestmann@fx-ttr.de>";
-          thread = true;
-          chainreplyto = false;
-          suppresscc = "self";
-          confirm = "always";
-        };
-
-        format = {
-          subjectPrefix = "PATCH";
-        };
+      sendemail = {
+        sendmailCmd = "${pkgs.msmtp}/bin/msmtp";
+        from = "${me.fullName} <${me.email}>";
+        thread = true;
+        chainreplyto = false;
+        suppresscc = "self";
+        confirm = "always";
       };
 
-      signing = {
-        signByDefault = false;
-        key = "D1912EEBC3FBEBB4";
-      };
+      format.subjectPrefix = "PATCH";
     };
   };
 

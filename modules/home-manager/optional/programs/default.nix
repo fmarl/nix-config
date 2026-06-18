@@ -1,20 +1,11 @@
+{ lib, ... }:
+let
+  here = ./.;
+  isModule =
+    name: type:
+    type == "regular" && lib.hasSuffix ".nix" name && name != "default.nix";
+  children = lib.attrNames (lib.filterAttrs isModule (builtins.readDir here));
+in
 {
-  imports = [
-    ./river.nix
-    ./mail.nix
-    ./sway.nix
-    ./zsh.nix
-    ./irssi.nix
-    ./emacs.nix
-    ./swm.nix
-    ./tmux.nix
-    ./neovim.nix
-    ./librewolf.nix
-    ./labwc.nix
-    ./gnome.nix
-    ./plasma.nix
-    ./niri.nix
-    ./lf.nix
-    ./helix.nix
-  ];
+  imports = map (n: here + "/${n}") children;
 }

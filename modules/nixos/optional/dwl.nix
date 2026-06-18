@@ -5,28 +5,27 @@
   ...
 }:
 
-with lib;
 
 let
   cfg = config.modules.dwl;
 in
 {
   options.modules.dwl = {
-    enable = mkEnableOption "Install and configure dwl";
+    enable = lib.mkEnableOption "Install and configure dwl";
 
-    patches = mkOption {
-      type = types.listOf types.path;
+    patches = lib.mkOption {
+      type = lib.types.listOf lib.types.path;
       default = [ ];
       description = "List of patch files to apply to dwl";
     };
 
-    config = mkOption {
-      type = types.path;
+    config = lib.mkOption {
+      type = lib.types.path;
       description = "Configuration for dwl";
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     xdg.portal = {
       enable = true;
       wlr.enable = true;
