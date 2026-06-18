@@ -5,16 +5,13 @@
   ...
 }:
 
-with lib;
-
 let
   cfg = config.modules.tmux;
-
 in
 {
-  options.modules.tmux.enable = mkEnableOption "Install and configure tmux";
+  options.modules.tmux.enable = lib.mkEnableOption "Install and configure tmux";
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs.tmux = {
       enable = true;
       shell = "/bin/zsh";

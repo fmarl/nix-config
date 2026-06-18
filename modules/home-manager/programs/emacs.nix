@@ -5,106 +5,103 @@
   ...
 }:
 
-with lib;
-
 let
   cfg = config.modules.emacs;
 in
-  {
-    options.modules.emacs.enable = mkEnableOption "Install and configure emacs";
+{
+  options.modules.emacs.enable = lib.mkEnableOption "Install and configure emacs";
 
-    config = mkIf cfg.enable {
-      # The config is provided via dotfiles.
-      services.emacs.enable = true;
-      programs.emacs = {
-	enable = true;
+  config = lib.mkIf cfg.enable {
+    # The config is provided via dotfiles.
+    services.emacs.enable = true;
+    programs.emacs = {
+      enable = true;
 
-	extraPackages = epkgs: with epkgs; [
-          # Core
-          use-package
-          ef-themes
-          moody
-          smex
-          ace-window
-          avy
-          direnv
-          posframe
-          magit
-          projectile
-          dirvish
-	  eldoc-box
-	  consult-eglot
-          corfu
-          cape
-          yasnippet
-          yasnippet-snippets
-          paredit
-          rainbow-delimiters
-	  consult
-	  marginalia
-	  orderless
-	  vertico
-	  markdown-mode
-	  terraform-mode
-	  yaml-mode
-	  verb
-	  circe
-	  elfeed
+      extraPackages = epkgs: with epkgs; [
+        # Core
+        use-package
+        ef-themes
+        moody
+        smex
+        ace-window
+        avy
+        direnv
+        posframe
+        magit
+        projectile
+        dirvish
+        eldoc-box
+        consult-eglot
+        corfu
+        cape
+        yasnippet
+        yasnippet-snippets
+        paredit
+        rainbow-delimiters
+        consult
+        marginalia
+        orderless
+        vertico
+        markdown-mode
+        terraform-mode
+        yaml-mode
+        verb
+        circe
+        elfeed
 
-	  # Org & Denote
-	  denote
-	  org-roam
-    
-	  # C / C++
-	  clang-format
-	
-          # Python
-          blacken
-          python-mode
+        # Org & Denote
+        denote
+        org-roam
 
-          # Go
-          go-mode
-          go-eldoc
-          go-dlv
-          gotest
+        # C / C++
+        clang-format
 
-	  # Java
-	  eglot-java
+        # Python
+        python-mode
 
-	  # Nix
-	  nix-ts-mode
+        # Go
+        go-mode
+        go-eldoc
+        go-dlv
+        gotest
 
-          # Rust
-          rustic
+        # Java
+        eglot-java
 
-          # OCaml
-          # tuareg
-          # dune
-          # utop
+        # Nix
+        nix-ts-mode
 
-	  # Zig
-	  zig-mode
+        # Rust
+        rustic
 
-          # Clojure
-          cider
+        # OCaml
+        # tuareg
+        # dune
+        # utop
 
-	  # Gleam
-	  # gleam-ts-mode
+        # Zig
+        zig-mode
 
-	  # Meow-edit
-	  meow
-	  
-	  # Treesitter
-	  tree-sitter-langs
-	  (treesit-grammars.with-grammars (grammars: [
-	    grammars.tree-sitter-rust
-	    # grammars.tree-sitter-ocaml 
-	    grammars.tree-sitter-nix
-	    # grammars.tree-sitter-gleam
-	    grammars.tree-sitter-clojure
-	    grammars.tree-sitter-zig
-	  ]))
-	];
-      };
+        # Clojure
+        cider
+
+        # Gleam
+        # gleam-ts-mode
+
+        # Meow-edit
+        meow
+
+        # Treesitter
+        tree-sitter-langs
+        (treesit-grammars.with-grammars (grammars: [
+          grammars.tree-sitter-rust
+          # grammars.tree-sitter-ocaml
+          grammars.tree-sitter-nix
+          # grammars.tree-sitter-gleam
+          grammars.tree-sitter-clojure
+          grammars.tree-sitter-zig
+        ]))
+      ];
     };
-  }
+  };
+}

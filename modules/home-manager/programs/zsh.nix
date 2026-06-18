@@ -4,18 +4,16 @@
   ...
 }:
 
-with lib;
-
 let
   cfg = config.modules.zsh;
 in
 {
-  options.modules.zsh.enable = mkEnableOption "Install and configure zsh";
+  options.modules.zsh.enable = lib.mkEnableOption "Install and configure zsh";
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs = {
       starship.enable = true;
-      
+
       zsh = {
         enable = true;
         syntaxHighlighting.enable = false;
@@ -23,13 +21,14 @@ in
         enableCompletion = true;
 
         shellAliases = {
-          switch = "sudo darwin-rebuild switch --flake .";
+          switch = ''sudo darwin-rebuild switch --flake "''${NIX_CONFIG_DIR:-$HOME/Devel/Priv/nix-config}"'';
+          lx-claude = "$HOME/Devel/SecEn/lx-claude-code/lx-claude.py";
         };
 
         sessionVariables = {
-          OWL_DB = "/Users/florian.marreroliestmann/Documents/Lxo.kdbx";
-          GPG_TTY = "$(tty)";
-          FZF_DEFAULT_COMMAND = "rg --files --hidden --glob '!.git' --glob '!.direnv' --global '!.cache'";
+          NIX_CONFIG_DIR = "$HOME/Devel/Priv/nix-config";
+          OWL_DB = "$HOME/Documents/Lxo.kdbx";
+          FZF_DEFAULT_COMMAND = "rg --files --hidden --glob '!.git' --glob '!.direnv' --glob '!.cache'";
           FZF_CTRL_T_COMMAND = "rg --files --hidden --glob '!.git' --glob '!.direnv' --glob '!.cache'";
           SECEN = "$HOME/Devel/SecEn/";
           INFRA = "$HOME/Devel/Infra/";
@@ -37,27 +36,20 @@ in
         };
 
         initContent = ''
-	  PROMPT='%~ $ '
+          export GPG_TTY=$(tty)
+	  export PATH=$PATH:$HOME/.local/bin
 
           if [ -n "''${commands[fzf-share]}" ]; then
-                  source "$(fzf-share)/key-bindings.zsh"
-                  source "$(fzf-share)/completion.zsh"
-          fi
-
-          if [ $(ps -ef | grep "ssh-agent" | grep -v "grep" | wc -l) -eq 0 ]; then
-              eval `ssh-agent -s` > /dev/null
-              echo "export SSH_AUTH_SOCK=$SSH_AUTH_SOCK" > "$HOME/.ssh/agent.env"
-              echo "export SSH_AGENT_PID=$SSH_AGENT_PID" >> "$HOME/.ssh/agent.env"
-              chmod 600 "$HOME/.ssh/agent.env"
-          else
-              source "$HOME/.ssh/agent.env" > /dev/null
+            source "$(fzf-share)/key-bindings.zsh"
+            source "$(fzf-share)/completion.zsh"
           fi
 
           if ! ssh-add -l &>/dev/null; then
-               ssh-add -t 1d ~/.ssh/default
+            eval $(ssh-agent -s) > /dev/null
+            ssh-add -t 1d ~/.ssh/default
           fi
 
-	  [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && source "$EAT_SHELL_INTEGRATION_DIR/zsh"
+          ${builtins.readFile ./cc-worktree.zsh}
         '';
       };
     };

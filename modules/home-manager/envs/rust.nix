@@ -5,15 +5,13 @@
   ...
 }:
 
-with lib;
-
 let
   cfg = config.modules.envs.rust;
 in
 {
-  options.modules.envs.rust.enable = mkEnableOption "Install and configure Rust";
+  options.modules.envs.rust.enable = lib.mkEnableOption "Install and configure Rust";
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       (fenix.complete.withComponents [
         "cargo"
@@ -21,7 +19,7 @@ in
         "rust-src"
         "rustc"
         "rustfmt"
-	"rust-analyzer"
+        "rust-analyzer"
       ])
     ];
   };

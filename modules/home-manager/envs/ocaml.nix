@@ -5,15 +5,13 @@
   ...
 }:
 
-with lib;
-
 let
   cfg = config.modules.envs.ocaml;
 in
 {
-  options.modules.envs.ocaml.enable = mkEnableOption "Install and configure OCaml";
+  options.modules.envs.ocaml.enable = lib.mkEnableOption "Install and configure OCaml";
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       ocaml
       dune_3

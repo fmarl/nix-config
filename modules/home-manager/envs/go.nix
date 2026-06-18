@@ -5,15 +5,13 @@
   ...
 }:
 
-with lib;
-
 let
   cfg = config.modules.envs.go;
 in
 {
-  options.modules.envs.go.enable = mkEnableOption "Install and configure Go";
+  options.modules.envs.go.enable = lib.mkEnableOption "Install and configure Go";
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       go
       gopls

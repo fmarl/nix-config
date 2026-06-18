@@ -1,5 +1,7 @@
 {
+  lib,
   pkgs,
+  vars,
   ...
 }:
 {
@@ -7,8 +9,6 @@
     ./programs
     ./envs
   ];
-
-  nixpkgs.config.allowUnfree = true;
 
   programs.gpg = {
     enable = true;
@@ -42,18 +42,17 @@
     };
   };
 
-  services = {
-    gpg-agent = {
-      enable = true;
-      defaultCacheTtl = 60;
-      maxCacheTtl = 120;
-      enableSshSupport = true;
-      pinentry.package = pkgs.pinentry_mac;
-      extraConfig = ''
-        ttyname $GPG_TTY
-	allow-emacs-pinentry
-      '';
-    };
+  services.gpg-agent = {
+    enable = true;
+    defaultCacheTtl = 60;
+    maxCacheTtl = 120;
+    enableSshSupport = true;
+    pinentry.package =
+      if pkgs.stdenv.hostPlatform.isDarwin then pkgs.pinentry_mac else pkgs.pinentry-curses;
+    extraConfig = ''
+      ttyname $GPG_TTY
+      allow-emacs-pinentry
+    '';
   };
 
   programs = {
@@ -65,8 +64,8 @@
   };
 
   home = {
-    username = "florian.marreroliestmann";
-    homeDirectory = "/Users/florian.marreroliestmann";
+    username = vars.user;
+    homeDirectory = vars.homeDir;
     packages = with pkgs; [
       fzf
       lf

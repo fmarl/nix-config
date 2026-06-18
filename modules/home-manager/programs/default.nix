@@ -1,10 +1,11 @@
+{ lib, ... }:
+let
+  here = ./.;
+  isModule =
+    name: type:
+    type == "regular" && lib.hasSuffix ".nix" name && name != "default.nix";
+  modules = lib.attrNames (lib.filterAttrs isModule (builtins.readDir here));
+in
 {
-  imports = [
-    ./zsh.nix
-    ./tmux.nix
-    ./owl.nix
-    ./emacs.nix
-    ./lf.nix
-    ./helix.nix
-  ];
+  imports = map (n: here + "/${n}") modules;
 }

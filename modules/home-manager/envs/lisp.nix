@@ -5,15 +5,13 @@
   ...
 }:
 
-with lib;
-
 let
   cfg = config.modules.envs.lisp;
 in
 {
-  options.modules.envs.lisp.enable = mkEnableOption "Install and configure Lisp";
+  options.modules.envs.lisp.enable = lib.mkEnableOption "Install and configure Lisp";
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       sbcl
     ];

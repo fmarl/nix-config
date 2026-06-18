@@ -1,19 +1,17 @@
 {
-	pkgs,
-	lib,
-	config,
-	...
+  pkgs,
+  lib,
+  config,
+  ...
 }:
 
-with lib;
-
 let
-	cfg = config.modules.envs.java;
+  cfg = config.modules.envs.java;
 in
 {
-  options.modules.envs.java.enable = mkEnableOption "Install and configure Java";
+  options.modules.envs.java.enable = lib.mkEnableOption "Install and configure Java";
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       jdt-language-server
       openjdk25

@@ -1,11 +1,15 @@
-{ pkgs, ... }:
 {
-  # This looks weird. But it's for determinate nix.
+  pkgs,
+  vars,
+  ...
+}:
+{
+  # Determinate Nix manages the daemon, so disable nix-darwin's nix module.
   nix.enable = false;
 
-  networking.hostName = "HGDEMLFR003777";
+  networking.hostName = vars.hostname;
 
-  users.users."florian.marreroliestmann".home = "/Users/florian.marreroliestmann";
+  users.users.${vars.user}.home = vars.homeDir;
 
   programs.zsh.enable = true;
 
@@ -15,5 +19,5 @@
   ];
 
   system.stateVersion = 6;
-  nixpkgs.hostPlatform = "aarch64-darwin";
+  nixpkgs.hostPlatform = vars.system;
 }
