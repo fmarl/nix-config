@@ -1,11 +1,6 @@
 {
-  self,
-  host,
-  ...
-}:
-{
   imports = [
+    ./global
     ./optional
-    (import ./global { inherit self host; })
   ];
 }

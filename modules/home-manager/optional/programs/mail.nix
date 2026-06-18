@@ -5,22 +5,21 @@
   ...
 }:
 
-with lib;
 
 let
   cfg = config.modules.mail;
 
 in
 {
-  options.modules.mail.enable = mkEnableOption "Install and configure mail";
+  options.modules.mail.enable = lib.mkEnableOption "Install and configure mail";
 
-  options.modules.mail.password = mkOption {
-    type = types.str;
+  options.modules.mail.password = lib.mkOption {
+    type = lib.types.str;
     description = "Set the password for your mail-account.";
     default = "";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     accounts.email = {
       maildirBasePath = ".maildir";
       accounts.ionos = {

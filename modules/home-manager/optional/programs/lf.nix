@@ -5,15 +5,14 @@
   ...
 }:
 
-with lib;
 
 let
   cfg = config.modules.lf;
 in
 {
-  options.modules.lf.enable = mkEnableOption "Install and configure lf";
+  options.modules.lf.enable = lib.mkEnableOption "Install and configure lf";
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs.lf = {
       enable = true;
 

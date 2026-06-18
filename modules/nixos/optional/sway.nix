@@ -5,16 +5,15 @@
   ...
 }:
 
-with lib;
 
 let
   cfg = config.modules.sway;
 
 in
 {
-  options.modules.sway.enable = mkEnableOption "Install and configure sway";
+  options.modules.sway.enable = lib.mkEnableOption "Install and configure sway";
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     xdg.portal = {
       enable = true;
       wlr.enable = true;

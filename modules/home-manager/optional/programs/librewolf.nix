@@ -4,15 +4,14 @@
   ...
 }:
 
-with lib;
 
 let
   cfg = config.modules.librewolf;
 in
 {
-  options.modules.librewolf.enable = mkEnableOption "Install and configure librewolf";
+  options.modules.librewolf.enable = lib.mkEnableOption "Install and configure librewolf";
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs.librewolf = {
       enable = true;
       settings = {

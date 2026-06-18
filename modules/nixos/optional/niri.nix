@@ -5,16 +5,15 @@
   ...
 }:
 
-with lib;
 
 let
   cfg = config.modules.niri;
 
 in
 {
-  options.modules.niri.enable = mkEnableOption "Install and configure niri";
+  options.modules.niri.enable = lib.mkEnableOption "Install and configure niri";
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     xdg.portal = {
       enable = true;
       wlr.enable = true;

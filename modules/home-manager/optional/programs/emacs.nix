@@ -1,20 +1,18 @@
 {
-  jail,
   config,
   lib,
   pkgs,
   ...
 }:
 
-with lib;
 
 let
   cfg = config.modules.emacs;
 in
 {
-  options.modules.emacs.enable = mkEnableOption "Install and configure emacs";
+  options.modules.emacs.enable = lib.mkEnableOption "Install and configure emacs";
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     services.emacs.enable = true;
     programs.emacs = {
       enable = true;

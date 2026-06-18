@@ -1,15 +1,13 @@
+{ lib, ... }:
+let
+  here = ./.;
+  isModule =
+    name: type:
+    type == "regular" && lib.hasSuffix ".nix" name && name != "default.nix";
+  children = lib.attrNames (lib.filterAttrs isModule (builtins.readDir here));
+in
 {
-  self,
-  host,
-  ...
-}:
-{
-  imports = [
-    ./nix.nix
-    (import ./networking.nix { inherit host; })
-    ./boot.nix
-    ./security.nix
-  ];
+  imports = map (n: here + "/${n}") children;
 
   time.timeZone = "Europe/Berlin";
 

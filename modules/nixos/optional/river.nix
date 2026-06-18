@@ -5,16 +5,15 @@
   ...
 }:
 
-with lib;
 
 let
   cfg = config.modules.river;
 
 in
 {
-  options.modules.river.enable = mkEnableOption "Install and configure river";
+  options.modules.river.enable = lib.mkEnableOption "Install and configure river";
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     xdg.portal = {
       enable = true;
       wlr.enable = true;

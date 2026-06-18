@@ -5,16 +5,15 @@
   ...
 }:
 
-with lib;
 
 let
   cfg = config.modules.labwc;
 
 in
 {
-  options.modules.labwc.enable = mkEnableOption "Install and configure labwc";
+  options.modules.labwc.enable = lib.mkEnableOption "Install and configure labwc";
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     xdg.portal = {
       enable = true;
       wlr.enable = true;

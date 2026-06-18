@@ -5,22 +5,21 @@
   ...
 }:
 
-with lib;
 
 let
   cfg = config.modules.irssi;
 
 in
 {
-  options.modules.irssi.enable = mkEnableOption "Install and configure irssi";
+  options.modules.irssi.enable = lib.mkEnableOption "Install and configure irssi";
 
-  options.modules.irssi.user = mkOption {
-    type = types.str;
+  options.modules.irssi.user = lib.mkOption {
+    type = lib.types.str;
     description = "Set the nick and name variable";
     default = "";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home.file = {
       ".irssi" = {
         source = inputs.irssi-themes;

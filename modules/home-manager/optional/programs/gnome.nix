@@ -4,15 +4,14 @@
   ...
 }:
 
-with lib;
 
 let
   cfg = config.modules.gnome;
 in
 {
-  options.modules.gnome.enable = mkEnableOption "Install and configure gnome";
+  options.modules.gnome.enable = lib.mkEnableOption "Install and configure gnome";
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs = {
       alacritty.enable = true;
       zathura.enable = true;
