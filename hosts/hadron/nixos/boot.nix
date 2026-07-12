@@ -1,8 +1,6 @@
 { pkgs, lib, ... }:
 {
   boot = {
-    kernelPackages = pkgs.linuxPackages_hardened;
-
     kernelModules = [ "kvm-amd" ];
 
     initrd = {

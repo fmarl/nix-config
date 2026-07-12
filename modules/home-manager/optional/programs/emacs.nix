@@ -64,7 +64,11 @@ in
           # cider
 
           # Common Lisp
-          # sly
+          sly
+
+	  # Scheme
+	  geiser
+	  geiser-guile
 
           # Zig
           zig-mode
@@ -72,9 +76,7 @@ in
           # Utils
           circe
           mu4e
-          verb
           elfeed
-          ement
 
           org-roam
           org-modern

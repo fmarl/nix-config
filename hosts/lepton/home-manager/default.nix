@@ -1,3 +1,4 @@
+
 {
   pkgs,
   config,
@@ -12,15 +13,9 @@ in
   modules = {
     zsh.enable = true;
     librewolf.enable = true;
-    niri.enable = true;
+    gnome.enable = true;
     lf.enable = true;
     emacs.enable = true;
-
-    waybar = {
-      enable = true;
-      mobile = true;
-    };
-
     theme.enable = true;
   };
 
@@ -44,24 +39,13 @@ in
     git.settings = {
       pull.rebase = true;
 
-      sendemail = {
-        sendmailCmd = "${pkgs.msmtp}/bin/msmtp";
-        from = "${me.fullName} <${me.email}>";
-        thread = true;
-        chainreplyto = false;
-        suppresscc = "self";
-        confirm = "always";
-      };
-
       format.subjectPrefix = "PATCH";
     };
   };
 
   home.packages = with pkgs; [
-    signal-desktop-bin
-    isync
-    msmtp
-    mu
-    age
+    signal-desktop
+    telegram-desktop
+    guile
   ];
 }

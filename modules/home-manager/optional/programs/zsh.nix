@@ -14,10 +14,6 @@ in
   options.modules.zsh.enable = lib.mkEnableOption "Install and configure irssi";
 
   config = lib.mkIf cfg.enable {
-    programs.starship = {
-      enable = true;
-    };
-
     programs.zsh = {
       enable = true;
       syntaxHighlighting.enable = true;
@@ -32,6 +28,7 @@ in
       };
 
       initContent = ''
+	export PROMPT="%~ $ "
         if [ -n "''${commands[fzf-share]}" ]; then
                 source "$(fzf-share)/key-bindings.zsh"
                 source "$(fzf-share)/completion.zsh"
