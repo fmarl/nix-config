@@ -65,12 +65,23 @@ in
 
           # Common Lisp
           sly
+<<<<<<< HEAD
+=======
+
+	  # Scheme
+	  geiser
+	  geiser-guile
+>>>>>>> 9b4c51e2b193625cb866d6a7e458ed20eeebe309
 
           # Zig
           zig-mode
 
           # Utils
           circe
+<<<<<<< HEAD
+=======
+          mu4e
+>>>>>>> 9b4c51e2b193625cb866d6a7e458ed20eeebe309
           elfeed
 
           denote

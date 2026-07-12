@@ -1,8 +1,6 @@
 { pkgs, config, ... }:
 {
   boot = {
-    kernelPackages = pkgs.linuxPackages_hardened;
-
     kernelModules = [ "kvm-intel" ];
 
     initrd.availableKernelModules = [

@@ -20,7 +20,7 @@
 
   programs.zsh.enable = true;
 
-  modules.niri.enable = true;
+  modules.gnome.enable = true;
 
   environment = {
     shells = with pkgs; [ zsh ];
