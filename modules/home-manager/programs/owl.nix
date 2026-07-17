@@ -47,7 +47,7 @@ in
 
         SECRET_NAME="$1"
         VARIABLE_NAME="$2"
-        ENTRY_PASSWORD="$(${pkgs.keepassxc}/bin/keepassxc-cli show -s -a password "$OWL_DB" "$SECRET_NAME")"
+        ENTRY_PASSWORD="keepassxc-cli show -s -a password "$OWL_DB" "$SECRET_NAME")"
 
         if [[ -n "$ENTRY_PASSWORD" ]]; then
           if [[ -z "''${3:-}" ]]; then

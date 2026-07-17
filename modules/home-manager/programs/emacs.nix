@@ -25,7 +25,7 @@ in
         smex
         ace-window
         avy
-        direnv
+        envrc
         posframe
         magit
         projectile
@@ -38,6 +38,9 @@ in
         yasnippet-snippets
         paredit
         rainbow-delimiters
+	embark
+	embark-consult
+	wgrep
         consult
         marginalia
         orderless
@@ -45,19 +48,15 @@ in
         markdown-mode
         terraform-mode
         yaml-mode
-        verb
+        apheleia
         circe
         elfeed
 
         # Org & Denote
         denote
-        org-roam
 
         # C / C++
         clang-format
-
-        # Python
-        python-mode
 
         # Go
         go-mode
@@ -75,18 +74,15 @@ in
         rustic
 
         # OCaml
-        # tuareg
-        # dune
-        # utop
+        tuareg
+        dune
+        utop
 
         # Zig
         zig-mode
 
         # Clojure
         cider
-
-        # Gleam
-        # gleam-ts-mode
 
         # Meow-edit
         meow
@@ -95,9 +91,9 @@ in
         tree-sitter-langs
         (treesit-grammars.with-grammars (grammars: [
           grammars.tree-sitter-rust
-          # grammars.tree-sitter-ocaml
+	  grammars.tree-sitter-python
           grammars.tree-sitter-nix
-          # grammars.tree-sitter-gleam
+          grammars.tree-sitter-ocaml
           grammars.tree-sitter-clojure
           grammars.tree-sitter-zig
         ]))

@@ -31,19 +31,19 @@ in
     envs = {
       python.enable = true;
       go.enable = true;
-      #zig.enable = true;
+      zig.enable = true;
+      ocaml.enable = true;
       clojure.enable = true;
       rust.enable = true;
-      sec.enable = true;
       java.enable = true;
+      node.enable = true;
+      terraform.enable = true;
     };
   };
 
   fonts.fontconfig.enable = true;
 
   programs = {
-    zoxide.enable = true;
-
     ssh = {
       enable = true;
       enableDefaultConfig = false;

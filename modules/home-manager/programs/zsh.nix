@@ -12,8 +12,6 @@ in
 
   config = lib.mkIf cfg.enable {
     programs = {
-      starship.enable = true;
-
       zsh = {
         enable = true;
         syntaxHighlighting.enable = false;
@@ -38,6 +36,7 @@ in
         initContent = ''
           export GPG_TTY=$(tty)
 	  export PATH=$PATH:$HOME/.local/bin
+          export PROMPT="%~ $ "
 
           if [ -n "''${commands[fzf-share]}" ]; then
             source "$(fzf-share)/key-bindings.zsh"
