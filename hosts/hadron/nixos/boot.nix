@@ -1,8 +1,6 @@
 { pkgs, lib, ... }:
 {
   boot = {
-    kernelPackages = pkgs.linuxPackages_hardened;
-
     kernelModules = [ "kvm-amd" ];
 
     initrd = {
@@ -16,10 +14,6 @@
         "sd_mod"
         "nvme"
       ];
-
-      postDeviceCommands = lib.mkAfter ''
-        zfs rollback -r rpool/local/root@blank
-      '';
     };
 
     loader = {

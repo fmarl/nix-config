@@ -87,7 +87,6 @@
       "net.ipv4.conf.default.accept_source_route" = lib.mkDefault 0;
       "kernel.sysrq" = lib.mkDefault 0;
       "kernel.unprivileged_bpf_disabled" = lib.mkDefault 1;
-      "kernel.unprivileged_userns_clone" = lib.mkDefault 1;
       "kernel.core_uses_pid" = lib.mkDefault 1;
       "dev.tty.ldisc_autoload" = lib.mkDefault 0;
 

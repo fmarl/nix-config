@@ -61,23 +61,18 @@ in
           # utop
 
           # Clojure
-          # cider
+          cider
 
           # Common Lisp
-          # sly
+          sly
 
           # Zig
           zig-mode
 
           # Utils
           circe
-          mu4e
-          verb
           elfeed
-          ement
 
-          org-roam
-          org-modern
           denote
           meow
 
@@ -87,7 +82,7 @@ in
             grammars.tree-sitter-rust
             grammars.tree-sitter-nix
             grammars.tree-sitter-zig
-            #grammars.tree-sitter-clojure
+            grammars.tree-sitter-clojure
           ]))
         ];
     };
