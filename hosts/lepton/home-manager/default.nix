@@ -17,6 +17,11 @@ in
     lf.enable = true;
     emacs.enable = true;
     theme.enable = true;
+    niri.enable = true;
+    waybar = {  
+      enable = true;
+      mobile = true;
+    };
   };
 
   fonts.fontconfig.enable = true;

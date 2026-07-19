@@ -20,6 +20,8 @@ in
     };
 
     services = {
+      gnome-keyring.enable = true;
+      
       mako = {
         enable = true;
 

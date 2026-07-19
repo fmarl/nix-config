@@ -20,7 +20,7 @@
 
   programs.zsh.enable = true;
 
-  modules.gnome.enable = true;
+  modules.niri.enable = true;
 
   environment = {
     shells = with pkgs; [ zsh ];
@@ -39,5 +39,9 @@
     font-awesome
   ];
 
+<<<<<<< HEAD
   services.blueman.enable = true;
+=======
+  services.blueman.enable = true
+>>>>>>> 065ffdc (Merging Github into Codeberg)
 }
