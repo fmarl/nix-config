@@ -13,7 +13,6 @@ in
 
   config = lib.mkIf cfg.enable {
     programs = {
-      alacritty.enable = true;
       zathura.enable = true;
       mpv.enable = true;
     };

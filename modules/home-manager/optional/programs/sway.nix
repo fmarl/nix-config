@@ -25,10 +25,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    programs.alacritty = {
-      enable = true;
-    };
-
     services.mako = {
       enable = true;
 

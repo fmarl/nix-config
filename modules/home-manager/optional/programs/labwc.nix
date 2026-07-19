@@ -15,7 +15,6 @@ in
 
   config = lib.mkIf cfg.enable {
     programs = {
-      alacritty.enable = true;
       bemenu.enable = true;
       zathura.enable = true;
       mpv.enable = true;

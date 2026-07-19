@@ -13,7 +13,6 @@
     pulseaudio.enable = false;
 
     udev.packages = with pkgs; [
-      yubikey-personalization
       libu2f-host
     ];
 

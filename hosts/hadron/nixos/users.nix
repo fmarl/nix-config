@@ -10,7 +10,6 @@
       extraGroups = [
         "wheel"
         "tss"
-        "podman"
         "kvm"
       ];
       group = "users";

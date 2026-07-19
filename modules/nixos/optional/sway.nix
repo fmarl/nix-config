@@ -41,7 +41,6 @@ in
       extraPackages = with pkgs; [
         swaylock
         wl-clipboard
-        alacritty
         bemenu
         imv
         mpv

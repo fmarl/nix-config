@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   modules = {
+    alacritty.enable = true;
     zsh.enable = true;
     librewolf.enable = true;
     niri.enable = true;
