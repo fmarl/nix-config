@@ -39,9 +39,5 @@
     font-awesome
   ];
 
-<<<<<<< HEAD
   services.blueman.enable = true;
-=======
-  services.blueman.enable = true
->>>>>>> 065ffdc (Merging Github into Codeberg)
 }

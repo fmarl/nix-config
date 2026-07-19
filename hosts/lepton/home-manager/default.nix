@@ -13,7 +13,6 @@ in
   modules = {
     zsh.enable = true;
     librewolf.enable = true;
-    gnome.enable = true;
     lf.enable = true;
     emacs.enable = true;
     theme.enable = true;
@@ -23,8 +22,6 @@ in
       mobile = true;
     };
   };
-
-  fonts.fontconfig.enable = true;
 
   programs = {
     ssh.settings."workstation" = {
@@ -50,7 +47,5 @@ in
 
   home.packages = with pkgs; [
     signal-desktop
-    telegram-desktop
-    guile
   ];
 }
