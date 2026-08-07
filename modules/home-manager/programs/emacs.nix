@@ -17,87 +17,75 @@ in
     programs.emacs = {
       enable = true;
 
-      extraPackages = epkgs: with epkgs; [
-        # Core
-        use-package
-        ef-themes
-        moody
-        smex
-        ace-window
-        avy
-        envrc
-        posframe
-        magit
-        projectile
-        dirvish
-        eldoc-box
-        consult-eglot
-        corfu
-        cape
-        yasnippet
-        yasnippet-snippets
-        paredit
-        rainbow-delimiters
-	embark
-	embark-consult
-	wgrep
-        consult
-        marginalia
-        orderless
-        vertico
-        markdown-mode
-        terraform-mode
-        yaml-mode
-        apheleia
-        circe
-        elfeed
+      extraPackages =
+        epkgs: with epkgs; [
+          # Core
+          ef-themes
+          ace-window
+          avy
+          envrc
+          posframe
+          magit
+          dirvish
+          eldoc-box
+          consult-eglot
+          corfu
+          cape
+          yasnippet
+          yasnippet-snippets
+          paredit
+          rainbow-delimiters
+          embark
+          embark-consult
+          wgrep
+          diff-hl
+          consult
+          marginalia
+          orderless
+          vertico
+          markdown-mode
+          terraform-mode
+          yaml-mode
+          apheleia
+          circe
+          elfeed
+          meow
 
-        # Org & Denote
-        denote
+          # Org & Denote
+          denote
 
-        # C / C++
-        clang-format
+          # Go
+          go-dlv
+          gotest
 
-        # Go
-        go-mode
-        go-eldoc
-        go-dlv
-        gotest
+          # Java
+          eglot-java
 
-        # Java
-        eglot-java
+          # Nix
+          nix-ts-mode
 
-        # Nix
-        nix-ts-mode
+          # OCaml
+          tuareg
+          dune
+          utop
 
-        # Rust
-        rustic
+          # Lisp
+          sly
 
-        # OCaml
-        tuareg
-        dune
-        utop
+          # Clojure
+          cider
 
-        # Zig
-        zig-mode
-
-        # Clojure
-        cider
-
-        # Meow-edit
-        meow
-
-        # Treesitter
-        tree-sitter-langs
-        (treesit-grammars.with-grammars (grammars: [
-          grammars.tree-sitter-rust
-	  grammars.tree-sitter-python
-          grammars.tree-sitter-nix
-          grammars.tree-sitter-ocaml
-          grammars.tree-sitter-clojure
-          grammars.tree-sitter-zig
-        ]))
-      ];
+          # Treesitter
+          (treesit-grammars.with-grammars (grammars: [
+            grammars.tree-sitter-rust
+            grammars.tree-sitter-python
+            grammars.tree-sitter-nix
+            grammars.tree-sitter-ocaml
+            grammars.tree-sitter-clojure
+            grammars.tree-sitter-go
+            grammars.tree-sitter-bash
+          ]))
+        ];
     };
   };
 }

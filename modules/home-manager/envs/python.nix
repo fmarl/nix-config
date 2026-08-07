@@ -13,11 +13,13 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      (python313.withPackages (
+      (python314.withPackages (
         python-pkgs: with python-pkgs; [
           pip
+          uv
           ruff
-          python-lsp-ruff
+          #python-lsp-ruff
+          python-lsp-server
         ]
       ))
       pipenv

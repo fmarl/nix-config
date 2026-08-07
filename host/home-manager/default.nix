@@ -31,7 +31,7 @@ in
     envs = {
       python.enable = true;
       go.enable = true;
-      zig.enable = true;
+      lisp.enable = true;
       ocaml.enable = true;
       clojure.enable = true;
       rust.enable = true;
