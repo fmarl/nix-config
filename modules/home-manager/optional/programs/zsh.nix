@@ -1,17 +1,13 @@
 {
-  pkgs,
   lib,
   config,
   ...
 }:
-
-
 let
   cfg = config.modules.zsh;
-
 in
 {
-  options.modules.zsh.enable = lib.mkEnableOption "Install and configure irssi";
+  options.modules.zsh.enable = lib.mkEnableOption "Install and configure zsh";
 
   config = lib.mkIf cfg.enable {
     programs.zsh = {
@@ -20,15 +16,8 @@ in
       autocd = true;
       enableCompletion = true;
 
-      sessionVariables = {
-        GPG_TTY = "$(tty)";
-        FZF_DEFAULT_COMMAND = "rg --files --hidden --glob '!.git' --glob '!.direnv' --glob '!.cache'";
-        FZF_CTRL_T_COMMAND = "rg --files --hidden --glob '!.git' --glob '!.direnv' --glob '!.cache'";
-      };
-
       initContent = ''
-	export PROMPT="%~ $ "
-        source <(fzf --zsh)
+        export PROMPT="%~ ''${''${SHLVL:#1}:+[$((SHLVL-1))] }λ "
       '';
     };
   };

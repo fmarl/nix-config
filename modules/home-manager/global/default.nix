@@ -11,8 +11,6 @@
     ./git.nix
   ];
 
-  nixpkgs.config.allowUnfree = true;
-
   programs.gpg = {
     enable = true;
 
@@ -57,6 +55,18 @@
     '';
   };
 
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 14d";
+  };
+
+  programs.fzf = {
+    enable = true;
+    defaultCommand = "rg --files --hidden --glob '!.git' --glob '!.direnv' --glob '!.cache'";
+    fileWidget.command = config.programs.fzf.defaultCommand;
+  };
+
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
@@ -73,7 +83,6 @@
     stateVersion = "26.05";
     packages = with pkgs; [
       htop
-      fzf
       ripgrep
 
       (writeShellScriptBin "nrun" ''
