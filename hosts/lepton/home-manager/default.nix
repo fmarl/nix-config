@@ -24,6 +24,7 @@
       hashKnownHosts = true;
       serverAliveCountMax = 2;
       identityFile = config.sops.secrets.ssh.path;
+      addKeysToAgent = "yes";
     };
 
     git.settings = {

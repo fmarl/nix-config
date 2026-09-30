@@ -6,6 +6,7 @@ let
     hashKnownHosts = true;
     serverAliveCountMax = 1;
     identityFile = config.sops.secrets.ssh.path;
+    addKeysToAgent = "yes";
   };
 in
 {
