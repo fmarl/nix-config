@@ -5,7 +5,6 @@
   ...
 }:
 
-
 let
   cfg = config.modules.mail;
 

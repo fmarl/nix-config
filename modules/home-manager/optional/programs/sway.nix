@@ -10,7 +10,7 @@ let
   colorscheme = import ./../../colors.nix;
   bemenu = import ../../bemenu.nix { inherit lib pkgs; };
   fontConf = {
-    names = [ "Source Code Pro" ];
+    names = [ "Aporetic Sans Mono" ];
     size = 11.0;
   };
   cfg = config.modules.sway;

@@ -4,7 +4,6 @@
   ...
 }:
 
-
 let
   cfg = config.modules.gnome;
 in
