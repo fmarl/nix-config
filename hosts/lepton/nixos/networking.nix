@@ -1,7 +1,7 @@
 { lib, ... }:
 {
   networking = {
-    hostId = "04686870";
+    hostId = "3265c4e6";
 
     networkmanager = {
       enable = true;
@@ -11,23 +11,7 @@
       };
     };
 
-    wireless.iwd = {
-      enable = true;
-      settings = {
-        General = {
-          AddressRandomization = "once";
-        };
-        Network = {
-          EnableIPv6 = false;
-          NameResolvingService = "systemd";
-        };
-      };
-    };
-
-    firewall = {
-      allowedTCPPorts = [ ];
-      allowedUDPPorts = [ ];
-    };
+    wireless.iwd.settings.General.AddressRandomization = "once";
 
     useDHCP = lib.mkDefault true;
   };
