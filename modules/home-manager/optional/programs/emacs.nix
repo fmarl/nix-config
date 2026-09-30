@@ -4,8 +4,6 @@
   pkgs,
   ...
 }:
-
-
 let
   cfg = config.modules.emacs;
 in
@@ -21,67 +19,58 @@ in
       extraPackages =
         epkgs: with epkgs; [
           # Core
-          use-package
           ef-themes
-          smex
           ace-window
           avy
           envrc
-          posframe
           magit
-          projectile
+          dirvish
+          wgrep
+          diff-hl
+          apheleia
+          meow
+          paredit
+
+          vertico
+          orderless
+          marginalia
+          consult
+          embark
+          embark-consult
+          corfu
+          cape
           yasnippet
           yasnippet-snippets
-          markdown-mode
-          paredit
-          rainbow-delimiters
-          marginalia
-          orderless
-          consult
-          vertico
-          dirvish
-	  embark
-	  embark-consult
-	  wgrep
-	  apheleia
 
           # LSP
           consult-eglot
-          cape
-          corfu
+          eglot-java
 
-          # Nix Mode
-          nix-ts-mode
-
-          # Rust
-          rustic
-
-          # Clojure
-          cider
-
-          # Common Lisp
-          sly
-
-	  # Scheme
-	  geiser
-	  geiser-guile
-
-          # Zig
-          zig-mode
-
-          # Utils
-          circe
-          mu4e
-          elfeed
+          org-modern
           denote
-          meow
+
+          circe
+          elfeed
+          mu4e
+
+          markdown-mode
+          terraform-mode
+          yaml-mode
+          nix-ts-mode
+          cider
+          tuareg
+          dune
+          utop
+          haskell-mode
+          zig-mode
+          gleam-ts-mode
+          nasm-mode
 
           # Treesitter
-          tree-sitter-langs
           (treesit-grammars.with-grammars (grammars: [
             grammars.tree-sitter-rust
             grammars.tree-sitter-nix
-            grammars.tree-sitter-zig
+            grammars.tree-sitter-ocaml
             grammars.tree-sitter-clojure
           ]))
         ];
