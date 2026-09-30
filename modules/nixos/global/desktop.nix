@@ -11,7 +11,11 @@
   ];
 
   services = {
-    dbus.enable = true;
+    dbus = {
+      enable = true;
+      # gcr-prompter for pinentry-gnome3
+      packages = [ pkgs.gcr_3 ];
+    };
 
     fwupd.enable = true;
 
