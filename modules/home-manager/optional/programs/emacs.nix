@@ -68,6 +68,7 @@ in
 
           # Treesitter
           (treesit-grammars.with-grammars (grammars: [
+            grammars.tree-sitter-bash
             grammars.tree-sitter-rust
             grammars.tree-sitter-nix
             grammars.tree-sitter-ocaml
