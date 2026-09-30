@@ -4,8 +4,6 @@
   pkgs,
   ...
 }:
-
-
 let
   cfg = config.modules.dwl;
 in
@@ -26,21 +24,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    xdg.portal = {
+    modules.wayland = {
       enable = true;
-      wlr.enable = true;
-      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-    };
-
-    services.xserver = {
-      enable = true;
-
-      displayManager.lightdm.enable = true;
-
-      xkb = {
-        layout = "us";
-        variant = "altgr-intl";
-      };
+      lightdm = true;
     };
 
     environment.systemPackages = [
@@ -54,7 +40,7 @@ in
           sha256 = "sha256-NBzrOM6L7my8RgK84qnQ5TALuMPBbHW8GVnm6z6CV/o=";
         };
 
-        patches = cfg.patches;
+        inherit (cfg) patches;
 
         nativeBuildInputs = with pkgs; [
           pkg-config

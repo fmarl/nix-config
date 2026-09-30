@@ -2,30 +2,24 @@
   config,
   lib,
   pkgs,
+  primaryUser,
   ...
 }:
-
-
 let
   cfg = config.modules.river;
-
 in
 {
   options.modules.river.enable = lib.mkEnableOption "Install and configure river";
 
   config = lib.mkIf cfg.enable {
-    xdg.portal = {
-      enable = true;
-      wlr.enable = true;
-      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-    };
+    modules.wayland.enable = true;
 
     services.greetd = {
       enable = true;
-      settings = rec {
+      settings = {
         default_session = {
           command = "${pkgs.river-classic}/bin/river";
-          user = "marrero";
+          user = primaryUser;
         };
       };
     };
