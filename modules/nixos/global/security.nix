@@ -1,4 +1,54 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
+let
+  # Rarely used and historically vulnerable kernel modules
+  disabledModules = [
+    # Obscure network protocols
+    "ax25"
+    "netrom"
+    "rose"
+    "x25"
+    "appletalk"
+    "psnap"
+    "can"
+    "atm"
+    "sctp"
+    "rds"
+    "tipc"
+    "n_hdlc"
+    "ieee802154"
+
+    # FireWire and Thunderbolt (DMA attacks)
+    "firewire_core"
+    "firewire_ohci"
+    "firewire_sbp2"
+    "firewire_net"
+    "thunderbolt"
+
+    # Old or rare or insufficiently audited filesystems
+    "adfs"
+    "affs"
+    "bfs"
+    "befs"
+    "cramfs"
+    "efs"
+    "erofs"
+    "freevxfs"
+    "f2fs"
+    "gfs2"
+    "hfs"
+    "hfsplus"
+    "hpfs"
+    "jffs2"
+    "jfs"
+    "minix"
+    "nilfs2"
+    "ocfs2"
+    "omfs"
+    "qnx4"
+    "qnx6"
+    "ufs"
+  ];
+in
 {
   environment.extraInit = "umask 0077";
 
@@ -30,35 +80,11 @@
       "debugfs=off"
     ];
 
-    blacklistedKernelModules = [
-      # Obscure network protocols
-      "ax25"
-      "netrom"
-      "rose"
-
-      # Old or rare or insufficiently audited filesystems
-      "adfs"
-      "affs"
-      "bfs"
-      "befs"
-      "cramfs"
-      "efs"
-      "erofs"
-      "exofs"
-      "freevxfs"
-      "f2fs"
-      "hfs"
-      "hpfs"
-      "jfs"
-      "minix"
-      "nilfs2"
-      "ntfs"
-      "omfs"
-      "qnx4"
-      "qnx6"
-      "sysv"
-      "ufs"
-    ];
+    # Blacklisting only stops autoloading, "install … false" also blocks explicit modprobe
+    blacklistedKernelModules = disabledModules;
+    extraModprobeConfig = lib.concatMapStrings (
+      m: "install ${m} ${pkgs.coreutils}/bin/false\n"
+    ) disabledModules;
 
     kernel.sysctl = {
       "kernel.yama.ptrace_scope" = lib.mkOverride 500 1;
