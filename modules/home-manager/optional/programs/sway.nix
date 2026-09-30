@@ -5,9 +5,8 @@
   ...
 }:
 
-
 let
-  wallpaper = cfg.wallpaper;
+  inherit (cfg) wallpaper;
   colorscheme = import ./../../colors.nix;
   fontConf = {
     names = [ "Source Code Pro" ];

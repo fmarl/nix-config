@@ -5,7 +5,6 @@
   ...
 }:
 
-
 let
   colorscheme = import ./../../colors.nix;
   cfg = config.modules.river;
@@ -22,7 +21,7 @@ in
     };
 
     home = {
-      packages = (with pkgs; [ wl-clipboard ]);
+      packages = with pkgs; [ wl-clipboard ];
     };
 
     services = {

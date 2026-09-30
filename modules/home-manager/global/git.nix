@@ -18,7 +18,7 @@ in
     settings = {
       user = {
         name = me.fullName;
-        email = me.email;
+        inherit (me) email;
       };
 
       core = {

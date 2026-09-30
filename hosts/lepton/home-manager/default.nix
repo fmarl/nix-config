@@ -1,14 +1,8 @@
-
 {
   pkgs,
   config,
-  user,
-  users,
   ...
 }:
-let
-  me = users.${user};
-in
 {
   modules = {
     zsh.enable = true;
@@ -17,7 +11,7 @@ in
     emacs.enable = true;
     theme.enable = true;
     niri.enable = true;
-    waybar = {  
+    waybar = {
       enable = true;
       mobile = true;
     };
@@ -28,13 +22,7 @@ in
       hostname = "192.168.0.200";
       user = "marrero";
       hashKnownHosts = true;
-      forwardAgent = false;
-      compression = false;
-      forwardX11 = false;
-      forwardX11Trusted = false;
-      serverAliveInterval = 0;
       serverAliveCountMax = 2;
-      controlPersist = "no";
       identityFile = config.sops.secrets.ssh.path;
     };
 
