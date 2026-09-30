@@ -14,9 +14,11 @@
         "@wheel"
       ];
       allowed-users = [ "@wheel" ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
     };
-
-    extraOptions = "experimental-features = nix-command flakes";
 
     optimise.automatic = true;
   };

@@ -1,4 +1,3 @@
-{ pkgs, config, ... }:
 {
   boot = {
     kernelModules = [ "kvm-intel" ];
@@ -11,7 +10,5 @@
       "sd_mod"
       "sdhci_pci"
     ];
-
-    extraModulePackages = with config.boot.kernelPackages; [ ];
   };
 }

@@ -1,9 +1,4 @@
 {
-  pkgs,
-  lib,
-  ...
-}:
-{
   imports = [
     ./hardware-configuration.nix
     ./security.nix
@@ -13,26 +8,5 @@
     ./users.nix
   ];
 
-  nix.nixPath = [
-    "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
-    "/nix/var/nix/profiles/per-user/root/channels"
-  ];
-
-  programs.zsh.enable = true;
-
   modules.niri.enable = true;
-
-  environment = {
-    shells = with pkgs; [ zsh ];
-    pathsToLink = [ "/share/zsh" ];
-    defaultPackages = lib.mkForce [ ];
-    systemPackages = with pkgs; [
-      home-manager
-    ];
-  };
-
-  fonts.packages = with pkgs; [
-    aporetic
-    font-awesome
-  ];
 }

@@ -1,4 +1,3 @@
-{ pkgs, ... }:
 {
   services = {
     zfs = {
@@ -6,22 +5,6 @@
       autoSnapshot.enable = true;
     };
 
-    dbus.enable = true;
-
-    pcscd.enable = true;
-
-    pulseaudio.enable = false;
-
-    udev.packages = with pkgs; [
-      libu2f-host
-    ];
-
-    pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-    };
 
     openssh = {
       enable = true;

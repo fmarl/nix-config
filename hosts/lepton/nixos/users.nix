@@ -1,23 +1,8 @@
-{ config, pkgs, ... }:
+{ primaryUser, ... }:
 {
-  users = {
-    mutableUsers = true;
-
-    users.marrero = {
-      isNormalUser = true;
-      createHome = true;
-      description = "Florian Marrero Liestmann";
-      extraGroups = [
-        "wheel"
-        "wireshark"
-        "libvirtd"
-        "podman"
-        "tss"
-      ];
-      group = "users";
-      uid = 1000;
-      home = "/home/marrero";
-      shell = pkgs.zsh;
-    };
-  };
+  users.users.${primaryUser}.extraGroups = [
+    "wireshark"
+    "libvirtd"
+    "podman"
+  ];
 }

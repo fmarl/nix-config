@@ -1,7 +1,8 @@
-{ pkgs, lib, ... }:
 {
   boot = {
     kernelModules = [ "kvm-amd" ];
+
+    zfs.forceImportRoot = false;
 
     initrd = {
       includeDefaultModules = false;
@@ -15,14 +16,5 @@
         "nvme"
       ];
     };
-
-    loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-    };
-
-    extraModulePackages = [ ];
-
-    tmp.cleanOnBoot = true;
   };
 }

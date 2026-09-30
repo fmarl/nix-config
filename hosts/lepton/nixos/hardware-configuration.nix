@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   modulesPath,
   ...
 }:
@@ -33,11 +32,6 @@
   hardware = {
     cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
     bluetooth.enable = true;
-    opengl.enable = true;
-
-    graphics = {
-      enable = true;
-      extraPackages = with pkgs; [ vulkan-validation-layers ];
-    };
+    graphics.enable = true;
   };
 }
