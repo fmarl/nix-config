@@ -4,21 +4,14 @@
   pkgs,
   ...
 }:
-
-
 let
   cfg = config.modules.niri;
-
 in
 {
   options.modules.niri.enable = lib.mkEnableOption "Install and configure niri";
 
   config = lib.mkIf cfg.enable {
-    xdg.portal = {
-      enable = true;
-      wlr.enable = true;
-      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-    };
+    security.pam.services.waylock = { };
 
     services.greetd = {
       enable = true;
