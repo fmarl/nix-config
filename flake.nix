@@ -13,11 +13,6 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    irssi-themes = {
-      url = "github:fxttr/irssi-themes";
-      flake = false;
-    };
   };
 
   outputs =
