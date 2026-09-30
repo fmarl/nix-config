@@ -5,6 +5,15 @@ set -euo pipefail
 export COLOR_RESET="\033[0m"
 export RED_BG="\033[41m"
 export BLUE_BG="\033[44m"
+export ZFS_POOL="rpool"
+
+function err {
+    echo -e "${RED_BG}$1${COLOR_RESET}"
+}
+
+function info {
+    echo -e "${BLUE_BG}$1${COLOR_RESET}"
+}
 
 if [ -z "${1-}" ]; then
     echo "Disk isn't specified"
@@ -39,14 +48,6 @@ else
     export PART_ROOT="${DISK_PATH}2"
 fi
 
-function err {
-    echo -e "${RED_BG}$1${COLOR_RESET}"
-}
-
-function info {
-    echo -e "${BLUE_BG}$1${COLOR_RESET}"
-}
-
 function check_root {
     if [[ "$EUID" -ne 0 ]]; then
         err "Must run as root"
@@ -77,7 +78,6 @@ function setup_filesystem {
 
 function setup_zfs {
     info "Setting up ZFS on ${PART_ROOT} ..."
-    export ZFS_POOL="rpool"
     zpool create -o ashift=12 -O compression=lz4 -O acltype=posixacl -O xattr=sa -O relatime=on -o autotrim=on -f "$ZFS_POOL" "$PART_ROOT"
 
     info "Creating ZFS datasets ..."
@@ -163,4 +163,4 @@ check_root
 partition_disk
 setup_filesystem
 
-hostname $HOSTNAME
+hostname "$HOSTNAME"
