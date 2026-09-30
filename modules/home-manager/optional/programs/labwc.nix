@@ -7,6 +7,7 @@
 
 let
   colorscheme = import ./../../colors.nix;
+  bemenu = import ../../bemenu.nix { inherit lib pkgs; };
   cfg = config.modules.labwc;
 in
 {
@@ -14,7 +15,10 @@ in
 
   config = lib.mkIf cfg.enable {
     programs = {
-      bemenu.enable = true;
+      bemenu = {
+        enable = true;
+        inherit (bemenu) settings;
+      };
       zathura.enable = true;
       mpv.enable = true;
       imv.enable = true;

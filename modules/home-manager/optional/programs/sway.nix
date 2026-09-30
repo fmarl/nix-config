@@ -8,6 +8,7 @@
 let
   inherit (cfg) wallpaper;
   colorscheme = import ./../../colors.nix;
+  bemenu = import ../../bemenu.nix { inherit lib pkgs; };
   fontConf = {
     names = [ "Source Code Pro" ];
     size = 11.0;
@@ -121,7 +122,7 @@ in
           };
         };
 
-        menu = "bemenu-run -nb #${colorscheme.dark.bg_0} -sb #${colorscheme.dark.bg_0} -sf #${colorscheme.dark.green}";
+        menu = "${bemenu.run}";
 
         output = {
           "*".bg = ''"${wallpaper}" fill'';

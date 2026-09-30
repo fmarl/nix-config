@@ -8,6 +8,8 @@ let
   cfg = config.modules.niri;
   colorscheme = import ../../colors.nix;
   lock = "${pkgs.procps}/bin/pgrep -x waylock || ${pkgs.waylock}/bin/waylock -fork-on-lock";
+
+  bemenu = import ../../bemenu.nix { inherit lib pkgs; };
 in
 {
   options.modules.niri.enable = lib.mkEnableOption "Install and configure niri";
@@ -149,7 +151,7 @@ in
             Mod+Shift+Slash { show-hotkey-overlay; }
 
             Mod+Shift+Return hotkey-overlay-title="Open alacritty" { spawn "${config.programs.alacritty.package}/bin/alacritty"; }
-            Mod+P hotkey-overlay-title="Run bemenu" { spawn "${pkgs.bemenu}/bin/bemenu-run" "--tb" "#${colorscheme.dark.bg_0}" "--tf" "#${colorscheme.dark.br_blue}" "--fb" "#${colorscheme.dark.bg_0}" "--ff" "#${colorscheme.dark.fg_0}" "--nb" "#${colorscheme.dark.bg_0}" "--nf" "#${colorscheme.dark.fg_0}" "--hb" "#${colorscheme.dark.bg_region}" "--hf" "#${colorscheme.dark.fg_0}" "--line-height" "26" "--prompt" "λ ~>"; }
+            Mod+P hotkey-overlay-title="Run bemenu" { spawn "${bemenu.run}"; }
             Super+Alt+L hotkey-overlay-title="Lock the Screen" { spawn "${pkgs.waylock}/bin/waylock"; }
             Mod+Shift+D hotkey-overlay-title="Start dirvish" { spawn "${config.programs.emacs.finalPackage}/bin/emacsclient" "-c" "-n" "-e" "(dirvish-dwim)"; }
 

@@ -7,6 +7,7 @@
 
 let
   colorscheme = import ./../../colors.nix;
+  bemenu = import ../../bemenu.nix { inherit lib pkgs; };
   cfg = config.modules.river;
 in
 {
@@ -14,7 +15,10 @@ in
 
   config = lib.mkIf cfg.enable {
     programs = {
-      bemenu.enable = true;
+      bemenu = {
+        enable = true;
+        inherit (bemenu) settings;
+      };
       zathura.enable = true;
       mpv.enable = true;
       imv.enable = true;
@@ -41,7 +45,7 @@ in
       enable = true;
       extraConfig = ''
         ### App Launcher ###
-        riverctl map normal Super P spawn bemenu-run
+        riverctl map normal Super P spawn ${bemenu.run}
         riverctl map normal Super+Shift D spawn "alacritty -e lf"
         riverctl map normal Super+Shift Return spawn alacritty
 
