@@ -15,5 +15,8 @@
 
   home.packages = with pkgs; [
     signal-desktop
+    dive
+    podman-tui
+    docker-compose
   ];
 }
