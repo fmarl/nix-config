@@ -12,8 +12,8 @@
       device = "/dev/disk/by-partlabel/ESP";
       fsType = "vfat";
       options = [
-        "fmask=002"
-        "dmask=002"
+        "fmask=0077"
+        "dmask=0077"
       ];
     };
 
