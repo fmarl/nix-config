@@ -13,13 +13,9 @@ in
 {
   options.modules.mail.enable = lib.mkEnableOption "Install and configure mail";
 
-  options.modules.mail.password = lib.mkOption {
-    type = lib.types.str;
-    description = "Set the password for your mail-account.";
-    default = "";
-  };
-
   config = lib.mkIf cfg.enable {
+    sops.secrets.mail = { };
+
     accounts.email = {
       maildirBasePath = ".maildir";
       accounts.ionos = {
@@ -34,6 +30,8 @@ in
         };
 
         msmtp.enable = true;
+
+        mu.enable = true;
 
         mbsync = {
           enable = true;
@@ -94,7 +92,7 @@ in
           showSignature = "append";
         };
 
-        passwordCommand = "cat ${cfg.password}";
+        passwordCommand = "cat ${config.sops.secrets.mail.path}";
       };
     };
 
@@ -113,6 +111,7 @@ in
 
       mbsync.enable = true;
       msmtp.enable = true;
+      mu.enable = true;
     };
 
     home.packages = with pkgs; [ openssl ];
