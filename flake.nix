@@ -40,6 +40,9 @@
 
       devShells.${system}.default = import ./nix/devshell.nix { inherit pkgs; };
 
+      # nix build .#installer
+      packages.${system}.installer = import ./nix/installer.nix { inherit nixpkgs self system; };
+
       formatter.${system} = pkgs.nixfmt-tree;
 
       checks.${system} =
