@@ -1,7 +1,8 @@
 {
   config,
-  self,
   host,
+  user,
+  users,
   ...
 }:
 {
@@ -11,8 +12,8 @@
       generateKey = true;
     };
 
-    defaultSopsFile = "${self}/hosts/${host}/secrets.yaml";
+    defaultSopsFile = ../../../hosts + "/${host}/secrets.yaml";
 
-    secrets.ssh.path = "/run/user/1000/secrets/ssh";
+    secrets.ssh.path = "/run/user/${toString users.${user}.uid}/secrets/ssh";
   };
 }

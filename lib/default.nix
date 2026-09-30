@@ -8,15 +8,33 @@
 let
   users = import ./users.nix;
 
-  hosts = lib.attrNames (
-    lib.filterAttrs (_: t: t == "directory") (builtins.readDir ../hosts)
-  );
+  primaryUsers = lib.attrNames (lib.filterAttrs (_: u: u.primary or false) users);
+  primaryUser =
+    assert lib.assertMsg (
+      lib.length primaryUsers == 1
+    ) "lib/users.nix must mark exactly one user as primary";
+    lib.head primaryUsers;
+
+  flib = {
+    importDir = import ./import-dir.nix { inherit lib; };
+  };
+
+  hosts = lib.attrNames (lib.filterAttrs (_: t: t == "directory") (builtins.readDir ../hosts));
 
   mkSystem =
     host:
     lib.nixosSystem {
       inherit system pkgs;
-      specialArgs = { inherit inputs self host users; };
+      specialArgs = {
+        inherit
+          inputs
+          self
+          host
+          users
+          primaryUser
+          flib
+          ;
+      };
       modules = [
         ../modules/nixos
         ../hosts/${host}/nixos
@@ -29,7 +47,14 @@ let
     inputs.home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
       extraSpecialArgs = {
-        inherit inputs self host user users;
+        inherit
+          inputs
+          self
+          host
+          user
+          users
+          flib
+          ;
       };
       modules = [
         ../modules/home-manager
