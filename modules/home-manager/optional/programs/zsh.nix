@@ -16,6 +16,12 @@ in
       autocd = true;
       enableCompletion = true;
 
+      history = {
+        ignoreAllDups = true;
+        saveNoDups = true;
+        findNoDups = true;
+      };
+
       initContent = ''
         export PROMPT="%~ ''${''${SHLVL:#1}:+[$((SHLVL-1))] }λ "
       '';
