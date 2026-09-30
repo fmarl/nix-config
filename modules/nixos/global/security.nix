@@ -1,29 +1,11 @@
+{ lib, ... }:
 {
-  config,
-  lib,
-  ...
-}:
-
-
-{
-  environment.memoryAllocator.provider = lib.mkForce "libc";
   environment.extraInit = "umask 0077";
 
   security = {
     sudo.execWheelOnly = true;
 
-    lockKernelModules = lib.mkDefault false;
-
     protectKernelImage = lib.mkDefault true;
-
-    allowSimultaneousMultithreading = lib.mkForce true;
-
-    forcePageTableIsolation = lib.mkDefault true;
-
-    # This is required by podman to run containers in rootless mode.
-    unprivilegedUsernsClone = lib.mkDefault config.virtualisation.containers.enable;
-
-    virtualisation.flushL1DataCache = lib.mkDefault "always";
 
     apparmor = {
       enable = lib.mkDefault true;
@@ -36,14 +18,10 @@
 
   boot = {
     kernelParams = [
-      # Slab/slub sanity checks, redzoning, and poisoning
-      "slub_debug=FZP"
-
       # Don't merge slabs
       "slab_nomerge"
 
-      # Overwrite free'd pages
-      "page_poison=1"
+      "init_on_free=1"
 
       # Enable page allocator randomization
       "page_alloc.shuffle=1"
@@ -89,6 +67,10 @@
       "kernel.unprivileged_bpf_disabled" = lib.mkDefault 1;
       "kernel.core_uses_pid" = lib.mkDefault 1;
       "dev.tty.ldisc_autoload" = lib.mkDefault 0;
+      "fs.protected_fifos" = lib.mkDefault 2;
+      "fs.protected_regular" = lib.mkDefault 2;
+      "fs.suid_dumpable" = lib.mkDefault 0;
+      "net.ipv4.tcp_rfc1337" = lib.mkDefault 1;
 
       # Hide kptrs even for processes with CAP_SYSLOG
       "kernel.kptr_restrict" = lib.mkOverride 500 2;

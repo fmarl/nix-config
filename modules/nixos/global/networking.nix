@@ -8,11 +8,6 @@
   networking = {
     hostName = host;
 
-    firewall = {
-      enable = true;
-      trustedInterfaces = [ ];
-    };
-
     nameservers = [
       "1.1.1.1"
       "8.8.8.8"

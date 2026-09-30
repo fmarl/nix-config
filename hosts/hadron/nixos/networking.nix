@@ -3,10 +3,7 @@
   networking = {
     hostId = "04686870";
 
-    firewall = {
-      allowedTCPPorts = [ 22 ];
-      allowedUDPPorts = [ ];
-    };
+    firewall.interfaces.enp5s0.allowedTCPPorts = [ 22 ];
 
     interfaces.enp5s0.ipv4.addresses = [
       {
