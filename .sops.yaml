@@ -1,19 +1,9 @@
+# Secrets are only encrypted to the OpenPGP key on the YubiKey, so no
+# decryption key has to be stored on disk.
 keys:
-  - &users:
-      - &marrero D1912EEBC3FBEBB4
-  - &hosts:
-    - &hadron age1vwaq7aurp2t4dvkx4sh7psl9lkm0dlfcc9gpm5rze7fna5epsyjqg4ueew
-    - &lepton age107g59gysry37u5cay3ylcj7qndqhcecvpvhxdpxsxd6z9dycrguqlvddgm
+  - &marrero D1912EEBC3FBEBB4
 creation_rules:
-  - path_regex: hosts/hadron/secrets.yaml$
+  - path_regex: hosts/[^/]+/secrets\.yaml$
     key_groups:
-      - age:
-        - *hadron
-        pgp:
-        - *marrero
-  - path_regex: hosts/lepton/secrets.yaml$
-    key_groups:
-      - age:
-        - *lepton
-        pgp:
-        - *marrero
+      - pgp:
+          - *marrero
