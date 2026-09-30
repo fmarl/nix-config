@@ -6,7 +6,10 @@
     niri.enable = true;
     lf.enable = true;
     emacs.enable = true;
-    waybar.enable = true;
+    waybar = {
+      enable = true;
+      zfsPool = "rpool";
+    };
     theme.enable = true;
   };
 
