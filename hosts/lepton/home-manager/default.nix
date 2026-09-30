@@ -1,6 +1,9 @@
 {
   pkgs,
   config,
+  lib,
+  self,
+  user,
   ...
 }:
 {
@@ -19,8 +22,10 @@
 
   programs = {
     ssh.settings."workstation" = {
-      hostname = "192.168.0.200";
-      user = "marrero";
+      hostname =
+        (lib.head self.nixosConfigurations.hadron.config.networking.interfaces.enp5s0.ipv4.addresses)
+        .address;
+      inherit user;
       hashKnownHosts = true;
       serverAliveCountMax = 2;
       identityFile = config.sops.secrets.ssh.path;
