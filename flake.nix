@@ -26,13 +26,28 @@
       };
 
       flib = import ./lib {
-        inherit inputs self pkgs system;
-        lib = nixpkgs.lib;
+        inherit
+          inputs
+          self
+          pkgs
+          system
+          ;
+        inherit (nixpkgs) lib;
       };
     in
     {
       inherit (flib) nixosConfigurations homeConfigurations;
 
       devShells.${system}.default = import ./nix/devshell.nix { inherit pkgs; };
+
+      formatter.${system} = pkgs.nixfmt-tree;
+
+      checks.${system} =
+        nixpkgs.lib.mapAttrs' (
+          name: cfg: nixpkgs.lib.nameValuePair "nixos-${name}" cfg.config.system.build.toplevel
+        ) self.nixosConfigurations
+        // nixpkgs.lib.mapAttrs' (
+          name: cfg: nixpkgs.lib.nameValuePair "home-${name}" cfg.activationPackage
+        ) self.homeConfigurations;
     };
 }

@@ -1,17 +1,15 @@
 { pkgs }:
 let
   hbuild = pkgs.writeShellScriptBin "hbuild" ''
-    #!/usr/bin/env bash
     home-manager switch --flake . "$@"
   '';
 
   nbuild = pkgs.writeShellScriptBin "nbuild" ''
-    #!/usr/bin/env bash
     if [ -z "''${REMOTE+x}" ]; then
       sudo nixos-rebuild switch --flake . "$@"
     else
       nixos-rebuild switch --flake . \
-        --use-remote-sudo \
+        --sudo \
         --build-host "$REMOTE" \
         --target-host "$REMOTE" "$@"
     fi
@@ -24,5 +22,7 @@ pkgs.mkShell {
     pkgs.sops
     pkgs.nixfmt
     pkgs.nixfmt-tree
+    pkgs.deadnix
+    pkgs.statix
   ];
 }
