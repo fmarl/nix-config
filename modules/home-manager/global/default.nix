@@ -1,15 +1,13 @@
 {
   pkgs,
+  flib,
   user,
   config,
+  bemenu,
   ...
 }:
 {
-  imports = [
-    ./sops.nix
-    ./ssh.nix
-    ./git.nix
-  ];
+  imports = flib.importDir ./.;
 
   programs = {
     gpg = {
@@ -58,13 +56,14 @@
 
   services.gpg-agent = {
     enable = true;
-    defaultCacheTtl = 60;
-    maxCacheTtl = 120;
+    defaultCacheTtl = 1800;
+    maxCacheTtl = 1800;
     enableSshSupport = true;
-    pinentry.package = pkgs.pinentry-gnome3;
+    pinentry.package = bemenu.pinentry;
     extraConfig = "allow-emacs-pinentry";
   };
 
+  # The system's nix.gc does not reach the home-manager profiles
   nix.gc = {
     automatic = true;
     dates = "weekly";
@@ -73,7 +72,7 @@
 
   xdg.userDirs = {
     enable = true;
-    download = "${config.home.homeDirectory}/downloads";
+    createDirectories = true;
   };
 
   home = {
@@ -83,13 +82,6 @@
     packages = with pkgs; [
       htop
       ripgrep
-
-      (writeShellScriptBin "nrun" ''
-        NIXPKGS_ALLOW_UNFREE=1 nix run --impure nixpkgs#$1
-      '')
-      (writeShellScriptBin "metaflake" ''
-        nix develop github:fmarl/metaflakes#$1 --no-write-lock-file
-      '')
     ];
   };
 }

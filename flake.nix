@@ -13,6 +13,16 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nixpak = {
+      url = "github:nixpak/nixpak";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -25,7 +35,7 @@
         config.allowUnfree = true;
       };
 
-      flib = import ./lib {
+      configurations = import ./nix/configurations.nix {
         inherit
           inputs
           self
@@ -36,12 +46,18 @@
       };
     in
     {
-      inherit (flib) nixosConfigurations homeConfigurations;
+      inherit (configurations) nixosConfigurations homeConfigurations;
 
       devShells.${system}.default = import ./nix/devshell.nix { inherit pkgs; };
 
-      # nix build .#installer
-      packages.${system}.installer = import ./nix/installer.nix { inherit nixpkgs self system; };
+      packages.${system} = {
+        installer = import ./nix/installer.nix {
+          inherit nixpkgs self system;
+          inherit (configurations) hosts;
+        };
+
+        new-host = import ./nix/new-host.nix { inherit pkgs; };
+      };
 
       formatter.${system} = pkgs.nixfmt-tree;
 

@@ -2,14 +2,20 @@
   nixpkgs,
   self,
   system,
+  hosts,
 }:
 let
-  installer = nixpkgs.lib.nixosSystem {
+  inherit (nixpkgs) lib;
+
+  # The hosts of this flake may log in as root, e.g. for nixos-anywhere
+  hostKeys = lib.filter builtins.pathExists (map (host: ../hosts/${host}/ssh.pub) hosts);
+
+  installer = lib.nixosSystem {
     inherit system;
     modules = [
       "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
       (
-        { lib, pkgs, ... }:
+        { pkgs, ... }:
         {
           isoImage.edition = lib.mkForce "fx";
 
@@ -25,24 +31,30 @@ let
 
           console.keyMap = "us-acentos";
 
-          # Snapshot of this repo; copy it somewhere writable before running bootstrap.sh
+          users.users.root.openssh.authorizedKeys.keyFiles = hostKeys;
+
+          # Snapshot of this repo; copy it somewhere writable before installing
           environment.etc."nix-config".source = self;
 
           environment.systemPackages = with pkgs; [
             git
-            curl
-            parted
-            dosfstools
-            e2fsprogs
-            xfsprogs
-            cryptsetup
+            disko
+            nixos-facter
           ];
 
           users.motd = ''
-            Install NixOS from fx's nix-config:
+            Install a host of fx's nix-config, remotely from another host:
 
-              cp -rT /etc/nix-config ~/nix-config && chmod -R u+w ~/nix-config
-              sudo ~/nix-config/scripts/bootstrap.sh <disk> <zfs|ext4|xfs> <host>
+              nix run nixpkgs#nixos-anywhere -- --flake .#<host> ... root@<this machine>
+
+            or locally:
+
+              cp -rT /etc/nix-config ~/nix-config && chmod -R u+w ~/nix-config && cd ~/nix-config
+              nixos-facter -o hosts/<host>/nixos/facter.json
+              (umask 077; read -rs -p "Disk passphrase: " p && printf %s "$p" >/tmp/secret.key)
+              disko-install --flake .#<host> --disk main <disk>
+
+            Commit facter.json afterwards.
           '';
         }
       )

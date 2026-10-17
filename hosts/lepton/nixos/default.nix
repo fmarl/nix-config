@@ -1,20 +1,37 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
-  imports = [
-    ./hardware-configuration.nix
-    ./boot.nix
-    ./services.nix
-    ./networking.nix
-    ./users.nix
-  ];
+  imports = [ ./hardware-configuration.nix ];
 
-  modules.niri.enable = true;
+  boot = {
+    kernelModules = [ "kvm-intel" ];
 
-  environment.systemPackages = with pkgs; [
-    vim
-    git
-    htop
-  ];
+    initrd.availableKernelModules = [
+      "xhci_pci"
+      "ehci_pci"
+      "ahci"
+      "usb_storage"
+      "sd_mod"
+      "sdhci_pci"
+    ];
+  };
+
+  networking = {
+    hostId = "3265c4e6";
+
+    networkmanager = {
+      enable = true;
+      wifi = {
+        macAddress = "random";
+        backend = "iwd";
+      };
+    };
+
+    wireless.iwd.settings.General.AddressRandomization = "once";
+
+    useDHCP = lib.mkDefault true;
+  };
+
+  environment.systemPackages = [ pkgs.vim ];
 
   services.blueman.enable = true;
 }

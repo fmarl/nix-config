@@ -1,22 +1,56 @@
-{ config, ... }:
+{
+  config,
+  lib,
+  self,
+  host,
+  user,
+  ...
+}:
 let
-  mkGitHost = host: {
-    hostname = host;
-    user = "git";
-    hashKnownHosts = true;
-    serverAliveCountMax = 1;
-    identityFile = config.sops.secrets.ssh.path;
-    addKeysToAgent = "yes";
+  identity = {
+    IdentityFile = config.sops.secrets.ssh.path;
+    AddKeysToAgent = "yes";
   };
+
+  gitHost = hostname: {
+    ${hostname} = identity // {
+      HostName = hostname;
+      User = "git";
+      ServerAliveCountMax = 1;
+    };
+  };
+
+  # The other hosts of this flake that have a static address
+  lanHosts = lib.concatMapAttrs (
+    name: nixos:
+    let
+      addresses = lib.concatMap (i: i.ipv4.addresses) (lib.attrValues nixos.config.networking.interfaces);
+    in
+    lib.optionalAttrs (name != host && addresses != [ ]) {
+      ${name} = identity // {
+        HostName = (lib.head addresses).address;
+        User = user;
+        ServerAliveCountMax = 2;
+      };
+    }
+  ) self.nixosConfigurations;
 in
 {
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
 
-    settings = {
-      "github.com" = mkGitHost "github.com";
-      "codeberg.org" = mkGitHost "codeberg.org";
-    };
+    settings =
+      gitHost "github.com"
+      // gitHost "codeberg.org"
+      // lanHosts
+      // {
+        # Written last by home-manager
+        "*" = {
+          IdentitiesOnly = true;
+          HashKnownHosts = true;
+          ServerAliveInterval = 30;
+        };
+      };
   };
 }

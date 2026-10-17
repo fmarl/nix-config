@@ -1,20 +1,8 @@
 { pkgs, ... }:
 {
-  modules = {
-    zsh.enable = true;
-    librewolf.enable = true;
-    niri.enable = true;
-    lf.enable = true;
-    emacs.enable = true;
-    waybar = {
-      enable = true;
-      zfsPool = "rpool";
-    };
-    theme.enable = true;
-  };
+  modules.waybar.zfsPool = "rpool";
 
   home.packages = with pkgs; [
-    signal-desktop
     dive
     podman-tui
     docker-compose

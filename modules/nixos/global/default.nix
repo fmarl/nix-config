@@ -1,10 +1,19 @@
-{ flib, ... }:
+{
+  lib,
+  pkgs,
+  flib,
+  theme,
+  ...
+}:
 {
   imports = flib.importDir ./.;
 
   time.timeZone = "Europe/Berlin";
 
-  console.keyMap = "us-acentos";
+  console = {
+    keyMap = "us-acentos";
+    colors = theme.console;
+  };
 
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "de_DE.UTF-8";
@@ -16,6 +25,11 @@
     LC_PAPER = "de_DE.UTF-8";
     LC_TELEPHONE = "de_DE.UTF-8";
     LC_TIME = "de_DE.UTF-8";
+  };
+
+  environment = {
+    defaultPackages = lib.mkForce [ ];
+    systemPackages = [ pkgs.home-manager ];
   };
 
   systemd.coredump.enable = true;

@@ -1,4 +1,0 @@
-{ flib, ... }:
-{
-  imports = flib.importDir ./.;
-}

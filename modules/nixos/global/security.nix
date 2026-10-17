@@ -50,10 +50,38 @@ let
   ];
 in
 {
-  environment.extraInit = "umask 0077";
-
   security = {
-    sudo.execWheelOnly = true;
+    # umask for every session (login, greetd, sshd), not only login shells
+    pam.enableUMask = true;
+    loginDefs.settings.UMASK = "077";
+
+    sudo = {
+      execWheelOnly = true;
+
+      # Files created via sudo (e.g. below /etc) stay world readable
+      extraConfig = ''
+        Defaults umask=0022
+        Defaults umask_override
+      '';
+    };
+
+    # Setuid wrappers nobody needs. newuidmap/newgidmap stay for rootless
+    # podman, fusermount3 for FUSE.
+    wrappers =
+      lib.genAttrs
+        [
+          "chsh"
+          "fusermount"
+          "mount"
+          "newgrp"
+          "passwd"
+          "sg"
+          "su"
+          "umount"
+        ]
+        (_: {
+          enable = false;
+        });
 
     protectKernelImage = lib.mkDefault true;
 
@@ -68,16 +96,22 @@ in
 
   boot = {
     kernelParams = [
-      # Don't merge slabs
       "slab_nomerge"
 
       "init_on_free=1"
 
-      # Enable page allocator randomization
       "page_alloc.shuffle=1"
 
-      # Disable debugfs
       "debugfs=off"
+
+      # Turn off bus mastering before the IOMMU is up
+      "efi=disable_early_pci_dma"
+
+      # Invalidate IOTLB entries synchronously
+      "iommu.strict=1"
+
+      # No legacy vsyscall page at a fixed address
+      "vsyscall=none"
     ];
 
     # Blacklisting only stops autoloading, "install … false" also blocks explicit modprobe
@@ -87,7 +121,12 @@ in
     ) disabledModules;
 
     kernel.sysctl = {
-      "kernel.yama.ptrace_scope" = lib.mkOverride 500 1;
+      # Only root may ptrace
+      "kernel.yama.ptrace_scope" = lib.mkOverride 500 2;
+      "vm.mmap_rnd_bits" = lib.mkDefault 32;
+      "net.core.bpf_jit_harden" = lib.mkDefault 2;
+      # io_uring has been a steady source of kernel exploits
+      "kernel.io_uring_disabled" = lib.mkDefault 2;
       "net.ipv4.conf.default.accept_source_route" = lib.mkDefault 0;
       "kernel.sysrq" = lib.mkDefault 0;
       "kernel.unprivileged_bpf_disabled" = lib.mkDefault 1;
@@ -104,7 +143,6 @@ in
       # Disable bpf() JIT (to eliminate spray attacks)
       "net.core.bpf_jit_enable" = lib.mkDefault false;
 
-      # Disable ftrace debugging
       "kernel.ftrace_enabled" = lib.mkDefault false;
 
       # Enable strict reverse path filtering (that is, do not attempt to route
